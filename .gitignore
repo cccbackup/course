@@ -1,0 +1,5 @@
+bak
+*.bak
+*.exe
+*.o
+node_modules
