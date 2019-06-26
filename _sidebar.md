@@ -9,7 +9,7 @@
 ###### [課程延伸主題](home)
 * [科學計算](ma)
 * [演算法](alg)
-* [資料庫](db)
+* [資料庫](ws/db)
 * [JavaScript](js)
 * [Nand2tetris課程](nand2tetris)
 * [C 語言](c)
