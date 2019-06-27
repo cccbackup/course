@@ -221,7 +221,7 @@ TDD 裏的測試，通常採用 assert(...) 之類的敘述，這種語法並不
 
 Chai 套件包含了三種測試寫法，分別是 Should, Expect, Assert ，其中 Assert 屬於 TDD 的語法，而 Should, Expect 則屬於 BDD 的語法。
 
-![Chai 套件的三種測試語法](img/Chai.png)
+![Chai 套件的三種測試語法](./img/Chai.png)
 
 
 Should 語法比 Expect 語法更好寫，但是卻會覆寫修改待測物件，我比較不那麼喜歡，所以在此我們選擇用 Expect 來示範 BDD 語法。

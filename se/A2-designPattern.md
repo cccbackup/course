@@ -269,7 +269,7 @@ class Q {
 
 開啟 myquery.html 會看到下列情況：
 
-![](img/myquery.png)
+![](./img/myquery.png)
 
 這是 myquery.html 中下列程式的作用：
 

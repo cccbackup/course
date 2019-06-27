@@ -101,7 +101,7 @@ note right of 登入 : 第一版不支援\nFacebook\nGoogle\n登入
 @enduml
 ```
 
-![](img/UmlUseCasePosClient.png)
+![](./img/UmlUseCasePosClient.png)
 
 使用個案 - 店主
 
@@ -120,7 +120,7 @@ note right of (檢視商店報表) : 未生產\n可取貨\n 已取貨
 @enduml
 ```
 
-![](img/UmlUseCaseShopOwner.png)
+![](./img/UmlUseCaseShopOwner.png)
 
 《使用個案圖》完成之後，就可以進一步深入更詳細的《使用個案描述》。
 
@@ -169,11 +169,11 @@ note right of (檢視商店報表) : 未生產\n可取貨\n 已取貨
 
 採用這種方法，我們從 github 借用了《註冊畫面》如下：
 
-![iPos 註冊畫面](img/signup.png)
+![iPos 註冊畫面](./img/signup.png)
 
 登入畫面
 
-![iPos 登入畫面](img/signin.png)
+![iPos 登入畫面](./img/signin.png)
 
 
 而對於比較特殊，沒辦法找到類似畫面的介面，我們就得自行設計，但並不一定要一開始就設計得很好很像，只要能傳達畫面內容就大概可以了。
@@ -288,7 +288,7 @@ Server *-- Model : model
 @enduml
 ```
 
-![](img/UmlPosClass.png)
+![](./img/UmlPosClass.png)
 
 ## 循序圖
 
@@ -328,7 +328,7 @@ POS --> UI: 登出《成功/失敗》
 @enduml
 ```
 
-![](img/UmlPosSequenceSignin.png)
+![](./img/UmlPosSequenceSignin.png)
 
 個案：設定商店資料
 
@@ -350,7 +350,7 @@ POS -->  UI: 儲存成功/失敗
 @enduml
 ```
 
-![](img/UmlPosSequenceSetting.png)
+![](./img/UmlPosSequenceSetting.png)
 
 個案：搜尋商店/下單
 
@@ -377,7 +377,7 @@ POS --> UI: 交易成功/失敗
 @enduml
 ```
 
-![](img/UmlPosShopSearch.png)
+![](./img/UmlPosShopSearch.png)
 
 個案：連續選取商品後下訂單
 
@@ -409,7 +409,7 @@ end
 @enduml
 ```
 
-![](img/UmlPosOrder.png)
+![](./img/UmlPosOrder.png)
 
 個案：商店報表
 
@@ -429,7 +429,7 @@ POS --> UI: 顯示報表
 @enduml
 ```
 
-![](img/UmlPosReport.png)
+![](./img/UmlPosReport.png)
 
 ## 演算法
 

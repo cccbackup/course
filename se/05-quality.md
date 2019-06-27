@@ -46,7 +46,7 @@ if (age = -1) {
 }
 ```
 
-![](img/StandardJsMessage.png)
+![](./img/StandardJsMessage.png)
 
 這些問題包含
 

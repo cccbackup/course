@@ -164,7 +164,7 @@ PS D:\course\test\xlodash> mocha
 
 接著就可以發布該套件了，發布前先到 npm 網站檢查一下 xlodash 這個名稱是否可用 (如果已經被別人佔用了，就得換名字) ，
 
-![](img/xlodash.png)
+![](./img/xlodash.png)
 
 如果該名稱是可用的，那麼就可以準備發布了。
 

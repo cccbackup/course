@@ -11,7 +11,7 @@
 
 不論是以上哪些語言，幾乎都具有「詞彙、語句、文章」等三個層次，以下是這幾個層次的範例。
 
-![](img/LanguageLevel.png)
+![](./img/LanguageLevel.png)
 
 如果將各個層次分開處理，那麼語言的處理就可以分為：
 
@@ -26,7 +26,7 @@
 
 那麼、生程與法的描述能力到底如何呢？Chomsky 提出了一個很完整的答案，稱為 Chomsky Hierarchy (喬姆斯基語言階層），如下所示。
 
-![](img/ChomskyHierarchy.png)
+![](./img/ChomskyHierarchy.png)
 
 上圖中、 $`\alpha, \beta`$ 可以是任何語句 (含終端與非終端符號)，而 A, B 代表只能是非終端符號，a 代表只能是終端符號。其中 Type-0 的語言描述力是最強的，基本上任何的語法規則您都可以撰寫而毫無限制，這種語言所能描述的語言稱為「遞歸可枚舉語言」 (Recursive Enumerable , RE)，這種語言的能力在計算理論上可以對應到圖靈機，也就相當於是一台記憶體空間沒有上限的電腦所展現的能力。
 
@@ -45,10 +45,10 @@ Type 3 的語法限制是最多的，其規則的左右兩邊都最多只能有�
 下圖是這些語言階層之間的包含關係:
 
 
-![](img/ChomskyHierarchy2.png)
+![](./img/ChomskyHierarchy2.png)
 
 Type2 所不能處理的語言當中，有個最著名的範例是 $`a_nb_nc_n`$ ，由於這當中 abc 三個字母必須按照順序各出現 n 次，而 Type2 的與上下文無關語法，無法記憶到底已經產生了幾個 ，所以也就無法產生出這樣的語言了。
 
 以下的 Type 1 語法可以生成 語言，只是結構相對複雜而已，以下是一個可以生成aaabbbccc 的案例： 
 
-![](img/AnBnCn.png)
+![](./img/AnBnCn.png)

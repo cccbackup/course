@@ -155,7 +155,7 @@ NQU-192-168-60-101:crawler csienqu$ node crawler http://tw.msn.com/
 
 執行畫面
 
-![](img/chat11.png)
+![](./img/chat11.png)
 
 
 Server 端

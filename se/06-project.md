@@ -40,7 +40,7 @@
 
 一個典型的瀑布模式開發，會分成《需求分析、系統設計、程式實作、測試驗證、上線維護》等等階段，如下圖所示。
 
-![瀑布模式](img/waterfall.png)
+![瀑布模式](./img/waterfall.png)
 
 > 進階閱讀: [維基百科 -- 瀑布模式](https://zh.wikipedia.org/wiki/%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B)
 
@@ -48,7 +48,7 @@
 
 V 模式應該算是《瀑布模式》的一種《精細化作法》，把由上而下的《定義、分析、設計》過程，與由下而上的《測試、驗證、營運》階段對應起來，如下圖所示：
 
-![V 模式](img/vmodel.png)
+![V 模式](./img/vmodel.png)
 
 > 進階閱讀: [維基百科 -- V 模型](https://zh.wikipedia.org/wiki/V%E6%A8%A1%E5%9E%8B)
 
@@ -66,7 +66,7 @@ V 模式應該算是《瀑布模式》的一種《精細化作法》，把由上
 4. 對下一階段進行計劃與部署；
 5. 與客戶一起對本階段進行評審；
 
-![螺旋模式](img/spiral.png)
+![螺旋模式](./img/spiral.png)
 
 > 進階閱讀: [維基百科 -- 螺旋模式](https://zh.wikipedia.org/wiki/%E8%9E%BA%E6%97%8B%E6%A8%A1%E5%9E%8B)
 
@@ -128,7 +128,7 @@ V 模式應該算是《瀑布模式》的一種《精細化作法》，把由上
 
 敏捷的方法通常每個 sprint 都會產生一個可佈署版本，如下圖所示：
 
-![](img/Evolution.png)
+![](./img/Evolution.png)
 
 * 圖片來源: Henrik Kniberg -- https://twitter.com/henrikkniberg/status/698071039151054848
 
@@ -142,7 +142,7 @@ V 模式應該算是《瀑布模式》的一種《精細化作法》，把由上
 
 敏捷開發除了探討《開發過程、工具與手段》之外，也強調了《團隊合作的方法》，以下是 Scrum 團隊的運作模式。
 
-![](img/scrum.png)
+![](./img/scrum.png)
 
 上圖將參與人員分為《產品負責人 Product Owner、開發團隊 Development Team 與 Scrum Master》等角色，其中 Scrum Master 的角色最難理解，您可以參考下文：
 
@@ -171,17 +171,17 @@ Product Backlog 按照優先級排列工作需求。在疊代計劃會議中，�
 
 在實際運作的時候，很多敏捷方法 (包含 Scrum) 建議採用《看板+立可貼》的方式決定工作項目，如下圖所示：
 
-![](img/scrumBoard.png)
+![](./img/scrumBoard.png)
 
 而每一天開始時，通常會有個十分鐘左右的站立會議，讓大家可以確定當天的工作，傳遞重要的合作訊息。
 
-![](img/sprintMeeting.jpg)
+![](./img/sprintMeeting.jpg)
 
 ## 時程規劃與掌控
 
 Scrum 建議用 Burndown Chart (燃盡圖) 來管控專案進度，規劃並掌握軟體開發時程，以下是體現了21天的進度的燃盡圖。
 
-![](img/BurndownChart.png)
+![](./img/BurndownChart.png)
 
 但是在掌控時程的過程當中，應該採用甚麼方式，注意甚麼事項呢？
 
@@ -207,7 +207,7 @@ Scrum 建議用 Burndown Chart (燃盡圖) 來管控專案進度，規劃並掌�
 
 舉例而言，以下是一個採用 Node.js 的開發模式，圖中的模式有點像 V 模式，但是實施的手段卻混用了很多《敏捷開發》的做法，像是 TDD/BDD ，以及許多 Node.js 專有的開發工具，像是 mocha, chai, jest, jasmine, karma 等等。
 
-![Node.js 的開發模式](img/JsModel.jpg)
+![Node.js 的開發模式](./img/JsModel.jpg)
 
 甚至、在《系統分析與設計》的過程當中，也會使用一些 UML 圖形表示。然後在設計階段用《演算法》或《程式描述語言 Program Description Language》對其中較複雜的模組進行描述。
 
@@ -215,7 +215,7 @@ Scrum 建議用 Burndown Chart (燃盡圖) 來管控專案進度，規劃並掌�
 
 更重要的是，整個軟體是為使用者打造的，如果是企業用軟體，那麼牽涉到的面向就會更複雜，還得深入的理解企業運作方式，以及該企業所屬產業的特定知識。
 
-![](img/ProcessDataModeling.jpg)
+![](./img/ProcessDataModeling.jpg)
 
 ## 更新日誌 (Chang Log)
 

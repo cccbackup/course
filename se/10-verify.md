@@ -32,7 +32,7 @@ if (!module.parent) server.listen(3000)
 
 我們打開瀏覽器會看到下列狀況！
 
-![](img/koaHello.png)
+![](./img/koaHello.png)
 
 
 然後我們可以用 supertest 寫個測試程式 test.js 如下：
@@ -102,7 +102,7 @@ Browser <- Server : 顯示第 0 則貼文
 @enduml
 ```
 
-![](img/UmlBlogSequence.png)
+![](./img/UmlBlogSequence.png)
 
 
 

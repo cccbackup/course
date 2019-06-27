@@ -13,7 +13,7 @@
 
 這個範例探討的是兩個「不公正的銅板」 A 與 B，兩者正面的機率分別是 $`\theta A`$ 與 $`\theta B`$ ，當我們用這兩的銅板進行一系列的抽樣時，得到了下列的結果。
 
-![圖、本圖來自 What is the expectation maximization algorithm? 一文](img/EM_example1.jpg)
+![圖、本圖來自 What is the expectation maximization algorithm? 一文](./img/EM_example1.jpg)
 
 上圖中的 H 代表正面 (Head) ，而 T 代表反面 (Tail)。
 
@@ -25,7 +25,7 @@
 
 還好、我們有 EM 演算法可以幫忙，這正是 EM 演算法神奇的地方。下圖顯示了 EM 演算法在這個範例上的運作過程。
 
-![圖、本圖來自 What is the expectation maximization algorithm? 一文](img/EM_example2.jpg)
+![圖、本圖來自 What is the expectation maximization algorithm? 一文](./img/EM_example2.jpg)
 
 首先、 EM 演算法先隨便設 $`(\hat{\theta}_A, \hat{\theta}_B)`$ 兩個參數的初值為 $`(0.6, 0.5)`$ (如圖中 1 的部分)，然後開始進行 Expectation (期望 E 程序) 與 Maximization (最大化 M 程序) 的循環。
 

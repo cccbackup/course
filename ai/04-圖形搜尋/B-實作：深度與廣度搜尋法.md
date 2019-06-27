@@ -6,7 +6,7 @@
 
 在以下程式中，變數 g 代表下列圖形，而程式中的 dfs() 函數代表深度優先搜尋算法，bfs() 函數代表廣度優先搜尋算法。
 
-![圖、圖形 Graph 的範例](img/graphSearch.jpg)
+![圖、圖形 Graph 的範例](./img/graphSearch.jpg)
 
 ### 程式實作
 

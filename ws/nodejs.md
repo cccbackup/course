@@ -10,7 +10,7 @@ Node.js 是 Ryan Dahl 基於 Google 的 V8 引擎於 2009 年釋出的一個 Jav
 
 * <http://nodejs.org/>
 
-![](img/NodeJsOrg.png)
+![](./img/NodeJsOrg.png)
 
 
 筆者通常會選擇安裝《LTS 穩定版》(除非有最新功能的特殊需求，筆者才會選擇目前開發版)。

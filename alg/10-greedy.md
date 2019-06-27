@@ -10,14 +10,14 @@
 
 以下是這個問題的想法圖示！
 
-![](img/greedyCoin.png)
+![](./img/greedyCoin.png)
 
 
 ## 貪婪爬山法
 
 我們也可以用『貪婪算法』來完成『爬山演算法』的動作，原本爬山演算法只要看到更高就往那邊爬，但是貪婪算法則要往『斜率最大的方向爬』。
 
-![](img/greedyHillClimbing.png)
+![](./img/greedyHillClimbing.png)
 
 上圖是二維平面，看不太出『貪婪算法』與爬山演算法的差別，假如是『三維圖形』時，那麼『貪婪算法』就會變得和『梯度爬山法』一樣，總是朝著斜率最大的方向爬去。
 
@@ -25,7 +25,7 @@
 
 對於 Graph 類的結構，我們也可以用『貪婪算法』來處理，每次都向下一層中最好的分支走去。
 
-![](img/greedyGraphSearch.png)
+![](./img/greedyGraphSearch.png)
 
 
 ## 最小擴展樹

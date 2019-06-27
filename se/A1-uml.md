@@ -43,7 +43,7 @@ rectangle 訂單處理 {
 
 顯示結果
 
-![](img/UmlUseCase.png)
+![](./img/UmlUseCase.png)
 
 ## 活動圖
 
@@ -65,7 +65,7 @@ stop
 @enduml
 ```
 
-![](img/UmlUseCaseSwimlane1.png)
+![](./img/UmlUseCaseSwimlane1.png)
 
 更詳細的案例：
 
@@ -120,7 +120,7 @@ end fork
 @enduml
 ```
 
-![](img/UmlUseCaseSwimlane2.png)
+![](./img/UmlUseCaseSwimlane2.png)
 
 ## Markdown Preview Enhanced
 

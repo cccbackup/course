@@ -78,15 +78,15 @@
 
 《系統關係圖》表達了最上層的《程序與資料》之互動關係，以下是一個範例：
 
-![](img/ContextDiagram.jpg)
+![](./img/ContextDiagram.jpg)
 
 《資料流程圖》是 Tom DeMarco 方法的關鍵，表達了《資料+函數》所形成的流動關係：
 
-![](img/StructuralAnalysis.jpg)
+![](./img/StructuralAnalysis.jpg)
 
 《資料字典》則描述了資料表格的欄位定義與用途，是資料專屬的描述方法：
 
-![](img/DataDictionary.png)
+![](./img/DataDictionary.png)
 
 (上圖來源: https://dataedo.com/kb/data-glossary/what-is-data-dictionary)
 
@@ -183,7 +183,7 @@ end note
 @enduml
 ```
 
-![](img/UmlUseCaseBlog.png)
+![](./img/UmlUseCaseBlog.png)
 
 《使用個案圖》是系統分析時期的重點，雖然和物件導向技術沒有密切關係，但是卻能表達使用者與系統的互動關係，可以說是最上層的分析圖。
 
@@ -207,7 +207,7 @@ note right of 登入 : 第一版不支援\nFacebook\nGoogle\n登入
 @enduml
 ```
 
-![](img/UmlPosUseCase.png)
+![](./img/UmlPosUseCase.png)
 
 《使用個案圖》完成之後，就可以進一步深入更詳細的《使用個案描述》，
 

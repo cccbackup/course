@@ -81,7 +81,7 @@ let gmul = new Gate(o, x, y, (x,y)=>x*y, (x,y)=>y, (x,y)=>x))
 
 讓我們考慮一個更複雜的兩層式網路如下圖，該網路是計算 f = (x+y) * z 這個算式。
 
-![](img/gateNet.png)
+![](./img/gateNet.png)
 
 其中的 q = x+y, 而 f = q*z。
 

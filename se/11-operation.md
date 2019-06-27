@@ -32,7 +32,7 @@ usecase usecase
 @enduml
 ```
 
-![](img/UmlDeployIcon.png)
+![](./img/UmlDeployIcon.png)
 
 ## 範例 : 沒有使用資料庫
 
@@ -62,7 +62,7 @@ HTTP - 伺服器
 @enduml
 ```
 
-![](img/UmlDeployBlog1.png)
+![](./img/UmlDeployBlog1.png)
 
 ## 範例 -- 使用資料庫
 
@@ -102,7 +102,7 @@ HTTP -- 網站伺服器
 @enduml
 ```
 
-![](img/UmlDeployBlogDatabase.png)
+![](./img/UmlDeployBlogDatabase.png)
 
 
 ## 佈署平台

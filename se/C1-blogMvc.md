@@ -6,15 +6,15 @@
 
 讓我們先展示一下該系統地執行結果，首先是執行畫面：
 
-![](img/blogList0.png)
+![](./img/blogList0.png)
 
 當我們按下《創建新貼文》連結後，會進入以下畫面：
 
-![](img/blogCreate.png)
+![](./img/blogCreate.png)
 
 接著填寫標題內容後送出，會回到執行畫面，然後顯示有一筆貼文：
 
-![](img/blogList1.png)
+![](./img/blogList1.png)
 
 當我們點進該貼文之後，會顯示貼文內容：
 
@@ -58,7 +58,7 @@ end note
 
 顯示結果
 
-![](img/UmlUseCaseBlog.png)
+![](./img/UmlUseCaseBlog.png)
 
 
 ## 設計
@@ -121,7 +121,7 @@ Model "1"*--"many" Post : contains >
 
 呈現結果
 
-![](img/UmlClassDiagram1.png)
+![](./img/UmlClassDiagram1.png)
 
 ## 循序圖
 
@@ -153,7 +153,7 @@ Browser <- Server : html
 
 呈現結果
 
-![](img/UmlSequenceDiagram.png)
+![](./img/UmlSequenceDiagram.png)
 
 
 ## BDD 測試
@@ -189,7 +189,7 @@ Browser <- Server : 顯示第 0 則貼文
 
 呈現結果
 
-![](img/UmlSequenceDiagram2.png)
+![](./img/UmlSequenceDiagram2.png)
 
 透過這樣的分析，要寫出測試程式 test.js 就容易了。
 

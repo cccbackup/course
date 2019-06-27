@@ -60,7 +60,7 @@ CSS 是 Cascading Style Sheets 的簡稱，中文可翻譯為「串接樣式表�
 
 我們使用 CSS 排版前與排版後的結果可以對照如下：
 
-![](img/table_css_embed.jpg)
+![](./img/table_css_embed.jpg)
 
 您可以看到在這種寫法當中，我們幾乎都一直在 th 重複撰寫 `style="background-color:black; color:white;"` 這一行文字，總共重複了 5 次，這顯然是很浪費時間的行為。
 
@@ -127,7 +127,7 @@ th { background-color:black; color:white; padding:10px; margin:10px; }
 td { padding:10px; margin:10px; }
 ```
 
-![](img/table_css_ref.jpg)
+![](./img/table_css_ref.jpg)
 
 
 ## 路徑, tag, id 與 class
@@ -162,7 +162,7 @@ td { padding:10px; margin:10px; }
 
 檢視檔案： [div_css.htm](div_css.htm)
 
-![](img/div_css.jpg)
+![](./img/div_css.jpg)
 
 到目前，我們可以看到有三種 css 的指定方式，也就是「標記 tag、代號 id 與類別 class」，可以用 CSS 來定位。事實上、這些指定方式還可以互相串接，以下是一些範例：
 

@@ -107,7 +107,7 @@ $`d(x,y):=\sqrt{(x_1-y_1)^2 +(x_2-y_2)^2 + \cdots +(x_n-y_n)^2} = \sqrt{\sum_{i=
 * [維基百科:變換矩陣](https://zh.wikipedia.org/wiki/%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5)
 * [Wikipedia:Transformation Matrix](https://en.wikipedia.org/wiki/Transformation_matrix)
 
-![](img/2dTransform.png)
+![](./img/2dTransform.png)
 
 ### 三維的轉換矩陣之效果
 

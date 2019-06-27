@@ -157,7 +157,7 @@ Server *-- Model : model
 @enduml
 ```
 
-![](img/UmlBlogClass.png)
+![](./img/UmlBlogClass.png)
 
 
 
@@ -201,7 +201,7 @@ POS --> UI: 登出《成功/失敗》
 @enduml
 ```
 
-![](img/UmlPosSequenceSignin.png)
+![](./img/UmlPosSequenceSignin.png)
 
 ## 活動圖 -- 表達流程安排
 
@@ -228,7 +228,7 @@ stop
 @enduml
 ```
 
-![](img/UmlActivityLoop.png)
+![](./img/UmlActivityLoop.png)
 
 
 活動圖也可以表達《並行處理》，以下是個範例：
@@ -252,14 +252,14 @@ endif
 @enduml
 ```
 
-![](img/UmlActivityConcurrent.png)
+![](./img/UmlActivityConcurrent.png)
 
 
 最後，我們用 WebPos 系統中一個比較複雜的實際案例，來展示活動圖與演算法之間的關係。
 
 個案：WebPos 連續選取商品後下訂單
 
-![](img/UmlPosOrder.png)
+![](./img/UmlPosOrder.png)
 
 
 其實、活動圖與演算法只是表現形式不同而已，上圖在 PlantUML 中的語法如下，您是否會覺得這根本就是一個演算法呢？
@@ -317,7 +317,7 @@ Suspended : 暫停中
 @enduml
 ```
 
-![](img/UmlState1.png)
+![](./img/UmlState1.png)
 
 以下是有合成狀態的狀態圖。
 
@@ -346,7 +346,7 @@ state Configuring {
 @enduml
 ```
 
-![](img/UmlStateComposite.png)
+![](./img/UmlStateComposite.png)
 
 ## 實體關係圖 -- 關聯式資料庫專用
 
@@ -382,7 +382,7 @@ G }|--|{ H
 @enduml
 ```
 
-![](img/UmlERDiagram1.png)
+![](./img/UmlERDiagram1.png)
 
 更完整的範例 : https://gist.github.com/QuantumGhost/0955a45383a0b6c0bc24f9654b3cb561
 
@@ -464,11 +464,11 @@ group "1" --> "0..N" user_group : "A group may \ncontain many users"
 
 採用這種方法，我們從 github 借用了《註冊畫面》如下：
 
-![iPos 註冊畫面](img/signup.png)
+![iPos 註冊畫面](./img/signup.png)
 
 登入畫面
 
-![iPos 登入畫面](img/signin.png)
+![iPos 登入畫面](./img/signin.png)
 
 
 而對於比較特殊，沒辦法找到類似畫面的介面，我們就得自行設計，但並不一定要一開始就設計得很好很像，只要能傳達畫面內容就大概可以了。
