@@ -8,7 +8,7 @@
 
 ## 範例: SimpleMap
 
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -47,7 +47,7 @@ function initMap() {
 
 ## 範例: Geolocation
 
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
