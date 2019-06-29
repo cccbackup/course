@@ -1,8 +1,8 @@
 ###### [陳鍾誠的課程](home)
 * [網頁設計](網頁設計)
 * [網站設計進階](網站設計)
-* [計算機結構](計算機結構)
-* [系統程式](系統程式)
+* [計算機結構](nand2tetris)
+* [系統程式](nand2tetris)
 * [人工智慧](人工智慧)
 * [軟體工程](軟體工程)
 
@@ -12,7 +12,7 @@
 * [機率統計](機率統計)
 * [資料庫](網站設計/db)
 * [JavaScript](JavaScript)
-* [Nand2tetris課程](nand2tetris)
+* [Nand2tetris](nand2tetris)
 * [C語言](C語言)
 * [Verilog](計算機結構/verilog)
 
