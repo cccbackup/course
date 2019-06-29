@@ -3,7 +3,7 @@
 章節  | 主題              | 習題專案 | 電子書   | 投影片  | 補充
 ------|-----------|----------|----------|--------------------|-------------
 1-5 | 計算機結構 |  |  | [硬體版](https://www.slideshare.net/ccckmit/nand2tetris-79925285) | [硬體指引](./nand2tetris/co)
-6-12 | 系統程式 |  |  | [軟體版](https://www.slideshare.net/ccckmit/nand2tetris-92010891) | [軟體指引](./nand2tetris/guide/sp)
+6-12 | 系統程式 |  |  | [軟體版](https://www.slideshare.net/ccckmit/nand2tetris-92010891) | [軟體指引](./nand2tetris/sp)
 第 1 章  | 簡介      | [習題 1](https://www.nand2tetris.org/project01) | [Chapter 1](https://docs.wixstatic.com/ugd/44046b_f2c9e41f0b204a34ab78be0ae4953128.pdf) | [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760875) / [新版](https://drive.google.com/open?id=1MY1buFHo_Wx5DPrKhCNSA2cm5ltwFJzM) | [指引 1](./nand2tetris/01)
 第 2 章 |  布林算術  | [習題 2](https://www.nand2tetris.org/project02) | [Chapter 2](https://docs.wixstatic.com/ugd/44046b_f0eaab042ba042dcb58f3e08b46bb4d7.pdf) |  [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760880) / [新版](https://docs.wixstatic.com/ugd/56440f_2e6113c60ec34ed0bc2035c9d1313066.pdf) | [指引 2](./nand2tetris/02)
 第 3 章 |  循序邏輯  | [習題 3](https://www.nand2tetris.org/project03) | [Chapter 3](https://docs.wixstatic.com/ugd/44046b_862828b3a3464a809cda6f44d9ad2ec9.pdf) |   [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760882) / [新版](https://docs.wixstatic.com/ugd/56440f_e458602dcb0c4af9aaeb7fdaa34bb2b4.pdf) | [指引 3](./nand2tetris/03)
