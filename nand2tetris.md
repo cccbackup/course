@@ -1,25 +1,16 @@
 ## nand2tetris 線上課程 = 計算機結構 + 系統程式
 
-
-陳鍾誠的《計算機結構》與《系統程式》課程，都採用 [Nand2tetris](http://nand2tetris.org/) 這門網路課程。
-
-> nand2tetris = [計算機結構](./計算機結構) + [系統程式](./系統程式)
-
-這門課要求學習者從硬體到軟體完整的實作一台電腦，以下是 nand2tetris 的官網。
-
-* https://www.nand2tetris.org/
-
-學習者必須從《最基礎的 nand 閘開始，經過 ALU、CPU、組譯器、虛擬機、編譯器到作業系統》，完整的完成總共 12 個章節的習題。
-
-我用這門課作為金門大學資訊工程系《計算機結構》與《系統程式》的主要教材。
-
-二年級上學期先學習《計算機結構》，內容是 Nand2tetris 1-5 章。
-
-二年級下學期接著學《系統程式》，內容是 Nand2tetris 6-12 章。
-
-很多優秀的業界工程師，都會回頭用 nand2tetris 這門課，來學習《電腦從硬體到軟體》究竟是如何設計出來的，以彌補在學校的時候，理論過多而實務不足的缺憾。
-
-## 相關資源
-
-* [投影片](./nand2tetris/slide)
-* [參考資源](./nand2tetris/reference)
+章節  | 主題              | 習題專案 | 電子書   | 投影片  | 教師指引
+------|-----------|----------|----------|--------------------|-------------
+第 1 章  | 簡介      | [習題 1](https://www.nand2tetris.org/project01) | [Chapter 1](https://docs.wixstatic.com/ugd/44046b_f2c9e41f0b204a34ab78be0ae4953128.pdf) | [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760875) / [新版](https://drive.google.com/open?id=1MY1buFHo_Wx5DPrKhCNSA2cm5ltwFJzM) | [指引 1](./nand2tetris/01)
+第 2 章 |  布林算術  | [習題 2](https://www.nand2tetris.org/project02) | [Chapter 2](https://docs.wixstatic.com/ugd/44046b_f0eaab042ba042dcb58f3e08b46bb4d7.pdf) |  [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760880) / [新版](https://docs.wixstatic.com/ugd/56440f_2e6113c60ec34ed0bc2035c9d1313066.pdf) | [指引 2](./nand2tetris/02)
+第 3 章 |  循序邏輯  | [習題 3](https://www.nand2tetris.org/project03) | [Chapter 3](https://docs.wixstatic.com/ugd/44046b_862828b3a3464a809cda6f44d9ad2ec9.pdf) |   [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760882) / [新版](https://docs.wixstatic.com/ugd/56440f_e458602dcb0c4af9aaeb7fdaa34bb2b4.pdf) | [指引 3](./nand2tetris/03)
+第 4 章 |  機器語言  | [習題 4](https://www.nand2tetris.org/project04) | [Chapter 4](https://docs.wixstatic.com/ugd/44046b_7ef1c00a714c46768f08c459a6cab45a.pdf) |   [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760883) / [新版](https://docs.wixstatic.com/ugd/56440f_12f488fe481344328506857e6a799f79.pdf) | [指引 4](./nand2tetris/04)
+第 5 章 |  計算機結構 | [習題 5](https://www.nand2tetris.org/project05) | [Chapter 5](https://docs.wixstatic.com/ugd/44046b_b2cad2eea33847869b86c541683551a7.pdf) |   [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760884) / [新版](https://docs.wixstatic.com/ugd/56440f_96cbb9c6b8b84760a04c369453b62908.pdf) | [指引 5](./nand2tetris/05)
+第 6 章 |  組譯器    |  [習題 6](https://www.nand2tetris.org/project06) | [Chapter 6](https://docs.wixstatic.com/ugd/44046b_89a8e226476741a3b7c5204575b8a0b2.pdf) |  [舊版](https://www.slideshare.net/ccckmit/lecture-06-assembler) / [新版](https://docs.wixstatic.com/ugd/56440f_65a2d8eef0ed4e0ea2471030206269b5.pdf) | [指引 6](./nand2tetris/06)
+第 7 章 |  虛擬機 1  | [習題 7](https://www.nand2tetris.org/project07) | 無電子版 |   [舊版](https://www.slideshare.net/ccckmit/lecture-07-virtual-machine-i) / [新版](https://drive.google.com/file/d/19fe1PeGnggDHymu4LlVY08KmDdhMVRpm/view?usp=sharing) | [指引 7](./nand2tetris/07)
+第 8 章 |  虛擬機 2  | [習題 8](https://www.nand2tetris.org/project08) | 無電子版 |   [舊版](https://www.slideshare.net/ccckmit/lecture-08-virtual-machine-ii) / [新版](https://drive.google.com/file/d/1lBsaO5XKLkUgrGY6g6vLMsiZo6rWxlYJ/view?usp=sharing) | [指引 8](./nand2tetris/08)
+第 9 章 |  高階語言  | [習題 9](https://www.nand2tetris.org/project09) | 無電子版 |   [舊版](https://www.slideshare.net/ccckmit/lecture-09-high-level-language) / [新版](https://drive.google.com/file/d/1rbHGZV8AK4UalmdJyivgt0fpPiD1Q6Vk/view?usp=sharing) | [指引 9](./nand2tetris/09)
+第 10 章 |  編譯器 1  | [習題 10](https://www.nand2tetris.org/project10) | 無電子版 |   [舊版](https://www.slideshare.net/ccckmit/lecture-10-compiler-i) / [新版](https://drive.google.com/file/d/1ujgcS7GoI-zu56FxhfkTAvEgZ6JT7Dxl/view?usp=sharing) | [指引 10](./nand2tetris/10)
+第 11 章 |  編譯器 2  | [習題 11](https://www.nand2tetris.org/project11) | 無電子版 |   [舊版](https://www.slideshare.net/ccckmit/lecture-11-compiler-ii) / [新版](https://drive.google.com/file/d/1DfGKr0fuJcCvlIPABNSg7fsLfFFqRLex/view?usp=sharing) | [指引 11](./nand2tetris/11)
+第 12 章 |  作業系統  | [習題 12](https://www.nand2tetris.org/project12) | 無電子版 |   [舊版](https://www.slideshare.net/ccckmit/lecture-12-os-123057446) / [新版](https://drive.google.com/file/d/137PiYjt4CAZ3ROWiD0DJ8XMUbMM0_VHR/view?usp=sharing) | [指引 12](./nand2tetris/12)
