@@ -22,17 +22,4 @@
 [第 12 章 系統軟體實作](https://www.slideshare.net/secret/uHRJ3ZJBZwSZ8r)   | [ppt](https://www.slideshare.net/ccckmit/12-73472945)
 [附錄](https://www.slideshare.net/secret/1M1pJ3xNDWOlrT)                   | 
 
-## UNIX
-
-* [Advanced Programming in the UNIX® Environment - ZODML](https://zodml.org/sites/default/files/Advanced_Programming_in_the_UNIX_Environment%2C_3rd_Edition.pdf)
-* 羅習五課程教材 -- https://www.dropbox.com/sh/vf200ofnzvub69f/AADkwo1gxCoPhzh_sl5yMWaya?dl=0
-
-## 閱讀
-
-* [陳鍾誠的 C 語言教材](http://misavo.com/view/ccc/c1.md)
-* https://www.nand2tetris.org/
-* [Ian Wienand:Computer Science from the Bottom Up](https://www.bottomupcs.com/index.xhtml) 
-    * https://github.com/ianw/bottomupcs (原始檔)
-    * 中文翻譯 -- https://github.com/cccbook/bottomupcs/wiki
-    * PDF 版 -- https://cccbook.github.io/sp/docs/ComputerScienceFromTheBottomUp.pdf
 
