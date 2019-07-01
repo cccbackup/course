@@ -1,5 +1,10 @@
 # Linux 系統程式
 
+## POSIX 環境
+
+* ubuntu -- bash
+* windows -- msys2
+
 ## Thread
 * [Thread 線程簡介](thread)
 * [Thread 中的競爭情況](race)
