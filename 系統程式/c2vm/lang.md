@@ -53,6 +53,26 @@ F        = (++ | -- | [*&+-~!])? P
 P        = ((E) | Number | Literal | ID) ([E] | (LIST<E>) | ++ | --)      // ID (LIST<E>)   == CALL(id)
 ```
 
+## 典型的語法範例
+
+```
+program: statement;
+statement: whileStatement
+        | ifStatement
+        | // other statement possibilities ...
+        | '{' statementSequence '}'
+whileStatement: 'while' '(' expression ')' statement
+ifStatement: simpleIf
+        | ifElse
+simpleIf: 'if' '(' expression ')' statement
+ifElse: 'if' '(' expression ')' statement
+        'else' statement
+statementSequence: '' // null, i.e. the empty sequence
+        | statement ';' statementSequence
+expression: // definition of an expression comes here
+        // more definitions follow
+```
+
 ## Lua 的語法
 
 ```
