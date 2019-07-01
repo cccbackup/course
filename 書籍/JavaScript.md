@@ -11,8 +11,6 @@
 入門書 | [Learn Javascript](https://www.gitbook.com/book/gitbookio/javascript/details) | 
 測驗練習 | [Leetcode 測驗網站](leetcode.md) | 
 
-
-
 ## 進階
 
 * [遞迴](JavaScript/basic/recursive)
