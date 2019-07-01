@@ -1,4 +1,4 @@
-## 流程式設計
+## 行為級電路設計
 
 所謂 RTL 是 Register Transfer Language 的縮寫，也就是暫存器轉換語言，這種寫法與 C, Java 等高階語言非常相似，
 因此讓「程式人」也有機會透過 Verilog 設計自己的硬體。
