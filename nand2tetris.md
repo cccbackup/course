@@ -4,13 +4,13 @@
 
 章節  | 主題              | 習題專案 | 電子書   | 投影片  | 補充
 ------|-----------|----------|----------|--------------------|-------------
-Part 1 | 計算機結構 |  |  | [硬體版](https://www.slideshare.net/ccckmit/nand2tetris-79925285) | [硬體指引](./nand2tetris/co)
+Part 1 | 計算機結構 |  |  | [硬體版](https://www.slideshare.net/ccckmit/nand2tetris-79925285) | [硬體補充](./nand2tetris/co)
 第 1 章  | 簡介      | [習題 1](https://www.nand2tetris.org/project01) | [Chapter 1](https://docs.wixstatic.com/ugd/44046b_f2c9e41f0b204a34ab78be0ae4953128.pdf) | [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760875) / [新版](https://drive.google.com/open?id=1MY1buFHo_Wx5DPrKhCNSA2cm5ltwFJzM) | [指引 1](./nand2tetris/01)
 第 2 章 |  布林算術  | [習題 2](https://www.nand2tetris.org/project02) | [Chapter 2](https://docs.wixstatic.com/ugd/44046b_f0eaab042ba042dcb58f3e08b46bb4d7.pdf) |  [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760880) / [新版](https://docs.wixstatic.com/ugd/56440f_2e6113c60ec34ed0bc2035c9d1313066.pdf) | [指引 2](./nand2tetris/02)
 第 3 章 |  循序邏輯  | [習題 3](https://www.nand2tetris.org/project03) | [Chapter 3](https://docs.wixstatic.com/ugd/44046b_862828b3a3464a809cda6f44d9ad2ec9.pdf) |   [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760882) / [新版](https://docs.wixstatic.com/ugd/56440f_e458602dcb0c4af9aaeb7fdaa34bb2b4.pdf) | [指引 3](./nand2tetris/03)
 第 4 章 |  機器語言  | [習題 4](https://www.nand2tetris.org/project04) | [Chapter 4](https://docs.wixstatic.com/ugd/44046b_7ef1c00a714c46768f08c459a6cab45a.pdf) |   [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760883) / [新版](https://docs.wixstatic.com/ugd/56440f_12f488fe481344328506857e6a799f79.pdf) | [指引 4](./nand2tetris/04)
 第 5 章 |  計算機結構 | [習題 5](https://www.nand2tetris.org/project05) | [Chapter 5](https://docs.wixstatic.com/ugd/44046b_b2cad2eea33847869b86c541683551a7.pdf) |   [舊版](https://www.slideshare.net/ccckmit/nand2tetris-127760884) / [新版](https://docs.wixstatic.com/ugd/56440f_96cbb9c6b8b84760a04c369453b62908.pdf) | [指引 5](./nand2tetris/05)
-Part 2 | 系統程式 |  |  | [軟體版](https://www.slideshare.net/ccckmit/nand2tetris-92010891) | [軟體指引](./nand2tetris/sp)
+Part 2 | 系統程式 |  |  | [軟體版](https://www.slideshare.net/ccckmit/nand2tetris-92010891) | [軟體補充](./nand2tetris/sp)
 第 6 章 |  組譯器    |  [習題 6](https://www.nand2tetris.org/project06) | [Chapter 6](https://docs.wixstatic.com/ugd/44046b_89a8e226476741a3b7c5204575b8a0b2.pdf) |  [舊版](https://www.slideshare.net/ccckmit/lecture-06-assembler) / [新版](https://docs.wixstatic.com/ugd/56440f_65a2d8eef0ed4e0ea2471030206269b5.pdf) | [指引 6](./nand2tetris/06)
 第 7 章 |  虛擬機 1  | [習題 7](https://www.nand2tetris.org/project07) | 無電子版 |   [舊版](https://www.slideshare.net/ccckmit/lecture-07-virtual-machine-i) / [新版](https://drive.google.com/file/d/19fe1PeGnggDHymu4LlVY08KmDdhMVRpm/view?usp=sharing) | [指引 7](./nand2tetris/07)
 第 8 章 |  虛擬機 2  | [習題 8](https://www.nand2tetris.org/project08) | 無電子版 |   [舊版](https://www.slideshare.net/ccckmit/lecture-08-virtual-machine-ii) / [新版](https://drive.google.com/file/d/1lBsaO5XKLkUgrGY6g6vLMsiZo6rWxlYJ/view?usp=sharing) | [指引 8](./nand2tetris/08)
