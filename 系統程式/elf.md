@@ -8,7 +8,7 @@ ELF可用來記錄目的檔 (object file)、執行檔 (executable file)、動態
 
 為了支援連結與執行等兩種時期的不同用途，ELF 格式可以分為兩種不同觀點，第一種是連結時期觀點 (Linking View)，第二種是執行時期觀點 (Execution View)。圖 4 顯示了這兩種不同觀點的結構圖。在連結時期，是以分段 (Section) 為主的結構，如圖 4 (a) 所示，但在執行時期，則是以分區 (Segment) 為主的結構，如圖 4 (b) 所示。其中，一個區通常是數個分段的組合體，像是與程式有關的段落，包含程式段、程式重定位等，在執行時期會被組合為一個分區。
 
-![圖 4. 目的檔 ELF 的兩種不同觀點](https://cccbook.github.io/sp/docs/img/ELF2view.jpg)
+![圖 4. 目的檔 ELF 的兩種不同觀點](./img/ELF2view.jpg)
 
 因此，ELF 檔案有兩個不同用途的表頭，第一個是程式表頭 (Program Header Table)，這個表頭記載了分區資訊，因此也可稱為分區表頭 (Segment Header Table)。程式表頭是執行時期的主要結構。而第二個表頭是分段表頭 (Section Header Table)，記載了的分段資訊，是連結時期的主要結構。
 
@@ -70,11 +70,11 @@ typedef struct {
 
 由於 ELF 的分段眾多，我們將不詳細介紹每的段落的資料結構，只針對較重要或常見的資料結構進行說明。圖 5 顯示了ELF 檔案的分段與對應的資料結構，其中，檔頭結構是 Elf32_Ehdr、程式表頭結構是 Elf32_Phdr、分段表頭結構是 Elf32_Shdr。而在分段中，符號記錄 (Elf32_Sym) 、重定位記錄 (Elf32_Rel、Elf32_Rela)、與動態連結記錄 (Elf32_Dyn)，是較重要的結構。
 
-![圖 5. 目的檔 ELF 的資料結構](https://cccbook.github.io/sp/docs/img/ELFstructure.jpg)
+![圖 5. 目的檔 ELF 的資料結構](./img/ELFstructure.jpg)
 
 分段表頭記錄了各分段 (Section) 的基本資訊，包含分段起始位址等，因此可以透過分段表頭讀取各分段，圖 6 顯示了如何透過分段表頭讀取分段的方法。程式片段 3 則顯示了分段表頭的結構定義程式。
 
-![圖 6. 目的檔ELF的分段表頭](https://cccbook.github.io/sp/docs/img/ELFsectionheader.jpg)
+![圖 6. 目的檔ELF的分段表頭](./img/ELFsectionheader.jpg)
 
 程式片段 3 : ELF 的分段表頭記錄
 
@@ -96,7 +96,7 @@ typedef struct {
 程式表頭指向各個分區 (Segment) ，包含分區的起始位址，因此可以透過程式表頭取得各分區的詳細內容，
 圖 7 顯示了如何透過程式表頭取得各分區的方法。 程式片段 4 則顯示了程式表頭的結構定義程式。
 
-![圖 7. 目的檔ELF的程式表頭](https://cccbook.github.io/sp/docs/img/ELFprogramHeader.jpg) 
+![圖 7. 目的檔ELF的程式表頭](./img/ELFprogramHeader.jpg) 
 
 程式片段 4. 目的檔 ELF 的程式表頭結構
 
@@ -160,7 +160,7 @@ typedef struct
 
 重定位記錄 Elf32_rel 的 r_info 欄中的 sym 子欄位，會儲存符號表的索引值，因此，程式可以透過 sym 子欄位取得符號記錄。然後，在符號記錄 Elf32_Sym 中的 st_name 欄位，會儲存字串表中的索引值，因此，可以透過 st_name 取得符號的名稱。透過 sym 與 st_name 欄位，可將重定位表、符號表與字串表關連起來，圖 8 顯示了這三個表格的關連狀況圖。
 
-![圖 8. 目的檔ELF中的重定位表、符號表與字串表的關連性](https://cccbook.github.io/sp/docs/img/ELFsymstringtable.jpg) 
+![圖 8. 目的檔ELF中的重定位表、符號表與字串表的關連性](./img/ELFsymstringtable.jpg) 
 
 
 雖然分段結構主要式為了連結時使用的，但是，如果不考慮動態連結的情況，載入器也可以利用分段結構直接進行載入。只要載入 .text, .data, .data2, .bss等區段，然後利用 .rel.text, .rel.data, .rel.data2, .rela.text, .rela.data, .rela.data2 等分段進行修改的動作，就能載入 ELF目的檔了。
