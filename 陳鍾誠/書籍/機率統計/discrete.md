@@ -12,7 +12,7 @@
 | 多項分布	| $$\frac{n!}{x_1!...x_k!}  p_1^{x_1}...p_k^{x_k}$$ | multinom(n:size, p(1..k):prob) | n:樣本數, p[1..n]:各項的機率  |
 | 負二項分布 | $${x-1 \choose r-1} (1-p)^{x-r} p^r$$ | nbinom(size, prob) | x:樣本數, , p:正面機率, <br/> 要得到第 r 次成功所需要的試驗次數 |
 | 幾何分布	| $$(1-p)^{x-1} p$$ | geom(p:prob) | p: 成功機率, 第一次成功所需要的試驗次數 |
-| 超幾何分布	| $$\frac{{ r \choose x} {N-r \choose n-x}}{N \choose n}$$ | hyper(N:m,n:n,r:k) | m:白球數量, n:黑球數量, k:抽出球數, <br/> 同二項分布，但取樣後不放回 |
+| 超幾何分布	| $$\frac{ { r \choose x} {N-r \choose n-x} }{N \choose n}$$ | hyper(N:m,n:n,r:k) | m:白球數量, n:黑球數量, k:抽出球數, <br/> 同二項分布，但取樣後不放回 |
 | 布瓦松分布	| $$\frac{e^{-\lambda s} {\lambda s}^x}{x!}$$ | pois(lambda) | k:期望值, $$\lambda = \frac{k}{s}$$, <br/> 在 s 時間內，事件出現平均 k 次 |
 
 ## 二項分布 (Binomial distribution)
@@ -341,7 +341,7 @@ Ni <- rgeom(20, prob = 1/4); table(factor(Ni, 0:max(Ni)))
 
 ## 超幾何分布 (Hypergeometric distribution)
 
-$$f(x) = \frac{{r \choose x} {N-r \choose{n-x}} }{N \choose n}$$
+$$f(x) = \frac{ {r \choose x} {N-r \choose{n-x} } }{N \choose n}$$
 
 意義：N 個球中有白球有 r 個，黑球 N-r 個，取出 n 個球，其中有 x 個白球的機率; (取後不放回)
 
@@ -350,7 +350,7 @@ R 函數： hyper(m,n,k) = choose(m, x) choose(n, k-x) / choose(m+n, k)
 * R 函數的意義：m+n 個球中有白球有 m 個，黑球 n 個，取出 k 個球，其中有 x 個白球的機率; (取後不放回)
 * R 的網址：http://stat.ethz.ch/R-manual/R-patched/library/stats/html/Hypergeometric.html
 * 課本與 R 之間對應公式：N=>m+n; n=>k; r=>m
-* R 的公式：$$P(X=x; m, n, k) = \frac{{m \choose x} {n \choose{k-x}} }{{m+n} \choose k}$$
+* R 的公式：$$P(X=x; m, n, k) = \frac{ {m \choose x} {n \choose{k-x} } }{ {m+n} \choose k}$$
 
 特性
 
@@ -954,7 +954,7 @@ $$A_n= \frac{n!}{n^k\left(n-k\right)!}= \frac{n\cdot (n-1)\cdots \big(n-(k-1)\bi
   
 解答 2：
 
-> P(X=3) = P({A | X(A) = 3}) = P({{w1, w2, w3}) + P({w1, w2, w4}) + ......
+> P(X=3) = P({A | X(A) = 3}) = P({w1, w2, w3}) + P({w1, w2, w4}) + ......
 > 
 > 假如任一顆白血球被抽到的機率等於該滴血液佔全身血液的比率，由於該滴血液佔總血量的 1/1000，所以給顆白血球被抽到的機率為 1/1000。
 > 
