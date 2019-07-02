@@ -9,3 +9,4 @@
 [程式](./程式) | [js6](./作品/js6) / [pp6](./作品/pp6) / [c2vm](./課程/系統程式/c2vm) / [CPU0](./課程/系統程式/CPU0) / [MCU0](./課程/系統程式/MCU0)
 [作品](./作品) | [論文](./論文) / [散文](./作品/散文) / [小說](./作品/小說) / [十分鐘系列](./作品/十分鐘系列)
 [帳號](./帳號) | [Github](https://github.com/ccckmit) / [Gitlab](https://gitlab.com/ccckmit/) / [YouTube](https://www.youtube.com/user/ccckmit) / [SlideShare](http://www.slideshare.net/ccckmit/)  / [Medium](https://medium.com/@ccckmit) / [Facebook](https://www.facebook.com/ccckmit) / [Gmail](mailto://ccckmit@gmail.com)
+[蒐藏](./蒐藏) | [影片](./蒐藏/video) / [書籍](./蒐藏/book) / [程式](./蒐藏/code) / [文章](./蒐藏/article) / [課程](./蒐藏/course)
