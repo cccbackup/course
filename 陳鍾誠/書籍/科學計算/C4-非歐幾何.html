@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../科學計算.html" alt="">科學計算</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 非歐幾何</h2>
+
+<h3> 幾何學的分類</h3>
+
+<p>兩千多年前《歐幾里得》在《幾何原本》中所歸納集大成的幾何學，稱為歐氏幾何。</p>
+
+<p>歐氏幾何是從埃及傳到希臘的，埃及人由於尼羅河每年氾濫，所以需要每年重新丈量找回土地界線，因此發展出了一種只依靠《繩子+固定繩頭》的幾何學，在紙筆時代改用《原規+直尺》替代上述工具，這種由《直線+圓形》所建構出來的幾何學，就稱為《歐氏幾何》。</p>
+
+<p>歐氏幾何依靠五條公理與五條公設建構出來，但最後一條《平行公設》看來有點多餘，不過兩千年來始終沒人能從前面的公理在不加入其他公理的狀況下導出《平行公理》，因此平行公理始終無法去除。</p>
+
+<p>後來羅巴契夫斯基把平行公理反過來，假設通過直線外一點可以做很多條《平行線》延長後都不會和該直線相交，結果竟然導出了一整個毫無矛盾的幾何體系，於是發展出了非歐幾何學中的《雙曲幾何學》。</p>
+
+<p>高斯的學生《黎曼》在1854年成為格丁根大學的講師，發表了一篇名為《關於幾何基礎的假設》的論文，定義幾何學為《關於流形》的研究。</p>
+
+<p>《流形》是帶有坐標系以及兩點間最短距離度量公式的任意維空間。</p>
+
+<p>歐氏幾何的度量公式為 <span class="math inline">ds^2=dx^2+dy^2+dz^2 </span> ，是曲率為零的幾何學。</p>
+
+<p>羅巴契夫斯基的《雙曲幾何學》，是曲率為 -1 的幾何學。而球面幾何則是曲率為 1 的幾何學。</p>
+
+<p>一般可以把幾何形體的拓撲結構看作是完全「柔軟」的，因為所有變形（同胚）會保持拓撲結構不變；而把解析幾何結構看作是「硬」的，因為整體的結構都是固定的。</p>
+
+<h3> <a href="https://zh.wikipedia.org/wiki/%E6%B5%81%E5%BD%A2" alt="">流形</a></h3>
+
+<p>例如一個多項式，如果你知道 (0,1) 區間的取值，則整個實數範圍的值都是固定的，所以局部的變動會導致全局的變化。</p>
+
+<p>光滑流形可以看作是介於兩者之間的模型：其無窮小的結構是「硬」的，而整體結構則是「柔軟」的。這也許是中文譯名「流形」的原因（整體的形態可以流動）。</p>
+
+<p>流形要求局部「看起來像」簡單的空間，這不是一個簡單的要求。例如，在球上吊一根線，這個整體就不是一個流形。包含了線和球連接的那一點的附近區域一定不是簡單的：既不是線也不是面，無論這個區域有多小。</p>
+
+<p>流形有很多種。最簡單的是拓撲流形，它們局部看來像歐幾里得空間。其他的種類包含了它們在使用中所需要的額外的結構。例如，一個微分流形不僅支持拓撲，而且要支持微積分。黎曼流形的思想導致了廣義相對論的數學基礎，使得人們能夠用曲率來描述時空。</p>
+
+<h3> <a href="https://zh.wikipedia.org/wiki/%E6%8B%93%E6%89%91%E6%B5%81%E5%BD%A2" alt="">拓撲流形</a></h3>
+
+<p>拓撲流形的定義為：拓撲空間 M 在滿足以下條件時，稱 M 為 m維流形：</p>
+
+<ol>
+    <li>M 為 <a href="https://zh.wikipedia.org/wiki/%E8%B1%AA%E6%96%AF%E5%A4%9A%E5%A4%AB%E7%A9%BA%E9%97%B4" alt="">《郝斯多夫空間》</a>。</li>
+    <li>對於任意一點 <span class="math inline">p\in M</span> 都有x在M中的一個 <a href="https://zh.wikipedia.org/wiki/%E9%82%BB%E5%9F%9F" alt="">《鄰域》</a> U 同胚於 m維歐幾里得空間 <span class="math inline">R^{m}</span> 的一個開集。</li>
+</ol>
+<p>就稱M是一個 m 維流形或 m 維拓撲流形。</p>
+
+<p>假設X是拓樸空間。設x和y是X中的點。我們稱x和y可以「由鄰域分離」，如果存在x的鄰域U和y的鄰域V使得U和V是不相交的（U ∩ V = ∅），且X中的任意兩個不同的點都可以由這樣的鄰域分離，那麼稱X是郝斯多夫空間。這也是郝斯多夫空間叫做T2空間或分離空間的原因。</p>
+
+<p>在數學分析所遇到的幾乎所有空間都是郝斯多夫空間；最重要的實數是郝斯多夫空間。更一般的說，所有度量空間都是郝斯多夫空間。事實上，在分析中用到的很多空間，比如拓樸群和拓樸流形在其定義中明確的聲明了郝斯多夫條件。</p>
+
+<h3> <a href="https://zh.wikipedia.org/wiki/%E5%BE%AE%E5%88%86%E6%B5%81%E5%BD%A2" alt="">微分流形</a></h3>
+
+<p>光滑流形（英語：smooth manifold），或稱 <span class="math inline">C_{\infty}</span> 微分流形（differential manifold）</p>
+
+<p>(筆者猜想：<span class="math inline">C_{\infty}</span> 應該是每個點都可無限次微分的流形)</p>
+
+<p>當座標變換不是可微映射，僅是連續映射時，滿足這三條件的稱為拓撲流形，寫作 <span class="math inline">C_0</span> 流形。</p>
+
+<h3> <a href="https://zh.wikipedia.org/wiki/%E9%BB%8E%E6%9B%BC%E6%B5%81%E5%BD%A2" alt="">黎曼流形</a></h3>
+
+<p>黎曼流形（Riemannian manifold）是一個微分流形，其中每點p的切空間都定義了點積，而且其數值隨p平滑地改變。它容許我們定義弧線長度、角度、面積、體積、曲率、函數梯度及向量域的散度。</p>
+
+<p>在黎曼幾何裡面，度量張量又叫黎曼度量，物理學譯為度規張量，是指一用來衡量度量空間中距離，面積及角度的二階張量。</p>
+
+<p>當選定一個局部坐標系統 <span class="math inline">x^i</span>，度量張量為二階張量可表示為</p>
+
+<p><span class="math display">
+ds^2=\sum_{ij}g_{ij}dx^i dx^j
+</span></p>
+
+<p>從 a 到 b 弧線長度定义如下:</p>
+
+<p><span class="math display">
+L = \int_a^b \sqrt{ \sum_{ij}g_{ij}{dx^i\over dt}{dx^j\over dt}}dt
+</span></p>
+
+<p>兩個切向量的夾角  <span class="math inline">\theta</span> 定義為：</p>
+
+<p><span class="math display">
+\cos \theta =\frac{\langle u, v\rangle}{|u||v|}= \frac{\sum_{ij}g_{ij}u^iv^j}
+{\sqrt{ \left| \sum_{ij}g_{ij}u^iu^j \right| \left| \sum_{ij}g_{ij}v^iv^j \right|}}
+</span></p>
+
+<p>若 f 為 <span class="math inline">R</span> 到 <span class="math inline">R^n</span> 的局部微分同胚，其誘導出的度量張量的矩陣形式 G，由以下方程式計算得出：</p>
+
+<p><span class="math display">
+G = J^T J
+</span></p>
+
+<p>J 表示 f 的 <a href="https://zh.wikipedia.org/wiki/%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5" alt="">雅可比矩阵</a>。</p>
+
+<p>著名例子有 <span class="math inline">R^2</span> 之間從極座標 <span class="math inline">(r,\theta)</span> 到直角座標 <span class="math inline">(x,y)</span> 的座標變換，在這例子裡有：</p>
+
+<p><span class="math display">
+x = r \cos\theta \\
+y = r \sin\theta
+</span></p>
+
+<p>這映射的雅可比矩陣為</p>
+
+<p><span class="math display">
+J = \begin{bmatrix}\cos\theta & -r\sin\theta \\ \sin\theta & r\cos\theta\end{bmatrix}
+</span></p>
+
+<p>所以</p>
+
+<p><span class="math display">
+G=(g_{ij}) = J^\mathrm{T}J
+= \begin{bmatrix}\cos^2\theta+\sin^2\theta & -r\sin\theta \cos\theta + r\sin\theta\cos\theta \\ -r\cos\theta\sin\theta + r\cos\theta\sin\theta & r^2 \sin^2\theta + r^2\cos^2\theta\end{bmatrix}=\begin{bmatrix} 1 & 0 \\ 0 & r^2\end{bmatrix}
+</span></p>
+
+<p>這跟微積分裡極座標的黎曼度量 <span class="math inline">ds^2=dr^2+r^2 d\theta^2</span> 一致。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

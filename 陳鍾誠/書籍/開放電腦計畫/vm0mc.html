@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../開放電腦計畫.html" alt="">開放電腦計畫</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> MCU0 超簡易虛擬機</h1>
+
+<h2> 程式碼</h2>
+
+<p>檔案：vm0m.c</p>
+
+<pre class="code"><code class="CPP">#include "mcu0m.h"
+#define MSIZE 4096 // 最大的記憶體大小為 4096 個 WORD (8192 BYTE)
+// 開始執行記憶體 m 中的機器碼程式
+int run(UINT16 *m) {
+  UINT16 PC=0, IR, A, SW, op, addr;
+  while (1) {
+    IR = m[PC];
+    op = (IR&amp;0xF000)&gt;&gt;12; //
+    addr = (IR&amp;0x0FFF);
+        printf("PC=%04x IR=%04x ", PC, IR);
+        PC = PC + 1;
+    switch (op) {
+      case LD:
+        A = m[addr];
+        break;
+      case ADD:
+        A = A+m[addr];
+        break;
+      case JMP:
+        PC = addr;
+        break;
+            case ST:
+                m[addr] = A;
+                break;
+            case CMP:
+                if (A &lt; m[addr]) SW = 0x8000;
+                else if (A == m[addr]) SW = 0x4000;
+                else SW = 0x0000;
+                break;
+            case JEQ:
+                if (SW &amp; 0x4000) {
+                    PC = addr;
+                }
+                break;
+            case RET:
+              return;
+            default:
+                printf("Error: %1x is not a op!", op);
+                exit(1);
+        }
+        printf(" SW=%04x A=%04x=%4d\n", SW, A, A);
+  }
+}
+// 虛擬機的主程式
+int main(int argc, char *argv[]) {
+  if (argc != 2) { printf("vm0m &lt;objFile&gt;\n"); exit(1); }
+    FILE *objFile = fopen(argv[1], "rb");
+    UINT16 m[MSIZE];
+    int len = fread(m, sizeof(UINT16), MSIZE, objFile); // 讀取目的檔到記憶體 m
+  run(m); // 開始執行記憶體 m 中的機器碼程式
+}
+
+</code></pre>
+
+<h2> 執行結果</h2>
+
+<pre class="code"><code class="">nqu-192-168-61-142:mcu0 mac020$ gcc vm0m.c -o vm0m
+nqu-192-168-61-142:mcu0 mac020$ vm0m sum.ob0m
+-bash: vm0m: command not found
+nqu-192-168-61-142:mcu0 mac020$ ./vm0m sum.ob0m
+PC=0000 IR=000b  SW=0000 A=0000=   0
+PC=0001 IR=400d  SW=8000 A=0000=   0
+PC=0002 IR=5009  SW=8000 A=0000=   0
+PC=0003 IR=100c  SW=8000 A=0001=   1
+PC=0004 IR=300b  SW=8000 A=0001=   1
+PC=0005 IR=000a  SW=8000 A=0000=   0
+PC=0006 IR=100b  SW=8000 A=0001=   1
+PC=0007 IR=300a  SW=8000 A=0001=   1
+PC=0008 IR=2000  SW=8000 A=0001=   1
+PC=0000 IR=000b  SW=8000 A=0001=   1
+PC=0001 IR=400d  SW=8000 A=0001=   1
+PC=0002 IR=5009  SW=8000 A=0001=   1
+PC=0003 IR=100c  SW=8000 A=0002=   2
+PC=0004 IR=300b  SW=8000 A=0002=   2
+PC=0005 IR=000a  SW=8000 A=0001=   1
+PC=0006 IR=100b  SW=8000 A=0003=   3
+PC=0007 IR=300a  SW=8000 A=0003=   3
+PC=0008 IR=2000  SW=8000 A=0003=   3
+PC=0000 IR=000b  SW=8000 A=0002=   2
+PC=0001 IR=400d  SW=8000 A=0002=   2
+PC=0002 IR=5009  SW=8000 A=0002=   2
+PC=0003 IR=100c  SW=8000 A=0003=   3
+PC=0004 IR=300b  SW=8000 A=0003=   3
+PC=0005 IR=000a  SW=8000 A=0003=   3
+PC=0006 IR=100b  SW=8000 A=0006=   6
+PC=0007 IR=300a  SW=8000 A=0006=   6
+PC=0008 IR=2000  SW=8000 A=0006=   6
+PC=0000 IR=000b  SW=8000 A=0003=   3
+PC=0001 IR=400d  SW=8000 A=0003=   3
+PC=0002 IR=5009  SW=8000 A=0003=   3
+PC=0003 IR=100c  SW=8000 A=0004=   4
+PC=0004 IR=300b  SW=8000 A=0004=   4
+PC=0005 IR=000a  SW=8000 A=0006=   6
+PC=0006 IR=100b  SW=8000 A=000a=  10
+PC=0007 IR=300a  SW=8000 A=000a=  10
+PC=0008 IR=2000  SW=8000 A=000a=  10
+PC=0000 IR=000b  SW=8000 A=0004=   4
+PC=0001 IR=400d  SW=8000 A=0004=   4
+PC=0002 IR=5009  SW=8000 A=0004=   4
+PC=0003 IR=100c  SW=8000 A=0005=   5
+PC=0004 IR=300b  SW=8000 A=0005=   5
+PC=0005 IR=000a  SW=8000 A=000a=  10
+PC=0006 IR=100b  SW=8000 A=000f=  15
+PC=0007 IR=300a  SW=8000 A=000f=  15
+PC=0008 IR=2000  SW=8000 A=000f=  15
+PC=0000 IR=000b  SW=8000 A=0005=   5
+PC=0001 IR=400d  SW=8000 A=0005=   5
+PC=0002 IR=5009  SW=8000 A=0005=   5
+PC=0003 IR=100c  SW=8000 A=0006=   6
+PC=0004 IR=300b  SW=8000 A=0006=   6
+PC=0005 IR=000a  SW=8000 A=000f=  15
+PC=0006 IR=100b  SW=8000 A=0015=  21
+PC=0007 IR=300a  SW=8000 A=0015=  21
+PC=0008 IR=2000  SW=8000 A=0015=  21
+PC=0000 IR=000b  SW=8000 A=0006=   6
+PC=0001 IR=400d  SW=8000 A=0006=   6
+PC=0002 IR=5009  SW=8000 A=0006=   6
+PC=0003 IR=100c  SW=8000 A=0007=   7
+PC=0004 IR=300b  SW=8000 A=0007=   7
+PC=0005 IR=000a  SW=8000 A=0015=  21
+PC=0006 IR=100b  SW=8000 A=001c=  28
+PC=0007 IR=300a  SW=8000 A=001c=  28
+PC=0008 IR=2000  SW=8000 A=001c=  28
+PC=0000 IR=000b  SW=8000 A=0007=   7
+PC=0001 IR=400d  SW=8000 A=0007=   7
+PC=0002 IR=5009  SW=8000 A=0007=   7
+PC=0003 IR=100c  SW=8000 A=0008=   8
+PC=0004 IR=300b  SW=8000 A=0008=   8
+PC=0005 IR=000a  SW=8000 A=001c=  28
+PC=0006 IR=100b  SW=8000 A=0024=  36
+PC=0007 IR=300a  SW=8000 A=0024=  36
+PC=0008 IR=2000  SW=8000 A=0024=  36
+PC=0000 IR=000b  SW=8000 A=0008=   8
+PC=0001 IR=400d  SW=8000 A=0008=   8
+PC=0002 IR=5009  SW=8000 A=0008=   8
+PC=0003 IR=100c  SW=8000 A=0009=   9
+PC=0004 IR=300b  SW=8000 A=0009=   9
+PC=0005 IR=000a  SW=8000 A=0024=  36
+PC=0006 IR=100b  SW=8000 A=002d=  45
+PC=0007 IR=300a  SW=8000 A=002d=  45
+PC=0008 IR=2000  SW=8000 A=002d=  45
+PC=0000 IR=000b  SW=8000 A=0009=   9
+PC=0001 IR=400d  SW=8000 A=0009=   9
+PC=0002 IR=5009  SW=8000 A=0009=   9
+PC=0003 IR=100c  SW=8000 A=000a=  10
+PC=0004 IR=300b  SW=8000 A=000a=  10
+PC=0005 IR=000a  SW=8000 A=002d=  45
+PC=0006 IR=100b  SW=8000 A=0037=  55
+PC=0007 IR=300a  SW=8000 A=0037=  55
+PC=0008 IR=2000  SW=8000 A=0037=  55
+PC=0000 IR=000b  SW=8000 A=000a=  10
+PC=0001 IR=400d  SW=4000 A=000a=  10
+PC=0002 IR=5009  SW=4000 A=000a=  10
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

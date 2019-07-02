@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../網頁設計.html" alt="">網頁設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 衛星定位與地圖 </h2>
+
+<h3> 參考文獻</h3>
+
+<ul>
+    <li><a href="https://developers.google.com/maps/documentation/javascript/examples/" alt="">Google Maps Javascript API</a></li>
+    <li><a href="https://developers.google.com/maps/documentation/javascript/examples/map-simple" alt="">Simple Map</a> -- 簡單地圖。</li>
+    <li><a href="https://developers.google.com/maps/documentation/javascript/examples/map-geolocation" alt="">Geolocation</a> -- 定位！</li>
+</ul>
+<h3> 範例: SimpleMap</h3>
+
+<pre class="code"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Simple Map&lt;/title&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0"&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;style&gt;
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id="map"&gt;&lt;/div&gt;
+    &lt;script&gt;
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
+}
+
+    &lt;/script&gt;
+    &lt;script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;callback=initMap"
+        async defer&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h3> 範例: Geolocation</h3>
+
+<pre class="code"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Geolocation&lt;/title&gt;
+    &lt;meta name="viewport" content="initial-scale=1.0, user-scalable=no"&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;style&gt;
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id="map"&gt;&lt;/div&gt;
+    &lt;script&gt;
+// Note: This example requires that you consent to location sharing when
+// prompted by your browser. If you see the error "The Geolocation service
+// failed.", it means you probably did not give permission for the browser to
+// locate you.
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 6
+  });
+  var infoWindow = new google.maps.InfoWindow({map: map});
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Location found.');
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+}
+
+    &lt;/script&gt;
+    &lt;script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;signed_in=true&amp;callback=initMap"
+        async defer&gt;
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

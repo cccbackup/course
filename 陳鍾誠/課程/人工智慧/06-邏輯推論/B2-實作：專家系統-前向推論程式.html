@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../06-邏輯推論.html" alt="">06-邏輯推論</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 實作：專家系統 - 前向推論程式</h2>
+
+<p>以下是一個代表鴕鳥的動物世界規則庫。</p>
+
+<p>規則庫：animal_ostrich.kb</p>
+
+<pre class="code"><code class="">哺乳類 &lt;= 有毛. 
+哺乳類 &lt;= 泌乳. 
+鳥類   &lt;= 有羽毛. 
+鳥類   &lt;= 會飛 &amp; 生蛋. 
+食肉類 &lt;= 哺乳類 &amp; 吃肉.
+食肉類 &lt;= 有爪 &amp; 利齒 &amp; 兩眼前視.
+有蹄類 &lt;= 哺乳類 &amp; 有蹄.
+偶蹄類 &lt;= 哺乳類 &amp; 反芻.
+獵豹   &lt;= 哺乳類 &amp; 吃肉 &amp; 斑點.
+老虎   &lt;= 哺乳類 &amp; 吃肉 &amp; 條紋.
+長頸鹿 &lt;= 有蹄類 &amp; 長腿 &amp; 斑點.
+斑馬   &lt;= 有蹄類 &amp; 條紋.
+鴕鳥   &lt;= 鳥類 &amp; 長腿.
+
+會飛. 
+生蛋. 
+長腿. 
+</code></pre>
+
+<p>接著我們採用前述的「布林邏輯推論引擎 kb.js」，透過讀入規則檔並進行推論的方式，設計出「前向推論」的程式。</p>
+
+<p>檔案：kbReason.js</p>
+
+<pre class="code"><code class="javascript">var fs = require('fs'); // 引用檔案物件
+var kb = require('./kb');
+
+var kb1 = new kb();
+var code = fs.readFileSync(process.argv[2], "utf8").replace(/\n/gi, ""); // 讀取檔案
+
+kb1.load(code);
+kb1.forwardChaining();
+</code></pre>
+
+<p>以下是上述「隱含鴕鳥前提」的規則庫經過「前向布林引擎」推論後得到的執行結果。</p>
+
+<pre class="code"><code class="">C:\Dropbox\Public\web\ai\code\KB&gt;node kbReason animal_ostrich.kb
+["哺乳類 &lt;= 有毛","哺乳類 &lt;= 泌乳","鳥類   &lt;= 有羽毛","鳥類   &lt;= 會飛 &amp; 生蛋","
+食肉類 &lt;= 哺乳類 &amp; 吃肉","食肉類 &lt;= 有爪 &amp; 利齒 &amp; 兩眼前視","有蹄類 &lt;= 哺乳類 &amp;
+有蹄","偶蹄類 &lt;= 哺乳類 &amp; 反芻","獵豹   &lt;= 哺乳類 &amp; 吃肉 &amp; 斑點","老虎   &lt;= 哺乳
+類 &amp; 吃肉 &amp; 條紋","長頸鹿 &lt;= 有蹄類 &amp; 長腿 &amp; 斑點","斑馬   &lt;= 有蹄類 &amp; 條紋","鴕
+鳥   &lt;= 鳥類 &amp; 長腿","會飛","生蛋","長腿",""]
+rule:head=哺乳類 terms=["有毛"]
+rule:head=哺乳類 terms=["泌乳"]
+rule:head=鳥類 terms=["有羽毛"]
+rule:head=鳥類 terms=["會飛 "," 生蛋"]
+rule:head=食肉類 terms=["哺乳類 "," 吃肉"]
+rule:head=食肉類 terms=["有爪 "," 利齒 "," 兩眼前視"]
+rule:head=有蹄類 terms=["哺乳類 "," 有蹄"]
+rule:head=偶蹄類 terms=["哺乳類 "," 反芻"]
+rule:head=獵豹 terms=["哺乳類 "," 吃肉 "," 斑點"]
+rule:head=老虎 terms=["哺乳類 "," 吃肉 "," 條紋"]
+rule:head=長頸鹿 terms=["有蹄類 "," 長腿 "," 斑點"]
+rule:head=斑馬 terms=["有蹄類 "," 條紋"]
+rule:head=鴕鳥 terms=["鳥類 "," 長腿"]
+rule:head=會飛 terms=""
+rule:head=生蛋 terms=""
+rule:head=長腿 terms=""
+addFact(會飛)
+addFact(生蛋)
+addFact(長腿)
+addFact(鳥類)
+addFact(鴕鳥)
+facts=["會飛","生蛋","長腿","鳥類","鴕鳥"]
+</code></pre>
+
+<p>您可以看到上述系統利用「會飛. 生蛋. 長腿. 」等三個屬性，推論出了「鳥類、鴕鳥」這兩個結論。</p>
+
+<p>這個結果符合我們的預期，因此該程式的運作是正常的。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

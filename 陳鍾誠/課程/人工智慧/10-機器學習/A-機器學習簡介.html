@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../10-機器學習.html" alt="">10-機器學習</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 簡介</h2>
+
+<p>在機率理論中，所謂的機率模型，通常是指某種機率獨立性的假設。舉例而言，在簡單貝氏模型 (Naive Bayes Model) 當中，就假設所有的隨機變數 X1, X2,..., Xn 相對於某個前提 C 而言都是條件獨立的，因此可以寫成如下算式。 </p>
+
+<p><span class="math display">
+P(x_1 ... x_n| c) = P(x_1|c) \cdots P(x_n | c)
+</span></p>
+
+<p>這種機率獨立性的假設，就是一種統計上的假說，我們必須驗證這樣的假說是否合理，如果驗證合理才能使用該公式，否則將會造成龐大的誤差。</p>
+
+<h3> 計算統計學中的假說</h3>
+
+<p>有時候，我們會將假說的概念 h 放入機率分布函數中，當成機率分布的參數之一，例如 P(x, h) 其實代表了由 h 假說所決定的一個機率特定機率分布 p，作用在樣本 x 上的結果 。</p>
+
+<p>在具有假說 h 的情況之下，P(h) 代表由假說 h 所決定的一個機率分布，這是一個特定的機率分布，按照上述規則，原本應該用某個小寫的 p 所代表，但是由於引入了函數形式的關係，我們用 P(h) 代表該假說所決定的特定機率分布。</p>
+
+<p>大寫的 P 符號通常則代表假說 <span class="math inline">P(h_1), P(h_2), ... P(h_n)</span> 所形成的機率分布集合，計算統計學的主要任務是找出最好的假說，以便用該假說的機率分布進行預測。這個尋找最佳假說的過程可用下列公式表達。</p>
+
+<p><span class="math display">
+\arg\max_h P(h|x,y) = \arg\max_h P(x,y|h) \frac{P(h)}{P(x,y)}
+</span></p>
+
+<p>計算統計學通常會用程式 (演算法) 尋找最符合訓練資料 <span class="math inline">(x_1,y_1) (x_2,y_2) ...., (x_n,y_n)</span> 的假說 P(h)，這個過程稱為學習。當電腦完成學習的程序之後，就可以利用 P(h) 預測整個系統的下一個輸出之機率。</p>
+
+<p>通常在預測進行時系統會取得某些輸入值 x，然後再利用該輸入值找到一個最可能的輸出值，也就是找到讓 P(y|x,h) 最大的輸出 y，因此整個預測程序仍然是一個最佳化的過程，如下列公式所示。</p>
+
+<p><span class="math display">
+\arg\max_y P(y|x,h)
+</span></p>
+
+<h3> 計算統計學中的學習</h3>
+
+<p>要找出計算統計學中的最佳假說，通常採用最大似然法則作為最佳化的目標算式，但實際上最大似然法則與最大商法則乃是一體的兩面，因此也常採用最大商法則進行學習。</p>
+
+<h3> 『最大熵法則』 與 『最大似然法則』</h3>
+
+<p><span class="math display">
+\begin{aligned}\sum_z P(Z=z|x,h) L(x,Z=z|h) &= \sum_z \frac{P(x,Z=z,h)}{P(x,h)} \log P(x,Z=z|h) \\&= \frac{1}{P(x,h)} \sum_z P(x,Z=z,h) \log P(x,Z=z|h) \\&= \frac{1}{P(x,h)}H(x,Z|h)\end{aligned}
+</span></p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

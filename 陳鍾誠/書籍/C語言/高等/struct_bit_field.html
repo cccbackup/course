@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1>結構中的位元欄 — (Bits Field) 讓您為每個位元取名字</h1>
+
+<p>為了展示 C 語言中位元欄位的用途，筆者將拙著《系統程式》中 CPU0 處理器的狀態暫存器 (Status Word) 拿來做為範例，該狀態暫存器的位元配置如下圖所示。</p>
+<p></p>
+
+<p>圖一、CPU0 的狀態暫存器 (SW) 之位元配置</p>
+
+<p><strong>程式範例：結構中的位元欄位</strong></p>
+
+<pre class="code"><code class="c">#include &lt;stdio.h&gt;
+
+// 請注意，寫在前面的欄位會被編在低位元部份，因此通常我們必須倒著寫，也就是將圖從右看到左。
+typedef struct 
+{               
+   unsigned lo:4; // 像是 unsigned hi, lo:4;
+   unsigned hi:4; // 請注意，不能把兩個欄位寫在同一行
+} byte;
+
+typedef struct
+{ 
+   unsigned m:1;
+   unsigned b2:5;
+   unsigned t:1;
+   unsigned i:1;
+   unsigned b1:20;
+   unsigned v:1;
+   unsigned c:1;
+   unsigned z:1;
+   unsigned n:1;
+} StatusWord;
+
+int main() {
+  byte b = { .hi=0x0F, .lo=0x0C };
+  unsigned char *bp = (unsigned char*) &b;
+  printf("byte=%02x\n", *bp);  
+
+  StatusWord sw = { .n=1,.z=0,.c=1,.v=0,.i=1,.t=1,.m=0,.b1=0,.b2=0 };
+  unsigned int *psw = (unsigned int*) &sw;
+  printf("SW=%08x\n", *psw);  
+}
+</code></pre>
+<p><strong>執行結果</strong></p>
+
+<pre class="tab">D:\cp>gcc structBits.c -o structBits
+
+D:\cp>structBits
+byte=fc
+SW=a00000c0
+
+</pre>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

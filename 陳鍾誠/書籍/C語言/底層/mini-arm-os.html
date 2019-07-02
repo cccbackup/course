@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../底層.html" alt="">底層</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 作業系統</h1>
+
+<p>[03-ContextSwitch-2]:<a href="https://github.com/jserv/mini-arm-os/tree/master/03-ContextSwitch-2">https://github.com/jserv/mini-arm-os/tree/master/03-ContextSwitch-2</a>
+[04-Multitasking]:<a href="https://github.com/jserv/mini-arm-os/tree/master/04-Multitasking">https://github.com/jserv/mini-arm-os/tree/master/04-Multitasking</a>
+[05-TimerInterrupt]:<a href="https://github.com/jserv/mini-arm-os/tree/master/05-TimerInterrupt">https://github.com/jserv/mini-arm-os/tree/master/05-TimerInterrupt</a>
+[06-Preemptive]:<a href="https://github.com/jserv/mini-arm-os/tree/master/06-Preemptive">https://github.com/jserv/mini-arm-os/tree/master/06-Preemptive</a></p>
+
+<p>理解了《中斷與切換》之後，只要再加上《時間中斷》，然後在設定時間到的時候強制進行切換，這樣就差不多是一個《作業系統》了。</p>
+
+<p>在 [03-ContextSwitch-2] 裏展示了如何從 Kernel-to-UserTask 與 UserTask-to-Kernel 的切換方法，但這個範例只有單一個 UserTask，而不是多個 Task。</p>
+
+<h2> MultiTask 切換</h2>
+
+<p>因此在 mini-arm-os 的《第 4 單元》[04-Multitasking] 中就啟動了兩個 task 並進行切換，只是這個切換是在 task 中主動進行的，而不是由時間中斷強制切換的。</p>
+
+<p>您可以看 [os.c] 這個《主程式》裏</p>
+
+<pre class="code"><code class="">...
+int main(void)
+{
+    unsigned int user_stacks[TASK_LIMIT][STACK_SIZE];
+    unsigned int *usertasks[TASK_LIMIT];
+    size_t task_count = 0;
+    size_t current_task;
+
+    usart_init();
+
+    print_str("OS: Starting...\n");
+    print_str("OS: First create task 1\n");
+    usertasks[0] = create_task(user_stacks[0], &amp;task1_func);
+    task_count += 1;
+    print_str("OS: Back to OS, create task 2\n");
+    usertasks[1] = create_task(user_stacks[1], &amp;task2_func);
+    task_count += 1;
+
+    print_str("\nOS: Start multitasking, back to OS till task yield!\n");
+    current_task = 0;
+
+    while (1) {
+        print_str("OS: Activate next task\n");
+        usertasks[current_task] = activate(usertasks[current_task]);
+        print_str("OS: Back to OS\n");
+
+        current_task = current_task == (task_count - 1) ? 0 : current_task + 1;
+    }
+
+    return 0;
+}
+...
+</code></pre>
+
+<p>因此、mini-arm-os 的《第 5 單元》就是 [05-TimerInterrupt] ，先介紹一個簡易的時間中斷範例，然後再放入原本的作業系統裡面，</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

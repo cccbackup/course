@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../Verilog.html" alt="">Verilog</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 繪圖加速功能 (Graphics) </h2>
+
+<p>在 3D 的遊戲或動畫的運算當中，經常要計算向量的加法、內積的浮點數運算，而且這些運算通常獨立性很高，可以採用平行的方式計算，所以就需要在繪圖處理器 GPU 當中內建很多平行的向量式浮點運算器來加速此一計算過程。</p>
+
+<p>舉例而言，當我們想計算下列的 N 維向量加法時，如果採用 GPU 就會快上很多：</p>
+
+<pre class="code"><code class="CPP">for (i=0; i&lt;N; i++)
+  C[i] = A[i]+B[i];
+</code></pre>
+
+<p>當這樣的程式被放到 GPU 去執行時，可能會翻譯出如下的組合語言。</p>
+
+<pre class="code"><code class="">        LD             R1, N
+        LD            R2, A
+        LD            R3, B
+        LD            R4, C
+LOOP:    VectorLoad    V2, [R2]
+        VectorLoad  V3, [R3]
+        VectorAdd   V4, V2, V3
+        VectorStore V4, [R4]
+        ADD            R2, R2, 4*L
+        ADD            R3, R3, 4*L
+        ADDd        R4, R4, 4*L
+        SUB            R5, R5, L
+        CMP            R5, R0
+        JGE            LOOP
+</code></pre>
+
+<p>如果上述 GPU 的一次可以計算的浮點長度為 L 個，那麼整個計算幾乎就可以快上 L 倍了。</p>
+
+<p>GPU 通常有著與 CPU 不同的指令集，像是 GPU 大廠 NVIDIA 的 CUDA 就是一種 GPU 指令集， NVIDIA 甚至還為 CUDA 設計了一種擴充式的 C 語言 -- 稱為 CUDA C，這種 C 語言可以用標記指定哪些部份應該展開到 CPU 當中，哪些應該展開到 GPU 當中，以及如何有效的運用 GPU 進行向量計算等等。甚至、 CUDA 還提供了專用的函式庫，以便讓 CUDA C 能夠方便的呼叫這些常用的繪圖函數。</p>
+
+<p>另外、為了讓各家廠商的 CPU 與 GPU 可以更有效的合作，甚至有組織制定了一種稱為 OpenCL 的標準，可以讓各家廠商的 CPU 與 GPU 可以在一個標準架構下進行協同運算，以便有效的運用這些異質處理器的效能。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

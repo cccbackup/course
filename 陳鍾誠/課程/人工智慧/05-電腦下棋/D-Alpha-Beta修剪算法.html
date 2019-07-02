@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../05-電腦下棋.html" alt="">05-電腦下棋</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> Alpha-Beta 修剪法</h2>
+
+<p>您可以看到 Min-Max 對每個節點都進行遞迴展開，這種展開的數量是很龐大的，因此即使電腦非常快也展開不了幾層，所以我們必須透過「Alpha-Beta 修剪法」減少展開的數量，以下是一個範例。</p>
+
+<p><figure>
+  <img src="./img/AlphaBetaExample.jpg" alt=""></img>
+<figcaption>圖、 Alpha-Beta 修剪法的範例</figcaption></figure>
+</p>
+
+<p>在上圖中，請注意上面 Min 層的 5 節點，您可以看到當該節點最左邊子樹的分數 5 已經計算出來後，由於 5 比 8 還小，因此不管後面的節點分數為多少，都不可能讓其父節點變得比 5 還要大，所以右邊的子樹都可以不用再計算了，這就是 Alpha-Beta 修剪法的原理。</p>
+
+<p>「Alpha-Beta 修剪法」其實是「Min-Max 對局搜尋法」的一個修改版，主要是在 Min-Max 當中加入了 α 與 β 兩個紀錄值，用來做為是否要修剪的參考標準，演算法如下所示。</p>
+
+<pre class="code"><code class="javascript">function alphabeta(node, depth, α, β, maximizingPlayer)
+     if depth = 0 or node is a terminal node
+         return the heuristic value of node
+     if maximizingPlayer
+         for each child of node
+             α := max(α, alphabeta(child, depth - 1, α, β, FALSE))
+             if β ≤ α
+                 break (* β cut-off *)
+         return α
+     else
+         for each child of node
+             β := min(β, alphabeta(child, depth - 1, α, β, TRUE))
+             if β ≤ α
+                 break (* α cut-off *)
+         return β
+         
+(* Initial call for maximizing player *)
+alphabeta(origin, depth, -∞, +∞, TRUE)
+</code></pre>
+
+<h3> 結語</h3>
+
+<p>當然、 Alpha-Beta 修剪法並不保證能將對局樹修剪得非常小，而且樹的大小會與拜訪的順序有關，如果希望樹可以比較小的話，應當從「對我方分數最高、對敵方分數最低」的節點開始處理，這樣才能有效的降低整棵對局搜尋樹的大小。</p>
+
+<h3> 參考文獻</h3>
+<ul>
+    <li><a href="http://en.wikipedia.org/wiki/Minimax" alt="">Wikipedia:Minimax</a></li>
+    <li><a href="http://en.wikipedia.org/wiki/Alpha-beta_pruning" alt="">Wikipedia:Alpha–beta pruning</a></li>
+</ul>
+<p>【本文由陳鍾誠取材並修改自 [維基百科]，採用創作共用的 [姓名標示、相同方式分享] 授權】</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

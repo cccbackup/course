@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../10-機器學習.html" alt="">10-機器學習</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 馬可夫語言產生器</h2>
+
+<h3> 用馬可夫鏈產生語法</h3>
+
+<pre class="code"><code class="javascript">/* N    V     P
+N  0.3  0.5   0.2
+V  0.7  0.1   0.2
+P  0.6  0.1   0.3 */
+
+var Q = [
+    [0.3, 0.5, 0.2],
+    [0.7, 0.1, 0.2],
+    [0.6, 0.1, 0.3]
+];
+
+var states = ["N", "V", "P"];
+
+function genState(state) {
+    var r = Math.random();
+    var psum = 0;
+    for (var toState=0; toState&lt;Q[state].length; toState++) {
+        psum += Q[state][toState];
+        if (r &lt; psum) {
+            return toState;
+        }
+    }
+}
+
+function markov(state, max) {
+    var sequence=[];
+    for (var t=0; t&lt;max; t++) {
+        sequence.push(states[state]);
+        var state = genState(state);
+    }
+    return sequence;
+}
+
+console.log(markov(0, 100).join(''));
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">nqu-192-168-61-142:jscode mac020$ node genMarkov
+NVNVNVPPNVVNNVNNVNNNVNVNNNVNVNVPNVNVNVNNVNVNNVNPNVNVNPVNPVNVNNPNVNNNNVNVNPPNNNVNPNVPNNNNNNNNNVNNVNVP
+</code></pre>
+
+<h3> 用馬可夫鏈產生語句</h3>
+
+<p>人貓魚的世界</p>
+
+<pre class="code"><code class="">名詞："人", "貓", "魚"
+動詞："養", "吃", "追", "餵"
+量詞："隻", "位", "條"
+定詞："這", "那", "一" 
+</code></pre>
+
+<p>程式碼</p>
+<p></p>
+
+<pre class="code"><code class="">// VN 無法連上的問題
+
+var R=require("./randomLib");
+
+var WordsMap = {
+  "N":["人", "貓", "魚"],
+  "V":["吃", "追", "餵"],
+  "Q":["隻", "個", "條"],
+  "D":["這", "那", "一" ]
+};
+
+var QMap = {
+  "QN":[
+  [0.05, 0.90, 0.05],  // 隻
+  [0.90, 0.05, 0.05],  // 個
+  [0.05, 0.05, 0.90]], // 條
+//  人     貓    魚 
+  "VN":[
+  [0.05, 0.05, 0.90],  // 吃
+  [0.40, 0.50, 0.10],  // 追
+  [0.20, 0.40, 0.40]], // 餵
+//  人     貓    魚 
+  "NV":[
+  [0.30, 0.30, 0.40],  // 人
+  [0.50, 0.45, 0.05],  // 貓
+  [0.50, 0.45, 0.05]]  // 魚
+//  吃     追    餵
+};
+
+function genState(state, Q) {
+  var r = Math.random();
+  var psum = 0;
+  for (var toState=0; toState&lt;Q[state].length; toState++) {
+    psum += Q[state][toState];
+    if (r &lt; psum) {
+      return toState;
+    }
+  }
+}
+
+var _tags  = [ "" ];
+var _words = [ "" ];
+
+function S() {
+  NP(); VP();
+}
+
+function NP() {
+  D(); Q(); N();
+}
+
+function VP() {
+  V(); NP();
+}
+
+function genWord(tag) {
+  var words     = WordsMap[tag];
+  var lastTag   = _tags[_tags.length-1];
+  var lastWord  = _words[_words.length-1];
+    var tag2      = lastTag+tag;
+    var Qt        = QMap[tag2];
+//  console.log("tag2=", tag2, "Qt=", Qt);
+    var word;
+    if (typeof Qt !== 'undefined') {
+      var lastWords = WordsMap[lastTag];
+      var lastState = lastWords.indexOf(lastWord);
+      state = genState(lastState, Qt)
+      word = words[state];
+//      console.log(tag2, "=&gt;", lastWord, word);
+    } else {
+        word = R.sample(words);
+    }
+  _tags.push(tag);
+  _words.push(word);
+}
+
+function N() { return genWord("N"); }
+
+function V() { return genWord("V"); }
+
+function Q() { return genWord("Q"); }
+
+function D() { return genWord("D"); }
+
+S();
+
+console.log(_words.join(''));
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">那條魚追那條人
+nqu-192-168-61-142:jscode mac020$ node genGrammarMarkov2
+那隻貓吃一條魚
+nqu-192-168-61-142:jscode mac020$ node genGrammarMarkov2
+一條魚吃這條魚
+nqu-192-168-61-142:jscode mac020$ node genGrammarMarkov2
+一個人餵這條魚
+nqu-192-168-61-142:jscode mac020$ node genGrammarMarkov2
+一條魚追一條魚
+nqu-192-168-61-142:jscode mac020$ node genGrammarMarkov2
+一條魚吃這隻貓
+nqu-192-168-61-142:jscode mac020$ node genGrammarMarkov2
+那條貓吃這條魚
+nqu-192-168-61-142:jscode mac020$ node genGrammarMarkov2
+一隻貓吃那條魚
+
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

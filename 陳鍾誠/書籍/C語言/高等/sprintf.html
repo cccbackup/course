@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1>sprintf 函數 — sprintf 是很好用的格式化工具。</h1>
+
+<p>sprintf() 函數是C 語言用來格式化的主要方法，其函數原形如下所示。由於其中的格式化參數稍微複雜，因此很多學習者並不知道該如何正確的使用這些格式化參數。</p>
+
+<pre class="code"><code class="c">int sprintf ( char * str, const char * format, ... );
+
+str: 格式化後的輸出字串
+format：格式化的規格字串
+
+在 format 字串中，以 % 起頭者為格式段落，其格式語法如下：
+
+格式段落的語法：%[flags][width][.precision][length]specifier
+
+  % 代表變數開始
+
+  [flag] 
+    -:靠左
+    +:輸出正負號
+    (space):當不輸出正負號時，就輸出空白
+    #:在 8 或 16 進位 (o,x,X) 時，強制輸出 0x 作為開頭，
+      在浮點數 (e, E, f) 時，強制輸出小數點，
+      在浮點數 (g, G) 時，強制輸出小數點，但尾端的 0 會被去掉。
+    0:在開頭處(左側) 補 0，而非補空白。
+
+  [width] 
+  最小輸出寬度 (或 *)
+
+  [.precision]
+  精確度，小數點之後的輸出位數
+
+  [length]
+  長度符號 h, I, L
+
+  [specifier]
+  型態描述元，可以是 c, d, e, E, f, g, G, o, s, u, x, X 等基本型態。
+  sprintf() 函數的用法與 printf() 很類似，只是第一個參數為輸出字串 str 而已，為了說明這些格式的意義，我們寫了以下程式，以示範 format 欄位的各種寫法。
+</code></pre>
+
+<p><strong>檔案：printf.c</strong></p>
+
+<pre class="code"><code class="c">#include &lt;stdio.h&gt;
+
+int main()
+{
+   printf ("Characters: %c %c \n", 'a', 65);
+   printf ("Decimals: %d %ld\n", 1977, 650000L);
+   printf ("Preceding with blanks: %10d \n", 1977);
+   printf ("Preceding with zeros: %010d \n", 1977);
+   printf ("Some different radixes: %d %x %o %#x %#o \n", 100, 100, 100, 100, 100);
+   printf ("floats: %4.2f %+.0e %E \n", 3.1416, 3.1416, 3.1416);
+   printf ("Width trick: %*d \n", 5, 10);
+   printf ("%s \n", "A string");
+   return 0;
+}
+</code></pre>
+
+<p><strong>以上程式的輸出結果：</strong></p>
+
+<pre class="tab">D:\cp\code>gcc printf.c -o printf
+
+D:\cp\code>printf
+Characters: a A
+Decimals: 1977 650000
+Preceding with blanks:       1977
+Preceding with zeros: 0000001977
+Some different radixes: 100 64 144 0x64 0144
+floats: 3.14 +3e+000 3.141600E+000
+Width trick:    10
+A string
+</pre>
+<h3>參考文獻</h3>
+
+<ul>
+    <li><a href="http://www.cplusplus.com/reference/clibrary/cstdio/sprintf/">http://www.cplusplus.com/reference/clibrary/cstdio/sprintf/</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

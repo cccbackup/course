@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../網站設計.html" alt="">網站設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> Node.js 檔案函式庫</h2>
+
+<p>Node.js 平台所提供的函式庫，除了和網站設計有關的部分之外，還有一些是和輸出入有關的功能，這類輸出入功能是不能在瀏覽器內使用的，因此也沒有被包含到 JavaScript 的標準函式庫中，但在本書中我們會常常使用到，您可以從 node.js 官網當中閱讀有關這些函數的 API (Application Interface)</p>
+
+<ul>
+    <li>node.js 的官方系統 API 位於</li>
+    <li><a href="https://nodejs.org/api/">https://nodejs.org/api/</a></li>
+</ul>
+<p>建議讀者可以花些時間看看上述這些比較常用且重要的函式庫，先瀏覽之後建立一點概念就行了，這樣等到你需要用到時，就會知道去哪裡找出你要的函數了。</p>
+
+<p>除此之外，開放原始碼社群，像是 node.js 官方的 npm 套件管理器當中，還包含了數十萬個套件供您使用，因此我們可以使用的資源是非常多的。</p>
+
+<p>當然、我們不可能把這些套件通通都看過，甚至連列出來都有困難，因此我們必須學習如何尋找出需要的套件，這樣的能力在這個開放原始碼主導的程式世界裏，變得愈來愈重要了！</p>
+
+<h3> 檔案與輸出入</h3>
+
+<p>由於 JavaScript 語言一開始是內嵌在《網頁》裡面使用的，所以《預設函式庫》裏沒有檔案輸出入的功能，但是 node.js 系統裏提供了很多檔案相關的功能可以使用。</p>
+
+<p>接下來這段解釋我們用了很多專有名詞，如果看不懂也沒關係，看不懂就把它當成《克林貢外星語》直接跳過好了！</p>
+
+<blockquote>
+<p> Node.js 的檔案輸出入設計非常的特別，這是因為 node.js 一開始就希望能夠作為有效率的 server 程式框架，因此檔案輸出入通常都採用《非同步》(non synchronize) 的模式，這種方式通常採用《非阻斷》(non blocking) 的執行法，然後大量利用《回呼函數》(callback function) 的方式呼叫，這種方法可以不需要採用《線程》(執行緒, thread) 或《多行程》(multiprocess) 就可以非常有效的扮演好 server 的角色，但是卻付出了對應的代價，那就是程式碼會變得很難看。</p>
+<p> </p>
+<p> 還好很多技術可以讓你稍微緩解《這種由回乎所造成的程式碼難看問題》，像是 async、promise、yield/generator 等等</p>
+<p> </p>
+<p> 如果你真的不想用回呼版本的呼叫， node.js 裏也通常提供了《同步》(synchronous) 版本，只是該版本的函數名稱會比較長，而且會因為《阻斷性呼叫》(blocking) 而造成效能上的問題而已，這對初學者而言，有時候是可以接受的。</p>
+</blockquote>
+
+<p>講了這麼多《克林貢外星語》，還是讓我們真正來看一些程式好了，等看完程式之後，你再回過頭來看這段描述，可能就比較能理解了！</p>
+
+<h3> 檔案讀取</h3>
+
+<p>檔案：readfile.js</p>
+
+<pre class="code"><code class="javascript">var fs = require('fs'); // 引用檔案物件
+var data = fs.readFileSync(process.argv[2], "utf8"); // 讀取檔案
+console.log(data); // 顯示在螢幕上
+</code></pre>
+
+<h3> 檔案讀取 (非阻斷回呼型)</h3>
+
+<p>檔案： readfileCallback.js</p>
+
+<pre class="code"><code class="javascript">var fs = require('fs'); // 引用檔案物件
+fs.readFile(process.argv[2], "utf8", function(err, data) {
+  console.log("data="+data);
+});
+console.log("----readFile End-----"); // 顯示在螢幕上
+</code></pre>
+
+<h3> 檔案寫入</h3>
+
+<p>檔案：copyfile.js</p>
+
+<pre class="code"><code class="javascript">var fs = require('fs');
+var data = fs.readFileSync(process.argv[2]);
+console.log(data);
+fs.writeFileSync(process.argv[3], data);
+</code></pre>
+
+<h3> 檔案寫入 (非阻斷回呼型)</h3>
+<p></p>
+
+<p>檔案：copyfileCallback.js</p>
+
+<pre class="code"><code class="javascript">var fs = require('fs');
+fs.readFile("copyfileCallback.js", "utf8", function(err, data) {
+  console.log('讀取完成！');
+  fs.writeFile("copyfileCallback.js2",  data, function(err) {
+    console.log('寫入完成!');
+  });
+});
+</code></pre>
+
+<h3> 多層回呼</h3>
+
+<p>檔案：copyfile2.js</p>
+
+<pre class="code"><code class="javascript">var fs = require('fs');
+var data = fs.readFileSync('copyfile2.js');
+console.log("=======copyfile.js========");
+console.log(data.toString());
+fs.writeFileSync("copyfile2.js2", data);
+var data2 = fs.readFileSync("copyfile2.js2");
+console.log("=======copyfile2.js========");
+console.log(data.toString());
+fs.writeFileSync("copyfile2.js3", data);
+</code></pre>
+
+<p>檔案：copyfileCallback2.js</p>
+
+<pre class="code"><code class="javascript">var fs = require('fs');
+fs.readFile("copyfileCallback2.js", "utf8", function(err, data) {
+  console.log('讀取完成!');
+  fs.writeFile("copyfileCallback2.js2",  data, function(err) {
+    console.log('寫入完成!');
+    fs.readFile("copyfileCallback2.js2", "utf8", function(err, data) {
+      console.log('又讀取完成 !');
+      fs.writeFile("copyfileCallback2.js3",  data, function(err) {
+        console.log('又寫入完成!');
+      });
+    });
+  });
+});
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\Dropbox\cccwd2\file\jsh\code\file&gt;node copyfileCallback2.js
+讀取完成!
+寫入完成!
+又讀取完成 !
+又寫入完成!
+</code></pre>
+
+<h3> 使用 yield 避免多層式回呼</h3>
+
+<p>檔案： copyfileYield2.js</p>
+
+<pre class="code"><code class="">var fs = require('mz/fs');
+var co = require('co');
+
+co(function*() {
+  var data1=yield fs.readFile("copyfileYield2.js", "utf8");
+  console.log('讀取完成!');
+  yield fs.writeFile("copyfileYield2.js2", data1);
+  console.log('寫入完成!');
+  var data2 = yield fs.readFile("copyfileYield2.js2", "utf8");
+  console.log('又讀取完成 !');
+  yield fs.writeFile("copyfileYield2.js3", data2);
+  console.log('又寫入完成!');
+});
+
+</code></pre>
+<p></p>
+
+<p>執行本範例前必須先安裝 co 與 mz 套件</p>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\Dropbox\cccwd2\file\jsh\code\file&gt;npm install co
+D:\Dropbox\cccwd2\file\jsh\code\file&gt;npm install mz
+D:\Dropbox\cccwd2\file\jsh\code\file&gt;node copyfileYield2
+讀取完成!
+寫入完成!
+又讀取完成 !
+又寫入完成!
+</code></pre>
+
+<h3> 使用 Async 避免多層回呼</h3>
+
+<p>檔案： copyFileAsync2.js</p>
+
+<pre class="code"><code class="javascript">var fs = require('fs');
+var async = require('async');
+var text = null;
+
+async.series([
+  function(callback) {
+    fs.readFile("copyfileAsync2.js", "utf8", function(err, data) { 
+      console.log('讀取完成!!');
+            text = data;
+      callback();
+    })
+  },
+  function(callback) {
+    fs.writeFile("copyfileAsync2.js2",  text, function(err) {
+      console.log('寫入完成!');
+      callback();
+    })
+  },
+  function(callback) {
+    fs.readFile("copyfileAsync2.js2", "utf8", function(err, data) {
+      console.log('又讀取完成 !');
+            text = data;
+      callback();
+    })
+  },
+  function(callback) {
+    fs.writeFile("copyfileAsync2.js3",  text, function(err) {
+      console.log('又寫入完成!');
+      callback();
+    })
+  }
+], function done() {
+  console.log('全部完成！');
+});
+</code></pre>
+
+<p>執行本範例前必須先安裝 async 套件！</p>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\Dropbox\cccwd2\file\jsh\code\file&gt;npm install async
+D:\Dropbox\cccwd2\file\jsh\code\file&gt;node copyfileAsync2.js
+讀取完成!!
+寫入完成!
+又讀取完成 !
+又寫入完成!
+全部完成！
+</code></pre>
+
+<h3> 從鍵盤讀取輸入</h3>
+
+<p>參考 -- <a href="http://nodejs.org/api/readline.html">http://nodejs.org/api/readline.html</a></p>
+
+<p>檔案：readline.js (讀取一行)</p>
+
+<pre class="code"><code class="">var readline = require('readline');
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question("What do you think of node.js? ", function(answer) {
+  // TODO: Log the answer in a database
+  console.log("Thank you for your valuable feedback:", answer);
+
+  rl.close();
+});
+</code></pre>
+
+<p>檔案：readloop.js (讀取很多行)</p>
+
+<pre class="code"><code class="">var readline = require('readline');
+var rl = readline.createInterface(process.stdin, process.stdout);
+
+rl.setPrompt('OHAI&gt; ');
+rl.prompt();
+
+rl.on('line', function(line) {
+  switch(line.trim()) {
+    case 'hello':
+      console.log('world!');
+      break;
+    default:
+      console.log('Say what? I might have heard `' + line.trim() + '`');
+      break;
+  }
+  rl.prompt();
+}).on('close', function() {
+  console.log('Have a great day!');
+  process.exit(0);
+});
+</code></pre>
+
+<h3> 習題</h3>
+<ol>
+    <li>請設計一個程式，可以印出某資料夾中的所有檔案名稱。例如：</li>
+    <ul>
+        <li>$ node listdir.js somedir</li>
+        <li>這樣就會印出 somedir 中的所有檔案。</li>
+    </ul>
+    <li>請設計一個程式，可以把指定資料夾複製一份，到目標資料夾當中。例如：</li>
+    <ul>
+        <li>$ node copydir.js fromdir todir</li>
+        <li>這樣就會把 fromdir 內的所有內容，複製到 todir 當中</li>
+    </ul>
+    <li>請設計一個像 node shell 的交談環境程式</li>
+</ol>
+<p>解答：</p>
+
+<pre class="code"><code class="js">const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  prompt: '&gt; '
+});
+
+rl.prompt();
+
+rl.on('line', (line) =&gt; {
+  try {
+    console.log(eval(line));
+  } catch (e) {
+    console.error(e.stack);
+  }
+  rl.prompt();
+}).on('close', () =&gt; {
+  process.exit(0);
+});
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

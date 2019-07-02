@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../軟體工程.html" alt="">軟體工程</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 軟體工程</h2>
+
+<ol>
+    <li><a href="01-preface.html" alt="">簡介</a></li>
+    <li><a href="02-test.html" alt="">TDD 測試</a></li>
+    <li><a href="03-npm.html" alt="">NPM 套件</a></li>
+    <li><a href="04-git.html" alt="">GIT 合作</a></li>
+    <li><a href="05-quality.html" alt="">品質管控</a></li>
+    <li><a href="06-project.html" alt="">軟體專案</a></li>
+    <li><a href="07-analysis_.html" alt="">系統分析</a></li>
+    <li><a href="08-design_.html" alt="">系統設計</a></li>
+    <li><a href="09-implement.html" alt="">程式實作</a></li>
+    <li><a href="10-verify_.html" alt="">系統測試</a></li>
+    <li><a href="11-operation_.html" alt="">上線營運</a></li>
+</ol>
+<h2> 附錄</h2>
+<ol>
+    <li><a href="A1-uml_.html" alt="">UML 圖形建模</a></li>
+    <li><a href="A2-designPattern.html" alt="">JavaScript 的設計模式</a></li>
+    <li><a href="A3-refactor.html" alt="">Refactor 代碼重構</a></li>
+    <li><a href="rule.html" alt="">軟體法則</a></li>
+    <li><a href="reference.html" alt="">進階參考</a></li>
+</ol>
+<h2> 案例</h2>
+<ol>
+    <li><a href="C1-blogMvc_.html" alt="">經典網誌系統</a></li>
+    <li><a href="C2-blogAjax.html" alt="">AJAX網誌</a></li>
+    <li><a href="C3-WebPos_.html" alt="">WebPos系統</a></li>
+</ol>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 案例 2 -- AJAX 網誌</h2>
+
+<p>我們將前一個 <a href="https://github.com/cccbook/sejs/tree/master/project/blogMvc" alt="">BlogMVC 《簡易網誌系統》</a> 修改成為 Web2.0 作法的 AJAX
+系統，新專案網址如下：</p>
+
+<ul>
+    <li><a href="https://github.com/cccbook/sejs/tree/master/project/blogAjax">https://github.com/cccbook/sejs/tree/master/project/blogAjax</a></li>
+</ul>
+<p>其原始碼分為前端與後端，前後端之間透過 fetch API 以 JSON 格式進行溝通。</p>
+
+<h3> 後端: Server.js</h3>
+
+<p>後端 Server.js 的程式碼如下：</p>
+
+<ul>
+    <li><a href="https://github.com/cccbook/sejs/blob/master/project/blogAjax/server.js">https://github.com/cccbook/sejs/blob/master/project/blogAjax/server.js</a></li>
+</ul>
+<pre class="code"><code class="js">const logger = require('koa-logger')
+const router = require('koa-router')()
+const koaBody = require('koa-body')
+const koaJson = require('koa-json')
+const koaStatic = require('koa-static')
+
+const Koa = require('koa')
+const app = (module.exports = new Koa())
+
+// "database"
+
+const posts = [] // {id: 0, title: 'aaa', body: 'aaa'}, {id: 1, title: 'bbb', body: 'bbb'}
+
+// middleware
+
+app.use(logger())
+
+// app.use(render)
+
+app.use(koaBody())
+app.use(koaStatic('./public'))
+
+// route definitions
+
+router.get('/list', list).get('/post/:id', show).post('/post', create)
+
+app.use(router.routes())
+app.use(koaJson())
+
+/**
+ * Post listing.
+ */
+
+async function list (ctx) {
+  // console.log('list: posts=%j', posts)
+  ctx.body = posts
+}
+
+/**
+ * Show post :id.
+ */
+
+async function show (ctx) {
+  const id = ctx.params.id
+  const post = posts[id]
+  if (!post) ctx.throw(404, 'invalid post id')
+  ctx.body = post
+}
+
+/**
+ * Create a post.
+ */
+
+async function create (ctx) {
+  var post = JSON.parse(ctx.request.body)
+  const id = posts.push(post) - 1
+  console.log('create:id=&gt;', id)
+  console.log('create:get=&gt;', post)
+  post.created_at = new Date()
+  post.id = id
+  console.log('create:save=&gt;', post)
+  // ctx.redirect('/')
+}
+
+// listen
+if (!module.parent) {
+  app.listen(3000)
+  console.log('Server run at http://localhost:3000')
+}
+</code></pre>
+
+<h3> 前端: index.html</h3>
+
+<ul>
+    <li><a href="https://github.com/cccbook/sejs/blob/master/project/blogAjax/public/index.html">https://github.com/cccbook/sejs/blob/master/project/blogAjax/public/index.html</a></li>
+</ul>
+<pre class="code"><code class="html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;style&gt;
+      body {
+        padding: 80px;
+        font: 16px Helvetica, Arial;
+      }
+  
+      h1 {
+        font-size: 2em;
+      }
+  
+      h2 {
+        font-size: 1.2em;
+      }
+  
+      #posts {
+        margin: 0;
+        padding: 0;
+      }
+  
+      #posts li {
+        margin: 40px 0;
+        padding: 0;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        list-style: none;
+      }
+  
+      #posts li:last-child {
+        border-bottom: none;
+      }
+  
+      textarea {
+        width: 500px;
+        height: 300px;
+      }
+  
+      input[type=text],
+      textarea {
+        border: 1px solid #eee;
+        border-top-color: #ddd;
+        border-left-color: #ddd;
+        border-radius: 2px;
+        padding: 15px;
+        font-size: .8em;
+      }
+  
+      input[type=text] {
+        width: 500px;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;section id="content"&gt;
+    &lt;/section&gt;
+    &lt;script src="main.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h3> 前端： main.js</h3>
+
+<p>前端本身就採用 MVC 架構，程式碼如下：</p>
+
+<ul>
+    <li><a href="https://github.com/cccbook/sejs/blob/master/project/blogAjax/public/main.js">https://github.com/cccbook/sejs/blob/master/project/blogAjax/public/main.js</a></li>
+</ul>
+<pre class="code"><code class="js">const blog = {
+  controller : window,
+  view: {},
+  model: {}
+}
+
+// const R = {}
+
+window.onhashchange = async function () {
+  var r
+  var tokens = window.location.hash.split('/')
+  console.log('tokens=', tokens)
+  switch (tokens[0]) {
+    case '#show':
+      let post = await blog.model.getPost(tokens[1])
+      blog.view.show(post)
+      break
+    case '#new':
+      blog.view.new()
+      break
+    default:
+      let posts = await blog.model.list()
+      blog.view.list(posts)
+      break
+  }
+}
+
+window.onload = function () {
+  window.onhashchange()
+}
+
+blog.view.layout = function (title, content) {
+  document.querySelector('title').innerText = title
+  document.querySelector('#content').innerHTML = content
+}
+
+blog.view.list = function (posts) {
+  let list = []
+  for (let post of posts) {
+    list.push(`
+    &lt;li&gt;
+      &lt;h2&gt;${post.title}&lt;/h2&gt;
+      &lt;p&gt;&lt;a id="show${post.id}" href="#show/${post.id}"&gt;Read post&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    `)
+  }
+  let content = `
+  &lt;h1&gt;Posts&lt;/h1&gt;
+  &lt;p&gt;You have &lt;strong&gt;${posts.length}&lt;/strong&gt; posts!&lt;/p&gt;
+  &lt;p&gt;&lt;a id="createPost" href="#new"&gt;Create a Post&lt;/a&gt;&lt;/p&gt;
+  &lt;ul id="posts"&gt;
+    ${list.join('\n')}
+  &lt;/ul&gt;
+  `
+  return blog.view.layout('Posts', content)
+}
+
+blog.view.new = function () {
+  return blog.view.layout('New Post', `
+  &lt;h1&gt;New Post&lt;/h1&gt;
+  &lt;p&gt;Create a new post.&lt;/p&gt;
+  &lt;form&gt;
+    &lt;p&gt;&lt;input id="title" type="text" placeholder="Title" name="title"&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;textarea id="body" placeholder="Contents" name="body"&gt;&lt;/textarea&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input id="savePost" type="button" onclick="blog.model.savePost()" value="Create"&gt;&lt;/p&gt;
+  &lt;/form&gt;
+  `)
+}
+
+blog.view.show = function (post) {
+  return blog.view.layout(post.title, `
+    &lt;h1&gt;${post.title}&lt;/h1&gt;
+    &lt;p&gt;${post.body}&lt;/p&gt;
+  `)
+}
+
+blog.model.savePost = async function () {
+  let title = document.querySelector('#title').value
+  let body = document.querySelector('#body').value
+  let r = await window.fetch('/post', {
+    body: JSON.stringify({title: title, body: body}),
+    method: 'POST'
+  })
+  window.location.hash = '#list'
+  return r
+}
+
+blog.model.getPost = async function (id) {
+  let r = await window.fetch('/post/' + id)
+  let post = await r.json()
+  return post
+}
+
+blog.model.list = async function () {
+  let r = await window.fetch('/list/')
+  let posts = await r.json()
+  return posts  
+}
+</code></pre>
+
+<h3> 測試程式</h3>
+
+<p>由於 Web2.0 以 AJAX 的作法，有很多前端 JavaScript 程式，因此若用 supertest 只能測試到 server.js ，無法測試到前端的 main.js，因此我們得改用 Puppeteer 或 Selenium 這類的《無頭瀏覽器》(headless browser) 進行前端測試，在此我們採用 Puppeteer 示範：</p>
+
+<pre class="code"><code class="js">/* eslint-env mocha */
+const ok = require('assert').ok
+const app = require('./server').listen(3000)
+const puppeteer = require('puppeteer')
+var browser, page
+
+const opts = {
+  // headless: false,
+  slowMo: 100,
+  timeout: 10000
+}
+
+describe('blogAjax', function () {
+  before(async function () {
+    browser = await puppeteer.launch(opts)
+    page = await browser.newPage()
+  })
+  after(function () {
+    browser.close()
+    app.close()
+  })
+
+  describe('puppeteer', function () {
+    it('GET / should see &lt;p&gt;You have &lt;strong&gt;0&lt;/strong&gt; posts!&lt;/p&gt;', async function () {
+      await page.goto('http://localhost:3000', {
+        waitUntil: 'domcontentloaded'
+      })
+      let html = await page.content()
+      ok(html.indexOf('&lt;p&gt;You have &lt;strong&gt;0&lt;/strong&gt; posts!&lt;/p&gt;') &gt;= 0)
+    })
+    it('click createPost link', async function () {
+      await page.click('#createPost')
+      let html = await page.content()
+      ok(html.indexOf('&lt;h1&gt;New Post&lt;/h1&gt;') &gt;= 0)
+    })
+    it('fill {title:"aaa", body:"aaa"}', async function () {
+      await page.focus('#title')
+      await page.keyboard.type('aaa')
+      await page.focus('#body')
+      await page.keyboard.type('aaa')
+      await page.click('#savePost')
+    })
+    it('should see &lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt;', async function () {
+      let html = await page.content()
+      ok(html.indexOf('&lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt;') &gt;= 0)
+    })
+    it('should see &lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt;', async function () {
+      await page.click('#show0')
+      let html = await page.content()
+      ok(html.indexOf('&lt;h1&gt;aaa&lt;/h1&gt;') &gt;= 0)
+    })
+  })
+})
+</code></pre>
+
+<p>測試結果如下：</p>
+
+<pre class="code"><code class="">PS D:\ccc\book\sejs\project\blogAjax&gt; npm run test
+
+&gt; blogajax@0.0.1 test D:\ccc\book\sejs\project\blogAjax
+&gt; mocha --timeout 100000
+
+  blogAjax
+    puppeteer
+  &lt;-- GET /
+  --&gt; GET / 200 317ms 1.04kb
+  &lt;-- GET /main.js
+  --&gt; GET /main.js 200 252ms 2.33kb
+  &lt;-- GET /list/
+  --&gt; GET /list/ 200 10ms 2b
+      √ GET / should see &lt;p&gt;You have &lt;strong&gt;0&lt;/strong&gt; posts!&lt;/p&gt; (1338ms)
+      √ click createPost link (880ms)
+  &lt;-- POST /post
+create:id=&gt; 0
+create:get=&gt; { title: 'aaa', body: 'aaa' }
+create:save=&gt; { title: 'aaa',
+  body: 'aaa',
+  created_at: 2018-11-09T08:18:45.382Z,
+  id: 0 }
+  --&gt; POST /post 404 133ms -
+  &lt;-- GET /list/
+  --&gt; GET /list/ 200 5ms 77b
+      √ fill {title:"aaa", body:"aaa"} (2849ms)
+      √ should see &lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt; (105ms)
+  &lt;-- GET /post/0
+  --&gt; GET /post/0 200 6ms 75b
+      √ should see &lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt; (680ms)
+
+
+  5 passing (15s)
+</code></pre>
+
+<p>由於 Puppeteer 包含了一整個瀏覽器在裡面，啟動和執行速度都比較慢，因此在測試時會被 mocha 誤認為當機超時，所以必須要加入 --timeout 參數，才不會因測試太久而導致失敗！</p>
+
+<p>所以我們在 package.json 裏的測試指令是： mocha --timeout 100000，完整的 package.json 如下所示：</p>
+
+<ul>
+    <li><a href="https://github.com/cccbook/sejs/blob/master/project/blogAjax/package.json">https://github.com/cccbook/sejs/blob/master/project/blogAjax/package.json</a></li>
+</ul>
+<pre class="code"><code class="json">{
+  "name": "blogajax",
+  "version": "0.0.1",
+  "description": "AJAX 型的網誌",
+  "main": "server.js",
+  "dependencies": {
+    "koa": "^2.5.3",
+    "koa-body": "^4.0.4",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^1.9.0"
+  },
+  "scripts": {
+    "test": "mocha --timeout 100000",
+    "start": "node server.js"
+  },
+  "author": "ccc",
+  "license": "MIT"
+}
+</code></pre>
+
+<h3> 結語</h3>
+
+<p>有了 Puppeteer 這樣的測試工具，我們就可以完整的測試前後端的程式碼，而不需總是用人手動花費大量時間去進行測試了！</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../網站設計.html" alt="">網站設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 採用表單方式的通訊範例</h2>
+
+<p>採用表單傳遞訊息的範例請參考 Koa 當中的 Blog 範例，其中的 new 功能就有用表單：</p>
+
+<ul>
+    <li><a href="https://github.com/ccckmit/f6/tree/master/web/ex4-blogInServer">https://github.com/ccckmit/f6/tree/master/web/ex4-blogInServer</a></li>
+</ul>
+<p>程式碼：前端發送部分 -- <a href="https://github.com/koajs/examples/blob/master/blog/views/new.html">https://github.com/koajs/examples/blob/master/blog/views/new.html</a></p>
+
+<pre class="code"><code class="js">  &lt;h1&gt;New Post&lt;/h1&gt;
+  &lt;p&gt;Create a new post.&lt;/p&gt;
+  &lt;form action="/post" method="post"&gt;
+    &lt;p&gt;&lt;input type="text" placeholder="Title" name="title"&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;textarea placeholder="Contents" name="body"&gt;&lt;` + `/textarea&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="submit" value="Create"&gt;&lt;/p&gt;
+  &lt;/form&gt;
+</code></pre>
+
+<p>程式碼：後端接收部分 -- <a href="https://github.com/koajs/examples/blob/master/blog/app.js">https://github.com/koajs/examples/blob/master/blog/app.js</a></p>
+
+<pre class="code"><code class="js">router
+  .get('/', list)
+  .get('/post/new', add)
+  .get('/post/:id', show)
+  .post('/post', create)
+...
+
+async function create (ctx) {
+  var post = ctx.request.body
+  var id = posts.push(post) - 1
+  post.created_at = new Date()
+  post.id = id
+  ctx.redirect('/')
+}
+</code></pre>
+
+<p>由於 koa 已經更新到 2.0 並支持 async/await 的語法，因此我為 koa 做了一些新的範例，請參考 f6 專案。</p>
+
+<ul>
+    <li><a href="https://github.com/ccckmit/f6">https://github.com/ccckmit/f6</a></li>
+</ul>
+<p>以下是另外幾篇相關的文章僅供參考！</p>
+
+<ul>
+    <li><a href="https://weblogs.asp.net/shijuvarghese/a-simple-crud-demo-with-koa-js" alt="">A Simple CRUD Demo with Koa.js</a></li>
+    <li><a href="https://www.sitepoint.com/creating-and-handling-forms-in-node-js/" alt="">Creating and Handling Forms in Node.js</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

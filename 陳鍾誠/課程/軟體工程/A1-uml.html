@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../軟體工程.html" alt="">軟體工程</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 軟體工程</h2>
+
+<ol>
+    <li><a href="01-preface.html" alt="">簡介</a></li>
+    <li><a href="02-test.html" alt="">TDD 測試</a></li>
+    <li><a href="03-npm.html" alt="">NPM 套件</a></li>
+    <li><a href="04-git.html" alt="">GIT 合作</a></li>
+    <li><a href="05-quality.html" alt="">品質管控</a></li>
+    <li><a href="06-project.html" alt="">軟體專案</a></li>
+    <li><a href="07-analysis_.html" alt="">系統分析</a></li>
+    <li><a href="08-design_.html" alt="">系統設計</a></li>
+    <li><a href="09-implement.html" alt="">程式實作</a></li>
+    <li><a href="10-verify_.html" alt="">系統測試</a></li>
+    <li><a href="11-operation_.html" alt="">上線營運</a></li>
+</ol>
+<h2> 附錄</h2>
+<ol>
+    <li><a href="A1-uml_.html" alt="">UML 圖形建模</a></li>
+    <li><a href="A2-designPattern.html" alt="">JavaScript 的設計模式</a></li>
+    <li><a href="A3-refactor.html" alt="">Refactor 代碼重構</a></li>
+    <li><a href="rule.html" alt="">軟體法則</a></li>
+    <li><a href="reference.html" alt="">進階參考</a></li>
+</ol>
+<h2> 案例</h2>
+<ol>
+    <li><a href="C1-blogMvc_.html" alt="">經典網誌系統</a></li>
+    <li><a href="C2-blogAjax.html" alt="">AJAX網誌</a></li>
+    <li><a href="C3-WebPos_.html" alt="">WebPos系統</a></li>
+</ol>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> UML</h2>
+
+<h3> PlantUML</h3>
+
+<blockquote>
+<p> 參考: </p>
+<p> </p>
+<p> 1. <a href="http://ogom.github.io/draw_uml/plantuml/" alt="">Cheetsheet -- PlantUML 的快速學習小抄</a></p>
+<p> 2. <a href="http://plantuml.com/">http://plantuml.com/</a></p>
+</blockquote>
+
+<h3> 使用個案</h3>
+
+<pre class="code"><code class="puml">@startuml
+left to right direction
+actor 客戶接待
+actor 客戶
+rectangle 訂單建立 {
+  客戶 -- (創建訂單)
+  客戶 -- (檢查訂單)
+  客戶 -- (修改訂單)
+  客戶 -- (確認訂單)
+  客戶接待 -up- (創建訂單)
+  客戶接待 -up- (檢查訂單)
+  客戶接待 -up- (修改訂單)
+  客戶接待 -up- (確認訂單)
+}
+
+actor 倉庫管理員
+actor 運送公司
+actor 會計系統
+actor 庫存系統
+rectangle 訂單處理 {
+  倉庫管理員 -- (寄送 email)
+  倉庫管理員 -- (填寫產品)
+  運送公司 -- (出貨運送)
+  會計系統 -- (信用查核)
+  會計系統 -- (收費)
+  庫存系統 -- (檢查存貨)
+}
+
+@enduml
+</code></pre>
+
+<p>顯示結果</p>
+
+<p><figure>
+  <img src="./img/UmlUseCase.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<h3> 活動圖</h3>
+
+<p>有泳道 (Swimlane) 的活動圖：</p>
+
+<pre class="code"><code class="puml">@startuml
+|Swimlane1|
+start
+:foo1;
+|#AntiqueWhite|Swimlane2|
+:foo2;
+:foo3;
+|Swimlane1|
+:foo4;
+|Swimlane2|
+:foo5;
+stop
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlUseCaseSwimlane1.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>更詳細的案例：</p>
+
+<pre class="code"><code class="puml">@startuml
+|顧客|
+  start
+  :創建訂單;
+|顧客接待|
+  :檢查訂單;
+fork
+  |會計系統|
+  :信用查核;
+  if (信用良好?) then (是)
+  else (否)
+    |顧客接待|
+    :拒絕訂單;
+    stop
+  endif
+fork again
+  |庫存系統|
+  :檢查庫存;
+  if (庫存足夠?) then (是)
+  else (否)
+    |倉庫管理員|
+    :取消訂單;
+    stop
+  endif
+end fork
+|顧客|
+  if (是否改單?) then (是)
+    :修改訂單;
+  else (否)
+  endif
+|顧客接待|
+  :確認訂單;
+|倉庫管理員|
+  :貨品裝箱;
+fork
+  |倉庫管理員|
+  :寄送郵件;
+fork again
+  |會計系統|
+  :收費;
+fork again
+  |運送公司|
+  :出貨運送;
+  stop
+end fork
+|倉庫管理員|
+  stop
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlUseCaseSwimlane2.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<h3> Markdown Preview Enhanced</h3>
+
+<p>此 VsCode 的插件支援 PlantUML 的立即檢視與匯出。</p>
+
+<p>可以用 Ctrl-K-V 檢視某 .md 檔案，會顯示成排版後的網頁結果。</p>
+
+<p>在該結果視窗按下滑鼠右鍵，會顯示功能表，按下 Save as Markdown 會將 xxx.md 另存為 xxx_.md，該檔案內的 puml 程式框就會被轉換為圖片存在 /assets/ 資料夾下。</p>
+
+<p>我們可以用 vscode/Edit/Replace in Files 作全部檔案的字串取代，例如：</p>
+
+<blockquote>
+<p> ../assets/ 改為<a href="https://cccbook.github.io/sejs/docs/assets/">https://cccbook.github.io/sejs/docs/assets/</a></p>
+</blockquote>
+
+<p>這樣就可以將檔案存回 github/wiki 並且能成功地顯示圖片。</p>
+
+<h3> 問題</h3>
+
+<p>Save to Markdown 時會出現下列訊息:</p>
+<p></p>
+
+<p>Error: ImageMagick is required to be installed to convert svg to png.
+Error: Command failed: convert C:\Users\user\AppData\Local\Temp\mume-svg118101-892-1lp46he.gyxnf.svg D:\course\sejs\docs\assets\d6faad89f84acb96eff9da79e3cb1e620.png
+�ѼƵL�� - D:\course\sejs\docs\assets\d6faad89f84acb96eff9da79e3cb1e620.png</p>
+
+<p>結果發現 convert 指令後來被取代掉了，而且 windows 裏的 convert 是 FAT => NTFS 的用途。</p>
+
+<p>參考:</p>
+
+<ol>
+    <li><a href="https://www.imagemagick.org/discourse-server/viewtopic.php?t=29582">https://www.imagemagick.org/discourse-server/viewtopic.php?t=29582</a></li>
+    <li><a href="http://www.imagemagick.org/Usage/windows/#convert_issue">http://www.imagemagick.org/Usage/windows/#convert_issue</a></li>
+</ol>
+<p>這樣就沒辦法在 windows 裏正確使用 save markdown 的功能了。</p>
+
+<p>以上問題是因為灌錯 markdown preview enhanced 了，要用 json roger 的這個版本 <a href="https://github.com/shd101wyy/vscode-markdown-preview-enhanced/releases">https://github.com/shd101wyy/vscode-markdown-preview-enhanced/releases</a></p>
+
+<p>不能用 yiyi Wang 的版本。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

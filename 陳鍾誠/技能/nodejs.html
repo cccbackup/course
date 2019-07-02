@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../技能.html" alt="">技能</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> Node.js</h1>
+
+<h2> 基本用法</h2>
+
+<pre class="code"><code class="">$ node hello.js // 執行 hello.js
+</code></pre>
+
+<h2> 套件安裝</h2>
+
+<pre class="code"><code class="">$ npm i lodash // 安裝 lodash 套件
+</code></pre>
+
+<h2> 套件製作</h2>
+
+<pre class="code"><code class="">$ npm init // 這時會產生 package.json 檔案
+
+$ npm i lodash --save // 安裝套件 lodash 後修改 package.json
+
+$ npm publish ./   // 出版這個套件
+</code></pre>
+<p></p>
+
+<h2> 進階用法</h2>
+
+<ol>
+    <li>用 mocha 測試</li>
+    <li>用 puppeteer 做 e2e 網站測試</li>
+    <li>用 istanbul 做涵蓋度測試</li>
+    <li>用 node-inspector 除錯 (v8-inspector, node debug 也行)</li>
+    <li>用 node --prof hello.js 做效能測試</li>
+    <ul>
+        <li>然後用 node --prof-process *.log > prof.log 產生報表</li>
+    </ul>
+</ol>
+<h2> 網站設計</h2>
+
+<ol>
+    <li>用 koa (或 express) 建構 Server</li>
+    <li>用 MongoDB (或 MySQL) 當資料庫</li>
+</ol>
+<h2> 延伸工具</h2>
+
+<ol>
+    <li>用 babel 轉換新語法到舊語法</li>
+    <li>用 sass 將多個 scss 檔案合併為一個 css</li>
+    <li>純前端可用 github pages 架站</li>
+    <li>有後端得搭配 linode 之類的雲端架站 (需付費，每月最低五元美金)</li>
+</ol>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

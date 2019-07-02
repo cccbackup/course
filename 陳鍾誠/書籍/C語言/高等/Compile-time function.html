@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 編譯時期函數 -- #define, #undef, defined(), #error, #line, …</h2>
+<p></p>
+<p></p>
+
+<p>在 C 語言的巨集處理器當中，常用的編譯時期函數有 defined(), #error, #warning, #pragma，以下我們將介紹這些編譯時期函數的用法。</p>
+
+<p>defined() : 檢查某的巨集定義是否被定義了，通常與 #if 合用，像是 #if defined(OS) ...</p>
+
+<pre class="code"><code class="">    #error : 在編譯時，輸出錯誤訊息，警告使用者某些錯誤，並且不會真的進行編譯，在巨集處理階段就會停止。
+
+    #warning:在編譯時，輸出警告訊息，警告使用者某些注意事項，但是不會中止編譯，仍然會繼續編譯出目的檔。
+
+    #pragma: 用來告知編譯器某些特殊指示，例如不要輸出錯誤訊息，抑制警告訊息，或者加上記憶體漏洞檢查機制等。
+</code></pre>
+
+<p>雖然 #error 與 #warning 後的訊息並不需要加上字串式的引號，但是建議最好還是加上，以避免特殊符號所產生的一些問題，導致巨集處理器的誤解。以下是這兩種狀況。</p>
+
+<p>不好：#warning Do not use ABC, which is deprecated. Use XYZ instead.</p>
+
+<p>較好：#warning "Do not use ABC, which is deprecated. Use XYZ instead."</p>
+
+<p><strong>程式範例</strong></p>
+
+<p>檔案：macroFunc.c</p>
+
+<pre class="code"><code class="C">    #include &lt;stdio.h&gt;
+
+    #if !defined( HELLO_MESSAGE )
+       # error "You have forgotten to define the header file name."
+    #endif
+
+    char *format = "%s",
+         *hello = HELLO_MESSAGE;
+
+    int main() {
+
+      printf ( format, hello );
+
+    }
+</code></pre>
+
+<p><strong>執行結果</strong></p>
+
+<pre class="code"><code class="">    D:\cp&gt;gcc macroFunc.c -o macroFunc
+    macroFunc.c:4:6: #error "You have forgotten to define the header file name."
+    macroFunc.c:8: error: `HELLO_MESSAGE' undeclared here (not in a function)
+
+    D:\cp&gt;gcc -DHELLO_MESSAGE=\"Hello!\" macroFunc.c -o macroFunc
+
+    D:\cp&gt;macroFunc
+    Hello!
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

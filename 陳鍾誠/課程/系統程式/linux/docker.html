@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../系統程式.html" alt="">系統程式</a> / <a href="../linux.html" alt="">linux</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> 計算機結構</h6>
+<ul>
+    <li><a href="01-gate.html" alt="">01-邏輯閘</a></li>
+    <li><a href="02-alu.html" alt="">02-算術邏輯</a></li>
+    <li><a href="03-memory.html" alt="">03-記憶電路</a></li>
+    <li><a href="04-assembly.html" alt="">04-機器語言</a></li>
+    <li><a href="05-cpu.html" alt="">05-處理器設計</a></li>
+</ul>
+<h6> 系統程式</h6>
+<ul>
+    <li><a href="06-assembler.html" alt="">06-組譯器</a></li>
+    <li><a href="07-vm.html" alt="">07-虛擬機</a></li>
+    <li><a href="08-irmacro.html" alt="">08-中間碼與巨集</a></li>
+    <li><a href="09-compiler.html" alt="">09-編譯器</a></li>
+    <li><a href="10-os.html" alt="">10-作業系統</a></li>
+</ul>
+<h6> 相關主題</h6>
+<ul>
+    <li><a href="linux.html" alt="">Linux 系統程式</a></li>
+    <li><a href="c.html" alt="">C 語言</a></li>
+    <li><a href="verilog.html" alt="">Veriog 語言</a></li>
+    <li><a href="nodejs.html" alt="">NodeJs 底層系統</a></li>
+</ul>
+<h6> 參考資源</h6>
+<ul>
+    <li><a href="nand2tetris.html" alt="">Nand2tetris 課程</a></li>
+    <li><a href="book.html" alt="">電子書</a></li>
+    <li><a href="slide.html" alt="">投影片</a></li>
+    <li><a href="project.html" alt="">程式專案</a></li>
+    <li><a href="video.html" alt="">教學影片</a></li>
+    <li><a href="exercise.html" alt="">作業習題</a></li>
+    <li><a href="exam.html" alt="">考試題目</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> docker </h1>
+
+<h2> 基本觀念</h2>
+
+<ul>
+    <li>Image : 系統映像 (某個已儲存的版本）</li>
+    <li>Container : 容器 （某個執行中的版本）</li>
+</ul>
+<h2> 指令列表</h2>
+
+<ul>
+    <li><a href="https://joshhu.gitbooks.io/dockercommands/content/" alt="">電子書: 全面易懂的Docker指令大全</a> (超讚！）</li>
+    <ul>
+        <li><a href="https://joshhu.gitbooks.io/dockercommands/content/Containers/ContainersBasic.html" alt="">Container指令基礎</a></li>
+    </ul>
+</ul>
+<pre class="code"><code class="">-t：attach時Container的螢幕會接到原來的螢幕上。
+-i：attach時鍵盤輸入會被Container接手
+-d：背景執行 (demon)
+
+$ docker run -it --name test busybox
+</code></pre>
+
+<h2> 參考</h2>
+
+<ul>
+    <li>參考： <a href="https://blog.gtwang.org/virtualization/ubuntu-linux-install-docker-tutorial/" alt="">Ubuntu Linux 安裝 Docker 步驟與使用教學</a></li>
+    <li>書：Docker —— 從入門到實踐</li>
+    <ul>
+        <li><a href="https://philipzheng.gitbooks.io/docker_practice/">https://philipzheng.gitbooks.io/docker_practice/</a></li>
+    </ul>
+    <li><a href="http://yaxin-cn.github.io/Docker/how-to-delete-a-docker-image.html" alt="">docker中如何删除image（镜像）</a></li>
+</ul>
+<h2> 安裝</h2>
+
+<pre class="code"><code class="">$ sudo apt-get install docker.io
+$ service docker status
+$ sudo usermod -aG docker &lt;username&gt; // 然後登出後再重新登入 （如果是系統管理員帳號就不用做）
+$ docker version
+$ docker search ubuntu
+$ docker pull ubuntu
+$ docker images
+</code></pre>
+
+<h2> 執行</h2>
+
+<pre class="code"><code class="">$ docker run ubuntu /bin/echo 'Hello world'
+$ docker run -i -t ubuntu
+</code></pre>
+<p></p>
+
+<h2> 使用</h2>
+<p></p>
+
+<pre class="code"><code class="">$ docker run -t -i node/riscv /bin/bash
+.. 進入 docker 操作 ...
+
+$ docker ps -l    列出最新執行版
+CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS                     PORTS               NAMES
+4a7f5447b4b5        node/riscv          "/bin/bash"         About a minute ago   Exited (0) 9 seconds ago                       naughty_kowalevski
+
+$ docker ps -a   列出所有執行版
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                       PORTS               NAMES
+4a7f5447b4b5        node/riscv          "/bin/bash"         2 minutes ago       Exited (0) 51 seconds ago                        naughty_kowalevski
+dc2393700ec1        node:carbon         "/bin/bash"         8 minutes ago       Up 8 minutes                                     objective_edison
+93850632e972        node:carbon         "/bin/bash"         8 minutes ago       Exited (0) 8 minutes ago                         romantic_leavitt
+5414b1135fcf        ubuntu              "/bin/bash"         2 hours ago         Up 2 hours                                       jolly_hawking
+857c3b164321        node:carbon         "/bin/bash"         12 months ago       Exited (0) 12 months ago                         zealous_mahavira
+02847d7babe8        ubuntu:latest       "/bin/bash"         12 months ago       Exited (255) 12 months ago                       agitated_yonath
+
+
+$ docker commit dc2393 node/riscv  將該執行儲存 ...
+</code></pre>
+
+<h2> History</h2>
+
+<ul>
+    <li>riscv history -- </li>
+</ul>
+<pre class="code"><code class="">495  git clone https://github.com/riscv/riscv-tools.git
+  496  which riscv64-unknown-elf-gcc
+  497  ln -s /usr/local/bin/riscv64gcc /usr/local/bin/riscv64-unknown-elf-gcc
+  498  ln -s /usr/local/bin/riscv64-unknown-elf-gcc /usr/local/bin/riscv64gcc
+  499  riscv64gcc
+  500  docker images
+  501  docker ps 
+  502  docker ps -l
+  503  docker login
+  504  docker commit bacbb ccc/riscv
+  505  docker tag cccriscv ccc/riscv
+  506  docker tag cccriscv ccckmit/ccc/riscv
+  507  docker tag bacbb ccc/riscv
+  508  docker tag e34bd ccc/riscv
+  509  docker push ccc/riscv
+  510  docker push ccckmit/ccc/riscv
+  511  docker push ccckmit/ccc/riscv
+  512  docker images
+  513  docker images
+  514  docker ps -l
+  515  docker rename 8a11d ccckmit/riscv
+  516  docker rename 8a11d cccriscv
+  517  docker images
+  518  docker ps -l
+  519  docker commit 10818 cccriscv
+  520  docker commit 8a11d cccriscv
+  521  docker images
+  522  docker push ccckmit/cccriscv
+  523  docker push ccckmit/cccriscv:latest
+  524  docker push cccriscv:latest
+  525  docker push ccckmit/cccriscv:latest
+  526  docker build -t ccckmit/cccriscv:latest .
+  527  docker tag 22c66 docker.io/ccckmit/cccriscv
+  528  docker push docker.io/ccckmit/cccriscv
+  529  history
+
+</code></pre>
+
+<p>another</p>
+
+<pre class="code"><code class="">root@5fff36eeda8f:/home/c2riscv/example/01-hello# history
+
+   10  vim /home/.bashrc
+   11  source /home/.bashrc
+   13  ln -s riscv64-unknown-elf-gcc riscv64gcc
+
+   24  git clone https://github.com/cccbook/c2riscv.git
+   25  cd c2riscv/
+   26  ls
+   27  cd example
+
+   31  riscv64gcc hello.c -o hello.o
+   32  ./hello.o
+   33  spike pk hello.o
+   34  cat /home/.bashrc
+   35  history
+
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

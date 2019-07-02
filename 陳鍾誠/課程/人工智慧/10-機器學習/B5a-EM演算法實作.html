@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../10-機器學習.html" alt="">10-機器學習</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> EM 演算法實作</h2>
+
+<p>看過 EM 演算法的數學介紹之後，相信大家應該和我一樣，都是一頭霧水的。誰知道那些數學要怎麼寫成程式呢？</p>
+
+<p>這個問題困擾了我很久，直到我看到下列的這則討論和論文中的那個範例，我才開始真正能體會那些數學的用法。</p>
+
+<ul>
+    <li><a href="http://stats.stackexchange.com/questions/72774/numerical-example-to-understand-expectation-maximization" alt="">Numerical example to understand Expectation-Maximization</a> </li>
+    <li><a href="http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf" alt="">What is the expectation maximization algorithm? (PDF)</a> </li>
+</ul>
+<p>一個好的範例，果然勝過千言萬語！</p>
+
+<h3> 範例</h3>
+
+<p>這個範例探討的是兩個「不公正的銅板」 A 與 B，兩者正面的機率分別是 <span class="math inline">\theta A</span> 與 <span class="math inline">\theta B</span> ，當我們用這兩的銅板進行一系列的抽樣時，得到了下列的結果。</p>
+
+<p><figure>
+  <img src="./img/EM_example1.jpg" alt=""></img>
+<figcaption>圖、本圖來自 What is the expectation maximization algorithm? 一文</figcaption></figure>
+</p>
+
+<p>上圖中的 H 代表正面 (Head) ，而 T 代表反面 (Tail)。</p>
+
+<p>由於我們知道每個實驗是由哪個銅板造成的，因此就可以直接用「點估計」的方式，使用「樣本平均值」 <span class="math inline">\hat{\theta}_A</span> 與 <span class="math inline">\hat{\theta}_B</span> 作為 <span class="math inline">\theta_A</span> 與 <span class="math inline">\theta_B</span> 兩者的「不偏估計量」。</p>
+
+<p>但是、假如今天我們不知道每個序列到底是由哪個銅板所產生的，那麼我們應該怎麼樣估計 <span class="math inline">\hat{\theta}_A</span> 與 <span class="math inline">\hat{\theta}_B</span> 呢？</p>
+
+<p>這個問題就比較困難了！</p>
+
+<p>還好、我們有 EM 演算法可以幫忙，這正是 EM 演算法神奇的地方。下圖顯示了 EM 演算法在這個範例上的運作過程。</p>
+
+<p><figure>
+  <img src="./img/EM_example2.jpg" alt=""></img>
+<figcaption>圖、本圖來自 What is the expectation maximization algorithm? 一文</figcaption></figure>
+</p>
+
+<p>首先、 EM 演算法先隨便設 <span class="math inline">(\hat{\theta}_A, \hat{\theta}_B)</span> 兩個參數的初值為 <span class="math inline">(0.6, 0.5)</span> (如圖中 1 的部分)，然後開始進行 Expectation (期望 E 程序) 與 Maximization (最大化 M 程序) 的循環。</p>
+
+<p>在 E 程序中 (如圖中 2 的部分)，EM 演算法透過這組 <span class="math inline">(\hat{\theta}_A=0.6, \hat{\theta}_B=0.5</span> 計算出在這些樣本序列中，每個序列來自 A 或 B 的機率。例如在第一組樣本中，來自 A 的機率為 0.45，而來自 B 的機率為 0.55。</p>
+
+<p>(註：這裏的 0.45 的來源是 <span class="math inline">\frac{C(10,5)*0.6^5*0.4^5}{C(10,5)*(0.6^5*0.4^5+0.5^5*0.5^5)}=0.45</span> ，而 0.55 則是 1-0.45 ，至於其數學分析請看後文)。</p>
+
+<p>接著、再用這個機率去計算出銅板「正」(H) 「反」(T) 兩面出現次數的期望值。舉例而言， P(A) <strong> (#H, #T) = 0.45 </strong> (5H, 5T) = (0.225 H, 0.225T) ~ (0.22H, 0.22T) 。</p>
+
+<p>同樣的，P(B)<strong>(#H, #T) = 0.55 </strong> (5H,5T) = (0.275 H, 0.275T) ~ (0.28H, 0.28T) 。</p>
+
+<p>當然，後面序列的正反面期望值也都是比照這種作法計算出來的。</p>
+
+<p>然後、就可以進行 M 程序，計算「最大可能的 <span class="math inline">(\hat{\theta}_A, \hat{\theta}_B)</span> 值」，結果得到 <span class="math inline">\hat{\theta}_A=\frac{21.3}{21.3+8.6}=0.71, \hat{\theta}_B=\frac{11.7}{11.7+8.4}=0.58</span> 。</p>
+
+<p>如此就能進行完一輪「E-M 程序」，讓 <span class="math inline">(\hat{\theta}_A, \hat{\theta}_B)</span> 的估計變得更好。</p>
+
+<p>於是、只要我們反覆的進行 E-M 程序，最後 <span class="math inline">(\hat{\theta}_A, \hat{\theta}_B)</span> 就會收斂到某個值上，此時就代表訓練完成了。在上圖中、最後 <span class="math inline">(\hat{\theta}_A = 0.80, \hat{\theta}_B = 0.52)</span> </p>
+
+<h3> EM 演算法的數學原理</h3>
+
+<p>上述 EM 演算法問題的背後，其實是一種「最大概似估計」，只是加入了「隱變數」的概念，這種「最大概似估計」企圖最大化下列算式中的 <span class="math inline">\theta</span> 值。</p>
+
+<p><span class="math display">
+L(X;\theta)=P(X|\theta)=\sum_z P(X,z|\theta)
+</span></p>
+
+<p>但問題是、假如 z 是個序列 (z[1..n])，那麼 z 的所有可能性將會非常的大 (指數膨脹)，因此要計算上述總和會變得非常困難且耗時，因此我們通常無法直接計算上述的「總合算式」。</p>
+
+<p>但是、我們已經有一些 X 的樣本了，假如我們用「這些樣本的統計值」(x1, x2, ...., xn) 來當作所有可能的 z 總合的一個估計式，也就是用 <span class="math inline">\sum_i P(x_i|\theta)/n</span> 來估計 <span class="math inline">\sum_z P(X,z|\theta) P(X,z|\theta)</span> ，那就可以避開「指數膨脹」的問題，快速的計算出 <span class="math inline">P(X|\theta)</span> 的結果。</p>
+
+<p><span class="math display">
+L(X;\theta)=P(X|\theta)=\sum_z P(X,z|\theta) \simeq \sum_i P(x_i|\theta)/n
+</span></p>
+
+<p>上述算式，就是所謂的 E 程序 (估計 Expectation)。</p>
+
+<p>然後、我們就可以在下一回合的 M 程序中，找出下列算式的優化結果。</p>
+
+<p><span class="math display">
+\arg\max_{\theta_{t+1}} \sum_i P(x_i|\theta)/n
+</span></p>
+
+<h3> 兩銅板範例的數學分析</h3>
+
+<p>在上述的兩銅板範例中， <span class="math inline">X, Z, \theta</span> 參數的對應如下：</p>
+
+<blockquote>
+<p> <span class="math inline">\theta=(\theta_A,\theta_B)</span> ;</p>
+<p> </p>
+<p> <span class="math inline">z=(z_1,z_2,z_3,z_4,z_5)</span> ; 其中的 <span class="math inline">z_i</span> 代表第 i 次實驗到底是由 A 還是 B 產生的。</p>
+<p> </p>
+<p> X 是一個隨機變數，將十次的投擲映射到正面次數，例如： <span class="math inline">X(HTTTHHTHTH)=5</span> ; </p>
+</blockquote>
+
+<p>但是、在上述問題中，其實有兩個不同的分布，也就是 A 與 B，因此當我們要計算 <span class="math inline">P(x_i|\theta)=P(x_i|\theta_A,\theta_B)</span> 時，我們可以分配給 A, B 兩者一定的權重 <span class="math inline">(W_A, W_B)</span> ，只要這兩個權重相加為 1 既可。</p>
+
+<p>但是 <span class="math inline">(W_A, W_B)</span> 應該各分配多少權重呢？一個想法是採用條件機率的方法如下：</p>
+
+<blockquote>
+<p> 讓 <span class="math inline">W_A=P(x_i|\theta_A);W_B=P(x_i|\theta_B)</span> 。</p>
+<p> </p>
+<p> 於是、對於 <span class="math inline">x1=(5H,5T)</span> 而言，我們就可以用 <span class="math inline">W_A=\frac{C(10,5)*0.6^5*0.4^5}{C(10,5)*(0.6^5*0.4^5+0.5^5*0.5^5)}=0.45</span> 的比例進行分配。 </p>
+<p> </p>
+<p> 然後設定 <span class="math inline">W_B=1-W_A=1-0.45=0.55</span> 。 </p>
+</blockquote>
+
+<h3> 程式實作</h3>
+
+<p>以下是針對上述範例的程式實作，整個程式含註解只有 39 行。</p>
+
+<p>程式： EM.js</p>
+
+<pre class="code"><code class="javascript">// 參考文獻：Numerical example to understand Expectation-Maximization -- http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf
+// What is the expectation maximization algorithm? (PDF) -- http://stats.stackexchange.com/questions/72774/numerical-example-to-understand-expectation-maximization
+
+var log=console.log;
+var R = require("../j6");
+
+function EM() {
+// 1st:  Coin B, {HTTTHHTHTH}, 5H,5T
+// 2nd:  Coin A, {HHHHTHHHHH}, 9H,1T
+// 3rd:  Coin A, {HTHHHHHTHH}, 8H,2T
+// 4th:  Coin B, {HTHTTTHHTT}, 4H,6T
+// 5th:  Coin A, {THHHTHHHTH}, 7H,3T
+// so, from MLE: pA(heads) = 0.80 and pB(heads)=0.45
+  var e = [ [5,5], [9,1], [8,2], [4,6], [7,3] ];
+  var pA = [0.6,0.4], pB = [0.5,0.5];
+  var gen=0, delta=9.9999;
+  for (var gen=0; gen&lt;1000 &amp;&amp; delta &gt; 0.001; gen++) {
+    log("pA=%s pB=%s delta=%d", pA, pB, delta.toFixed(4));
+    var sumA=[0,0], sumB=[0,0];
+    for (var i in e) {
+      var lA = R.xplog(e[i], pA);
+      var lB = R.xplog(e[i], pB);
+      var a  = lA.exp(), b = lB.exp();
+      var wA = a/(a+b), wB=b/(a+b);
+      var eA = wA.mul(e[i]);
+      var eB = wB.mul(e[i]);
+      sumA   = sumA.add(eA);
+      sumB   = sumB.add(eB);
+    }
+    var npA = sumA.mul(1.0/sumA.sum());
+    var npB = sumB.mul(1.0/sumB.sum());
+    var dA  = npA.sub(pA);
+    var dB  = npB.sub(pB);
+    var delta = [dA, dB].max();
+    pA = npA; pB=npB;
+  }
+}
+
+EM();
+</code></pre>
+
+<h3> 執行結果</h3>
+
+<p>以下是上述程式的執行結果，您可以看到該結果和圖中範例的數據是吻合的。</p>
+
+<pre class="code"><code class="">D:\Dropbox\github\j6\example&gt;node emLearningEx.js
+pA=[0.60, 0.40] pB=[0.50, 0.50] delta=9.9999
+pA=[0.71, 0.29] pB=[0.58, 0.42] delta=0.113
+pA=[0.75, 0.25] pB=[0.57, 0.43] delta=0.0323
+pA=[0.77, 0.23] pB=[0.55, 0.45] delta=0.0228
+pA=[0.78, 0.22] pB=[0.53, 0.47] delta=0.0151
+pA=[0.79, 0.21] pB=[0.53, 0.47] delta=0.0083
+pA=[0.79, 0.21] pB=[0.52, 0.48] delta=0.0039
+pA=[0.80, 0.20] pB=[0.52, 0.48] delta=0.0017
+</code></pre>
+
+<h3> 參考文獻</h3>
+<ul>
+    <li><a href="http://stats.stackexchange.com/questions/72774/numerical-example-to-understand-expectation-maximization" alt="">Numerical example to understand Expectation-Maximization</a></li>
+    <li><a href="http://math.stackexchange.com/questions/25111/how-does-expectation-maximization-work" alt="">how does expectation maximization work?</a></li>
+    <li><a href="http://math.stackexchange.com/questions/81004/how-does-expectation-maximization-work-in-coin-flipping-problem" alt="">how does expectation maximization work in coin flipping problem</a></li>
+    <li><a href="http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf" alt="">What is the expectation maximization algorithm? (PDF)</a> (讚！)</li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

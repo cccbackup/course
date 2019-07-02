@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../系統程式.html" alt="">系統程式</a> / <a href="../exercise.html" alt="">exercise</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> 計算機結構</h6>
+<ul>
+    <li><a href="01-gate.html" alt="">01-邏輯閘</a></li>
+    <li><a href="02-alu.html" alt="">02-算術邏輯</a></li>
+    <li><a href="03-memory.html" alt="">03-記憶電路</a></li>
+    <li><a href="04-assembly.html" alt="">04-機器語言</a></li>
+    <li><a href="05-cpu.html" alt="">05-處理器設計</a></li>
+</ul>
+<h6> 系統程式</h6>
+<ul>
+    <li><a href="06-assembler.html" alt="">06-組譯器</a></li>
+    <li><a href="07-vm.html" alt="">07-虛擬機</a></li>
+    <li><a href="08-irmacro.html" alt="">08-中間碼與巨集</a></li>
+    <li><a href="09-compiler.html" alt="">09-編譯器</a></li>
+    <li><a href="10-os.html" alt="">10-作業系統</a></li>
+</ul>
+<h6> 相關主題</h6>
+<ul>
+    <li><a href="linux.html" alt="">Linux 系統程式</a></li>
+    <li><a href="c.html" alt="">C 語言</a></li>
+    <li><a href="verilog.html" alt="">Veriog 語言</a></li>
+    <li><a href="nodejs.html" alt="">NodeJs 底層系統</a></li>
+</ul>
+<h6> 參考資源</h6>
+<ul>
+    <li><a href="nand2tetris.html" alt="">Nand2tetris 課程</a></li>
+    <li><a href="book.html" alt="">電子書</a></li>
+    <li><a href="slide.html" alt="">投影片</a></li>
+    <li><a href="project.html" alt="">程式專案</a></li>
+    <li><a href="video.html" alt="">教學影片</a></li>
+    <li><a href="exercise.html" alt="">作業習題</a></li>
+    <li><a href="exam.html" alt="">考試題目</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 習題作業</h1>
+
+<p>附加習題</p>
+
+<ol>
+    <li>設計七段顯示器的一根亮棒之控制電路</li>
+    <li>證明迪摩根定律 2 式 not(a or b) = not(a) and not(b)</li>
+</ol>
+<p>提示： <a href="https://www.slideshare.net/ccckmit/nand2tetris-79925285" alt="">計算機結構 (習題：Nand2tetris硬體部分) (SlideShare)</a></p>
+
+<h2> 第 1 週習題 (2017/09/14)</h2>
+
+<p><a href="http://www.nand2tetris.org/01.php">http://www.nand2tetris.org/01.php</a></p>
+
+<pre class="code"><code class="">Not    Not gate    Not.tst    Not.cmp
+And    And gate    And.tst    And.cmp
+Or    Or gate    Or.tst    Or.cmp
+Xor    Xor gate    Xor.tst    Xor.cmp
+Mux    Mux gate    Mux.tst    Mux.cmp
+DMux    DMux gate    DMux.tst    DMux.cmp
+</code></pre>
+
+<h2> 第 2 週習題 (2017/09/21)</h2>
+
+<p><a href="http://www.nand2tetris.org/01.php">http://www.nand2tetris.org/01.php</a></p>
+
+<pre class="code"><code class="">Not16    16-bit Not    Not16.tst    Not16.cmp
+And16    16-bit And    And16.tst    And16.cmp
+Or16    16-bit Or    Or16.tst    Or16.cmp
+Mux16    16-bit multiplexor    Mux16.tst    Mux16.cmp
+Or8Way    Or(in0,in1,...,in7)    Or8Way.tst    Or8Way.cmp
+Mux4Way16    16-bit/4-way mux    Mux4Way16.tst    Mux4Way16.cmp
+Mux8Way16    16-bit/8-way mux    Mux8Way16.tst    Mux8Way16.cmp
+DMux4Way    4-way demultiplexor    DMux4Way.tst    DMux4Way.cmp
+DMux8Way    8-way demultiplexor    DMux8Way.tst    DMux8Way.cmp
+</code></pre>
+
+<h2> 第 3 週習題 (2017/09/28)</h2>
+
+<p><a href="http://www.nand2tetris.org/02.php">http://www.nand2tetris.org/02.php</a></p>
+
+<pre class="code"><code class="">HalfAdder    Half Adder    HalfAdder.tst    HalfAdder.cmp
+FullAdder    Full Adder    FullAdder.tst    FullAdder.cmp
+Add16    16-bit Adder    Add16.tst    Add16.cmp
+Inc16    16-bit incrementer    Inc16.tst    Inc16.cmp
+</code></pre>
+
+<h2> 第 4 週習題 (2017/10/05)</h2>
+
+<p><a href="http://www.nand2tetris.org/02.php">http://www.nand2tetris.org/02.php</a></p>
+
+<pre class="code"><code class="">ALU    Arithmetic Logic Unit (without handling of status outputs)    ALU-nostat.tst    ALU-nostat.cmp
+ALU    Arithmetic Logic Unit (complete)    ALU.tst    ALU.cmp
+</code></pre>
+
+<h2> 第 5 週習題 (2017/10/12)</h2>
+
+<p><a href="http://www.nand2tetris.org/03.php">http://www.nand2tetris.org/03.php</a></p>
+
+<pre class="code"><code class="">DFF    Data Flip-Flop (primitive)        
+Bit    1-bit register    Bit.tst    Bit.cmp
+Register    16-bit register    Register.tst    Register.cmp
+</code></pre>
+
+<h2> 第 6 週習題 (2017/10/19)</h2>
+
+<p><a href="http://www.nand2tetris.org/03.php">http://www.nand2tetris.org/03.php</a></p>
+
+<pre class="code"><code class="">RAM8    16-bit / 8-register memory    RAM8.tst    RAM8.cmp
+RAM64    16-bit / 64-register memory    RAM64.tst    RAM64.cmp
+RAM512    16-bit / 512-register memory    RAM512.tst    RAM512.cmp
+RAM4K    16-bit / 4096-register memory    RAM4K.tst    RAM4K.cmp
+RAM16K    16-bit / 16384-register memory    RAM16K.tst    RAM16K.cmp
+</code></pre>
+
+<h2> 第 7 週習題 (2017/10/26)</h2>
+
+<p><a href="http://www.nand2tetris.org/03.php">http://www.nand2tetris.org/03.php</a></p>
+
+<pre class="code"><code class="">PC    16-bit program counter    PC.tst    PC.cmp
+</code></pre>
+
+<h2> 第 8 週習題 (2017/11/02)</h2>
+
+<p><a href="http://www.nand2tetris.org/04.php">http://www.nand2tetris.org/04.php</a></p>
+
+<pre class="code"><code class="">Mult.asm
+</code></pre>
+
+<p>Multiplication: in the Hack computer, the top 16 RAM words (RAM[0] ... RAM[15]) are also referred to as the so-called virtual registers R0 ... R15. </p>
+
+<p>With this terminology in mind, this program computes the value R0*R1 and stores the result in R2.</p>
+
+<p>Note that in the context of this program, we assume that R0>=0, R1>=0, and R0*R1<32768 (you are welcome to ponder where this limiting value comes from). Your program need not test these conditions, but rather assume that they hold.</p>
+
+<h2> 第 9 週 (2017/11/09)</h2>
+
+<p>由於下週有些課程有期中考，因此不出習題，讓大家有時間念書！</p>
+
+<h2> 第 10 週習題 (2017/11/16)</h2>
+
+<p><a href="http://www.nand2tetris.org/04.php">http://www.nand2tetris.org/04.php</a></p>
+
+<pre class="code"><code class="">Fill.asm
+</code></pre>
+
+<p>I/O handling: this program illustrates low-level handling of the screen and keyboard devices, as follows. </p>
+
+<p>The program runs an infinite loop that listens to the keyboard input. When a key is pressed (any key), the program blackens the screen, i.e. writes "black" in every pixel; the screen should remain fully black as long as the key is pressed. </p>
+
+<p>When no key is pressed, the program clears the screen, i.e. writes "white" in every pixel; the screen should remain fully clear as long as no key is pressed.</p>
+<p></p>
+
+<h2> 第 11 週習題 (2017/11/23)</h2>
+
+<p><a href="http://www.nand2tetris.org/05.php">http://www.nand2tetris.org/05.php</a></p>
+
+<pre class="code"><code class="">Memory.hdl    Entire RAM address space    Test this chip using Memory.tst and Memory.cmp
+</code></pre>
+
+<h2> 第 12 週習題 (2017/12/02)</h2>
+
+<p><a href="http://www.nand2tetris.org/05.php">http://www.nand2tetris.org/05.php</a></p>
+
+<pre class="code"><code class="">CPU.hdl    -- The Hack CPU
+
+Recommended test files: CPU.tst and CPU.cmp. 
+Alternative test files (less thorough but do not require using the built-in DRegister): CPU-external.tst and CPU-external.cmp.
+</code></pre>
+
+<h2> 第 13 週習題 (2017/12/09)</h2>
+
+<p><a href="http://www.nand2tetris.org/05.php">http://www.nand2tetris.org/05.php</a></p>
+
+<pre class="code"><code class="">Computer.hdl -- The platform's top-most chip
+
+Test by running some Hack programs on the constructed chip. See more instructions below.
+</code></pre>
+
+<p>恭喜你，這是 nand2tetris 《硬體部分》的最後一題習題，順利做到這裏的話，就代表你已經設計了一台完整的電腦了！</p>
+
+<p>下學期的《系統程式》才會繼續做《軟體部分》的習題。</p>
+
+<p>接著讓我們來看看《較複雜的現代電腦架構》，探討如何讓電腦速度《快、很快、更快》的那些方法！</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../nand2tetris.html" alt="">nand2tetris</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 系統程式 -- 習題</h1>
+
+<h2> 選項一 -- 從 C 到組合語言</h2>
+
+<ol>
+    <li>請將以下編譯器擴充，讓他可以處理 IF 語法</li>
+    <ul>
+        <li><a href="https://github.com/cccbook/sp/tree/master/code/c/02-compiler/03-compiler">https://github.com/cccbook/sp/tree/master/code/c/02-compiler/03-compiler</a></li>
+    </ul>
+    <li>請寫出第一題的中間碼之虛擬機</li>
+    <ul>
+        <li>可以用解譯的方式做就行 (速度較慢，但測試比較方便，問題會比較少!)</li>
+        <li>也可以用 JIT 立即編譯的方式做 (速度較快，但測試比較難，問題會比較多!)</li>
+        <li>參考 -- <a href="https://github.com/cccbook/sp/tree/master/code/c/03-asm/04-jitCall/win">https://github.com/cccbook/sp/tree/master/code/c/03-asm/04-jitCall/win</a></li>
+    </ul>
+    <li>請寫出將中間碼轉為組合語言的程式</li>
+    <ul>
+        <li>可以轉為 x86, RISC-V, 或 nand2tetris 的 hackCPU 組合語言</li>
+        <li>參考 (c0c) -- <a href="https://github.com/ccc-c/c0c">https://github.com/ccc-c/c0c</a></li>
+    </ul>
+    <li>請寫出第 3 題組合語言的組譯器</li>
+    <ul>
+        <li>若選 x86 的話，可能要自訂指令集</li>
+        <li>若選 RISC-V 的話，要弄清楚指令編碼規則</li>
+        <li>若選 hackCPU 是最簡單的 (老師也有寫範例)</li>
+        <li>參考 (c0c) -- <a href="https://github.com/ccc-c/c0c">https://github.com/ccc-c/c0c</a></li>
+    </ul>
+    <li>請寫出第四題輸出機器碼可執行的虛擬機</li>
+    <ul>
+        <li>參考 (C 語言) -- <a href="https://github.com/cccbook/sp/tree/master/code/c/04-machine/nand2tetris/vm">https://github.com/cccbook/sp/tree/master/code/c/04-machine/nand2tetris/vm</a></li>
+    </ul>
+</ol>
+<h2> 選項二 -- nand2tetris </h2>
+
+<p>這組選項老師都有寫範例 (1,2 有 js+c 版本， 3, 4 只有 js 版本)</p>
+
+<ol>
+    <li>請寫出 nand2tetris 的 HackCPU 之虛擬機</li>
+    <ul>
+        <li>參考 (C 語言) -- <a href="https://github.com/cccbook/sp/tree/master/code/c/04-machine/nand2tetris/vm">https://github.com/cccbook/sp/tree/master/code/c/04-machine/nand2tetris/vm</a></li>
+    </ul>
+    <li>請寫出寫 nand2tetris HackCPU 的組譯器</li>
+    <ul>
+        <li>參考 (C 語言)-- <a href="https://github.com/cccbook/sp/tree/master/code/c/04-machine/nand2tetris/asm">https://github.com/cccbook/sp/tree/master/code/c/04-machine/nand2tetris/asm</a></li>
+    </ul>
+    <li>請寫出寫 nand2tetris 第 7, 8 兩章的虛擬機</li>
+    <ul>
+        <li>參考 (JavaScript) -- <a href="https://github.com/cccbook/sp/tree/master/code/nand2tetris/08/js">https://github.com/cccbook/sp/tree/master/code/nand2tetris/08/js</a></li>
+    </ul>
+    <li>請寫出寫 nand2tetris 第 9, 10, 11 三章的編譯器</li>
+    <ul>
+        <li>參考 -- <a href="https://github.com/cccbook/sp/tree/master/code/nand2tetris/11/js">https://github.com/cccbook/sp/tree/master/code/nand2tetris/11/js</a></li>
+    </ul>
+    <li>請閱讀 nand2tetris 第 12 章的作業系統，並對程式碼加上你的註解。</li>
+    <ul>
+        <li>參考 -- <a href="https://github.com/havivha/Nand2Tetris/tree/master/12">https://github.com/havivha/Nand2Tetris/tree/master/12</a></li>
+    </ul>
+</ol>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

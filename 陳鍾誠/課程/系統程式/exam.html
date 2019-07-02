@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../系統程式.html" alt="">系統程式</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> 計算機結構</h6>
+<ul>
+    <li><a href="01-gate.html" alt="">01-邏輯閘</a></li>
+    <li><a href="02-alu.html" alt="">02-算術邏輯</a></li>
+    <li><a href="03-memory.html" alt="">03-記憶電路</a></li>
+    <li><a href="04-assembly.html" alt="">04-機器語言</a></li>
+    <li><a href="05-cpu.html" alt="">05-處理器設計</a></li>
+</ul>
+<h6> 系統程式</h6>
+<ul>
+    <li><a href="06-assembler.html" alt="">06-組譯器</a></li>
+    <li><a href="07-vm.html" alt="">07-虛擬機</a></li>
+    <li><a href="08-irmacro.html" alt="">08-中間碼與巨集</a></li>
+    <li><a href="09-compiler.html" alt="">09-編譯器</a></li>
+    <li><a href="10-os.html" alt="">10-作業系統</a></li>
+</ul>
+<h6> 相關主題</h6>
+<ul>
+    <li><a href="linux.html" alt="">Linux 系統程式</a></li>
+    <li><a href="c.html" alt="">C 語言</a></li>
+    <li><a href="verilog.html" alt="">Veriog 語言</a></li>
+    <li><a href="nodejs.html" alt="">NodeJs 底層系統</a></li>
+</ul>
+<h6> 參考資源</h6>
+<ul>
+    <li><a href="nand2tetris.html" alt="">Nand2tetris 課程</a></li>
+    <li><a href="book.html" alt="">電子書</a></li>
+    <li><a href="slide.html" alt="">投影片</a></li>
+    <li><a href="project.html" alt="">程式專案</a></li>
+    <li><a href="video.html" alt="">教學影片</a></li>
+    <li><a href="exercise.html" alt="">作業習題</a></li>
+    <li><a href="exam.html" alt="">考試題目</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 期末考模擬試題</h1>
+
+<p>1: 給你下列元件，請設計出 RAM8, 先畫電路圖，然後寫出 HackHDL 程式。</p>
+
+<pre class="code"><code class="">CHIP Register {
+    IN in[16], load;
+    OUT out[16];
+}
+
+CHIP Mux8Way16 {
+    IN a[16], b[16], c[16], d[16],
+       e[16], f[16], g[16], h[16],
+       sel[3];
+    OUT out[16];
+}
+
+CHIP DMux8Way {
+    IN in, sel[3];
+    OUT a, b, c, d, e, f, g, h;
+}
+</code></pre>
+
+<p>RAM8 的原型定義如下</p>
+
+<pre class="code"><code class="">CHIP RAM8 {
+    IN in[16], load, address[3];
+    OUT out[16];
+
+    PARTS:
+    // Put your code here:
+}
+</code></pre>
+
+<p>2: 請將下列組合語言翻成二進位機器碼</p>
+
+<pre class="code"><code class="">@30
+D=A
+D;JLE
+M=D+M
+M=M-1
+0;JMP
+</code></pre>
+
+<p>參考：</p>
+
+<p><figure>
+  <img src="https://raw.githubusercontent.com/cccnqu/co106a/9423e9dc/cinstruction.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>3: 請將下列演算法改寫為低階程式（沒有 while 迴圈，改用 goto)</p>
+
+<pre class="code"><code class="">p=16384
+while (p&lt;24576) {
+  *p = -1
+  p = p + 1
+}
+</code></pre>
+
+<p>解答</p>
+
+<pre class="code"><code class="">    p = 16384
+loop:
+    if (p &gt;= 24576) goto end
+    *p = -1
+    p = p + 1
+    goto loop
+end:
+</code></pre>
+
+<p>4: 請將上述低階程式改寫為 HackCPU 的組合語言</p>
+
+<p>解答:</p>
+
+<pre class="code"><code class="">// p = 16384
+@16384
+D=A
+@p
+M=D
+// loop:
+(loop)
+// if (p &gt;= 24576) goto end
+@p
+D=M
+@24576
+D=D-A
+@end
+D;JGE
+// *p = -1
+@p           
+A=M          // 把 p 的內容當成地址 (提取到 A)
+M=-1         // 把那個內容 (*p) 當成地址，然後將 -1 存入那個地址的記憶體當中。
+// p = p + 1
+@p
+M=M+1
+// goto loop
+@loop
+0;JMP
+// end:
+(end)
+// 以下為無窮迴圈，避免程式執行到後面導致亂跑。
+@end
+0;JMP
+</code></pre>
+
+<p>5: 請寫出下列 HackCPU 控制電路中指定項目的布林式</p>
+
+<p><figure>
+  <img src="https://raw.githubusercontent.com/cccnqu/co106a/9423e9dc/hackcpu.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>6: 請說明下列指令在 HackCPU 中執行時，那些指定項目布林式的值會是什麼，這會如何影響資料的流動與計算。</p>
+<ul>
+    <li>M=D+1    // 其中 D 的值目前為 3</li>
+    <li>D;JLE    // 其中 D 的值目前為 0</li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

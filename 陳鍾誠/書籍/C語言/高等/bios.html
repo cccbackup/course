@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> BIOS 與組合語言 (IBM PC)</h2>
+
+<p>IBM PC個人電腦 （以下簡PC） 目前使用的是IA32 的處理器，其啟動程式燒錄在 BIOS 當中。當PC啟動時，會進入 BIOS的啟動程式中，BIOS會進行『系統組態的分析』（System Configuration Analysis），以分析CPU型號、記憶體大小、軟、硬碟機的數量與型式、是否安裝浮點運算器等，做為其它動作的重要參考資料。接著進行『開機自我測試』（POST，Power-On Self Test），以測試記憶體、晶片組、CMOS儲存資料、鍵盤和磁碟機等硬體，若有錯則以訊息告知所在。 接著，會載入作業系統，像是 MS.MS DOS, MS.MS Windows, Linux 等。</p>
+
+<p>另外，BIOS當中燒錄有中斷向量與中斷程式，因此、許多的輸出入動作都可以透過呼叫BIOS完成，不需要程式設計人員再撰寫輸出入程式。這對系統的開發人員而言，是較為方便的，但是對學習IA32組合語言的人而言，往往會將BIOS視為一組神奇的函數，反而無法理解輸出入的原理。</p>
+
+<p>PC的BIOS模組，是由中斷向量 (0x000-0x400)、中斷資料區 (0x400-0x470) 與中斷處理函數所形成的，因此，使用像int $0x10 這樣的指令，就可以呼叫第 10 號中斷，在螢幕上輸出字串。這樣的指令其實是讓程式透過中斷向量，跳入中斷處理函數中，真正的輸出入反而是在中斷處理函數中做完了。</p>
+
+<p>BIOS的資料區包含了輸出入的資訊，舉例而言，位移0x1E-0x3D之處存放了鍵盤緩衝區 (Keyboard typeahead buffer)，其中存放有一連串的鍵盤掃描碼，等待16號中斷 (int 16h) 進行處理。表格 1 顯示了PC的BIOS資料區中，各記憶體位址所包含的資料。</p>
+
+<p>表格 1. 個人電腦的BIOS資料區</p>
+
+<table>
+<tr><th> 位移</th><th> 說明</th><th> 位移</th><th> 說明</th></tr>
+
+<tr><td> 0000-0007</td><td> COM1-COM4埠位址</td><td> 004A-004B</td><td> 螢幕的欄數</td><td> </td></tr>
+<tr><td> 0008-000F</td><td> LPT1-LPT4埠位址</td><td> 004C-004D</td><td> 視訊緩衝區的長度</td><td> </td></tr>
+<tr><td> 0010-0011</td><td> 已安裝的硬體清單</td><td> 004E-004F</td><td> 視訊緩衝區的起點</td><td> </td></tr>
+<tr><td> 0012</td><td> 初始化旗標</td><td> 0050-005F</td><td> 游標位址 (8個視訊頁)</td><td> </td></tr>
+<tr><td> 0013-0014</td><td> 記憶體的大小(KB)</td><td> 0060</td><td> 游標結束列</td><td> </td></tr>
+<tr><td> 0015-0016</td><td> I/O通道的記憶體</td><td> 0061</td><td> 游標起始列</td><td> </td></tr>
+<tr><td> 0017-0018</td><td> 鍵盤的狀態旗標</td><td> 0062</td><td> 目前顯示的視訊頁編號</td><td> </td></tr>
+<tr><td> 0019</td><td> 替代鍵的儲存區</td><td> 0063-0064</td><td> 作用中的視訊基底位址</td><td> </td></tr>
+<tr><td> 001A-001B</td><td> 鍵盤緩衝區指標(頭)</td><td> 0065</td><td> CRT模式暫存器</td><td> </td></tr>
+<tr><td> 001C-001D</td><td> 鍵盤緩衝區指標(尾)</td><td> 0066</td><td> 彩色圖形介面卡的暫存器</td><td> </td></tr>
+<tr><td> 001E-003D</td><td> 鍵盤緩衝區</td><td> 0067-006B</td><td> 卡帶磁帶資料區</td><td> </td></tr>
+<tr><td> 003E-0048</td><td> 磁碟資料區</td><td> 006C-0070</td><td> 計時器資料區</td><td> </td></tr>
+<tr><td> 0049</td><td> 目前的視訊模式</td><td> </td><td> </td></tr>
+</table>
+
+<p>PC每個BIOS中斷都有特殊的功能，例如10號中斷是控制螢幕的函數、16號中斷可控制鍵盤、17號中斷可控制印表機、1A中斷可取得計時器、1C中斷則是一個每秒會被執行18.2次的時間中斷函數，重新設定該中斷可讓程式乘是每隔1/18.2秒就執行一次。這些中斷，其實就是一組預先燒錄於BIOS中，可以透過中斷程序呼叫的『裝置驅動程式』。表格 2 顯示了PC的中斷表，這些中斷在撰寫 PC 組合語言時，具有重要的功能，因為PC組合語言可透過這些中斷存取周邊裝置，而不是讓程式設計師直接透過記憶體映射的方式存取周邊裝置。</p>
+
+<p>表格 2：個人電腦PC的中斷表</p>
+<table>
+<tr><th> 編號</th><th> 說明</th><th> 編號</th><th> 說明</th><th> </th></tr>
+
+<tr><td> 0</td><td> 除法錯誤</td><td> 19</td><td> 啟動程式載入器</td><td> </td></tr>
+<tr><td> 1</td><td> 單步追蹤</td><td> 1A</td><td> 本日時間(單位為18.2次/秒)</td><td> </td></tr>
+<tr><td> 2</td><td> 不可遮罩中斷</td><td> 1B</td><td> 鍵盤中斷</td><td> </td></tr>
+<tr><td> 3</td><td> 中斷點</td><td> 1C</td><td> 使用者計時器中斷</td><td> </td></tr>
+<tr><td> 4</td><td> 溢位</td><td> 1D</td><td> 視訊參數</td><td> </td></tr>
+<tr><td> 5</td><td> 列印螢幕</td><td> 1E</td><td> 磁碟參數</td><td> </td></tr>
+<tr><td> 6</td><td> 無效的運算碼</td><td> 1F</td><td> 繪圖表格</td><td> </td></tr>
+<tr><td> 7</td><td> 無法使用處理器擴充</td><td> 20</td><td> 終止程式</td><td> </td></tr>
+<tr><td> 8</td><td> IRQ0計時器中斷(18.2次/秒)</td><td> 21</td><td> MS-DOS服務</td><td> </td></tr>
+<tr><td> 9</td><td> IRQ1 鍵盤中斷</td><td> 22</td><td> MS-DOS終止服務</td><td> </td></tr>
+<tr><td> A</td><td> IRQ2 可程式化中斷控制器</td><td> 23</td><td> MS-DOS中斷位址</td><td> </td></tr>
+<tr><td> B</td><td> IRQ3 序列通訊 (COM2)</td><td> 24</td><td> MS-DOS嚴重錯誤位址</td><td> </td></tr>
+<tr><td> C</td><td> IRQ4序列通訊 (COM1)</td><td> 25</td><td> 絕對磁碟的讀取 (已棄用)</td><td> </td></tr>
+<tr><td> D</td><td> IRQ5 固定磁碟</td><td> 26</td><td> 絕對磁碟的寫入 (已棄用)</td><td> </td></tr>
+<tr><td> E</td><td> IRQ6 磁碟中斷</td><td> 27</td><td> 終止並且常駐 (已棄用)</td><td> </td></tr>
+<tr><td> F</td><td> IRQ7 平行印表機</td><td> 28-FF</td><td> 保留</td><td> </td></tr>
+<tr><td> 10</td><td> 視訊服務 (螢幕)</td><td> 33</td><td> 滑鼠控制</td><td> </td></tr>
+<tr><td> 11</td><td> 設備檢查</td><td> 34-3E</td><td> 浮點樹模擬</td><td> </td></tr>
+<tr><td> 12</td><td> 記憶體大小</td><td> 3F</td><td> 覆蓋 (Overlay) 管理程式</td><td> </td></tr>
+<tr><td> 13    </td><td> 軟碟服務</td><td> 40-41</td><td> 固定磁碟的服務</td><td> </td></tr>
+<tr><td> 14    </td><td> 非同步序列埠服務</td><td> 42-5F</td><td> 保留：特殊用途</td><td> </td></tr>
+<tr><td> 15    </td><td> 卡帶控制器</td><td> 60-6B</td><td> 可供應用程式使用</td><td> </td></tr>
+<tr><td> 16    </td><td> 鍵盤服務</td><td> 6C-7F</td><td> 保留：特殊用途</td><td> </td></tr>
+<tr><td> 17    </td><td> 印表機服務</td><td> 80-F0</td><td> 保留：由 ROM-BASIC 使用</td><td> </td></tr>
+<tr><td> 18    </td><td> 執行ROM中的BASIC</td><td> F1-FF</td><td> 可供應用程式使用</td><td> </td></tr>
+</table>
+
+<p>舉例而言，由於 0x10 號中斷為螢幕的視訊服務，該服務可以用來設定游標位置，將螢幕上下捲動，顯示字元與字串等。因此、組合語言可以透過 int 10h在螢幕上顯示訊息。表格 3 顯示了BIOS第10號中斷的功能與參數設置表。</p>
+
+<p>表格 3. BIOS第10號中斷 – 螢幕銀幕控制的詳細功能</p>
+<table>
+<tr><th> AH</th><th> 功能</th><th> 參數</th><th> </th></tr>
+
+<tr><td> 0    </td><td> 設置顯示方式</td><td> AL=顯示模式（0～13H）</td><td> </td></tr>
+<tr><td> 1    </td><td> 設置游標類型</td><td> CH=游標開始行 CL=游標結束行</td><td> </td></tr>
+<tr><td> 2    </td><td> 設置游標位置</td><td> BH=頁號；DH/DL =行號/列號</td><td> </td></tr>
+<tr><td> 3    </td><td> 讀游標位置</td><td> BH=頁號</td><td> </td></tr>
+<tr><td> 5    </td><td> 設置當前顯示頁</td><td> AL=頁號</td><td> </td></tr>
+<tr><td> 6    </td><td> 螢幕初始化或上卷</td><td> AL=上卷行數；AL=0全螢幕為空白；BH=捲入行屬性；CH/CL=左上角行號/列號；DH/DL=右上角行號/列號</td><td> </td></tr>
+<tr><td> 7    </td><td> 螢幕初始化或下卷</td><td> AL=下卷行數；AL=0全螢幕為空白 BH=捲入行屬性 CH/CL=左上角行號/列號 DH/DL=右上角行號/列號 </td><td> </td></tr>
+<tr><td> 8    </td><td> 讀游標位置的屬性和字元</td><td> BH=顯示頁號；AH=屬性；AL =字元</td><td> </td></tr>
+<tr><td> 9    </td><td> 在游標位置顯示字元和屬性</td><td> BH=顯示頁號；AL =字元 BL=屬性；CX=字元重複次數</td><td> </td></tr>
+<tr><td> A    </td><td> 在游標位置僅顯示字元</td><td> BH=顯示頁號；AL =字元 CX=字元重複次數</td><td> </td></tr>
+<tr><td> E    </td><td> 顯示字元（游標前移）</td><td> AL =字元；BL=前景色</td><td> </td></tr>
+<tr><td> 13    </td><td> 顯示字串</td><td> ES：BP=串地址；CX=串長 DH/DL=起始行/列號；BH=頁號 AL =模式；BL=屬性</td><td> </td></tr>
+</table>
+
+<p>那麼，要如何利用組合語言呼叫 int 中斷呢？範例 1 展示了一個利用BIOS中10號中斷以輸出 “Hello!” 字串的程式片段，該程式在設定了許多參數屬性後，利用int $0x10 指令呼叫BIOS，然後就會在銀幕上顯示是一個黑底紅字的 Hello! 字串。</p>
+
+<p>範例 1. 利用PC BIOS的10號中斷，輸出Hello!的範例 (AT&T語法)</p>
+<pre class="code"><code class="">…
+    mov $msg, %ax
+    mov %ax,%bp #ES:BP = 串地址
+    mov $6,%cx #CX = 串長度
+    mov $0x1301,%ax    #AH = 13, AL = 01h
+    mov $0x00C,%bx #頁號為0(BH = 0) 黑底紅字(BL = 0Ch,高亮)
+    mov $0,%dl
+    int $0x10 #10h 號中斷
+    ret
+msg:.ascii "Hello!"
+…
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

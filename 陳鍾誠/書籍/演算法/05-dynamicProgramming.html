@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../演算法.html" alt="">演算法</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 演算法</h2>
+
+<ol>
+    <li><a href="01-tableLookup.html" alt="">查表法</a></li>
+    <li><a href="02-random.html" alt="">亂數產生法</a></li>
+    <li><a href="03-monteCarlo.html" alt="">蒙地卡羅法</a></li>
+    <li><a href="04-iterative.html" alt="">迭代法</a></li>
+    <li><a href="05-dynamicProgramming.html" alt="">動態規劃法</a></li>
+    <li><a href="06-divideConquer.html" alt="">分割擊破法</a></li>
+    <li><a href="07-hashing.html" alt="">雜湊法</a></li>
+    <li><a href="08-bruteForce.html" alt="">暴力法</a></li>
+    <li><a href="09-numerical.html" alt="">數值算法</a></li>
+    <li><a href="10-greedy.html" alt="">貪婪法</a></li>
+    <li><a href="11-graph.html" alt="">圖形表示法</a></li>
+    <li><a href="12-transformDomain.html" alt="">轉換領域法</a></li>
+    <li><a href="13-stringMatching.html" alt="">字串比對法</a></li>
+    <li><a href="14-cryptography.html" alt="">密碼學算法</a></li>
+    <li><a href="15-reduction.html" alt="">轉換化約法</a></li>
+</ol>
+<p><!--</p>
+<h2> AI 算法</h2>
+
+<ol>
+    <li><a href="02-hillClimbing.html" alt="">爬山演算法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/03-gradientDescendent.html" alt="">梯度下降法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/04-backPropagation.html" alt="">反傳遞算法</a></li>
+    <li><a href="05-geneticAlgorithm.html" alt="">遺傳演算法</a></li>
+    <li><a href="16-search.html" alt="">搜尋法</a></li>
+    <li><a href="17-gameSearch.html" alt="">對局搜尋法</a></li>
+    <li><a href="21-slotFilling.html" alt="">框架填充法</a></li>
+</ol>
+<h2> 系統程式</h2>
+
+<ol>
+    <li><a href="19-recursiveDescendent.html" alt="">遞迴下降法</a></li>
+</ol>
+<p>--></p>
+
+<h2> 參考資源</h2>
+
+<ul>
+    <li><a href="project.html" alt="">參考專案</a></li>
+    <li><a href="quantum.html" alt="">量子電腦</a></li>
+    <li><a href="parallel.html" alt="">平行算法</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 動態規劃法 Dynamic Programming</h2>
+
+<p>動態規劃是透過表格的方式，逐步由前面的結果推算出後面結果的方法。</p>
+
+<p>在《查表法》的主題中，我們介紹了 <a href="https://github.com/cccbook/algjs/wiki/01-tableLookup" alt="">如何用《查表法》計算 C(n,k) 函數</a> ，在此我們將改用《動態規劃》的方式重新設計 C(n,k) 函數！</p>
+
+<p>假如不用查表法，我們也可以用《逐步建表法》，用類似遞迴的公式，由 c[n-1][k-1] + c[n-1][k] => c[n][k] 從小到大逐步計算每個表格中元素的值！</p>
+
+<p>這種逐步建表法，其實就是一種動態規劃法。</p>
+
+<p>以下是 c(n,k) 問題的動態規劃程式：</p>
+
+<pre class="code"><code class="js">// http://mathworld.wolfram.com/PascalsFormula.html
+// https://en.wikipedia.org/wiki/Pascal%27s_rule
+// https://en.wikipedia.org/wiki/Pascal%27s_triangle
+// https://en.wikipedia.org/wiki/Binomial_coefficient
+/*
+c(n, k) = 0                        , if n &lt; k
+        = 1                        , if k = 0 or k = n
+        = c(n-1, k-1) + c(n-1, k)  , if k &lt;= n-k
+        = c(n, n-k)                , if k &gt; n-k
+*/
+
+function c(N, K) {
+  var C = [];
+  for (let n=0; n&lt;=N; n++) {
+    C[n] = [1]
+    C[0][n] = 0
+  }
+  for (let n=1; n&lt;=N; n++) {
+    for (let k=1; k&lt;=N; k++) {
+      let k0 = (k &lt;= n-k) ? k : n-k
+      if (n &lt; k)
+        C[n][k] = 0
+      else if (n===k)
+        C[n][k] = 1
+      else
+        C[n][k] = C[n][n-k] = C[n-1][k0-1] + C[n-1][k0]
+    }
+  }
+  /*
+  for(let n=0; n&lt;=N; n++) {
+    console.log("C[%d]=%j", n, C[n])
+  }
+  */
+  return C[N][K];
+}
+
+console.log("c(5,2)=", c(5,2))
+console.log("c(7,3)=", c(7,3))
+console.log("c(12,5)=", c(12,5))
+console.log("c(60,30)=", c(60,30))
+</code></pre>
+
+<h3> 字串編輯距離</h3>
+
+<p>Vladimir Levenshtein 在 1965 年提出了《字串編輯距離》的問題並給了一個演算法進行計算，因此 《字串編輯距離》被稱為 Levenshtein distance。</p>
+
+<p>關於字串編輯距離的詳細描述請參考 <a href="https://en.wikipedia.org/wiki/Levenshtein_distance" alt="">Wikipedia: Levenshtein distance</a> ，以下是實作程式。</p>
+
+<p>檔案： editDistance.js</p>
+
+<pre class="code"><code class="js">function editDistance (a, b){
+  if(a.length == 0) return b.length; 
+  if(b.length == 0) return a.length; 
+
+  var m = [];
+  for (let i = 0; i &lt;= b.length; i++) m[i] = [i]
+  for(let j = 0; j &lt;= a.length; j++) m[0][j] = j
+
+  for(i = 1; i &lt;= b.length; i++){
+    for(j = 1; j &lt;= a.length; j++){
+      if(b.charAt(i-1) == a.charAt(j-1)){
+        m[i][j] = m[i-1][j-1]
+      } else {
+        m[i][j] = Math.min(m[i-1][j-1] + 1, // 取代
+                           Math.min(m[i][j-1] + 1, // 插入
+                                    m[i-1][j] + 1)); // 刪除
+      }
+    }
+  }
+
+  return m[b.length][a.length];
+}
+
+var a, b
+
+a = "010100001"
+b = "010100010"
+console.log("dist(%s,%s) = %s", a, b, editDistance(a,b))
+
+a = "ATGCAATCCC"
+b = "ATGATCCG"
+console.log("dist(%s,%s) = %s", a, b, editDistance(a,b))
+</code></pre>
+
+<p>執行結果:</p>
+
+<pre class="code"><code class="">$ node .\editDistance.js
+dist(010100001,010100010) = 2
+dist(ATGCAATCCC,ATGATCCG) = 3
+</code></pre>
+
+<p>隨堂練習：請印出兩個字串最小編輯距離的對齊方式。</p>
+
+<p>範例： </p>
+<pre class="code"><code class="">$ node .\editDistance.js
+dist(ATGCAATCCC,ATGATCCG) = 3
+align(ATGCAATCCC,ATGATCCG)
+b = ATG A TCCG
+a = ATGCAATCCC 
+</code></pre>
+
+<p>範例：</p>
+
+<h3> 維特比演算法 (Viterbi Algorithm)</h3>
+
+<p>維特比演算法是高通創辦人 Viterbi 所設計的一個方法，原本是用來去除通訊系統雜訊用的，後來在《語音辨識與自然語言處理領域》也很常被使用，因為維特比演算法可以很快地計算《隱馬可夫模型》的最可能隱序列。</p>
+
+<p>關於《隱馬可夫模型》與《維特比演算法》的說明，請參考下列文章：</p>
+
+<ul>
+    <li><a href="https://zh.wikipedia.org/wiki/%E7%BB%B4%E7%89%B9%E6%AF%94%E7%AE%97%E6%B3%95" alt="">維基百科:維特比演算法</a></li>
+</ul>
+<p>《維特比演算法》是用來尋找產生某『表現序列』的最可能『隱狀態序列』，以下是我們用程式 Viterbi.js 計算的結果：</p>
+
+<p>範例：根據下列規則，請問『喵 喵 汪』中每個詞彙最可能的詞性會是什麼？</p>
+
+<p>轉移機率與規則</p>
+
+<pre class="code"><code class="">N 0.6 =&gt; 喵 0.4 | 汪 0.6
+V 0.4 =&gt; 喵 0.5 | 汪 0.5
+
+    N   V
+ N  0.3 0.7
+ V  0.8 0.2
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node viterbi
+t=1 path={"N":["V","N"],"V":["N","V"]}
+t=2 path={"N":["N","V","N"],"V":["V","N","V"]}
+T=[{"N":0.24,"V":0.2},{"N":0.06400000000000002,"V":0.08399999999999999},{"N":0.040319999999999995,"V":0.022400000000000003}]
+prob=0.040319999999999995 path=["N","V","N"]
+</code></pre>
+
+<p>以下是該程式的原始碼：</p>
+
+<pre class="code"><code class="js">// 參考： https://zh.wikipedia.org/wiki/%E7%BB%B4%E7%89%B9%E6%AF%94%E7%AE%97%E6%B3%95
+
+// N 0.6 =&gt; 喵 0.4 | 汪 0.6
+// V 0.4 =&gt; 喵 0.5 | 汪 0.5
+//    N   V
+// N  0.3 0.7
+// V  0.8 0.2
+const P = {
+  'N': 0.6,
+  'V': 0.4,
+  'N=&gt;N': 0.3,
+  'N=&gt;V': 0.7,
+  'V=&gt;N': 0.8,
+  'V=&gt;V': 0.2,
+  'N=&gt;喵': 0.4,
+  'N=&gt;汪': 0.6,
+  'V=&gt;喵': 0.5,
+  'V=&gt;汪': 0.5,
+}
+
+function argmax(list) {
+  let max = Number.NEGATIVE_INFINITY, index = null
+  for (let k in list) {
+    if (list[k] &gt; max) { index=k; max=list[k] }
+  }
+  return {max, index}
+}
+
+function viterbi(obs, states, P) {
+  console.log('觀察到的序列=', obs)
+  const T = [{}] // Viterbi Table
+  let path = {}  // path[state] = 從 0 到 t 到達 state 機率最大的 path
+  for (let y of states) { // # Initialize base cases (t == 0)
+    T[0][y] = P[y] * P[y+'=&gt;'+obs[0]]
+    path[y] = [y]
+  }
+  // console.log('T=%j path=%j', T, path)
+  for (let t=1; t&lt;obs.length; t++) { // # Run Viterbi for t &gt; 0
+    T[t] = {}
+    let newpath = {}
+    for (let y of states) {
+      let {max:prob, index:si} = argmax(states.map((y0)=&gt;T[t-1][y0] * P[y0+'=&gt;'+y] * P[y+'=&gt;'+obs[t]]))
+      let state = states[si]
+      // console.log('y=%s prob=%d state=%s', y, prob, state)
+      T[t][y] = prob
+      newpath[y] = path[state].concat(y)
+    }
+    // console.log('t=%d T=%j', t, T)
+    path = newpath
+    console.log('t=%d path=%j', t, path)
+  }
+  let {max:prob, index:si} = argmax(states.map((y)=&gt;T[obs.length - 1][y]))
+  console.log('T=%j', T)
+  return {prob, path:path[states[si]]}
+}
+
+let {prob, path} = viterbi('喵 喵 汪'.split(' '), ['N', 'V'], P)
+console.log('prob=%d path=%j＝最可能的隱序列', prob, path)
+</code></pre>
+
+<h3> 觀念</h3>
+
+<ul>
+    <li><a href="https://zh.wikipedia.org/wiki/%E7%BB%B4%E7%89%B9%E6%AF%94%E7%AE%97%E6%B3%95" alt="">維基百科:維特比演算法</a></li>
+    <li><a href="https://ckmarkoh.github.io/blog/2014/04/03/natural-language-processing-hidden-markov-models/" alt="">自然語言處理 -- Hidden Markov Model</a></li>
+    <li><a href="https://ckmarkoh.github.io/blog/2014/04/06/natural-language-processing-viterbi-algorithm/" alt="">自然語言處理 -- Viterbi Algorithm</a></li>
+</ul>
+<h3> 實作</h3>
+
+<ul>
+    <li><a href="https://github.com/miguelmota/hidden-markov-model">https://github.com/miguelmota/hidden-markov-model</a></li>
+    <li><a href="https://github.com/123jimin/hmm.js/blob/master/hmm.js">https://github.com/123jimin/hmm.js/blob/master/hmm.js</a></li>
+    <li><a href="https://github.com/123jimin/hmm.js/tree/master">https://github.com/123jimin/hmm.js/tree/master</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

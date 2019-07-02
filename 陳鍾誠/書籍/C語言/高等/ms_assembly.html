@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 組合語言 -- 微軟的範例</h2>
+
+<p>在電腦越來越發達的時代，程式設計師與組合語言的距離就越來越遠了，這往往讓我們不知道如何在個人電腦上撰寫組合語言。對於那些曾經碰過 DOS 系統的人而言，撰寫組合語言是常見的事情，但是自從 Windows 加入保護功能之後，這些 DOS 的組合語言就再也不能執行了，要在 Windows 系統下撰寫組合語言，成了一種很少人會的絕技。</p>
+
+<p>但是，其實在 MS. Windows 之下撰寫組合語言並沒有那麼困難。要在微軟的平台上撰寫組合語言，最簡單的方式是安裝 Visual Studio Professional，然後啟動 Visual Studio 的命令列工具，舉例而言，在筆者的電腦上安裝有 Windows XP + Visual Studio Professional 2008，筆者只要啟動「開始/所有程式/Microsoft Visual Studio 2008/Visual Studio Tools/Visual Studio 2008 命令提是字元」後，就可以打入 ml 指令看看是否具有微軟的組譯器 ml.exe，如下圖所示。</p>
+
+<p>![[圖一、測試微軟的組譯器是否存在]](ml.png)</p>
+
+<p>一但有了這個組譯器，您就可以開始撰寫微軟的組合語言了，以下是一些組合語言的程式範例，以及筆者的執行情況。</p>
+
+<h3> 範例一、加減法</h3>
+
+<p>檔案：add.asm</p>
+
+<pre class="code"><code class="">.386
+.model    flat
+INCLUDELIB LIBCMT
+printf PROTO C, format:PTR BYTE, args:VARARG
+.data
+num DWORD 0
+formatStr BYTE "num=%d", 0dh, 0ah, 0
+PUBLIC    _main
+.code
+_main    PROC
+    MOV eax, 1
+    ADD eax, 4
+    SUB eax, 2
+    MOV num, eax
+    INVOKE printf, ADDR formatStr, num
+    ret    0
+_main    ENDP
+END
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\code\ASM&gt;ml add.asm
+Microsoft (R) Macro Assembler Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+ Assembling: add.asm
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/OUT:add.exe
+add.obj
+
+D:\code\ASM&gt;add
+num=3
+
+</code></pre>
+
+<h3> 範例二、計算總和</h3>
+
+<p>檔案：sum.asm</p>
+<pre class="code"><code class="">.386
+.model    flat
+INCLUDELIB LIBCMT
+printf PROTO C, format:PTR BYTE, args:VARARG
+.data
+sum DWORD 0
+formatStr BYTE "sum=%d", 0dh, 0ah, 0
+PUBLIC    _main
+.code
+_main    PROC
+    MOV eax, 1
+FOR1:
+    ADD sum, eax
+    ADD eax, 1
+    CMP eax, 10
+    JLE FOR1
+    INVOKE printf, ADDR formatStr, sum
+    ret    0
+_main    ENDP
+END
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\code\ASM&gt;ml sum.asm
+Microsoft (R) Macro Assembler Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+ Assembling: sum.asm
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/OUT:sum.exe
+sum.obj
+
+D:\code\ASM&gt;sum
+sum=55
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

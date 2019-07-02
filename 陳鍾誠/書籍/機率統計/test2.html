@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../機率統計.html" alt="">機率統計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 再論估計與檢定</h1>
+
+<p>在上一章當中，我們說明了如何計算單一組樣本「平均值」的「信賴區間」與「檢定」等問題。在這一章當中，我們將進一步探索
+如何用 R 軟體進行其他的檢定，像是「變異數」的檢定，兩組樣本的檢定等問題，我們將不會花太多力氣在數學說明上，而是採用
+直接操作的範例導向方法，用範例說明這些檢定的實作方法。</p>
+
+<h2> 檢定的分類</h2>
+
+<p>大致上來說，檢定可以分為「單組樣本、兩組樣本或多組樣本」的檢定，在上期當中，我們所檢定的對象是單組樣本的平均值 <span class="math inline">\mu</span>，
+當然我們也可以檢定兩組樣本的平均值是否相等，也就是 <span class="math inline">\mu_1=\mu_2</span> 是否為真。</p>
+
+<p>如果想檢定的關係並非「等號」關係，那麼檢定還可以分為「右尾檢定、左尾檢定、雙尾檢定」等三種，以平均值 <span class="math inline">\mu</span> 的檢定而言，
+其檢定假設如下表所示：</p>
+
+<table>
+<tr><th>   \  </th><th> 右尾檢定         </th><th> 左尾檢定        </th><th> 雙尾檢定         </th></tr>
+
+<tr><td> H0  </td><td> <span class="math inline">\mu \le \mu_0</span>  </td><td> <span class="math inline">\mu \ge \mu_0</span> </td><td> <span class="math inline">\mu=\mu_0</span>      </td></tr>
+<tr><td> H1  </td><td> <span class="math inline">\mu \gt \mu_0</span>  </td><td> <span class="math inline">\mu \lt \mu_0</span> </td><td> <span class="math inline">\mu \neq \mu_0</span> </td></tr>
+</table>
+
+<p>另外、檢定的對象如果不是平均數 <span class="math inline">\mu</span> ，而是變異數 <span class="math inline">\sigma</span> ，或者某個比例 p，或者是中位數 M ，那就得改用對應的分布進行檢定，讓我們將檢定的種類與方法整理一下，列表如下：</p>
+
+<ul>
+    <li>單組樣本的檢定</li>
+    <ul>
+        <li>平均值的檢定？ ( <span class="math inline">H0: \mu = \mu_0</span> )  -- 學生 T 檢定</li>
+        <li>變異數的檢定？ ( <span class="math inline">H0: \sigma = \sigma_0</span> ) -- 卡方 <span class="math inline">\chi^2</span> 檢定</li>
+        <ul>
+            <li>檢定式： <span class="math inline">(n-1) s^2/\sigma_0^2 \sim \chi^2</span></li>
+        </ul>
+        <li>比例 p 的檢定？ ( <span class="math inline">H0:p = p_0</span> )  -- 常態 Z 檢定</li>
+        <ul>
+            <li>檢定量： <span class="math inline">X/n = \hat{p}</span></li>
+            <li>檢定式： <span class="math inline">\frac{\hat{p}-p}{\sqrt{p(1-p)/n}} \sim Z</span></li>
+        </ul>
+        <li>中位數 M 的檢定？ ( <span class="math inline">H0: M = M_0</span> ) -- 無母數方法 Wilcoxon Sign-Rank 檢定</li>
+    </ul>
+    <li>兩組樣本的檢定</li>
+    <ul>
+        <li>比較兩平均數 <span class="math inline">\mu_1, \mu_2</span> 的差值 ( <span class="math inline">H0:\mu_1-\mu_2=0</span> ) 的檢定</li>
+        <ul>
+            <li>T 檢定式 (變異數不等)： </li>
+            <ul>
+                <li><span class="math inline">\frac{(\bar{X_1}-\bar{X_2})-(\mu_1-\mu_2)}{\sqrt{S_1^2/n_1 + S_2^2/n_2)}} \sim T_{\gamma}</span></li>
+                <li><span class="math inline">\gamma = \frac{[S_1^2/n_1 + S_2^2/n_2]^2}{[S_1^2/n_1]^2/(n_1-1)+[S_2^2/n_2]^2/(n_2-1)}</span> </li>
+            </ul>
+        </ul>
+        <li>合併 T 檢定式 (pooled T test, 變異數相等)： </li>
+        <ul>
+            <li>檢定式：<span class="math inline">\frac{(\bar{X_1}-\bar{X_2})-(\mu_1-\mu_2)}{\sqrt{S_p^2 (1/n_1 + 1/n_2)}} \sim T_{n_1+n_2-2}</span></li>
+            <li>其中  <span class="math inline">S_p^2 = \frac{(n_1 - 1)^{S_1^2} + (n_2-1) S_2^2}{n_1+n_2-2}</span></li>
+        </ul>
+        <li>成對 T 檢定式： <span class="math inline">\frac{\bar{X-Y}}{S_D / \sqrt{n}} \sim T_{n-1}</span></li>
+        <li>比較兩變異數 <span class="math inline">\sigma_1, \sigma_2</span> 的比例 ( <span class="math inline">H0:\sigma_1=\sigma_2</span> ) 的檢定</li>
+        <ul>
+            <li>檢定式：<span class="math inline">\frac{\chi^2_{\gamma_1}/{\gamma_1}}{\chi^2_{\gamma_2}/{\gamma_2}} \sim F_{\gamma1, \gamma2}</span></li>
+        </ul>
+        <li>比較兩比例 <span class="math inline">p1, p2</span> 的差值 ( <span class="math inline">H0: p1-p2=0</span> ) 的檢定</li>
+        <ul>
+            <li>檢定式： <span class="math inline">\frac{(\hat{p_1}-\hat{p_2})-(p_1-p_2)}{\sqrt{p_1(1-p_1)/n_1 + p_2(1-p_2)/n_2}} \sim Z</span></li>
+        </ul>
+        <li>比較兩組中位數 M 的差值 ( <span class="math inline">H0:M_X - M_Y=0</span> ) 的檢定 (無母數方法)</li>
+    </ul>
+</ul>
+<h2> 右尾檢定、左尾檢定與雙尾檢定</h2>
+
+<pre class="code"><code class="R">&gt; x = rnorm(25, mean=5, sd=2)
+&gt; x
+ [1] 6.6148290 8.4660415 4.7084610 8.0959357 5.0618158 3.6971976 7.7887572
+ [8] 5.2229378 4.7763453 4.3595627 4.7674163 2.8655986 4.5051726 1.2974370
+[15] 6.9794643 0.4042951 8.0391053 6.7884780 6.5557084 3.7146943 0.3457576
+[22] 7.4302876 6.7216046 9.1046976 7.0879767
+&gt; sd(x)
+[1] 2.430731
+&gt; mean(x)
+[1] 5.415983
+&gt; t.test(x, alternative="greater", mu=4.8)
+
+        One Sample t-test
+
+data:  x 
+t = 1.2671, df = 24, p-value = 0.1086
+alternative hypothesis: true mean is greater than 4.8 
+95 percent confidence interval:
+ 4.584244      Inf 
+sample estimates:
+mean of x 
+ 5.415983 
+
+&gt; t.test(x, alternative="less", mu=4.8)
+
+        One Sample t-test
+
+data:  x 
+t = 1.2671, df = 24, p-value = 0.8914
+alternative hypothesis: true mean is less than 4.8 
+95 percent confidence interval:
+     -Inf 6.247722 
+sample estimates:
+mean of x 
+ 5.415983 
+
+&gt; t.test(x, alternative="two.sided", mu=4.8)
+
+        One Sample t-test
+
+data:  x 
+t = 1.2671, df = 24, p-value = 0.2173
+alternative hypothesis: true mean is not equal to 4.8 
+95 percent confidence interval:
+ 4.412627 6.419339 
+sample estimates:
+mean of x 
+ 5.415983 
+</code></pre>
+
+<p>註：以上的 <code>t.test(x, alternative="greater", mu=4.8)</code> 為右尾檢定，其中的 <code>t = 1.2671, df = 24, p-value = 0.1086</code> 這個
+輸出中，p-value=0.1086 其實就是截掉左尾 <span class="math inline">H0:\mu \le 4.8</span> 保留右尾  <span class="math inline">H0:\mu \gt 4.8</span>  的結果。如下所示：</p>
+
+<pre class="code"><code class="R">&gt; 1-pt(1.2671, df=24)
+[1] 0.1086388
+</code></pre>
+
+<p>而 <code>t.test(x, alternative="less", mu=4.8)</code> 為左尾檢定，其中的 <code>t = 1.2671, df = 24, p-value = 0.8914</code> 這個
+輸出中，p-value=0.8914 反過來就是截掉右尾 <span class="math inline">H0:\mu \ge 4.8</span> 保留左尾  <span class="math inline">H0:\mu \lt 4.8</span>  的結果。如下所示：</p>
+
+<pre class="code"><code class="R">&gt; pt(1.2671, df=24)
+[1] 0.8913612
+</code></pre>
+
+<p>而最後的 <code>t.test(x, alternative="two.sided", mu=4.8)</code> 是雙尾檢定，其中的 <code>t = 1.2671, df = 24, p-value = 0.2173</code> 
+這個輸出中，p-value=0.2173 其實就是截掉兩尾的結果。如下所示：</p>
+
+<pre class="code"><code class="R">&gt; 1-(pt(1.2671, df=24)-pt(-1.2671, df=24))
+[1] 0.2172776
+&gt; 
+</code></pre>
+
+<h2> 比例 p 的檢定</h2>
+
+<pre class="code"><code class="R">&gt; prop.test(25, 100, correct=T, p=0.25)
+
+        1-sample proportions test without continuity correction
+
+data:  25 out of 100, null probability 0.25 
+X-squared = 0, df = 1, p-value = 1
+alternative hypothesis: true p is not equal to 0.25 
+95 percent confidence interval:
+ 0.1754521 0.3430446 
+sample estimates:
+   p 
+0.25 
+
+&gt; prop.test(25, 100, correct=T, p=0.01)
+
+        1-sample proportions test with continuity correction
+
+data:  25 out of 100, null probability 0.01 
+X-squared = 557.8283, df = 1, p-value &lt; 2.2e-16
+alternative hypothesis: true p is not equal to 0.01 
+95 percent confidence interval:
+ 0.1711755 0.3483841 
+sample estimates:
+   p 
+0.25 
+
+Warning message:
+In prop.test(25, 100, correct = T, p = 0.01) :
+  Chi-squared approximation may be incorrect
+&gt; prop.test(25, 100, correct=T, p=0.2)
+
+        1-sample proportions test with continuity correction
+
+data:  25 out of 100, null probability 0.2 
+X-squared = 1.2656, df = 1, p-value = 0.2606
+alternative hypothesis: true p is not equal to 0.2 
+95 percent confidence interval:
+ 0.1711755 0.3483841 
+sample estimates:
+   p 
+0.25 
+</code></pre>
+
+<h2> 中位數 M  的檢定</h2>
+
+<pre class="code"><code class="R">&gt; wilcox.test(x, mu=4.8)
+
+        Wilcoxon signed rank test
+
+data:  x 
+V = 207, p-value = 0.2411
+alternative hypothesis: true location is not equal to 4.8 
+</code></pre>
+
+<h2> 兩組樣本的平均值檢定</h2>
+
+<p>(方法一)：合併 T 檢定 (pooled T test) -- 又被稱為：「獨立 T 檢定」或「不相關 T 檢定」</p>
+
+<ul>
+    <li>前提條件：兩組樣本必須互相獨立才能使用合併 T 檢定，沒有理相信 (常態分布) 兩組樣本的母體變異數不相等的情況之下，想比較 <span class="math inline">\mu_1 - \mu_2</span> 時，可用「合併 T 檢定」。</li>
+</ul>
+<p>合併 T 檢定的數學原理，式考慮下列兩組分佈公式：</p>
+
+<p><span class="math inline">Z=\frac{(\bar{X}-\bar{Y})-(\mu_1 - \mu_2)}{\sqrt{\sigma^2 (\frac{1}{n_1} + \frac{1}{n_2})}} \sim N(0,1)</span></p>
+
+<p><span class="math inline">\frac{(n_1-1) S_1^2}{\sigma^2} \sim \chi (n_1-1) \;\;;\;\; \frac{(n_2-1) S_1^2}{\sigma^2} \sim \chi (n_2-1)</span></p>
+
+<p>當 <span class="math inline">S_1</span> 與 <span class="math inline">S_2</span> 相互獨立時，會有下列性質：</p>
+
+<p><span class="math inline">\frac{(n_1-1) S_1^2}{\sigma^2} + \frac{(n_2-1) S_1^2}{\sigma^2} \sim \chi^2(n_1+n_2-2)</span></p>
+
+<p>於是可以得到：</p>
+
+<p><span class="math inline">T = \frac{(\bar{X}-\bar{Y})-(\mu_1 - \mu_2)}{\sqrt{S^2 (\frac{1}{n_1} + \frac{1}{n_2}})} \sim t(n_1+n_2-2)</span></p>
+
+<p>也就是 <span class="math inline">\frac{(\bar{X}-\bar{Y})-(\mu_1 - \mu_2)}{\sqrt{S^2 (\frac{1}{n_1} + \frac{1}{n_2}})}</span> 服從自由度為 <span class="math inline">(n_1+n_2-2)</span> 的 T 分布。</p>
+
+<p>其中的 S 定義如下：</p>
+
+<p><span class="math inline">S = \frac{(n_1-1) S_1^2 + (n_2-1) S_2^2}{(n_1 - 1) + (n_2-1)}</span></p>
+
+<p>接著讓我們來看看如何用 R 進行這類的合併 T 檢定。</p>
+
+<pre class="code"><code class="R">&gt; x=rnorm(25, mean=3.0, sd=2)
+&gt; y=rnorm(25, mean=3.2, sd=2)
+&gt; x
+ [1]  5.12770813 -0.69201841  3.11359532  1.93715093  7.76880172  3.54159714
+ [7]  1.47159331  4.27555975  3.48421232  2.25191442  3.46742988  7.85327689
+[13]  3.52493667  5.41072190  4.39668469  0.29868134 -0.19521005  1.30992501
+[19]  2.55471568  3.89214393  6.01076126 -0.02217834  1.03681457  5.68719430
+[25]  4.15852190
+&gt; y
+ [1]  4.0565581  3.9617962  6.3513376  4.9998217  4.4419258  6.3198375
+ [7] -1.0483622  5.1809845  7.5435307  2.6048084  5.6764663  2.6687181
+[13]  2.7981462 -0.3564332  0.8637199  4.2032371  4.5879745  3.1428764
+[19] -0.3657162  4.0400208  5.9577457  2.3334531  3.2662193  1.6285190
+[25]  2.2731483
+&gt; t.test(x, y, var.equal=T) ## (方法一)：合併 T 檢定 (pooled T test) -- 又被稱為：「獨立 T 檢定」或「不相關 T 檢定」
+## 前提條件：兩組樣本必須互相獨立才能使用合併 T 檢定，沒有理相信 (常態分布) 兩組樣本的母體變異數不相等的情況之下使用
+
+        Two Sample t-test
+
+data:  x and y 
+t = -0.3409, df = 48, p-value = 0.7346
+alternative hypothesis: true difference in means is not equal to 0 
+95 percent confidence interval:
+ -1.508021  1.070757 
+sample estimates:
+mean of x mean of y 
+ 3.266581  3.485213 
+
+&gt; t.test(x,y, pair=T)   ## (方法二)：成對 T 檢定 (Paired T Test)
+## 前提條件：(1) 2個或以上的連續變項皆呈常態分配 (normally distributed) 
+##           (2) 變項與觀察值之間互相獨立 (mutually independently) 
+
+        Paired t-test
+
+data:  x and y 
+t = -0.3438, df = 24, p-value = 0.734
+alternative hypothesis: true difference in means is not equal to 0 
+95 percent confidence interval:
+ -1.531134  1.093870 
+sample estimates:
+mean of the differences 
+              -0.218632 
+</code></pre>
+
+<h2> 變異數服從甚麼分布？</h2>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+<h2> 兩組樣本的變異數檢定</h2>
+<p></p>
+
+<table>
+<tr><th>   \  </th><th> 右尾檢定                 </th><th> 左尾檢定              </th><th> 雙尾檢定                   </th><th> </th></tr>
+
+<tr><td> H0 </td><td> <span class="math inline">\sigma_1 = \sigma_2</span>    </td><td> <span class="math inline">\sigma_1 = \sigma_2</span> </td><td> <span class="math inline">\sigma_1 = \sigma_2</span>      </td><td> </td></tr>
+<tr><td> H1 </td><td> <span class="math inline">\sigma_1 \gt \sigma_2</span>  </td><td> <span class="math inline">\sigma_1 \lt \sigma_2</span> </td><td> <span class="math inline">\sigma_1 \neq \sigma_2</span> </td><td> </td></tr>
+</table>
+
+<p>那麼、對於變異數而言應該怎麼檢定才好呢？</p>
+
+<p>由於單一樣本群的變異數服從卡方分布，因此在兩組樣本群時，會服從以下的分布：</p>
+
+<p><span class="math inline">\frac{\chi^2_{\gamma_1} / \gamma_1}{\chi^2_{\gamma_2} / \gamma_2}</span></p>
+
+<p>這種由兩個卡方分布相除的分布稱為 F 分布。</p>
+
+<p>定理：</p>
+
+<blockquote>
+<p> 令 X, Y 分別是來自常態分配 <span class="math inline">N(\mu_X, \sigma_X^2)</span> 與 <span class="math inline">N(\mu_Y, \sigma_Y^2)</span> 的樣本群，<span class="math inline">S_X^2</span> 與 <span class="math inline">S_Y^2</span> 為 X , Y 兩群樣本的變異數，若 <span class="math inline">\sigma_X=\sigma_Y</span> ，則統計量 <span class="math inline">S_X^2 / S_Y^2</span> 服從自由度為 <span class="math inline">n_X, n_Y</span> 的 F 分布。</p>
+</blockquote>
+<p></p>
+
+<p>在 R 函數中，進行「兩組樣本變異數檢定」的函數是 var.test()，該函數即是採用 F 分布去進行檢定的，以下是一個用 var.test() 進行檢定的範例。</p>
+<p></p>
+
+<pre class="code"><code class="R">&gt; var.test(x,y)
+
+        F test to compare two variances
+
+data:  x and y 
+F = 1.0973, num df = 24, denom df = 24, p-value = 0.8219
+alternative hypothesis: true ratio of variances is not equal to 1 
+95 percent confidence interval:
+ 0.4835609 2.4901548 
+sample estimates:
+ratio of variances 
+          1.097334 
+</code></pre>
+<h2> 兩組樣本的比例檢定</h2>
+
+<table>
+<tr><th> \   </th><th> 右尾檢定                   </th><th> 左尾檢定                  </th><th> 雙尾檢定                  </th></tr>
+
+<tr><td> H0 </td><td> <span class="math inline">p_1-p_2 = (p_1-p_2)_0</span>    </td><td> <span class="math inline">p_1-p_2 = (p_1-p_2)_0</span>   </td><td> <span class="math inline">p_1-p_2 = (p_1-p_2)_0</span>   </td><td> </td></tr>
+<tr><td> H1 </td><td> <span class="math inline">p_1-p_2 \gt (p_1-p_2)_0</span>  </td><td> <span class="math inline">p_1-p_2 \lt (p_1-p_2)_0</span> </td><td> <span class="math inline">p_1-p_2 \ne (p_1-p_2)_0</span> </td><td> </td></tr>
+</table>
+
+<pre class="code"><code class="R">&gt; x=c(100, 200)
+&gt; y=c(300, 400)
+&gt; prop.test(x,y)
+
+        2-sample test for equality of proportions with continuity
+        correction
+
+data:  x out of y 
+X-squared = 18.7698, df = 1, p-value = 1.475e-05
+alternative hypothesis: two.sided 
+95 percent confidence interval:
+ -0.24201562 -0.09131771 
+sample estimates:
+   prop 1    prop 2 
+0.3333333 0.5000000 
+</code></pre>
+
+<p>請注意兩組樣本的比例採用下列公式：</p>
+
+<p><span class="math inline">\frac{(\hat{p_1}-\hat{p_2})-(p_1-p_2)}{\sqrt{p_1(1-p_1)/n_1 + p_2(1-p_2)/n_2}} \sim Z</span></p>
+<p></p>
+
+<h2> 兩組樣本的中位數檢定</h2>
+
+<p>(方法一)：Wilcoxon Rank-Sum 檢定：兩組獨立觀察值 X, Y 適用</p>
+
+<ul>
+    <li>統計量： <span class="math inline">\frac{W_m-E(W_m)}{\sqrt{Var(Wm)}}</span></li>
+    <li>其中的： <span class="math inline">E(W_m) = [m(m+n+1)/2] ; Var(W_m) = mn(m+n+1)/12</span></li>
+</ul>
+<p>|  \  |  右尾檢定    | 左尾檢定    | 雙尾檢定       | 
+|----|--------------|-------------|----------------| 
+| H0 | <span class="math inline">M_X = M_Y</span>  | <span class="math inline">M_X = M_Y</span> | <span class="math inline">M_X = M_Y</span>    | 
+| H1 | <span class="math inline">M_X > M_Y</span>  | <span class="math inline">M_X < M_Y</span> | <span class="math inline">M_X \neq M_Y</span> | </p>
+
+<pre class="code"><code class="R">&gt; x = rnorm(20, mean=5, sd=2)
+&gt; y = rnorm(20, mean=5.5, sd=2)
+&gt; x
+ [1] 3.962665 4.592900 2.708658 4.302144 9.140617 6.579571 4.711547 4.842238
+ [9] 5.634979 8.826325 7.492737 5.349967 6.028533 5.326150 3.280819 2.589442
+[17] 6.391175 3.299716 5.681381 3.188571
+&gt; y
+ [1] 7.537479 5.810962 7.340678 4.048306 6.179672 5.152021 6.780724 3.354434
+ [9] 6.484613 8.752706 4.116139 4.939286 4.074703 2.954187 4.489012 5.697258
+[17] 5.260137 6.299990 8.188696 5.743851
+&gt; wilcox.test(x, y, exact=F, correct=F)
+
+        Wilcoxon rank sum test
+
+data:  x and y 
+W = 162, p-value = 0.304
+alternative hypothesis: true location shift is not equal to 0 
+</code></pre>
+
+<p>(方法二)：Wilcoxon Signed-Rank 檢定：兩組成對觀察值 (X, Y) 適用</p>
+
+<ul>
+    <li>樣本：兩組成對觀察值 <span class="math inline">(X_1, Y_1), (X_2, Y_2), ..., (X_n, Y_n)</span></li>
+    <li>方法：將差距絕對值 <span class="math inline">|X_1-Y_1|, |X_2, Y_2|, ..., |X_n, Y_n|</span> 由小到大排序，並給予 1..n 的名次。</li>
+    <li>檢定統計量：看看 <span class="math inline">M_X</span> 是否夠接近 <span class="math inline">M_Y</span>，如果差很多那麼 W 應該會很大。</li>
+    <li>正排名權重：<span class="math inline">W_+ = \sum_{R_i>0} R_i</span></li>
+    <li>負排名權重：<span class="math inline">|W_-| = \sum_{R_i<0} |R_i| ;</span></li>
+    <li>W = min(W<em>+, |W</em>-|)</li>
+</ul>
+<pre class="code"><code class="R">&gt; wilcox.test(x,y, exact=F, correct=F, paired=T)
+
+        Wilcoxon signed rank test
+
+data:  x and y 
+V = 83, p-value = 0.4115
+alternative hypothesis: true location shift is not equal to 0 
+</code></pre>
+
+<h2> 結語</h2>
+
+<p>在本文中，我們討論了各種「單組樣本」與「兩組樣本」檢定方法，並用 R 軟體進行示範操作，希望透過這樣的方式讓
+讀者感受到「檢定」這一個統計工具的用途。</p>
+
+<p>但是、我們還漏掉了一個部分，那就是「三組以上的樣本」之檢定方法，用來檢定這些樣本是否來自同一母體，這種
+「多組樣本檢定」的問題，通常必須使用「變異數分析」(ANOVA, Analysis Of Variance) 的方法處理，這將是我們
+下一章所要討論的主題！</p>
+<p></p>
+
+<h2> 參考文獻</h2>
+<ul>
+    <li>陳鍾誠的網站/免費電子書/R 統計軟體 -- <a href="http://ccckmit.wikidot.com/r:main">http://ccckmit.wikidot.com/r:main</a></li>
+    <li>陳鍾誠的網站/免費電子書/機率與統計 (使用 R 軟體) -- <a href="http://ccckmit.wikidot.com/st:main">http://ccckmit.wikidot.com/st:main</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

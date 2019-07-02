@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../09-模式識別.html" alt="">09-模式識別</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 七段顯示器的數字識別問題</h2>
+
+<table>
+<tr><th>實體 </th><th> 編碼</th></tr>
+
+<tr><td><figure>
+  <img src="./img/7segReal.png" alt=""></img>
+<figcaption></figcaption></figure>
+ </td><td> <figure>
+  <img src="./img/7segLayout.png" alt=""></img>
+<figcaption></figcaption></figure>
+</td></tr>
+</table>
+
+<p>要識別七段顯示器上的數字並不難，假如不考慮影像處理，而是直接對每個 LED 亮或不亮用二進位編碼法，那麼可以得到下列表格。</p>
+
+<p><figure>
+  <img src="./img/7segTable.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>但是《七段顯示器》的所有可能樣式總共有如下圖的 <span class="math inline">2^7=128</span> 種，假如該樣式非標準答案，那麼該如何判斷呢？</p>
+
+<p><figure>
+  <img src="./img/7segAll.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+
+<p>對於完全正確的的標準顯示樣式，也就是該《顯示樣式》屬於 0,1,2,3,4,5,6,7,8,9 ，那麼直接透過查表就可以回答：</p>
+
+<pre class="code"><code class="">   A B C D E F G
+0  1 1 1 1 1 1 0
+1  0 1 1 0 0 0 0
+2  1 1 0 1 1 0 1
+3  1 1 1 1 0 0 1
+4  0 1 1 0 0 1 1
+5  1 0 1 1 0 1 1
+6  1 0 1 1 1 1 1
+7  1 1 1 0 0 1 0
+8  1 1 1 1 1 1 1
+9  1 1 1 1 0 1 1
+</code></pre>
+
+<p>但是、假如某個《顯示樣式》並不屬於 0,1,2,3,4,5,6,7,8,9 ，那麼應該如何識別呢？</p>
+
+<p>例如下圖的 x = (0 0 1 1 1 1 1) 應該識別為甚麼數字呢？</p>
+
+<p><figure>
+  <img src="./img/7segAlmost6.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>我們可以透過二進位距離 d(x,i) 的衡量，得到下列結果：</p>
+
+<pre class="code"><code class="">x  0 0 1 1 1 1 1  
+
+   A B C D E F G  d(x,i)
+0  1 1 1 1 1 1 0  3
+1  0 1 1 0 0 0 0  5
+2  1 1 0 1 1 0 1  4
+3  1 1 1 1 0 0 1  4
+4  0 1 1 0 0 1 1  3
+5  1 0 1 1 0 1 1  2
+6  1 0 1 1 1 1 1  1
+7  1 1 1 0 0 1 0  5
+8  1 1 1 1 1 1 1  2
+9  1 1 1 1 0 1 1  3
+</code></pre>
+
+<p>於是我們取距離最近的數字 6 作為答案，將該數字辨識為 6.</p>
+
+<p>上述的方法其實就是《以最近鄰居的答案為答案》，也就是 KNN《K-近鄰》方法取 K = 1 時的做法。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

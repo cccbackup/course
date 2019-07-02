@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../技能.html" alt="">技能</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> Shell</h1>
+
+<p>通常我們會用 bash shell， bash shell 通常是 UNIX/Linux 與 Mac 共用的《終端機》指令系統，連 windows 的 Power Shell 也支援這些 UNIX指令。 </p>
+
+<h2> 常用指令</h2>
+
+<ul>
+    <li>ls -- 列出此資料夾的檔案與子資料夾</li>
+    <li>cd -- 切換資料夾</li>
+    <li>mkdir -- 建立資料夾</li>
+    <li>pwd -- 列出目前資料夾</li>
+    <li>history -- 列出之前用過的指令歷史資料</li>
+</ul>
+<p>使用範例：(此範例是在 Power Shell 中的操作結果)</p>
+
+<pre class="code"><code class="">PS D:\Dropbox\course\wd106b&gt; ls
+
+
+    目錄: D:\Dropbox\course\wd106b
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+da----       2018/3/8  下午 05:51                example
+da----       2018/3/2  上午 08:00                exercise
+da----       2018/3/8  下午 05:49                more
+da----       2018/3/2  上午 08:00                project
+-a----       2018/3/9  下午 02:03            625 .gitignore
+-a----       2018/3/9  下午 02:17            738 README.md
+
+
+PS D:\Dropbox\course\wd106b&gt; pwd
+
+Path
+----
+D:\Dropbox\course\wd106b
+
+
+PS D:\Dropbox\course\wd106b&gt; cd example
+PS D:\Dropbox\course\wd106b\example&gt; mkdir test
+
+
+    目錄: D:\Dropbox\course\wd106b\example
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----       2018/3/9  下午 02:53                test
+
+
+PS D:\Dropbox\course\wd106b\example&gt; ls
+
+
+    目錄: D:\Dropbox\course\wd106b\example
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+da----       2018/3/9  下午 02:03                01-html
+da----       2018/3/8  下午 04:45                02-css
+da----       2018/3/2  上午 07:26                03-bootstrap
+da----       2018/3/1  上午 09:26                04-nodejs
+da----     2017/12/28  下午 04:48                05-electronjs
+da----       2018/3/2  上午 07:50                06-domjs
+da----       2018/3/2  上午 07:36                08-jquery
+da----       2018/3/8  下午 05:50                09-firebase
+da----       2018/3/1  上午 08:32                10-vuejs
+da----       2018/3/9  下午 02:53                test
+-a----       2018/3/2  上午 08:00              0 README.md
+
+
+PS D:\Dropbox\course\wd106b\example&gt; rmdir test
+PS D:\Dropbox\course\wd106b\example&gt; ls
+
+
+    目錄: D:\Dropbox\course\wd106b\example
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+da----       2018/3/9  下午 02:03                01-html
+da----       2018/3/8  下午 04:45                02-css
+da----       2018/3/2  上午 07:26                03-bootstrap
+da----       2018/3/1  上午 09:26                04-nodejs
+da----     2017/12/28  下午 04:48                05-electronjs
+da----       2018/3/2  上午 07:50                06-domjs
+da----       2018/3/2  上午 07:36                08-jquery
+da----       2018/3/8  下午 05:50                09-firebase
+da----       2018/3/1  上午 08:32                10-vuejs
+-a----       2018/3/2  上午 08:00              0 README.md
+
+PS D:\Dropbox\course\wd106b\example&gt; history
+
+  Id CommandLine
+  -- -----------
+   1 cd .\wd106b\
+   2 git add -A
+   3 git commit -m "organize example"
+   4 git push origin master
+   5 git pull
+   6 ls
+   7 pwd
+   8 cd example
+   9 mkdir test
+  10 ls
+  11 rmdir test
+  12 ls
+
+</code></pre>
+
+<h2> Windows 命令列與 Linux/MAC Shell 的基本操作</h2>
+
+<p>剛開始學習程式設計的同學，往往碰到的第一個障礙並不是寫程式，而是不知道如何下指令。</p>
+
+<p>下什麼指令呢？</p>
+
+<p>如果您用的是 windows 系統，那第一個障礙就是不知道如何下 DOS 指令了！</p>
+
+<p>但是如果您用的是 Linux/MAC 系統，那第一個障礙就是不知道如何下 Shell 指令了！</p>
+
+<p>DOS , 那不是已經被淘汰的東西嗎？</p>
+
+<p>Oh ! DOS 系統雖然已經被 windows 系統取代二十幾年了，但是在 windows 裏的『命令提示字元』裏所用的指令，都還是當年的 DOS 指令，這也算是 DOS 所留下來的遺產吧！</p>
+
+<p>在您初學程式之前，如果不會 DOS/Shell 指令，那沒有關係，我們只要先學會很簡單的幾個指令就行了，列表如下：</p>
+
+<table>
+<tr><th>DOS 指令 </th><th> Shell 指令 </th><th> 說明 </th><th> 範例 </th><th> 範例解說</th></tr>
+
+<tr><td> cd </td><td> cd </td><td> change directory </td><td> cd /ccc/code/ </td><td> 切換到 /ccc/code/ 資料夾</td></tr>
+<tr><td>dir </td><td> ls </td><td> directory </td><td> dir </td><td> 顯示目前資料夾中的檔案與子資料夾</td></tr>
+<tr><td> d: </td><td> 無磁碟機概念 </td><td> 切換磁碟機 </td><td> d: </td><td> 切換到 d 槽</td></tr>
+</table>
+
+<h2> 進階參考</h2>
+
+<ul>
+    <li><a href="https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh-Hant.md" alt="">命令列的藝術</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../C＃程式設計.html" alt="">C＃程式設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> C# 程式進階：正規表達式</h1>
+
+<p>正規表達式是現代程式設計的重要工具，在 C# 當中，對正規表達式的支援相當的完整。您可以用正規表達式抽取出文件中的電話、地址、超連結、email 等欄位，因此正規表達式在文字型資料的處理上是相當方便的。</p>
+
+<h2> 程式範例</h2>
+
+<p>在以下的範例中，我們利用正規表達式 "[0-9]+號"，抽取出字串當中的號碼，像是 32號，45號等。其中的 matches 函數是正規表達式的主要部分，我們透過 Regex 物件中的 Match(pText) 與 NextMatch() 函數，不斷取得比對的結果 (Match m)，然後再利用Match 結構取出 m.Groups[pGroupId].Value 這個比對的值，其中若 pGroudId 為 0 ，代表所要取得的是比對結果的全部。而 m.Success 可以用來判斷下一個比對是否成功，這可以做為回圈節數的條件。</p>
+
+<pre class="code"><code class="CS">using System;
+using System.Collections;
+using System.Text.RegularExpressions;
+
+public class Regexp
+{
+    public static void Main(String[] args)
+    {
+        String text = "王小明:32號，李小華：45號";
+        foreach (String s in matches("[0-9]+號", text, 0))
+         Console.WriteLine(s);
+    }
+
+    public static IEnumerable matches(String pPattern, String pText, int pGroupId)
+    {
+        Regex r = new Regex(pPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        for (Match m = r.Match(pText); m.Success; m = m.NextMatch())
+         yield return m.Groups[pGroupId].Value;
+    }
+}
+</code></pre>
+
+<p>上述範例的執行結果如下所示，您可以看到字串 "王小明:32號，李小華：45號" 當中的 32號與 45 號被抽出來了，這正是正規表達式 "[0-9]+號" 所指定的樣式阿。</p>
+
+<pre class="code"><code class="">D:\myweb\teach\CSharpNetworkProgramming&gt;csc RegexpTest1.cs
+Microsoft (R) Visual C# 2008 Compiler version 3.5.30729.1
+for Microsoft (R) .NET Framework version 3.5
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+
+D:\myweb\teach\CSharpNetworkProgramming&gt;RegexpTest1
+32號
+45號
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

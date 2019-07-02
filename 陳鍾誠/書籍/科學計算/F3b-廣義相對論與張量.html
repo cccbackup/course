@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../科學計算.html" alt="">科學計算</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 廣義相對論與張量</h2>
+
+<h3> 張量與相對論</h3>
+
+<p>光速恆定：在所有慣性坐標系中，光速都是 C，即使從一座標系看另一座標系時亦同。</p>
+
+<p>相對性原理：物理定律在所有慣性坐標系中，保持一定的形式，不因坐標系選取不同而有不同的物理定律。</p>
+
+<p>等效原理：坐標系中的人無法區分加速度和重力，兩者視為等效。</p>
+
+<p>愛因斯坦的《相對論》可以用《張量》的形式描述。</p>
+
+<p>用張量描述的物理定律，在各種座標系下具有不變的形式，也就是這些法則與座標系的選擇無關。</p>
+
+<p>使用張量描述可以消除座標系選擇所帶來的影響！</p>
+
+<p>要理解張量，必須先具備《向量與線性代數》的基礎，對於《矩陣和向量空間》之間的關係必須有清楚的概念，以便理解《座標系選擇》與《向量表示法》之間的關係，接著想清楚《座標變換如何用矩陣進行表達與運算》，接著才能開始理解《張量的世界》。</p>
+
+<p>為了快速導引大家進入張量，讓我們回顧一下《座標系變換的影響》。</p>
+
+<h3> 座標系變換</h3>
+
+<p>在線性代數中，我們知道《一組獨立的基底向量》可以用來《張成向量空間》。舉例而言，e1=[1,0], e2=[0,1] 就可以用來張成二維的平面空間。而 e1=[1,0,0], e2=[0,1,0], e3=[0,0,1] 可以用來張成三維的立體空間。</p>
+
+<p>但是、並非只有上述那種《標準座標系》才能張成空間，例如 e1' = [1,1] e2'=[1,2] 也可以《張成完整的二維向量空間》，因為 e1', e2' 兩者是獨立的。</p>
+
+<p>當我們要將某項量 x 用兩個座標系 e, e' 分別表達時，會發現可以用矩陣進行兩者的座標轉換，其形式如下：</p>
+
+<p>舊標架 e： <span class="math inline">x = x^i e_i</span> </p>
+
+<p>新標架 e'： <span class="math inline">x = x^{i'} e_{i'}</span> </p>
+
+<p>用舊標架表達新標架： <span class="math inline">e_{i'} = A_{i'}^{i} e_i</span> </p>
+
+<p>用新標架表達舊標架： <span class="math inline">e_{i} = A_{i}^{i'} e_{i'}</span></p>
+
+<p>註：以上的 A 都會是非奇異矩陣，也就是 <span class="math inline">det(A) \ne 0</span></p>
+
+<p>兩種表達法會互為反矩陣，也就是 <span class="math inline">A_{i'}^{i} A_{i}^{i'} = I</span></p>
+
+<p>對於某向量 <span class="math inline">x = x^i e_i</span> ，若表達成新標架 <span class="math inline">x = x^{i'} e_{i'}</span> 時，會發現可以用下列方式進行座標轉換。</p>
+
+<p><span class="math inline">x^{i'}=A_{i}^{i'} = e_{i'}</span></p>
+
+<p>反過來轉換就會變成下式。</p>
+
+<p><span class="math inline">x^{i}=A_{i'}^{i} = e_{i}</span></p>
+
+<p>假如標架原點可移動的話，那麼變換公式還得加上一個位移。</p>
+
+<p><span class="math inline">x^{i'} = A_{i}^{i'} + A^{i'}</span></p>
+
+<p>其中 <span class="math inline">A^{i'}</span> 為標架 (座標系) 移動的方向。</p>
+
+<h3> 協變與逆變</h3>
+
+<p>在上述的座標系轉換過程當中，一個向量函數 f(x) 可以表示為</p>
+
+<p><span class="math inline">f(x) = a_1 x^1 +... + a_n x^n + a</span></p>
+
+<p>在座標系轉換的過程中，係數向量 <span class="math inline">(a_1,...a_n)</span> 與變數向量 <span class="math inline">(x_1,...x_n)</span> 兩者的變換具互為逆變換的對偶關係。</p>
+
+<p>換言之、如果係數向量的變換服從下列規律 (這種張量稱為《協變張量》，索引為下標)：</p>
+
+<p><span class="math inline">a_{i'}=A_{i'}^{i} a_i</span> </p>
+
+<p>那麼變數向量 x 在座標變換時會有相反的規律 (這種張量稱為《逆變張量》，索引為上標)：</p>
+
+<p><span class="math inline">a^{i'}=A^{i'}_{i} a^i</span> </p>
+
+<p>當《協變張量》與《逆變張量》一同出現時，上標和下標可以抵消後不用寫出，此時預設都會用《愛因斯坦求和約定》的方式計算之，其求和方式如下：</p>
+
+<p><span class="math inline">f_{ikl}^{ik} = \sum_{i=1}^{n} \sum_{k=1}^{n} f_{ikl}^{ik}</span></p>
+
+<p>這種《混合協變與逆變的張量》，稱為《混合張量》。</p>
+
+<p>當上下標相同時可以縮並：</p>
+
+<p><span class="math inline">a_{p'q'}^{i'p'k'}=A_{i}^{i'}A_{j}^{p'}A_{k}^{k'}A_{p'}^{p}A_{q'}^{q} a_{pq}^{ijk} = </span></p>
+
+<p>當用 <span class="math inline">\sigma_j^p</span> 進行張量縮並時，代表《愛因斯坦求和》時用 j 替代 p 。</p>
+
+<p><span class="math inline">I_j^p a_{pq}^{ijk} = a_{jq}^{ijk} = a_{q}^{ik}</span></p>
+
+<p>當縮並到變成零階張量時，就會得到常數(不變量)的結果。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

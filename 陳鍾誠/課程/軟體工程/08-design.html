@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../軟體工程.html" alt="">軟體工程</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 軟體工程</h2>
+
+<ol>
+    <li><a href="01-preface.html" alt="">簡介</a></li>
+    <li><a href="02-test.html" alt="">TDD 測試</a></li>
+    <li><a href="03-npm.html" alt="">NPM 套件</a></li>
+    <li><a href="04-git.html" alt="">GIT 合作</a></li>
+    <li><a href="05-quality.html" alt="">品質管控</a></li>
+    <li><a href="06-project.html" alt="">軟體專案</a></li>
+    <li><a href="07-analysis_.html" alt="">系統分析</a></li>
+    <li><a href="08-design_.html" alt="">系統設計</a></li>
+    <li><a href="09-implement.html" alt="">程式實作</a></li>
+    <li><a href="10-verify_.html" alt="">系統測試</a></li>
+    <li><a href="11-operation_.html" alt="">上線營運</a></li>
+</ol>
+<h2> 附錄</h2>
+<ol>
+    <li><a href="A1-uml_.html" alt="">UML 圖形建模</a></li>
+    <li><a href="A2-designPattern.html" alt="">JavaScript 的設計模式</a></li>
+    <li><a href="A3-refactor.html" alt="">Refactor 代碼重構</a></li>
+    <li><a href="rule.html" alt="">軟體法則</a></li>
+    <li><a href="reference.html" alt="">進階參考</a></li>
+</ol>
+<h2> 案例</h2>
+<ol>
+    <li><a href="C1-blogMvc_.html" alt="">經典網誌系統</a></li>
+    <li><a href="C2-blogAjax.html" alt="">AJAX網誌</a></li>
+    <li><a href="C3-WebPos_.html" alt="">WebPos系統</a></li>
+</ol>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 第 8 章 -- 系統設計</h2>
+
+<p>在確定了 User Story 或使用個案後，我們就可以開始進入《設計階段》了。</p>
+
+<p>設計階段會進一步描述整個系統的結構，像是《顯示介面、物件結構、流程安排、資料組織》等等，以下我們將分別介紹這些設計是如何進行的。</p>
+
+<h3> 從分析到設計</h3>
+
+<p>系統分析時期的《使用者個案、使用個案描述或 User Story》，要如何進一步精細化，才能讓程式人員有把握寫出購精確的程式呢？</p>
+
+<p>以下我們將以 WebPos 系統為例，說明此一過程。</p>
+
+<p>WebPos 是一個《網路銷售時點系統》，結合了 《銷售時點系統POS》與《網路購物》兩種特色。</p>
+
+<ol>
+    <li>WebPos 具有《店主》與《客戶》兩種《使用者》。</li>
+    <ul>
+        <li>使用者的《身分類別》可能是《店主》或《客戶》</li>
+    </ul>
+    <li>WebPos 具有《註冊/登入/登出》功能。</li>
+    <ul>
+        <li>使用者《註冊》完《帳號，密碼、身分類別》，成功後才能進行《登入》</li>
+        <li>一開始先不需要支援《Facebook、Google 登入》，第二版之後才考慮</li>
+    </ul>
+    <li>《店主》登入後可以設定《商店資料》，包含《商店名稱，產品項目與價格》</li>
+    <li>《客戶》不需登入就可以《搜尋商店》 (搜尋的顯示結果可呈現為 1. 商店列表 2. 商店地圖)</li>
+    <li>《店主》與《客戶》都可以《下訂單》</li>
+    <ul>
+        <li>店主下訂單比較像 POS 系統的用法</li>
+        <li>客戶下訂單則比較像《網路購物》的作法</li>
+    </ul>
+    <li>檢視報表</li>
+    <ul>
+        <li>店主可以檢視《商店報表》，以瞭解《當日/歷史/未取貨》等報表資訊。</li>
+        <li>客戶可以檢視《客戶報表》，以瞭解自己的《已取貨/未取貨》紀錄。</li>
+    </ul>
+</ol>
+<h3> WebPos 的類別抽取</h3>
+
+<p>上面的描述完成之後，我們就得開始想辦法《物件導向化》，而《物件導向化》的第一步，是判斷《有哪些物件？》，第二步則是判斷《物件裡會有哪些屬性或方法？》</p>
+
+<p>問題是、要怎麼做呢？我們可以遵循以下三個步驟逐步進行：</p>
+
+<ol>
+    <li>從描述中抽出《名詞》，這些名詞很可能會是《物件》</li>
+    <li>從描述中抽出《動詞》，這些動詞很可能會是《方法》</li>
+    <li>從描述中抽出《形容詞或名詞》，這些《形容詞或名詞》很可能會是《屬性或欄位》</li>
+</ol>
+<p>於是我們從 WebPos 的需求描述中，抽取出下列結果。</p>
+
+<ul>
+    <li>名詞： WebPos / 使用者 / 店主 / 客戶 / 帳號 / 密碼 / 身分類別 / 商店資料 / 商店名稱 / 產品項目 / 產品價格 / POS 系統 / 商店報表 / 訂購報表 / 當日 / 歷史 / 未出貨 / 未取貨 / 商店列表 / 商店地圖 / 報表 / 訂單</li>
+    <li>動詞： 註冊 / 登入 / 登出 / 設定商店資料 / 搜尋商店 / 網路購物 / 下訂單</li>
+</ul>
+<p>我們可以稍微歸類一下，看看這些名詞與動詞之間的關係，應該就可以看出下列《物件、方法與屬性》</p>
+<p></p>
+
+<table>
+<tr><th>物件      </th><th> 屬性                 </th><th> 方法 </th></tr>
+
+<tr><td>使用者    </td><td> 帳號 / 密碼 / 身分類別:(客戶/店主)  </td><td> 註冊 / 登入 / 登出 / 下訂單 / 搜尋商店 / 設定商店資料</td></tr>
+<tr><td>商店      </td><td> 名稱 / 店主             </td><td>  設定商店資料</td></tr>
+<tr><td>產品      </td><td> 項目 / 價格            </td></tr>
+<tr><td>訂單      </td><td> 可取貨 / 已取貨         </td><td>  下訂單</td></tr>
+<tr><td>商店報表  </td><td>                        </td><td> 檢視</td></tr>
+<tr><td>客戶報表  </td><td>                        </td><td> 檢視</td></tr>
+<tr><td>商店地圖  </td><td>                        </td><td> 檢視</td></tr>
+<tr><td>商店列表  </td><td>                        </td><td> 檢視 / 搜尋</td></tr>
+</table>
+
+<p>當我們進一步仔細想的時候，可能會發現某些遺漏，我們得想辦法補上這些遺漏的點！</p>
+
+<p>例如要在地圖上顯示商店，那《商店資料》就得有《商店的位置》(例如經緯度座標、地址等等)，另外還應該有《電話、聯絡方式等等》，以方便顧客聯絡。</p>
+
+<p>還有產品除了《項目 (品名) / 價格》之外，是否還有《附加選項》，例如《珍珠奶茶》要熱的還是溫的，《漢堡》需不需要《加蛋》之類的事情。</p>
+
+<p>既然要搜尋商店，那應該就會有搜尋介面，搜尋條件等等。</p>
+
+<p>另外《商店報表、客戶報表、商店列表》各自應該顯示那些欄位？ (商店是否要分類、要的話就應該有《商店類別》欄位，如果不分類，是否要用關鍵字搜尋，商店是否要能設定關鍵字，還是直接以產品為關鍵字 ....)</p>
+
+<p>商店地圖應該顯示甚麼資訊，應該採用 Google Map 嗎等等問題？</p>
+
+<p>一個店主只能經營一家商店嗎？還是可以很多家？ 這樣是否應該在《個人專區》裏顯示他經營的商店列表。</p>
+
+<p>只有店主可以有《個人專區》嗎？那如果一家店有很多店員，那麼店員該如何使用系統呢？是否應該有《店員》這樣的用戶類型？還是在商店裡記錄店員名單，或者由店主指定開放存取權給店員就好了。</p>
+
+<p>店主可以扮演客戶角色，去購買別家商店的產品嗎？</p>
+
+<p>客戶也可以經營商店，成為店主嗎？ 這樣是否應該允許客戶創建商店。(這樣使用者還需要區分身分類別嗎？)</p>
+
+<p>訂單是否還有《訂單成立》之類的屬性，是否應該用《訂單狀態》欄位來表示目前的訂單狀態才對！</p>
+
+<p>於是我們增加了以下用 + 標示的欄位！</p>
+
+<table>
+<tr><th>物件      </th><th> 屬性                 </th><th> 方法 </th></tr>
+
+<tr><td>使用者    </td><td> 帳號 / 密碼 / 身分類別:(客戶/店主)  </td><td> 註冊 / 登入 / 登出 / 下訂單 / +訂購介面 / 搜尋商店 / +新增商店 / 設定商店資料</td></tr>
+<tr><td>商店      </td><td> 名稱 / 店主 / +座標 / +地址 / +電話 / +備註 / +店員清單  </td><td>  設定商店資料</td></tr>
+<tr><td>產品      </td><td> 項目 / 價格 / +附加項目與價錢 /  </td></tr>
+<tr><td>訂單      </td><td> +狀態 [+訂單成立 / +可取貨 / 已取貨] +訂購時間 </td><td>  下訂單</td></tr>
+<tr><td>商店報表  </td><td>                        </td><td> 檢視</td></tr>
+<tr><td>客戶報表  </td><td>                        </td><td> 檢視</td></tr>
+<tr><td>商店地圖  </td><td>                        </td><td> 檢視</td></tr>
+<tr><td>商店列表  </td><td>                        </td><td> 檢視 / 搜尋</td></tr>
+</table>
+
+<h3> 類別圖 -- 表達《物件結構》</h3>
+
+<p>《類別圖》表達的就是物件導向的 class 與 object 的結構，包含《類別名稱、屬性與函數》：</p>
+
+<p><a href="http://plantuml.com/class-diagram">http://plantuml.com/class-diagram</a></p>
+
+<p>《類別圖》也表達類別之間的《繼承與使用關係》，以下是一個類別圖的案例。</p>
+<p></p>
+
+<pre class="code"><code class="puml">@startuml
+
+class User {
+  String name
+  String email
+  String password
+
+  +int login()
+  +int logout()
+  +int signup()
+}
+
+class Shop {
+  String name
+  User owner
+  Product items[]
+
+  +int save()
+  +int load()
+}
+
+class Server {
+  +Session session
+  +Model model
+  +View view
+
+  {method} login(user, password)
+  {method} logout(user)
+  {method} signup(user, email, password)
+}
+
+class Session {
+  +User user
+}
+
+class View {
+  html login()
+  html signup()
+  html order()
+}
+
+class Model {
+  Shop[] listShops()
+  Shop getShop (id)
+  bool addOrder(order)
+
+}
+
+Server *- Session : session
+Session *- User : user
+Shop o-- User : Owner
+Server *-- View : view
+Server *-- Model : model
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlBlogClass.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+<p></p>
+
+<h3> 循序圖 -- 表達互動流程</h3>
+
+<p>《循序圖》表達的是《物件之間訊息傳遞的故事》，可以將《使用個案》進一步精細化與明確化，而且對找出物件間的動作 (也就是成員函數) ，以及確認動作的順序關係有所幫助。</p>
+
+<p><a href="http://plantuml.com/sequence-diagram">http://plantuml.com/sequence-diagram</a></p>
+<p></p>
+<p></p>
+
+<pre class="code"><code class="puml">@startuml
+actor 使用者
+使用者 -&gt; UI: 請求註冊
+UI -&gt; POS: 請求註冊
+POS --&gt; UI: 註冊畫面
+使用者 -&gt; UI: 輸入《帳號》
+UI -&gt; POS: 檢查帳號
+POS -&gt; 資料庫: 檢查該帳號是否存在
+資料庫 -&gt; POS: 該帳號存在(是/否)
+POS --&gt; UI: 若該帳號已存在，提示修改訊息
+使用者 -&gt; UI: 輸入《密碼、基本資料》
+UI -&gt; POS: 註冊《帳號、密碼、基本資料》
+POS -&gt; 資料庫: 儲存該《帳號、密碼、基本資料》
+資料庫 -&gt; POS: 儲存成功/失敗
+POS --&gt; UI: 註冊成功(發認證信)\n註冊失敗(提示)
+...
+使用者 -&gt; UI: 請求登入
+UI -&gt; POS: 請求登入
+POS --&gt; UI: 登入畫面
+使用者 -&gt; UI: 輸入帳號密碼
+UI -&gt; POS: 登入《帳號、密碼》
+POS -&gt; 資料庫: 查詢《帳號、密碼》
+資料庫 --&gt; POS : 傳回《帳號、密碼》
+POS --&gt; UI: 登入《成功/失敗》
+...
+使用者 -&gt; UI: 請求登出
+UI -&gt; POS: 登出《使用者》
+POS --&gt; UI: 登出《成功/失敗》
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlPosSequenceSignin.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<h3> 活動圖 -- 表達流程安排</h3>
+
+<p>UML 裡的《活動圖》(Activity Diagram) 其實就是《流程圖》，《活動圖》表達的就是《演算法》，而 PlantUML 裡的文字寫法其實就可以直接拿來當演算法表示，更棒的是 PlantUML 會直接幫你畫出《像流程圖一樣的活動圖》。</p>
+
+<ul>
+    <li><a href="http://plantuml.com/activity-diagram-beta">http://plantuml.com/activity-diagram-beta</a></li>
+</ul>
+<p>以下是個《有迴圈的活動圖》</p>
+<p></p>
+<p></p>
+
+<pre class="code"><code class="puml">@startuml
+
+start
+
+while (data available?)
+  :read data;
+  :generate diagrams;
+endwhile
+
+stop
+
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlActivityLoop.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+
+<p>活動圖也可以表達《並行處理》，以下是個範例：</p>
+
+<pre class="code"><code class="puml">@startuml
+
+start
+
+if (multiprocessor?) then (yes)
+  fork
+    :Treatment 1;
+  fork again
+    :Treatment 2;
+  end fork
+else (monoproc)
+  :Treatment 1;
+  :Treatment 2;
+endif
+
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlActivityConcurrent.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+
+<p>最後，我們用 WebPos 系統中一個比較複雜的實際案例，來展示活動圖與演算法之間的關係。</p>
+
+<p>個案：WebPos 連續選取商品後下訂單</p>
+
+<p><figure>
+  <img src="./img/UmlPosOrder.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+
+<p>其實、活動圖與演算法只是表現形式不同而已，上圖在 PlantUML 中的語法如下，您是否會覺得這根本就是一個演算法呢？</p>
+
+<pre class="code"><code class="">actor 使用者
+group 訂單畫面
+  loop 反覆選取商品後下單
+    alt 新增商品
+      使用者 -&gt; UI: 點選商品後按新增
+      UI -&gt; 使用者: 更新購物清單
+    else 送出訂單
+      使用者 -&gt; UI: 送出訂單
+      UI -&gt; 使用者: 下單成功/失敗
+      UI -&gt; 使用者: 新訂單畫面
+    else 放棄訂單
+      使用者 -&gt; UI: 放棄訂單
+      UI -&gt; 使用者: 確認後顯示\n清空的訂單畫面
+    else 回上層
+      使用者 -&gt; UI: 回上層
+      UI -&gt; 使用者: 顯示上層畫面
+      note left: 離開訂單畫面
+    end
+  end
+end
+</code></pre>
+
+<p>也有人把《寫程式時寫下來的那些有點像程式語言的東西》稱為 PDL (Program Description Language)，但這其實差不多就是程式人概念中的《演算法》，因此我認為在系統分析時應該把《活動圖、演算法、PDL》視為是同一件事！</p>
+
+<h3> 狀態圖 -- 關注狀態轉換</h3>
+
+<p>如果要特別關注狀態轉換，可以繪製《狀態圖》(State Diagram)</p>
+
+<ul>
+    <li><a href="http://plantuml.com/state-diagram">http://plantuml.com/state-diagram</a></li>
+</ul>
+<pre class="code"><code class="puml">@startuml
+[*] -&gt; Ready : 行程開始
+Running -&gt; Ready : 暫停
+Ready -&gt; Running : 再執行
+
+Blocked --&gt; Ready : 輸出入完畢
+Blocked -&gt; Suspended : 換出
+
+Ready --&gt; Suspended : 換出
+Suspended -&gt; Ready : 換入
+
+Running -&gt; Suspended : 換出
+
+Ready : 等待執行
+Running : 正在執行
+Blocked : 因輸出入暫停
+Suspended : 暫停中
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlState1.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>以下是有合成狀態的狀態圖。</p>
+
+<pre class="code"><code class="puml">@startuml
+scale 350 width
+[*] --&gt; NotShooting
+
+state NotShooting {
+  [*] --&gt; Idle
+  Idle --&gt; Configuring : EvConfig
+  Configuring --&gt; Idle : EvConfig
+}
+
+state Configuring {
+  [*] --&gt; NewValueSelection
+  NewValueSelection --&gt; NewValuePreview : EvNewValue
+  NewValuePreview --&gt; NewValueSelection : EvNewValueRejected
+  NewValuePreview --&gt; NewValueSelection : EvNewValueSaved
+  
+  state NewValuePreview {
+     State1 -&gt; State2
+  }
+  
+}
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlStateComposite.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<h3> 實體關係圖 -- 關聯式資料庫專用</h3>
+
+<ul>
+    <li><a href="https://stackoverflow.com/questions/48191228/do-erds-count-as-uml-diagrams" alt="">Do ERD's count as UML diagrams?</a></li>
+</ul>
+<p>關係的圖示符號：<a href="https://github.com/plantuml/plantuml/pull/31">https://github.com/plantuml/plantuml/pull/31</a></p>
+
+<pre class="code"><code class="puml">@startuml
+
+hide circle
+hide empty members
+
+entity Entity {
+   * identifying_attribute
+   --
+   * mandatory_attribute
+   optional_attribute
+}
+
+' zero or one
+A |o--o| B
+
+' exactly one
+C ||--|| D
+
+' zero or many
+E }o--o{ F
+
+' one or many
+G }|--|{ H
+
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlERDiagram1.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>更完整的範例 : <a href="https://gist.github.com/QuantumGhost/0955a45383a0b6c0bc24f9654b3cb561">https://gist.github.com/QuantumGhost/0955a45383a0b6c0bc24f9654b3cb561</a></p>
+
+<pre class="code"><code class="puml">@startuml
+' uncomment the line below if you're using computer with a retina display
+' skinparam dpi 300
+!define Table(name,desc) class name as "desc" &lt;&lt; (T,#FFAAAA) &gt;&gt;
+' we use bold for primary key
+' green color for unique
+' and underscore for not_null
+!define primary_key(x) &lt;b&gt;x&lt;/b&gt;
+!define unique(x) &lt;color:green&gt;x&lt;/color&gt;
+!define not_null(x) &lt;u&gt;x&lt;/u&gt;
+' other tags available:
+' &lt;i&gt;&lt;/i&gt;
+' &lt;back:COLOR&gt;&lt;/color&gt;, where color is a color name or html color code
+' (#FFAACC)
+' see: http://plantuml.com/classes.html#More
+hide methods
+hide stereotypes
+
+' entities
+
+Table(user, "user\n(User in our system)") {
+primary_key(id) INTEGER
+not_null(unique(username)) VARCHAR[32]
+not_null(password) VARCHAR[64]
+}
+
+Table(session, "session\n(session for user)") {
+primary_key(id) INTEGER
+not_null(user_id) INTEGER
+not_null(unique(session_id) VARCHAR[64]
+}
+
+Table(user_profile, "user_profile\n(Some info of user)") {
+primary_key(user_id) INTEGER
+age SMALLINT
+gender SMALLINT
+birthday DATETIME
+}
+
+Table(group, "group\n(group of users)") {
+primary_key(id) INTEGER
+not_null(name) VARCHAR[32]
+}
+
+Table(user_group, "user_group\n(relationship of user and group)") {
+primary_key(user_id) INTEGER
+primary_key(group_id) INTEGER
+joined_at DATETIME
+}
+
+' relationships
+' one-to-one relationship
+user -- user_profile : "A user only \nhas one profile"
+' one to may relationship
+user --&gt; session : "A user may have\n many sessions"
+' many to many relationship
+' Add mark if you like
+user "1" --&gt; "*" user_group : "A user may be \nin many groups"
+group "1" --&gt; "0..N" user_group : "A group may \ncontain many users"
+@enduml
+</code></pre>
+
+<h3> 介面設計</h3>
+
+<p>介面設計可以採用各種工具與方法，以下是幾種可能的做法：</p>
+
+<ol>
+    <li>手繪</li>
+    <li>用 PowerPoint 繪製</li>
+    <li>用快速開發工具 (像 Axure RP) 設計</li>
+    <li>用 HTML, markdown 之類的呈現語言表現</li>
+    <li>直接撰寫程式</li>
+    <li>用 IDE 《所視即所得》的工具設計</li>
+</ol>
+<p>舉例而言，假如你曾經看過類似的介面，直接借來使用也可以，這招叫做《懶人設計法》，換句話說就是可以偷就偷。</p>
+
+<p>採用這種方法，我們從 github 借用了《註冊畫面》如下：</p>
+
+<p><figure>
+  <img src="./img/signup.png" alt=""></img>
+<figcaption>iPos 註冊畫面</figcaption></figure>
+</p>
+
+<p>登入畫面</p>
+
+<p><figure>
+  <img src="./img/signin.png" alt=""></img>
+<figcaption>iPos 登入畫面</figcaption></figure>
+</p>
+<p></p>
+
+<p>而對於比較特殊，沒辦法找到類似畫面的介面，我們就得自行設計，但並不一定要一開始就設計得很好很像，只要能傳達畫面內容就大概可以了。</p>
+
+<p>例如您可以使用 ppt 或 slide 這類的《簡報軟體》來設計畫面，或用《手繪素描畫面》，當然也可以用更專業的工具，像是 AxureRP 或 Visual Studio 來設計畫面。</p>
+
+<p>或者直接用 HTML + CSS 設計也可以，或者採用所視既所得的網頁編輯工具也行，總之是合用就好了。</p>
+
+<p>iPos 的《訂購介面》就是一個比較特殊的畫面，我找不到類似的案例，所以只好自己設計。</p>
+
+<p>在此、我直接用 markdown 語法設計出畫面的樣子：</p>
+<p></p>
+
+<p>品項選單▼    附加選單▼    數量選單▼  小計_</p>
+
+<table>
+<tr><th>品名 </th><th> 單價 </th><th> 附加   </th><th> 加價 </th><th> 數量 </th><th> 小計</th></tr>
+
+<tr><td>綠茶 </td><td> 20  </td><td> 加鮮奶 </td><td> 10   </td><td>  3   </td><td> 90</td></tr>
+<tr><td>珍珠奶茶 </td><td> 35  </td><td>    </td><td>      </td><td>  1   </td><td> 30</td></tr>
+</table>
+
+<pre class="tab">總價: 120    【送出】  【放棄】
+
+</pre>
+<p>說明：以上畫面中，符號: ▼ 代表選單, _ 代表輸入欄位, 【...】 代表按鈕</p>
+
+<p>報表的畫面也無法直接借用別的系統，不過我們可以用 markdown 很快地呈現出大概的樣子。</p>
+
+<table>
+<tr><th>訂單摘要 </th><th> 價格 </th><th> 狀態 </th><th> 結帳者 </th><th> 訂購時間</th></tr>
+
+<tr><td>綠茶 3 .</td><td> 120  </td><td> 已取貨 </td><td> 小雅  </td><td> 3:45</td></tr>
+<tr><td>紅茶 3 .</td><td> 60   </td><td> 可取貨 </td><td>       </td><td> 3:47</td></tr>
+<tr><td>.....   </td><td> .... </td><td> .... </td><td>  ...   </td><td> ....</td></tr>
+</table>
+<p></p>
+
+<blockquote>
+<p> 進階閱讀：<a href="http://blog.xdite.net/posts/2018/10/07/design-by-conversation" alt="">如何设计出易用的 UX — 对话式设计</a></p>
+</blockquote>
+<p></p>
+
+<h3> 結語</h3>
+
+<p>透過《圖形與文字》，設計階段試圖傳達《顯示介面、物件結構、流程安排、資料組織》應該如何安排，於是我們可以透過 UML 中的《類別圖、循序圖、活動圖、狀態圖》等等方式，更精確的表達《系統的結構》。</p>
+
+<p>當然我們也可以用《手繪、工具、文字》來表達《使用者介面》該如何呈現，以及如何互動的方法。</p>
+
+<p>如果我們使用《關聯式資料庫》，那麼也可以用《實體關係圖》表達表格的內容與連結關係，這種《資料建模》會對 《表格設計》 有所幫助。</p>
+
+<p>特別是考慮《資料庫正規化》時，《實體關係圖》會非常有用。正常的作法通常至少會做到《第三正規化》的要求，這樣的資料庫才會容易管理。</p>
+
+<p>UML 還有其他圖形，您必須視情況使用之，當然您也可以不使用 UML，而是採用其他方式替代，只要對您的專案開發有幫助就行了！</p>
+
+<h3> 練習 1 -- 經典網誌系統 Blog 設計 (下一版)</h3>
+
+<ol>
+    <li>請畫出 Blog 的系統架構圖，並說明這樣配置的原因。</li>
+    <li>請選擇你所需要的存儲搭配，設計 Blog 的資料存儲架構 (例如 Redis + MongoDB) ...(並說明你採用這種搭配的理由)</li>
+    <li>請設計出資料庫的結構 (包含表格、欄位、索引建、快取內容 ....)。</li>
+    <li>請寫出你所使用到的《設計模式》，並說明為何採用這樣的模式！</li>
+    <li>請設計出 Blog 的關鍵演算法。</li>
+</ol>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

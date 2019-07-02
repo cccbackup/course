@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../科學計算.html" alt="">科學計算</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 幾何學</h2>
+
+<h3> 幾何學在電腦裡的用途</h3>
+
+<p>幾何圖形的用途 ，從《計算機圖學》到《人工智慧》領域無所不在</p>
+
+<p>舉例而言 ，人工智慧裡的爬山演算法 ，主要是在尋找《函數最高點》 <a href="https://mdbookspace.com/view/ai/chapter2.md">https://mdbookspace.com/view/ai/chapter2.md</a></p>
+
+<p>方法非常簡單，就是一直往更高的方向爬 <a href="https://mdbookspace.com/view/ai/hillClimbingMax.md">https://mdbookspace.com/view/ai/hillClimbingMax.md</a></p>
+
+<p>而神經網路裡的梯度下降法 ，和爬山演算法做的 事情幾乎一樣 ，只是方向永遠是 梯度方向而已</p>
+
+<p>這些方法 ，不管是在 1 維、 2 維、 3 維、 4 維 還是更高維空間，都是管用的</p>
+
+<p>但是 ，通常只能找到《區域最高點或最 低點》，無法保證找到全域最高 點或最低點。</p>
+
+<p>在上面的例子中 ，圖形最後都對應到了《函數》 ，而函數畫出來的圖形，讓我們對 結果有了視覺化的感受 ...</p>
+
+<p>而且不只如此 ，函數還可以用來轉換圖形</p>
+
+<p>像是計算機圖學裏的 ，《縮放、旋轉》等變換都可以用矩陣函數表示</p>
+
+<p>如果把矩陣加大一維 ，那麼就可以納入《平移》變換</p>
+
+<p>平移、縮放、旋轉三種運算 ，形成的變換屬於仿射變換 (affine transformation) ，因此是仿射幾何學的特例 ...</p>
+
+<p>仿射變換 ，是碎形幾何的基礎</p>
+
+<p>如果把旋轉運算放到三維空間 ，就可以得到針對不同軸心的三種旋轉運算 對 x 軸旋轉 對 y 軸旋轉 對 z 軸旋轉</p>
+
+<p>於是圖形的呈現問題 ，就成了《矩陣運算》的問題</p>
+
+<p>但是 ，由於我們的顯示器通常是二維的 ，要把三維物體顯示在二維平面中 那該怎麼辦呢？</p>
+
+<p>透視投影可以解決這個問題</p>
+
+<p>西洋文藝復興時期 單點透視法也成了繪畫的一大特色 中國的繪畫就沒有經過這樣的時期 ( 水墨畫完全不管比例問題 )</p>
+
+<p>所以 ，笛卡兒的《解析幾何》對程式人 而言，可以說是一種《常識》</p>
+
+<p>因為寫程式常常用到 ，但程式人卻不太知道自己正在 使用《幾何學知識》 ...</p>
+
+<p>以座標代表《點》 ，然後以《函數或方程式》代表《線》的 方式，早已深深地烙印在程式人的腦海 裡，不需要特別強調背後的數學了 ...</p>
+<p></p>
+
+<h3> 空間</h3>
+
+<p>在數學上、所謂的空間，是一個加上了某些《數學結構》的集合。</p>
+<p></p>
+
+<h3> 正定 (Positive Definite)</h3>
+
+<p>在數學上</p>
+<p></p>
+
+<h4> 正定函數</h4>
+
+<p>正定函數的定義如下：</p>
+
+<ol>
+    <li>d(x, y) ≥ 0 (非負性，或稱分離公理)</li>
+    <li>d(x, y) = 0 若且唯若 x = y (同時公理)</li>
+</ol>
+<h3> 正定矩陣</h3>
+
+<p>一個 n×n 的實對稱矩陣 M是正定的，若且唯若對於所有的非零實係數向量 z，都有 <span class="math inline">z^T M z>0</span> 。</p>
+
+<h3> 範數</h3>
+<p>向量空間中的《範數》(Norm)，是一個具有下列特性的函數。</p>
+
+<ol>
+    <li><span class="math inline">p(v) \ge 0</span>（半正定性）</li>
+    <li><span class="math inline">p(a v) = |a| p(v)</span>（絶對一次齊次性）</li>
+    <li><span class="math inline">p(u + v) \le p(u) + p(v)</span> （[[三角不等式]]）</li>
+    <li><span class="math inline">p(v)=0</span> ,若且唯若 v 是《零向量》（[[正定性]]）</li>
+</ol>
+<p>假如拿掉第 4 條，那麼該範數稱為《半範數》(Seminorm)。</p>
+
+<h3> 度量空間</h3>
+
+<p>最常見的一種空間是《度量空間》 (Metric Space) ，《度量空間》是《集合》加上了《距離函數》的結果。</p>
+
+<p>集合 X 上的度量 (Metric) 為一函數 (稱之為「距離函數」或簡稱為「距離」)</p>
+
+<blockquote>
+<p> d : X × X → R</p>
+</blockquote>
+
+<p>這裡的 R 是實數的集合，且對於所有 X 內的 x、y、z，均滿足如下條件:</p>
+
+<ol>
+    <li>d(x,y) 為正定函數。</li>
+    <li>d(x, y) = d(y, x) (對稱性)</li>
+    <li>d(x, z) ≤ d(x, y) + d(y, z) (次加性 / 三角不等式)。</li>
+</ol>
+<p>條件 1 與條件 2 為《正定函數》的定義。</p>
+<p></p>
+
+<p>最常見的度量空間是《歐氏空間》，其《距離度量》如下：</p>
+
+<p><span class="math inline">d(x,y):=\sqrt{(x_1-y_1)^2 +(x_2-y_2)^2 + \cdots +(x_n-y_n)^2} = \sqrt{\sum_{i=1}^n(x_i-y_i)^2}</span></p>
+
+<p>在《向量空間》中，上述的《歐幾里得距離度量》，稱為《歐幾里得範數》。</p>
+<p></p>
+
+<h3> 點變換與矩陣</h3>
+
+<p>矩陣轉換是計算機圖學的核心觀念，當您用 3D 建模軟體時，會不斷使用《平移、縮放、旋轉》等動作，而這些動作都牽涉到大量的《矩陣運算》，所以《繪圖卡和GPU》裏都會透過加入很多 ALU 進行平行運算，以便加速這些矩陣的運算過程。</p>
+
+<h3> 二維的轉換矩陣之效果</h3>
+
+<ul>
+    <li><a href="https://zh.wikipedia.org/wiki/%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5" alt="">維基百科:變換矩陣</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Transformation_matrix" alt="">Wikipedia:Transformation Matrix</a></li>
+</ul>
+<p><figure>
+  <img src="./img/2dTransform.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<h3> 三維的轉換矩陣之效果</h3>
+
+<ul>
+    <li><a href="https://zh.wikipedia.org/wiki/%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5" alt="">維基百科:旋轉矩陣</a></li>
+</ul>
+<h3> 參考文獻</h3>
+
+<ul>
+    <li><a href="https://zh.wikipedia.org/wiki/%E7%A9%BA%E9%96%93%E5%B0%8D%E7%A8%B1%E7%BE%A4" alt="">維基百科:空間對稱群</a></li>
+    <li><a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E4%BA%A4%E7%BE%A4" alt="">維基百科:正交群</a></li>
+    <li><a href="https://zh.wikipedia.org/wiki/%E6%97%8B%E8%BD%89%E7%BE%A4" alt="">旋轉群SO(3)</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

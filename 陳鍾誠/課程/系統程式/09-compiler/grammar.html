@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../系統程式.html" alt="">系統程式</a> / <a href="../09-compiler.html" alt="">09-compiler</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> 計算機結構</h6>
+<ul>
+    <li><a href="01-gate.html" alt="">01-邏輯閘</a></li>
+    <li><a href="02-alu.html" alt="">02-算術邏輯</a></li>
+    <li><a href="03-memory.html" alt="">03-記憶電路</a></li>
+    <li><a href="04-assembly.html" alt="">04-機器語言</a></li>
+    <li><a href="05-cpu.html" alt="">05-處理器設計</a></li>
+</ul>
+<h6> 系統程式</h6>
+<ul>
+    <li><a href="06-assembler.html" alt="">06-組譯器</a></li>
+    <li><a href="07-vm.html" alt="">07-虛擬機</a></li>
+    <li><a href="08-irmacro.html" alt="">08-中間碼與巨集</a></li>
+    <li><a href="09-compiler.html" alt="">09-編譯器</a></li>
+    <li><a href="10-os.html" alt="">10-作業系統</a></li>
+</ul>
+<h6> 相關主題</h6>
+<ul>
+    <li><a href="linux.html" alt="">Linux 系統程式</a></li>
+    <li><a href="c.html" alt="">C 語言</a></li>
+    <li><a href="verilog.html" alt="">Veriog 語言</a></li>
+    <li><a href="nodejs.html" alt="">NodeJs 底層系統</a></li>
+</ul>
+<h6> 參考資源</h6>
+<ul>
+    <li><a href="nand2tetris.html" alt="">Nand2tetris 課程</a></li>
+    <li><a href="book.html" alt="">電子書</a></li>
+    <li><a href="slide.html" alt="">投影片</a></li>
+    <li><a href="project.html" alt="">程式專案</a></li>
+    <li><a href="video.html" alt="">教學影片</a></li>
+    <li><a href="exercise.html" alt="">作業習題</a></li>
+    <li><a href="exam.html" alt="">考試題目</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 高階語言的語法 (BNF/EBNF)</h1>
+
+<h2> 簡易運算式語法</h2>
+
+<ul>
+    <li><a href="https://github.com/cccbook/sp/tree/master/code/c/02-compiler/01-compileExp">https://github.com/cccbook/sp/tree/master/code/c/02-compiler/01-compileExp</a></li>
+</ul>
+<pre class="code"><code class="">E=T ([+-] T)*
+T=F ([*/] F)*
+F=Number | Id | '(' E ')'
+</code></pre>
+
+<h2> 詞彙語法描述</h2>
+
+<ul>
+    <li><a href="regexp.html" alt="">正規表達式</a></li>
+</ul>
+<pre class="code"><code class="">String = ".*"
+Number = [0-9]+
+Id     = [A-Z_][A-Z0-9_]*
+Char   = .
+</code></pre>
+
+<h2> 包含 while 的語法</h2>
+
+<pre class="code"><code class="">PROG    = STMT
+STMT    = WHILE | BLOCK | ASSIGN
+WHILE   = while (E) STMT
+BLOCK   = { STMT* }
+ASSIGN  = id '=' E;
+E       = F (op E)*
+F       = (E) | Number | Id
+</code></pre>
+
+<h2> C0 語言</h2>
+
+<pre class="code"><code class="">PROG     = (INCLUDE | DECL | FUNCTION)*
+INCLUDE  = #...&gt;
+DECL     = *? ASSIGN
+FUNCTION = type id (PARAM_LIST) BLOCK
+STMT     = WHILE | IF | BLOCK | RETURN | VAR ; | ASSIGN;
+WHILE    = while (E) STMT
+IF       = if (E) STMT (else STMT)?
+BLOCK    = { LIST&lt;VAR&gt; STMT* }
+RETURN   = return E;
+ASSIGN   = P (=E)?
+CALL(id) = id ( LIST&lt;E&gt; )
+VAR      = Type LIST&lt;DECL&gt;
+E        = F (op F)*
+F        = (++ | -- | [*&amp;+-~!])? P
+P        = ((E) | Number | Literal | ID) ([E] | (LIST&lt;E&gt;) | ++ | --)      // ID (LIST&lt;E&gt;)   == CALL(id)
+</code></pre>
+
+<h2> Lua 的語法</h2>
+
+<pre class="code"><code class="">
+    chunk ::= {stat [`;´]} [laststat [`;´]]
+
+    block ::= chunk
+
+    stat ::=  varlist `=´ explist | 
+         functioncall | 
+         do block end | 
+         while exp do block end | 
+         repeat block until exp | 
+         if exp then block {elseif exp then block} [else block] end | 
+         for Name `=´ exp `,´ exp [`,´ exp] do block end | 
+         for namelist in explist do block end | 
+         function funcname funcbody | 
+         local function Name funcbody | 
+         local namelist [`=´ explist] 
+
+    laststat ::= return [explist] | break
+
+    funcname ::= Name {`.´ Name} [`:´ Name]
+
+    varlist ::= var {`,´ var}
+
+    var ::=  Name | prefixexp `[´ exp `]´ | prefixexp `.´ Name 
+
+    namelist ::= Name {`,´ Name}
+
+    explist ::= {exp `,´} exp
+
+    exp ::=  nil | false | true | Number | String | `...´ | function | 
+         prefixexp | tableconstructor | exp binop exp | unop exp 
+
+    prefixexp ::= var | functioncall | `(´ exp `)´
+
+    functioncall ::=  prefixexp args | prefixexp `:´ Name args 
+
+    args ::=  `(´ [explist] `)´ | tableconstructor | String 
+
+    function ::= function funcbody
+
+    funcbody ::= `(´ [parlist] `)´ block end
+
+    parlist ::= namelist [`,´ `...´] | `...´
+
+    tableconstructor ::= `{´ [fieldlist] `}´
+
+    fieldlist ::= field {fieldsep field} [fieldsep]
+
+    field ::= `[´ exp `]´ `=´ exp | Name `=´ exp | exp
+
+    fieldsep ::= `,´ | `;´
+
+    binop ::= `+´ | `-´ | `*´ | `/´ | `^´ | `%´ | `..´ | 
+         `&lt;´ | `&lt;=´ | `&gt;´ | `&gt;=´ | `==´ | `~=´ | 
+         and | or
+
+    unop ::= `-´ | not | `#´
+</code></pre>
+
+<h2> C 語言的 BNF 語法</h2>
+
+<ul>
+    <li><a href="http://sp1.wikidot.com/csyntax">http://sp1.wikidot.com/csyntax</a></li>
+</ul>
+<h2> Jack 的語法 -- nand2tetris</h2>
+
+<pre class="code"><code class="">class : 'class' id '{' classVarDec* subroutineDec* '}'
+classVarDec: {'static'|'field'} type varList ';'
+varList: varName (',' varName)*
+varName: ID
+subroutineDec: ('constructor'|'function'|'method') ('void'|type) ID '(' parameterList? ')' subroutineBody
+parameterList: (parameter (',' parameter)*)?
+parameter: type varName
+subroutineBody: '{' varDec* statements '}'
+varDec: 'var' type varList ';'
+statements : statement*
+statement: letStatement | ifStatement | whileStatement | doStatement | returnStatement
+letStatement: 'let' varName ( arraySubscript )? '=' expression ';'
+arraySubscript: '[' expression ']'
+block = '{' statements '}'
+ifStatement : 'if' '(' expression ')' block '('else' block)?
+whileStatement: 'while' '(' expression ')' block
+doStatement: 'do' call ';'
+returnStatement: 'return' expression? ';'
+expression: term (op term)* 
+term: integerConstant | stringConstant | keywordConstant | varName arraySubscript?| call | '(' expression ')' | op1 term
+call: subroutineName '(' expressionList ')' | (className | varName) '.' subroutineName '(' expressionList ')'
+expressionList: (expression (',' expression)*)?
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

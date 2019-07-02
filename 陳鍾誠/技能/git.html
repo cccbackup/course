@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../技能.html" alt="">技能</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> git / github 的用法</h1>
+
+<h2> github</h2>
+
+<ul>
+    <li>到 <a href="https://github.com/cccnqu/">https://github.com/cccnqu/</a> 選擇你上的課程，並進行 fork 動作</li>
+    <li>到 wiki 區開始寫你的課程筆記，該筆記格式採用 <a href="Markdown.html" alt="">Markdown</a> 語法</li>
+    <li>看看該課程專案的結構，包含程式與 wiki 教材等等。</li>
+</ul>
+<h2> 安裝</h2>
+
+<ul>
+    <li>到 <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a> 下載 git 軟體並安裝</li>
+    <li>打入 git 指令，應該會出現下列訊息</li>
+</ul>
+<pre class="code"><code class="">$ git
+usage: git [--version] [--help] [-C &lt;path&gt;] [-c name=value]
+           [--exec-path[=&lt;path&gt;]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=&lt;path&gt;] [--work-tree=&lt;path&gt;] [--namespace=&lt;name&gt;]
+           &lt;command&gt; [&lt;args&gt;]
+
+...
+</code></pre>
+
+<h2> 最常用的 git 指令</h2>
+
+<pre class="code"><code class="">$ git clone https://github.com/xxxxxxx/wd106b.git
+... 若你是修改後還要推回的，xxxxxxx 應該是你自己的帳號 ...
+... 若只是要 clone 老師的，那 xxxxxx 應該是 cccnqu ...
+
+$ cd wd106b  註: 切換到 clone 的資料夾 wd106b 當中
+
+... 接著加入一些新檔案，或者修改某些檔案後 ...
+
+$ git add -A
+$ git commit -m "xxxxxxxx"
+$ git push origin master
+Username : xxxxxx    &lt;-- 輸入你的帳號 (github 上的)
+Password :           &lt;-- 輸入你的密碼
+注意：在 Password 裡你打任何字，都不會印出來 (也不會印 * 號)，這是正常的。 (不要覺得為何打了沒反應 ....)
+...
+</code></pre>
+
+<p>如果你是第一次在自己電腦上用 git push，那麼必須要先設定自己的 email 和 name， name 必須是 github 上的帳號。</p>
+
+<pre class="code"><code class="">$ git config --global user.email "xxxxx@gmail.com"
+$ git config --global user.name "xxxxx"
+</code></pre>
+
+<h2> git push 失敗時的處理</h2>
+
+<p>在 Mac 上若沒問密碼且推不上去，很可能是裡面已經有設 ssh 證書，請用下列指令清掉。</p>
+
+<pre class="code"><code class="">$ git credential-osxkeychain erase
+host=github.com
+protocol=https
+&lt;press return&gt;
+</code></pre>
+
+<p>如果 github 上的版本比你 local 的新，那麼可能會有訊息提示，此時可以用 pull 把遠端新的資料拉下來，指令如下：</p>
+
+<pre class="code"><code class="">$ git pull origin master
+</code></pre>
+
+<p>在 WINDOWS 底下，可以用 控制台\所有控制台項目\認證管理員\WINDOWS 認證 去刪除 GITHUB 的證書，然後再重新 push 就行了!</p>
+
+<h2> 架網站</h2>
+
+<p>若要用 github 架網站，上傳後把 github 網頁的網址貼到 rawgit 上</p>
+
+<ul>
+    <li><a href="https://rawgit.com/">https://rawgit.com/</a></li>
+</ul>
+<p>得到的網址就是公開網頁的網址，用瀏覽器看就行了！</p>
+
+<h2> 與老師的專案同步</h2>
+
+<ul>
+    <li><a href="https://gist.github.com/CristinaSolana/1885435">https://gist.github.com/CristinaSolana/1885435</a></li>
+</ul>
+<pre class="code"><code class="">$ git remote add upstream git://github.com/cccnqu/wd106b.git
+$ git fetch upstream
+$ git pull upstream master
+</code></pre>
+
+<p>再推回你自己的 github 中</p>
+
+<pre class="code"><code class="">$ git push origin master
+</code></pre>
+
+<h2> 用 github 架站 -- github pages</h2>
+
+<p>最新作法請參考 -- <a href="https://pages.github.com/">https://pages.github.com/</a></p>
+
+<p>以下是舊的做法，應該還是可以用：</p>
+
+<p>到你 github 專案的 setting (例如 <a href="https://github.com/ccckmit/wd107b/settings">https://github.com/ccckmit/wd107b/settings</a> ) 裏，找到 GitHub Pages 那一段，在 source 點選成 master branch ，然後該頁會從新整理後，出現一個像 <a href="https://ccckmit.github.io/wd107b/">https://ccckmit.github.io/wd107b/</a> 這樣的網址，這樣你的網站就公開在網路上了。</p>
+
+<p>接著將路徑（例如exercise/ccc.html）補在公開站後面，變成 <a href="https://ccckmit.github.io/wd107b/exercise/ccc.html">https://ccckmit.github.io/wd107b/exercise/ccc.html</a> ，這樣就可以看到網頁了！</p>
+
+<h2> 圖形介面</h2>
+
+<ul>
+    <li><a href="https://wordpress.lokidea.com/blog/1624/gitkraken-%E5%A5%BD%E7%94%A8%E7%9A%84%E5%9E%AE%E5%B9%B3%E5%8F%B0git-gui/" alt="">GitKraken – 好用的垮平台Git GUI</a></li>
+</ul>
+<h2> 更深入的 git 教學資源</h2>
+
+<ul>
+    <li><a href="https://git-scm.com/book/zh/v2" alt="">Pro Git book 簡體中文版</a></li>
+    <li><a href="http://yodalee.blogspot.tw/2017/12/git-video.html?m=1" alt="">Yodalee 的 Git 教學影片系列</a></li>
+    <li><a href="https://github.com/cccnqu/se106a/wiki/git.md" alt="">陳鍾誠的軟體工程課 -- Git 指南</a></li>
+    <li><a href="https://github.com/cccnqu/se106a/wiki/github.md" alt="">陳鍾誠的軟體工程課 -- Github 指南</a></li>
+    <li><a href="https://blog.techbridge.cc/2018/02/03/github-classroom-and-travis-ci/" alt="">利用 Github Classroom 加 Travis CI 打造改作業系統</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

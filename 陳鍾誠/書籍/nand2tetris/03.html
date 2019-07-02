@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../nand2tetris.html" alt="">nand2tetris</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> nand2tetris -- 第 3 章指引</h1>
+
+<p>第 3 章要建構的是《記憶元件》，包含《暫存器》和《記憶體》。</p>
+
+<p>透過 and, or, not 等元件，我們可以建構出 <a href="https://zh.wikipedia.org/wiki/%E8%A7%A6%E5%8F%91%E5%99%A8#D%E8%A7%A6%E5%8F%91%E5%99%A8" alt="">D 型正反器</a> ， 然後透過加入 <a href="http://ccckmit.wikidot.com/ve:ptdflipflop" alt="">脈衝偵測電路</a> 或者採用 <a href="https://en.wikipedia.org/wiki/Flip-flop_(electronics" alt="">主從式結構</a>#/media/File:Negative-edge<em>triggered</em>master<em>slave</em>D<em>flip-flop.svg) 就能做出[邊緣觸發的 D 型正反器](https://en.wikipedia.org/wiki/Flip-flop</em>(electronics)#Master%E2%80%93slave<em>edge-triggered</em>D_flip-flop) </p>
+
+<p>不過上面的 D 型正反器， nand2tetris 已經列入基本元件 DFF 了，所以我們不用自己再做一遍。</p>
+
+<p>但是我們必須用 DFF 去做出一位元的記憶體 Bit ， 然後再用 16 個 Bit 做出 Register 。</p>
+
+<p>接著用 8 個 Register 加上 MUX8Way16, DMux8Way 等元件，做出 8 個 Word 的記憶體 RAM8。</p>
+
+<p>然後透過同樣的模式，一路從 RAM8, RAM64, RAM512, RAM4K, RAM32K 等記憶體。</p>
+
+<p>最後我們必須用一個 Register 做出一個供 CPU 使用的程式計數器 PC ，這個 PC 會用來儲存指令的位址，每次執行一個指令後就會加 1，這樣下次就會執行下一個指令。 </p>
+
+<p>當組合語言使用 <code>@100. 0;JMP</code> 之類的指令時，PC 會被修改，於是就會跳到指定的位址 (例如：位址 100)。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

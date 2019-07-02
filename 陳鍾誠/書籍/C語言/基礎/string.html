@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../基礎.html" alt="">基礎</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 字串與輸出入</h1>
+
+<h2> 字串大小的問題 -- 如何決定字串的大小，防止緩衝區溢位。</h2>
+
+<p>在 C 語言當中，最惱人的莫過於如何決定字串或陣列大小的這個問題了，舉例而言，在下列程式當中，我們宣告 input 大小為 5，但是我們永遠不會知道 5 到底夠不夠，萬一不夠就會造成當機，甚至被有心人士透過「緩衝區溢位」方法攻擊，這是使用 C 語言陣列時經常遇到的困擾。</p>
+
+<h3> 程式一：很容易「緩衝區溢位」的程式</h3>
+
+<pre class="code"><code class="c">#include &lt;stdio.h&gt;
+
+int main() {
+  char input[5];
+  scanf("%s", input);
+  printf("Your input : %s", input);
+}
+</code></pre>
+
+<p>即使我們宣告 char input[100] 也有可能不夠，但是如果宣告 char input[10000]，會不會太浪費記憶體了，到底應該如何處理呢？</p>
+
+<p>其實在 scanf 這樣的函數中，可以用 %s 指定大小，以下範例就改進了上述問題，因此當輸入字串長度超過 5 時，就會被截掉，</p>
+
+<h3>程式二：不會造成「緩衝區溢位」的程式</h3>
+
+<pre class="code"><code class="c">#include &lt;stdio.h&gt;
+
+int main() {
+  char input[6]; // 注意，這裡必須宣告 6=5+1，因為還有結束字元 \0。
+  scanf("%5s", input);
+  printf("Your input : %s", input);
+}
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\cp&gt;gcc arraySize.c -o arraySize
+D:\cp&gt;arraySize
+Hello!John.
+Your input : Hello
+</code></pre>
+
+<h2> 字串函數</h2>
+
+<p>C 語言的標準函式庫中，字串處理函數有 strcpy (複製）, strdup (克隆）, ....</p>
+
+<p>詳細內容請參考下文：</p>
+
+<ul>
+    <li><a href="https://www.byvoid.com/zht/blog/c-string" alt="">C語言字符串函數大全</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

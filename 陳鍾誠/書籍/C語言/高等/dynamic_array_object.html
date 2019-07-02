@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 以 C 語言實作動態陣列</h2>
+
+<p>在 C 語言當中，經常會碰到無法事先決定陣列大小的情況，像是實作某些符號表格時，就很難事先決定陣列大小，此時最好使用動態陣列來取代靜態陣列，這些動態陣列會實作自動長大的功能，如此就解決了無法事先決定陣列大小的問題，以下是筆者對動態陣列的一個實作。</p>
+
+<p>在以下程式中，我們學習了 Linux 當中以巨集巡迴鏈結串列的方法，模仿後實作出以巨集巡迴動態陣列的方法，也就是 ArrayEach()，這樣的函數可以讓您再陣列元素巡迴時省一點力氣。</p>
+
+<p>程式範例：動態陣列</p>
+
+<p><strong>檔案: darray.c</strong></p>
+
+<pre class="code"><code class="c">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+typedef struct {
+  int size;    // 陣列目前的上限 
+  int count;   // 陣列目前的元素個數 
+  void **item; // 每個陣列元素的指標
+} Array;       // 動態陣列的資料結構 
+
+void ArrayNew(Array *array, int size) {
+  array-&gt;count = 0;
+  array-&gt;size = size;
+  array-&gt;item = malloc(array-&gt;size*sizeof(void*));
+}
+
+void ArrayAdd(Array *array, void *item) {
+ if (array-&gt;count == array-&gt;size) {
+    int newSize = array-&gt;size*2;
+    void **newItems = malloc(newSize*sizeof(void*));
+    memcpy(newItems, array-&gt;item, array-&gt;size*sizeof(void*));
+    free(array-&gt;item);
+    array-&gt;item = newItems;
+    array-&gt;size = newSize;
+    printf("Array growing : size = %d\n", array-&gt;size);
+  }
+  array-&gt;item[array-&gt;count++] = item;
+}
+
+#define ArrayEach(a, i, o) for (i=0, o=(a)-&gt;item[i]; i&lt;(a)-&gt;count; o=(a)-&gt;item[i],i++) 
+
+int main() {
+  char *names[] = { "John", "Mary", "George", "Bob", "Tony" };
+  int i;
+  Array array;
+  ArrayNew(&amp;array, 1);
+  for (i=0; i&lt;5; i++)
+    ArrayAdd(&amp;array, names[i]);
+  for (i=0; i&lt;array.count; i++)
+    printf("name[%d]=%s\n", i, (char*) array.item[i]);
+  void *obj;
+  ArrayEach(&amp;array, i, obj) {
+    printf("name[%d]=%s\n", i, (char*) obj);
+  }
+}
+</code></pre>
+
+<p><strong>執行結果</strong></p>
+
+<p>D:\cp>gcc darray.c -o darray</p>
+
+<p>D:\cp>darray
+Array growing : size = 2
+Array growing : size = 4
+Array growing : size = 8
+name[0]=John
+name[1]=Mary
+name[2]=George
+name[3]=Bob
+name[4]=Tony
+name[0]=John
+name[1]=John
+name[2]=Mary
+name[3]=George
+name[4]=Bob</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

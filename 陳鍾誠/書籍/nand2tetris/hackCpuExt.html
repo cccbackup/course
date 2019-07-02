@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../nand2tetris.html" alt="">nand2tetris</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> HackCPU 延伸指令集</h1>
+
+<h2> 基本運算延伸</h2>
+
+<pre class="code"><code class="">D &lt;&lt; AM // 左移
+D &gt;&gt; AM // 右移
+D * AM // 乘法
+D / AM // 除法
+D % AM // 餘數
+D &lt; AM // 小於
+D &lt;= AM // 小於或等於
+D &gt; AM // 大於
+D &gt;= AM // 大於或等於
+D == AM // 等於
+D != AM // 不等於
+D ^ AM // xor
+</code></pre>
+
+<h2> 軟體中斷延伸</h2>
+
+<p>swi 是軟體中斷 Software Interrupt 的簡稱，swi 會根據暫存器 A 的內容決定要做甚麼動作。</p>
+
+<p>舉例而言，swi 0 會印出暫存器 D 中的整數，意思是下列程式會印出 374</p>
+
+<pre class="code"><code class="">@374
+D=A
+@0
+swi
+</code></pre>
+
+<p>HackCPU 的延伸指令集包含一組預先定義好的 swi，像是 swi 0 是印出整數， swi 16 是設定浮點數。</p>
+
+<p>有了 swi ，我們可以定義一些巨集運算，以下是HackCPU 的延伸指令集所支援的預設巨集運算：</p>
+
+<pre class="code"><code class="">// 列印功能
+iput = @0;swi // 印出整數 
+cput = @1;swi // 印出字元
+sput = @%s;D=A;@3;swi // 印出字串
+
+// 浮點數功能
+巨集   = 展開內容
+fput   = @18;swi
+fset t = @t;D=A;@16;swi // 將 t 位置的兩格記憶體設定給 f 
+fget t = @t;D=A;@16;swi // 取回 f 並放入 t 位置的兩格記憶體 
+fadd t = @t;D=A;@19;swi // f = f + t
+fsub t = @t;D=A;@20;swi // f = f - t
+fmul t = @t;D=A;@21;swi // f = f * t
+fdiv t = @t;D=A;@22;swi // f = f / t
+</code></pre>
+
+<p>延伸版的 HackCPU 浮點數 f 被映射到位址 m[24577..24578]，以 32 位元浮點數表示，緊接在鍵盤暫存器的後面。</p>
+
+<p>所以我們可以用 @24577; D=M 取得 f 的前 16bit，然後用  @24578; D=M  取得 f 的後 16bit。(如果有需要的話！)</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

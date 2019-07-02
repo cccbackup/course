@@ -1,0 +1,173 @@
+<h2 id="html-網頁設計">HTML 網頁設計</h2>
+<h3 id="htmlcss-與-javascript">HTML、CSS 與 JavaScript</h3>
+<p>HTML、CSS 與 JavaScript 是讓 Web Browser 運作的三大技術，要學會 Web 程式設計的第一步，就是要學會這三項技術，在本章中，我們將從最基礎的 HTML 開始。</p>
+<p>如果您想要學習這些技術，筆者強烈的推薦您觀看 w3schools 這個網站，網址如下。</p>
+<ul>
+<li><a href="http://www.w3schools.com/" class="uri">http://www.w3schools.com/</a></li>
+</ul>
+<p>學習 HTML、CSS、JavaScript 的順序，最好先從 HTML 開始，因為 HTML 最簡單，而且是整個 Web 技術的表現語言，學會 HTML 之後就可以學習 CSS，看看如何對 HTML 進行格式化套表呈現的動作，然後再進一步學習 JavaScript 這個小型程式語言，以便讓網頁更加動態，增強網頁的的互動功能。</p>
+<p>以下是 w3schools 當中這三個主題的網頁，如果您是一個程式設計師，相信您可以用很短的時間就學會這些主題。</p>
+<ul>
+<li><a href="http://www.w3schools.com/html/default.asp" class="uri">http://www.w3schools.com/html/default.asp</a></li>
+<li><a href="http://www.w3schools.com/css/default.asp" class="uri">http://www.w3schools.com/css/default.asp</a></li>
+<li><a href="http://www.w3schools.com/js/default.asp" class="uri">http://www.w3schools.com/js/default.asp</a></li>
+</ul>
+<p>一但學會了 HTML、CSS、JavaScript 這三種技術，您就可以開始向 Server 端的技術邁進了。</p>
+<h3 id="簡易網頁">簡易網頁</h3>
+<p>HTML 網頁是一種純文字檔案，您只要用記事本這樣的文字編輯器就可以輕易的編出來，以下是一個範例：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">Hello!</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
+<p>檢視檔案：<a href="https://dl.dropbox.com/u/101584453/web/wp/code/hello1.htm" class="uri">https://dl.dropbox.com/u/101584453/web/wp/code/hello1.htm</a></p>
+<p>您可以看到在上述範例中，Hello! 訊息被夾在 <code>&lt;body&gt;</code> 與 <code>&lt;/body&gt;</code> 中間，而外層又有 <code>&lt;html&gt;</code> 與 <code>&lt;/html&gt;</code> 包覆，像這樣的結構稱為標記語言 (Markup Language)。</p>
+<p>如果我們在上述文件中再加上一句 <code>&lt;a href="http://tw.yahoo.com/"&gt;Yahoo!&lt;/a&gt;</code> 這樣的標記，那麼網頁中將會出現 Yahoo! 這個詞彙，該詞彙通常是藍色文字，而且可以用滑鼠點擊，當您點擊之後網頁就會被導到 Yahoo 台灣的首頁，這種點選後會導入另一個網頁的機制是 Web 的最大特色，稱為 Hyperlink (超連結)，而那些被 <code>&lt;a&gt; &lt;/a&gt;</code> 標記起來的文字，就稱為 Hyper Text (超文字)。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">Hello! </a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://tw.yahoo.com/&quot;</span><span class="kw">&gt;</span>Yahoo!<span class="kw">&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
+<p>(筆者註：標記 a 當中的 href 是 Hyperlink Reference (超連結引用) 的縮寫，而 a 則是 anchor (錨) 的意思)。</p>
+<p>檢視檔案：&lt;hello2.htm&gt;</p>
+<p>而這也正是 HTML 之全名 Hyper Text Markup Language 的意義，也就是一種含有超連結的標記語言。</p>
+<p>由於 HTML 標記語言是有層次性的，因此在排版時我們經常都會使用縮排以凸顯出這種層次感，例如以上的範例經過縮排之後就變成了如下的情況。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">    <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">        Hello! </a>
+<a class="sourceLine" id="cb3-4" title="4">        <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://tw.yahoo.com/&quot;</span><span class="kw">&gt;</span>Yahoo!<span class="kw">&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
+<p>檢視檔案：&lt;hello3.htm&gt;</p>
+<p>這樣的結構看起來更加一目了然，能夠凸顯出每個層次之間的包含關係。</p>
+<h3 id="html-的表頭">HTML 的表頭</h3>
+<p>雖然上述範例已經是 HTML 網頁了，而且也通常可以正常檢視了，但是還不夠完整，一個完整的 HTML 網頁通常要包含足夠的表頭資訊，以便讓瀏覽器能正確的辨認這個網頁的類型與編碼方式，以下是一個範例：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">        <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&#39;utf-8&#39;</span><span class="kw">&gt;</span> </a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">        Hello! 你好！</a>
+<a class="sourceLine" id="cb4-8" title="8">        <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://tw.yahoo.com/&quot;</span><span class="kw">&gt;</span>Yahoo!<span class="kw">&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
+<p>檢視檔案：&lt;hello4.htm&gt;</p>
+<p><img src="./img/HtmlHello4.png" /></p>
+<p>其中第一句的 <code>&lt;!DOCTYPE html&gt;</code> 是告訴瀏覽器，這個文件是一個 HTML 檔案，而 <code>&lt;meta charset='utf-8'&gt;</code> 這句話，則是告訴瀏覽器這個文件的編碼是用 UTF-8 的格式。</p>
+<p>所以您必須將上述檔案，儲存成 unicode 的 UTF-8 格式，這樣網頁才能正確運作，否則就有可能出現亂碼的情況，以下是筆者使用 Notepad++ 設定 UTF-8 格式的情況。</p>
+<p><img src="./img/NotepadUtf8.png" /></p>
+<h3 id="格式化">格式化</h3>
+<p>從上述範例中，您可以看到即使我們在 HTML 的原始文字檔案中進行換行，但是呈現出來的結果卻沒有換行，如果您真的想要強制換行的話，在 HTML 當中必須用 <code>&lt;BR/&gt;</code> 這個標記，才能讓文字真正換行。</p>
+<p>但是強制換行並不是一個好的寫法，比較好的方法是用段落標記 <code>&lt;p&gt;...&lt;/p&gt;</code> 把您的段落包起來，這樣在段落結束後就會換行了。</p>
+<p>另外、還有 <code>&lt;b&gt;...&lt;/b&gt;</code> 標記 (也可以用 <code>&lt;strong&gt; ... &lt;/strong&gt;</code>) 可以讓文字變粗體，而 <code>&lt;i&gt;...&lt;/i&gt;</code> 指令則可以讓文字呈現斜體，<code>&lt;em&gt; ... &lt;/em&gt;</code> 標記可以強調文字，而 <code>&lt;code&gt;...&lt;/code&gt;</code> 可以讓文字以類似程式碼的字型輸出。</p>
+<p>若要讓文字變成上標，可以用 <code>&lt;sup&gt;...&lt;/sup&gt;</code>，或用 <code>&lt;sub&gt;...&lt;/sub&gt;</code> 則可以讓文字變下標，以下範例綜合的呈現了這些格式化標記的結果。</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">        <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&#39;utf-8&#39;</span><span class="kw">&gt;</span> </a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">      一般字體 (Plain Text) <span class="kw">&lt;BR/&gt;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">      <span class="kw">&lt;i&gt;</span>斜體 (Italic)<span class="kw">&lt;/i&gt;</span> <span class="kw">&lt;BR/&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">      <span class="kw">&lt;b&gt;</span>粗體 (Bold)<span class="kw">&lt;/b&gt;</span> <span class="kw">&lt;BR/&gt;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">      <span class="kw">&lt;p&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">        <span class="kw">&lt;strong&gt;</span>明顯 (Strong)<span class="kw">&lt;/strong&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">        <span class="kw">&lt;em&gt;</span>強調 (Emphasized)<span class="kw">&lt;/em&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">      <span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">      <span class="kw">&lt;p&gt;</span></a>
+<a class="sourceLine" id="cb5-15" title="15">        這是 <span class="kw">&lt;sup&gt;</span>上標<span class="kw">&lt;/sup&gt;</span> 與 <span class="kw">&lt;sub&gt;</span>下標<span class="kw">&lt;/sub&gt;</span> 的顯示情況！</a>
+<a class="sourceLine" id="cb5-16" title="16">      <span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">    <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
+<p>檢視檔案：&lt;format.htm&gt;</p>
+<p><img src="./img/HtmlFormat.png" /></p>
+<h3 id="標題">標題</h3>
+<p>HTML 的章節標題共有六種層次，從 h1 到 h6，通常 h1 代表最大的第一層標題，會用最大的字型顯示，而 h6 則是最小的第六層標題，會用最小的字型顯示。</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;h1&gt;</span>第 1 層段落標題<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">&lt;h2&gt;</span>第 2 層段落標題<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="kw">&lt;h3&gt;</span>第 3 層段落標題<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw">&lt;h4&gt;</span>第 4 層段落標題<span class="kw">&lt;/h4&gt;</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="kw">&lt;h5&gt;</span>第 5 層段落標題<span class="kw">&lt;/h5&gt;</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="kw">&lt;h6&gt;</span>第 6 層段落標題<span class="kw">&lt;/h6&gt;</span></a></code></pre></div>
+<p>而整個網頁的標題則是用 <code>&lt;title&gt;...&lt;/title&gt;</code> 進行標記，如下所示。</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;title&gt;</span>網頁標題<span class="kw">&lt;/title&gt;</span></a></code></pre></div>
+<p>以下是這些標題的使用範例，您可以點選看看。</p>
+<p>檢視檔案：&lt;header1_6.htm&gt;</p>
+<p><img src="./img/HtmlHeader1_6.png" /></p>
+<h3 id="影像-image">影像 Image</h3>
+<p>在 HTML 中，要顯示影像或圖片，只要使用 <code>&lt;img src="圖片相對路徑"&gt;</code> 就行了。如果要指定大小，就可以加上 width 與 height 屬性，如以下範例所示。</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;F7501.gif&quot;</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;F7501.gif&quot;</span><span class="ot"> width=</span><span class="st">&quot;200&quot;</span><span class="ot"> height=</span><span class="st">&quot;300&quot;</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;F7501.gif&quot;</span><span class="ot"> width=</span><span class="st">&quot;20%&quot;</span><span class="kw">/&gt;</span></a></code></pre></div>
+<p>上述第一個指令 <code>&lt;img src="F7501.jpg"/&gt;</code> 會按照原圖大小顯示，而 <code>&lt;img src="F7501.jpg" width="300" height="500"/&gt;</code> 則會將圖形縮放到寬度 200，高度 300 的大小，最後一個用 20% 代表縮放到寬度為瀏覽器畫面視窗的百分之二十那麼大。</p>
+<p>檢視檔案：<a href="https://dl.dropbox.com/u/101584453/web/wp/code/img.htm" class="uri">https://dl.dropbox.com/u/101584453/web/wp/code/img.htm</a></p>
+<p><img src="./img/HtmlImg.png" /></p>
+<p>評論：竟然趁機為自己的書打廣告，真是太惡劣了！….</p>
+<h3 id="表格-table">表格 Table</h3>
+<p>在 HTML 當中、有很多排版都是使用表格的方式製作的，例如「側欄、上方橫幅」等等，表格的語法如以下範例所示。</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;table&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">&lt;tr&gt;</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw">&lt;th&gt;&lt;/th&gt;</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw">&lt;th&gt;</span>欄 1<span class="kw">&lt;/th&gt;</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="kw">&lt;th&gt;</span>欄 2<span class="kw">&lt;/th&gt;</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="kw">&lt;/tr&gt;</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="kw">&lt;tr&gt;</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="kw">&lt;th&gt;</span>列 1<span class="kw">&lt;/th&gt;</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="kw">&lt;td&gt;</span>1,1<span class="kw">&lt;/td&gt;</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="kw">&lt;td&gt;</span>1,2<span class="kw">&lt;/td&gt;</span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="kw">&lt;/tr&gt;</span></a>
+<a class="sourceLine" id="cb9-12" title="12"><span class="kw">&lt;tr&gt;</span></a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="kw">&lt;th&gt;</span>列 2<span class="kw">&lt;/th&gt;</span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="kw">&lt;td&gt;</span>2, 1<span class="kw">&lt;/td&gt;</span></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="kw">&lt;td&gt;</span>2, 2<span class="kw">&lt;/td&gt;</span></a>
+<a class="sourceLine" id="cb9-16" title="16"><span class="kw">&lt;/tr&gt;</span></a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="kw">&lt;/table&gt;</span></a></code></pre></div>
+<p>表格的語法都是由 <code>&lt;table&gt;...&lt;/table&gt;</code> 所夾住的，其中 <code>&lt;tr&gt;...&lt;/tr&gt;</code> 會夾住一個列，而每個列又可以分成數個欄，這些欄可能用 <code>&lt;th&gt;..&lt;/th&gt;</code> 或 <code>&lt;td&gt;...&lt;/td&gt;</code> 夾住，其中 th 通常是用在標頭、而 td 則是用在內容。</p>
+<p>檢視檔案：&lt;table.htm&gt;</p>
+<p><img src="./img/table.jpg" /></p>
+<h3 id="項目-list">項目 list</h3>
+<p>HTML 的項目是用 <code>&lt;li&gt;...&lt;/li&gt;</code> 語法所框住的，如果在項目的外面加上 <code>&lt;ul&gt;...&lt;/ul&gt;</code> ，那就會顯示無編號的項目清單，若加上 <code>&lt;ol&gt;...&lt;/ol&gt;</code>，那就會顯示有編號的項目清單。</p>
+<p>無編號項目清單：</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">&lt;li&gt;</span>項目 1<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="kw">&lt;li&gt;</span>項目 2<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="kw">&lt;/ul&gt;</span></a></code></pre></div>
+<p>有編號項目清單：</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">&lt;li&gt;</span>項目 1<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="kw">&lt;li&gt;</span>項目 2<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="kw">&lt;/ol&gt;</span></a></code></pre></div>
+<p>檢視檔案：&lt;list.htm&gt;</p>
+<p><img src="./img/list.jpg" /></p>
+<h3 id="表單-form">表單 Form</h3>
+<p>在 HTML 當中，表單 (Form) 是指可以讓使用者進行輸入的元件，其語法是用 <code>&lt;form&gt; ...&lt;/form&gt;</code> 夾住一堆的輸入元件，這些輸入元件包含 input (輸入)、 textarea (文字區)、 select (選項) 等，其中的 input 還可以根據其 type 欄位顯示成 checkbox, color, date, datetime, datetime-local, email, file, hidden, image, month, number, password, radio, range, reset, search, submit, tel, text, time, url, week 等各種不同的輸入欄形式，以下是一個表單的範例。</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;signup&quot;</span><span class="ot"> method=</span><span class="st">&quot;post&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb12-2" title="2">帳號: <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> name=</span><span class="st">&quot;user&quot;</span><span class="kw">/&gt;&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-3" title="3">密碼: <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;password&quot;</span><span class="ot"> name=</span><span class="st">&quot;password&quot;</span><span class="kw">/&gt;&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-4" title="4">信箱: <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;email&quot;</span><span class="ot"> name=</span><span class="st">&quot;email&quot;</span><span class="kw">/&gt;&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-5" title="5">生日: <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;date&quot;</span><span class="ot"> name=</span><span class="st">&quot;birthday&quot;</span><span class="kw">/&gt;&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-6" title="6">照片: <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;file&quot;</span><span class="ot"> name=</span><span class="st">&quot;picture&quot;</span><span class="kw">/&gt;&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-7" title="7">性別: <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;sex&quot;</span><span class="ot"> value=</span><span class="st">&quot;male&quot;</span><span class="ot"> checked</span><span class="kw">/&gt;</span> 男</a>
+<a class="sourceLine" id="cb12-8" title="8">      <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;sex&quot;</span><span class="ot"> value=</span><span class="st">&quot;female&quot;</span><span class="kw">/&gt;</span> 女<span class="kw">&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-9" title="9">血型: <span class="kw">&lt;select</span><span class="ot"> name=</span><span class="st">&quot;BloodType&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb12-10" title="10">        <span class="kw">&lt;option</span><span class="ot"> value=</span><span class="st">&quot;A&quot;</span><span class="kw">&gt;</span>A 型<span class="kw">&lt;/option&gt;</span></a>
+<a class="sourceLine" id="cb12-11" title="11">        <span class="kw">&lt;option</span><span class="ot"> value=</span><span class="st">&quot;B&quot;</span><span class="kw">&gt;</span>B 型<span class="kw">&lt;/option&gt;</span></a>
+<a class="sourceLine" id="cb12-12" title="12">        <span class="kw">&lt;option</span><span class="ot"> value=</span><span class="st">&quot;AB&quot;</span><span class="kw">&gt;</span>AB 型<span class="kw">&lt;/option&gt;</span></a>
+<a class="sourceLine" id="cb12-13" title="13">        <span class="kw">&lt;option</span><span class="ot"> value=</span><span class="st">&quot;O&quot;</span><span class="kw">&gt;</span>O 型<span class="kw">&lt;/option&gt;</span></a>
+<a class="sourceLine" id="cb12-14" title="14">      <span class="kw">&lt;/select&gt;</span> <span class="kw">&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-15" title="15">自我介紹： <span class="kw">&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-16" title="16"><span class="kw">&lt;textarea</span><span class="ot"> name=</span><span class="st">&quot;AboutMe&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb12-17" title="17"><span class="kw">&lt;/textarea&gt;</span> <span class="kw">&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-18" title="18"></a>
+<a class="sourceLine" id="cb12-19" title="19"><span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="ot"> value=</span><span class="st">&quot;送出&quot;</span><span class="kw">/&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;reset&quot;</span><span class="ot"> value=</span><span class="st">&quot;清除&quot;</span><span class="kw">/&gt;&lt;br/&gt;</span></a>
+<a class="sourceLine" id="cb12-20" title="20"><span class="kw">&lt;/form&gt;</span></a></code></pre></div>
+<p>檢視檔案：&lt;form.htm&gt;</p>
+<p><img src="./img/form.jpg" /></p>
+<p>在上述的範例中，當 submit 類型的送出鈕被按下後，瀏覽器會將這些填寫的資訊，以第一章所說的 GET/POST 方式，發送給伺服器，如果 method 欄位是 GET，那麼會採用在 HTTP 表頭網址處傳送 <code>singup?user=xxx&amp;password=xxx .....</code> 這樣的形式送出，這種方式會將密碼顯示在瀏覽器的網址列上，比較容易被看到，若 method 欄位是 POST，則會在 HTTP 表頭尾端加上 <code>user=xxx&amp;password=xxx ...</code> 的資訊，不會在網址列上被看到。當然、如果有人監控網路上訊息的話，還是會看得到這些輸入資訊。</p>
+<p>若要更安全，則必須採用 HTTPS 的 SSL 方式傳遞，這種方式會對訊息加密編碼，就比較不會有輸入訊息外洩的危險。</p>
+<h3 id="參考文獻">參考文獻</h3>
+<ul>
+<li>W3School : HTML Turorial – <a href="http://www.w3schools.com/html/default.asp" class="uri">http://www.w3schools.com/html/default.asp</a></li>
+</ul>

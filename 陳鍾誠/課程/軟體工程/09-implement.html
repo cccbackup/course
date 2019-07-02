@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../軟體工程.html" alt="">軟體工程</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 軟體工程</h2>
+
+<ol>
+    <li><a href="01-preface.html" alt="">簡介</a></li>
+    <li><a href="02-test.html" alt="">TDD 測試</a></li>
+    <li><a href="03-npm.html" alt="">NPM 套件</a></li>
+    <li><a href="04-git.html" alt="">GIT 合作</a></li>
+    <li><a href="05-quality.html" alt="">品質管控</a></li>
+    <li><a href="06-project.html" alt="">軟體專案</a></li>
+    <li><a href="07-analysis_.html" alt="">系統分析</a></li>
+    <li><a href="08-design_.html" alt="">系統設計</a></li>
+    <li><a href="09-implement.html" alt="">程式實作</a></li>
+    <li><a href="10-verify_.html" alt="">系統測試</a></li>
+    <li><a href="11-operation_.html" alt="">上線營運</a></li>
+</ol>
+<h2> 附錄</h2>
+<ol>
+    <li><a href="A1-uml_.html" alt="">UML 圖形建模</a></li>
+    <li><a href="A2-designPattern.html" alt="">JavaScript 的設計模式</a></li>
+    <li><a href="A3-refactor.html" alt="">Refactor 代碼重構</a></li>
+    <li><a href="rule.html" alt="">軟體法則</a></li>
+    <li><a href="reference.html" alt="">進階參考</a></li>
+</ol>
+<h2> 案例</h2>
+<ol>
+    <li><a href="C1-blogMvc_.html" alt="">經典網誌系統</a></li>
+    <li><a href="C2-blogAjax.html" alt="">AJAX網誌</a></li>
+    <li><a href="C3-WebPos_.html" alt="">WebPos系統</a></li>
+</ol>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 第 9 章 -- 實作</h2>
+
+<h3> 經典網誌系統 BlogMVC </h3>
+
+<p>在本章我們將主要以一個經典的網誌系統 BlogMVC 為例，說明g程式實作階段的進行方式。您可以在下列網址看到 BlogMVC 專案完整的程式碼：</p>
+
+<ul>
+    <li><a href="https://github.com/cccbook/sejs/tree/master/project/blogMvc">https://github.com/cccbook/sejs/tree/master/project/blogMvc</a></li>
+</ul>
+<h3> MVC 模式</h3>
+
+<p>BlogMVC 專案採用 MVC (Model-View-Controller) 模式，</p>
+
+<ul>
+    <li>Model : model.js</li>
+    <ul>
+        <li>資料的存取</li>
+    </ul>
+    <li>View : view.js</li>
+    <ul>
+        <li>畫面的顯示</li>
+    </ul>
+    <li>Controller : Server.js</li>
+    <ul>
+        <li>伺服器主程式，採用 koa ，負責調用 model 與 view </li>
+    </ul>
+</ul>
+<h3> Server 主程式</h3>
+
+<p>伺服器 Server.js 的原始碼如下：</p>
+
+<ul>
+    <li><a href="https://github.com/cccbook/sejs/tree/master/project/blogMvc/server.js">https://github.com/cccbook/sejs/tree/master/project/blogMvc/server.js</a></li>
+</ul>
+<pre class="code"><code class="js">const V = require('./view')
+const M = require('./model')
+const logger = require('koa-logger')
+const router = require('koa-router')()
+const koaBody = require('koa-body')
+
+const Koa = require('koa')
+const server = module.exports = new Koa()
+
+server.use(logger())
+server.use(koaBody())
+
+router.get('/', list)
+  .get('/post/new', add)
+  .get('/post/:id', show)
+  .post('/post', create)
+
+server.use(router.routes())
+
+async function list (ctx) {
+  const posts = M.list()
+  ctx.body = await V.list(posts)
+}
+
+async function add (ctx) {
+  ctx.body = await V.new()
+}
+
+async function show (ctx) {
+  const id = ctx.params.id
+  const post = M.get(id)
+  if (!post) ctx.throw(404, 'invalid post id')
+  ctx.body = await V.show(post)
+}
+
+async function create (ctx) {
+  const post = ctx.request.body
+  M.add(post)
+  ctx.redirect('/')
+}
+
+if (!module.parent) {
+  server.listen(3000)
+  console.log('Server run at http://localhost:3000')
+}
+
+</code></pre>
+
+<p>而負責資料存取的 model 模組之原始碼如下：</p>
+
+<pre class="code"><code class="js">const M = module.exports = {}
+
+const posts = []
+
+M.add = function (post) {
+  const id = posts.push(post) - 1
+  post.created_at = new Date()
+  post.id = id
+}
+
+M.get = function (id) {
+  return posts[id]
+}
+
+M.list = function () {
+  return posts
+}
+
+</code></pre>
+
+<p>負責呈現畫面的 view 模組之原始碼如下：</p>
+
+<pre class="code"><code class="js">var V = module.exports = {}
+
+V.layout = function (title, content) {
+  return `
+  &lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;${title}&lt;/title&gt;
+    &lt;style&gt;
+      body {
+        padding: 80px;
+        font: 16px Helvetica, Arial;
+      }
+  
+      h1 {
+        font-size: 2em;
+      }
+  
+      h2 {
+        font-size: 1.2em;
+      }
+  
+      #posts {
+        margin: 0;
+        padding: 0;
+      }
+  
+      #posts li {
+        margin: 40px 0;
+        padding: 0;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        list-style: none;
+      }
+  
+      #posts li:last-child {
+        border-bottom: none;
+      }
+  
+      textarea {
+        width: 500px;
+        height: 300px;
+      }
+  
+      input[type=text],
+      textarea {
+        border: 1px solid #eee;
+        border-top-color: #ddd;
+        border-left-color: #ddd;
+        border-radius: 2px;
+        padding: 15px;
+        font-size: .8em;
+      }
+  
+      input[type=text] {
+        width: 500px;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;section id="content"&gt;
+      ${content}
+    &lt;/section&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+  `
+}
+
+V.list = function (posts) {
+  let list = []
+  for (let post of posts) {
+    list.push(`
+    &lt;li&gt;
+      &lt;h2&gt;${post.title}&lt;/h2&gt;
+      &lt;p&gt;&lt;a href="/post/${post.id}"&gt;讀取貼文&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    `)
+  }
+  let content = `
+  &lt;h1&gt;貼文列表&lt;/h1&gt;
+  &lt;p&gt;您總共有 &lt;strong&gt;${posts.length}&lt;/strong&gt; 則貼文!&lt;/p&gt;
+  &lt;p&gt;&lt;a href="/post/new"&gt;創建新貼文&lt;/a&gt;&lt;/p&gt;
+  &lt;ul id="posts"&gt;
+    ${list.join('\n')}
+  &lt;/ul&gt;
+  `
+  return V.layout('貼文列表', content)
+}
+
+V.new = function () {
+  return V.layout('新增貼文', `
+  &lt;h1&gt;新增貼文&lt;/h1&gt;
+  &lt;p&gt;創建一則新貼文&lt;/p&gt;
+  &lt;form action="/post" method="post"&gt;
+    &lt;p&gt;&lt;input type="text" placeholder="Title" name="title"&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;textarea placeholder="Contents" name="body"&gt;&lt;/textarea&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="submit" value="Create"&gt;&lt;/p&gt;
+  &lt;/form&gt;
+  `)
+}
+
+V.show = function (post) {
+  return V.layout(post.title, `
+    &lt;h1&gt;${post.title}&lt;/h1&gt;
+    &lt;p&gt;${post.body}&lt;/p&gt;
+  `)
+}
+
+</code></pre>
+<p></p>
+
+<h3> 練習 1 -- AJAX 專案的建立與測試</h3>
+
+<ol>
+    <li>請學會使用 puppeteer</li>
+    <ul>
+        <li><a href="https://github.com/GoogleChrome/puppeteer">https://github.com/GoogleChrome/puppeteer</a></li>
+    </ul>
+    <li>請閱讀 helloAjax 的原始碼並執行之</li>
+    <ul>
+        <li><a href="https://github.com/cccnqu/se107a/tree/master/example/06-browser/01-puppeteer">https://github.com/cccnqu/se107a/tree/master/example/06-browser/01-puppeteer</a></li>
+    </ul>
+    <li>請用 mocha + puppeteer 測試 helloAjax</li>
+    <ul>
+        <li>mocha test.js</li>
+    </ul>
+    <li>請閱讀 blogAjax 的原始碼並執行之</li>
+    <ul>
+        <li><a href="https://github.com/cccnqu/se107a/tree/master/example/06-browser/03-blogAjax">https://github.com/cccnqu/se107a/tree/master/example/06-browser/03-blogAjax</a></li>
+    </ul>
+    <li>請用 mocha + puppeteer 測試 blogAjax</li>
+    <ul>
+        <li>mocha test.js</li>
+    </ul>
+</ol>
+<p>附加</p>
+
+<ol>
+    <li>請學會使用 browserify</li>
+    <ul>
+        <li><a href="https://github.com/cccnqu/se107a/tree/master/example/06-browser/10-browserify">https://github.com/cccnqu/se107a/tree/master/example/06-browser/10-browserify</a></li>
+    </ul>
+    <li>請學會使用 gulp</li>
+    <ul>
+        <li><a href="https://github.com/cccnqu/se107a/tree/master/example/06-browser/11-gulp">https://github.com/cccnqu/se107a/tree/master/example/06-browser/11-gulp</a></li>
+    </ul>
+    <li>請學會使用 webpack</li>
+    <ul>
+        <li><a href="https://github.com/cccnqu/se107a/tree/master/example/06-browser/12-webpack">https://github.com/cccnqu/se107a/tree/master/example/06-browser/12-webpack</a></li>
+    </ul>
+    <li>請學會使用 babel</li>
+    <ul>
+        <li><a href="https://github.com/cccnqu/se107a/tree/master/example/06-browser/12-es6/">https://github.com/cccnqu/se107a/tree/master/example/06-browser/12-es6/</a></li>
+    </ul>
+    <li>請學會使用 rollup</li>
+    <ul>
+        <li><a href="https://github.com/cccnqu/se107a/tree/master/example/06-browser/12-es6/03-rollup/">https://github.com/cccnqu/se107a/tree/master/example/06-browser/12-es6/03-rollup/</a></li>
+    </ul>
+</ol>
+<h3> 練習 3 -- iChat 程式設計</h3>
+
+<ol>
+    <li>請用 TDD/BDD 的方式，先寫出測試案例！</li>
+    <li>分配函數模組給成員，撰寫程式碼</li>
+    <li>反覆上述過程，直到第一版完成。(可以修正設計)</li>
+</ol>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

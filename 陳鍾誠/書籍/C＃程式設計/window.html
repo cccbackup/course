@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../C＃程式設計.html" alt="">C＃程式設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> C# 視窗程式：簡介</h1>
+
+<h2> 視窗與 C# 程式</h2>
+
+<p>本書所採用的視窗技術，是較舊型的 Windows Forms 技術，而非新型的 WPF 技術，雖然這種技術較為傳統，但是卻比較容易學習，對初學者而言是比較好上手的。</p>
+
+<p>要學習 C# 的視窗程式設計，只看程式碼往往是不夠的，因為程式碼沒有辦法傳達有關視覺化介面設計過程的實況訊息。因此、最好搭配教學影片同時學習。筆者在金門大學上課的時候，幾乎都有用 CamStudio 將上課過程進行螢幕錄影，讀者可以一邊觀看這些上課錄影，一邊參考本書的程式碼進行學習。</p>
+
+<ul>
+    <li><a href="../cs/home.html" alt="">本書的首頁與影片</a></li>
+</ul>
+<p>讀者可以先看「C# 視窗程式設計簡介1, 2 與 C# 視窗控制項巡禮」等三部影片，並且操作一次，有了基本概念之後，就可以繼續下看下列的內容了。</p>
+
+<h2> 按鈕測試</h2>
+
+<p>專案下載：<a href="https://dl.dropbox.com/u/101584453/cs/code/ButtonTest.zip">https://dl.dropbox.com/u/101584453/cs/code/ButtonTest.zip</a></p>
+
+<pre class="code"><code class="CS">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace ButtonTest
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            label1.Text = "你好！";
+            textBox1.Text = "我很好！";
+        }
+    }
+}
+</code></pre>
+
+<h2> 文字型計算機</h2>
+
+<p>教學錄影：C# 文字型計算機 -- <a href="http://youtu.be/A1KVnrfVF7k">http://youtu.be/A1KVnrfVF7k</a>
+專案下載：<a href="https://dl.dropbox.com/u/101584453/cs/code/TextCalculator.zip">https://dl.dropbox.com/u/101584453/cs/code/TextCalculator.zip</a></p>
+<p></p>
+
+<pre class="code"><code class="CS">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace TextCalculator
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void buttonEqual_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                double number1 = Double.Parse(textBoxNumber1.Text);
+                double number2 = Double.Parse(textBoxNumber2.Text);
+                string op = comboBoxOp.Text;
+                double result = 0.0;
+                // MessageBox.Show(number1 + op + number2 + "=");
+                switch (op)
+                {
+                    case "+": result = number1 + number2; break;
+                    case "-": result = number1 - number2; break;
+                    case "*": result = number1 * number2; break;
+                    case "/": result = number1 / number2; break;
+                    default: throw new Exception("op=" + op + ":Error!");
+                }
+                textBoxResult.Text = result.ToString();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+        }
+    }
+}
+</code></pre>
+
+<h2> 小字典</h2>
+
+<p>教學錄影：</p>
+
+<ul>
+    <li>C# 實作字典查詢程式 -- <a href="http://youtu.be/yS3G-H_hrFU">http://youtu.be/yS3G-H_hrFU</a></li>
+    <li>C# Array 與 List 物件的使用 -- <a href="http://youtu.be/EHSGtKpRprI">http://youtu.be/EHSGtKpRprI</a></li>
+    <li>C# HashTable 與 Dictionary 物件的使用 -- <a href="http://youtu.be/hYH-npRmmKM">http://youtu.be/hYH-npRmmKM</a></li>
+    <li>C# 將小字典擴充為小翻譯系統 -- <a href="http://youtu.be/_sFsTo41PXs">http://youtu.be/_sFsTo41PXs</a></li>
+</ul>
+<p>專案下載： <a href="https://dl.dropbox.com/u/101584453/cs/code/WinDictionary.zip">https://dl.dropbox.com/u/101584453/cs/code/WinDictionary.zip</a></p>
+
+<p>執行畫面：</p>
+
+<p><figure>
+  <img src="DictionaryRun.png" alt=""></img>
+<figcaption>小字典執行畫面</figcaption></figure>
+</p>
+
+<p>介面設計</p>
+
+<p><figure>
+  <img src="DictionaryDesign.png" alt=""></img>
+<figcaption>小字典介面設計</figcaption></figure>
+</p>
+
+<pre class="code"><code class="CS">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace WindowsFormsApplication1
+{
+    public partial class FormDictionary : Form
+    {
+        Dictionary&lt;String, String&gt; dict = new Dictionary&lt;string, string&gt;();
+
+        public FormDictionary()
+        {
+            InitializeComponent();
+        }
+
+        private void buttonQuery_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String eword = comboBoxQuery.Text;
+                String cword = dict[eword];
+                richTextBox.Text = cword;
+            }
+            catch
+            {
+                MessageBox.Show("輸入錯誤，查不到！");
+            }
+        }
+
+        private void FormDictionary_Load(object sender, EventArgs e)
+        {
+            String[] eWords = new String[] { "dog", "cat", "eat", "chase", "run", "a",    "the" };
+            String[] cWords = new String[] { "狗",  "貓",  "吃",  "追",     "跑",  "一隻", "這隻" };
+            for (int i = 0; i &lt; eWords.Length; i++)
+            {
+                dict.Add(eWords[i], cWords[i]);
+            }
+        }
+    }
+}
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

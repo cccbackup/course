@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 標準字串函式庫 — (String Library) </h1>
+
+<p>標準 C 語言的字串大都是靜態函數，也就是不會在函數中分配新的記憶體。</p>
+
+<h3> K&R 對字串的設計理念</h3>
+
+<p>為何 C 語言要設計出像 strcpy(), strcat(), strtok(), strcmp(), strlen() 這樣的字串函式庫，而不直接使用像上述的動態字串函式庫取代就好了呢？關於這個問題，我們必須回到當初 K & R 兩人設計 C 語言的初始環境，才能看出其原因。</p>
+
+<p>K & R 設計 C 語言時，還沒有物件導向的概念，因此不太可能設計出像範例五這樣具有物件導向概念的字串函式庫。當時電腦的記憶體極為有限，而且 K&R 一心只想設計出 UNIX 作業系統，因此才設計出像 strcpy()、strcmp() 這樣的函數，可以同時支援字串陣列與指標。</p>
+
+<p>K & R 所設計的字串函式庫可不是用來支援應用程式的，而是用在設計作業系統上的，特別是在基本文字檔的處理上。當時的環境不像我們現在這麼奢侈，有好幾 GB 的記憶體可以用，幾乎可以將任何文字檔都全部讀到記憶體中再進行處理，而是必須一個字一個字的讀，或者是一行一行的讀，因此這些靜態的字串函式庫就已經相當夠用了。</p>
+
+<p>這些字串函式庫所處理的對象，就是從檔案中讀出來，不超過一行長度的字串，就當時的環境，我們可以假設檔案中任一行的長度不會超過 127 個字元，因此您只要宣告像 char line[128] 這樣的變數，就足以處理任何的文字檔了。</p>
+
+<p>理解了這個背景，相信讀者應該能夠感覺到為何 K&R 沒有發展出動態字串函式庫了吧？</p>
+
+<p>但是在 C 語言漫長的發展過程中，為何動態字串函式庫沒有被納入標準函式庫中，這或許才是真正的問題，也是學習者之所以誤用 C 語言的原因之所在，關於這點，或許牽涉到了太多的歷史，筆者也無從考證起了。</p>
+
+<h3> 來自 jserv 的建議</h3>
+
+<p>code => 沒有「C 語言的字串函式庫」的說法 整體是 C Library: <a href="http://www.tutorialspoint.com/cstandardlibrary/string_h.htm">http://www.tutorialspoint.com/cstandardlibrary/string_h.htm</a></p>
+
+<p>==> "但是在 C 語言漫長的發展過程中，為何動態字串函式庫沒有被納入標準函式庫中，" 這句值得商榷</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

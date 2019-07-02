@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../Verilog.html" alt="">Verilog</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 記憶體階層 (Memory Hierarchy)</h2>
+
+<p><figure>
+  <img src="../img/hierarchy3.jpg" alt=""></img>
+<figcaption>圖、常見的三層式記憶體階層</figcaption></figure>
+</p>
+
+<p>在上圖中，cache 是直接封裝在 CPU 內部的靜態記憶體，其運作速度與 CPU 的內部電路一樣快，因此可以在 1 個 Clock Cycle 之內完成存取。</p>
+
+<p>而身為主記憶體的 DRAM，速度比靜態記憶體慢上數十倍，因此必須耗費幾十個 Cycle 才能完成存取。</p>
+
+<p>最下層的「硬碟」 (hard disk) 速度更慢，由於依賴讀寫頭與硬盤轉動的機械性動作，因此又比 DRAM 慢上數百倍 (雖然轉到了之後讀取還算快速，但是仍然相對緩慢，而且每次必須讀一大塊，否則轉了好久才讀 1 個 byte 將會慢如蝸牛)。</p>
+
+<p>當然、有些電腦包含更多種類的記憶單元，這些記憶裝置的速度與容量不一，以下是一個更多層次的記憶階層範例。</p>
+
+<p><figure>
+  <img src="../img/hierarchy.jpg" alt=""></img>
+<figcaption>圖、更多層次的記憶體階層</figcaption></figure>
+</p>
+
+<p>為了要讓電腦能夠又快又大，「高階處理器」通常採用了「快取」(cache) 與「記憶體管理單元」(MMU) 等兩個技術，其中的 cache 位於 CPU 內部，用來儲存常用的「指令與資料」，而 MMU 則是利用「分段或分頁」等機制，讓記憶體管理更有效率，甚至可以用「虛擬記憶體」技術把「硬碟」拿來當「備援記憶體」使用，讓容量可以進一步提升。</p>
+
+<p>當然、要使用這些「快取」與「暫存」技術，都必須付出相對應的代價，那就是讓你的 CPU 設計更加複雜，而且有時也會「快不起來」。 </p>
+
+<p>(套句俗話說，出來混的，總有一天是要還的，CPU 的設計也是如此)</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../Verilog.html" alt="">Verilog</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 浮點數運算</h2>
+
+<h3> 浮點運算單元 FALU</h3>
+
+<pre class="code"><code class="verilog">// 輸入 a, b 後會執行 op 所指定的運算，然後將結果放在暫存器 y 當中
+module falu(input [63:0] ia, input [63:0] ib, input [1:0] op, output reg [63:0] oy);
+real a, b, y;
+
+always @(a or b or op) begin
+  a = $bitstoreal(ia);
+  b = $bitstoreal(ib); 
+  case (op)
+    2'b00: y = a + b;
+    2'b01: y = a - b;
+    2'b10: y = a * b;
+    2'b11: y = a / b;
+  endcase
+  $display("falu32:op=%d a=%f b=%f y=%f", op, a, b, y);
+  oy = $realtobits(y);
+end
+endmodule
+
+module main;                // 測試程式開始
+  reg  [63:0] a64, b64;
+  wire [63:0] y64;
+  reg  [1:0] op;
+  real a, b;
+
+  falu falu1(a64, b64, op, y64);     // 建立一個 alu 單元，名稱為 alu1
+
+  initial begin              // 測試程式的初始化動作
+    a = 3.14159;  a64 = $realtobits(a);
+    b = 2.71818;  b64 = $realtobits(b);
+    op = 0;
+  end
+
+  always #50 begin           // 每個 50 奈秒就作下列動作
+    op = op + 1;             // 讓 op 的值加 1
+  end
+
+  initial #1000 $finish;      // 時間到 1000 奈秒就結束
+
+endmodule
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\Dropbox\Public\web\oc\code&gt;iverilog -o flu64 flu64.v
+
+D:\Dropbox\Public\web\oc\code&gt;vvp flu64
+falu32:op=0 a=3.141590 b=2.718180 y=5.859770
+falu32:op=1 a=3.141590 b=2.718180 y=0.423410
+falu32:op=2 a=3.141590 b=2.718180 y=8.539407
+falu32:op=3 a=3.141590 b=2.718180 y=1.155770
+falu32:op=0 a=3.141590 b=2.718180 y=5.859770
+falu32:op=1 a=3.141590 b=2.718180 y=0.423410
+falu32:op=2 a=3.141590 b=2.718180 y=8.539407
+falu32:op=3 a=3.141590 b=2.718180 y=1.155770
+falu32:op=0 a=3.141590 b=2.718180 y=5.859770
+falu32:op=1 a=3.141590 b=2.718180 y=0.423410
+falu32:op=2 a=3.141590 b=2.718180 y=8.539407
+falu32:op=3 a=3.141590 b=2.718180 y=1.155770
+falu32:op=0 a=3.141590 b=2.718180 y=5.859770
+falu32:op=1 a=3.141590 b=2.718180 y=0.423410
+falu32:op=2 a=3.141590 b=2.718180 y=8.539407
+falu32:op=3 a=3.141590 b=2.718180 y=1.155770
+falu32:op=0 a=3.141590 b=2.718180 y=5.859770
+falu32:op=1 a=3.141590 b=2.718180 y=0.423410
+falu32:op=2 a=3.141590 b=2.718180 y=8.539407
+falu32:op=3 a=3.141590 b=2.718180 y=1.155770
+</code></pre>
+<p></p>
+
+<h3> 使用 Verilog 預設的浮點數運算</h3>
+
+<p>檔案： float.v</p>
+
+<pre class="code"><code class="verilog">module main;
+real x, y, x2, y2, xyadd, xysub, xymul, xydiv;
+reg [63:0] x1, y1;
+
+initial 
+begin
+  x=3.14159;
+  y=-2.3e4;
+  x1 = $realtobits(x);
+  x2 = $bitstoreal(x1);
+  y1 = $realtobits(y);
+  y2 = $bitstoreal(y1);
+  xyadd = x+y;
+  xysub = x-y;
+  xymul = x*y;
+  xydiv = x/y;
+  $display("x=%f x1=%b x2=%f", x, x1, x2);
+  $display("y=%f y1=%b y2=%f", y, y1, y2);
+  $display("x+y=%f xyadd=%f", x+y, xyadd);
+  $display("x-y=%f xysub=%f", x-y, xysub);
+  $display("x*y=%f xymul=%f", x*y, xymul);
+  $display("x/y=%f xydiv=%f", x/y, xydiv);
+end
+
+endmodule
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">D:\Dropbox\Public\web\oc\code&gt;iverilog -o float float.v
+
+D:\Dropbox\Public\web\oc\code&gt;vvp float
+x=3.141590 x1=0100000000001001001000011111100111110000000110111000011001101110 x
+2=3.141590
+y=-23000.000000 y1=1100000011010110011101100000000000000000000000000000000000000
+000 y2=-23000.000000
+x+y=-22996.858410 xyadd=-22996.858410
+x-y=23003.141590 xysub=23003.141590
+x*y=-72256.570000 xymul=-72256.570000
+x/y=-0.000137 xydiv=-0.000137
+</code></pre>
+
+<h3> 自行設計浮點運算器</h3>
+
+<pre class="code"><code class="verilog">// https://instruct1.cit.cornell.edu/courses/ece576/StudentWork/ss868/fp/Reg27FP/FpMul.v
+// https://instruct1.cit.cornell.edu/courses/ece576/StudentWork/ss868/fp/Reg27FP/FpAdd.v
+// https://instruct1.cit.cornell.edu/courses/ece576/FloatingPoint/index.html#Schneider_fp
+
+`define F_SIGN               63
+`define F_EXP                62:52
+`define F_FRAC               51:0
+
+// a = (-1)^a.s (1+a.f) * 2 ^ {a.e-1023} 
+// b = (-1)^b.s (1+b.f) * 2 ^ {b.e-1023} 
+// a*b = (-1)^(a.s xor b.s) (1+a.f) (1+b.f) * 2^{ (a.e+b.e-1023) - 1023}
+//       z.s = a.s xor b.s  z.f = tail(...)   z.e = a.e+b.e-1023
+module fmul(input [63:0] a, input [63:0] b, output [63:0] z);
+    wire        a_s = a[`F_SIGN];
+    wire [10:0] a_e = a[`F_EXP];
+    wire [51:0] a_f = a[`F_FRAC];
+    wire        b_s = b[`F_SIGN];
+    wire [10:0] b_e = b[`F_EXP];
+    wire [51:0] b_f = b[`F_FRAC];
+
+    wire   z_s = a_s ^ b_s;// 正負號 z.s = a.s xor b.s
+    wire [105:0] f = {1'b1, a_f} * {1'b1, b_f};    // 小數部分： f = {1, a.f} * {1, b.f}
+    wire [11:0]  e = a_e + b_e - 12'd1023; // 指數部份： e = a.e + b.e - 1023
+    wire [51:0]  z_f = f[105] ? f[104:53] : f[103:52]; // 若最高位 f[105] == 1，則取 z.f[104:53]，否則取 z.f[103:52]
+    wire [10:0]  z_e = f[105] ? e[10:0]+1 : e[10:0]; // 若最高位 f[105] == 1，則取 z.e 要上升 1 (???)，否則不變 
+    wire underflow = a_e[10] &amp; b_e[10] &amp; ~z_e[10];  // underflow
+    assign z = underflow ? 64'b0 : {z_s, z_e, z_f}; // 若 underflow，則傳回零，否則傳回 z={z.s, z.e, z.f}。
+endmodule
+
+module main;
+real x, y, z;
+reg [63:0] x1, y1;
+wire [63:0] z1;
+
+fmul f1(x1, y1, z1);
+
+initial 
+begin
+//  x=7.00;  y=-9.00;
+//  x=6.00;  y=8.00;
+//  x=301.00;  y=200.00;
+  x=1.75;  y=1.75;
+  x1 = $realtobits(x);
+  y1 = $realtobits(y);
+  #100;
+  $display("a.s=%b a.e=%b a.f=%b", f1.a_s, f1.a_e, f1.a_f);
+  $display("a.s=%b b.e=%b b.f=%b", f1.b_s, f1.b_e, f1.b_f);
+  $display("e=%b \nf=%b \nunderflow=%b", f1.e, f1.f, f1.underflow);
+  $display("z.s=%b z.e=%b z.f=%b", f1.z_s, f1.z_e, f1.z_f);
+
+  z = $bitstoreal(z1);
+  $display("x=%f y=%f z=%f", x, y, z);
+  $display("x1=%b \ny1=%b \nz1=%b", x1, y1, z1);
+end
+
+endmodule
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\Dropbox\Public\web\oc\code&gt;iverilog -o fpu64 fpu64.v
+
+D:\Dropbox\Public\web\oc\code&gt;vvp fpu64
+a.s=0 a.e=01111111111 a.f=1100000000000000000000000000000000000000000000000000
+a.s=0 b.e=01111111111 b.f=1100000000000000000000000000000000000000000000000000
+e=001111111111
+f=110001000000000000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000
+underflow=0
+z.s=0 z.e=10000000000 z.f=1000100000000000000000000000000000000000000000000000
+x=1.750000 y=1.750000 z=3.062500
+x1=0011111111111100000000000000000000000000000000000000000000000000
+y1=0011111111111100000000000000000000000000000000000000000000000000
+z1=0100000000001000100000000000000000000000000000000000000000000000
+</code></pre>
+<p></p>
+
+<h3> 參考文獻</h3>
+<ul>
+    <li><a href="http://en.wikipedia.org/wiki/Single-precision_floating-point_format">http://en.wikipedia.org/wiki/Single-precision_floating-point_format</a></li>
+    <li><a href="http://en.wikipedia.org/wiki/Double-precision_floating-point_format">http://en.wikipedia.org/wiki/Double-precision_floating-point_format</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

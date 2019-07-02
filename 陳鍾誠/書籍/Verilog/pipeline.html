@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../Verilog.html" alt="">Verilog</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 流水線架構 (Pipeline) </h2>
+
+<p>Pipeline 是一種讓指令分成幾個步驟，然後兩個指令的不同步驟可以「瀑布式重疊」的方法。</p>
+
+<p>舉例而言、假如我們將一個指令的執行分為五個步驟如下：</p>
+
+<ol>
+    <li>擷取 F (Fatch)</li>
+    <li>解碼 D (Decode)</li>
+    <li>計算 C (Compute)</li>
+    <li>存取 M (Memory Access)</li>
+    <li>寫回 W (Write Back)</li>
+</ol>
+<p>那麼在理想的情況下，我們就能夠讓這些指令充分的重疊執行，如下圖所示。</p>
+
+<p><figure>
+  <img src="../img/Pipeline1.jpg" alt=""></img>
+<figcaption>圖、理想的 Pipeline 執行情況</figcaption></figure>
+</p>
+
+<p>如此、只要讓每個步驟所需的時間幾乎一樣，然後將 Clock 調快五倍，就能讓速度整整加快五倍。</p>
+
+<p>這就是所謂的 Pipeline 流水線架構的原理。</p>
+
+<p>然而、流水線架構的處理器設計比較困難，因為上圖的理想情況畢竟只是理想，現實生活中有很多因素會干擾流水線的運行，造成流水線某個階段受到阻礙無法完成，必須暫停等後某個步驟完成，這種暫停會形成流水線當中的氣泡 (bubble)，這種情況統稱為「指令圍障」 (instruction hazard)。</p>
+
+<p>Hazard 有好幾種，像是資料圍障 (data hazard)、快取失敗 (cache miss)、分支延遲 (branch penalty) 等等。</p>
+
+<p>流水線架構的設計，通常必須用暫存器圍牆 (Register wall) 將每個步驟之間相互隔開，以避免線路之間的干擾，如下所示：</p>
+
+<p><figure>
+  <img src="../img/pipeline_register_wall.jpg" alt=""></img>
+<figcaption>圖、以暫存器圍牆分隔流水線架構的每個階段</figcaption></figure>
+</p>
+
+<p>Pipeline 處理器最困難的地方，就是要盡可能的減少這些 hazard。然而、有些 hazard 是可以用硬體方式消除的，但是很多 hazard 的消除卻是需要編譯器的配合才能夠做得到。</p>
+
+<p>透過編譯器的協助減少 hazard 的方法，包括「指令重排、插入 NOP 指令、分支預測」等等。</p>
+
+<p>想要進一步瞭解流水線架構細節的讀者，可以參考下列文件。</p>
+
+<ul>
+    <li><a href="http://zh.wikipedia.org/wiki/%E7%AE%A1%E7%B7%9A" alt="">維基百科：流水線</a></li>
+    <li><a href="http://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4%E7%AE%A1%E7%B7%9A%E5%8C%96" alt="">維基百科：指令管線化</a></li>
+    <li><a href="http://zh.wikipedia.org/wiki/%E5%88%86%E6%94%AF%E9%A0%90%E6%B8%AC%E5%99%A8" alt="">維基百科：分支預測器</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

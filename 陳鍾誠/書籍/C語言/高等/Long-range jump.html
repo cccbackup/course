@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 長程跳躍 -- (setjump 與 longjump) </h2>
+
+<p>在錯誤發生時，儲存行程狀態，執行特定程式的方法</p>
+
+<p><strong>程式範例： setjump 與 longjump</strong></p>
+
+<pre class="code"><code class="C">    #include &lt;stdio.h&gt;
+    #include &lt;setjmp.h&gt;
+
+    jmp_buf jumper;
+
+    int div(int a, int b) {
+      if (b == 0) { // can't divide by 0
+        longjmp(jumper, -3);
+      }
+      return a / b;
+    }
+
+    int main(int argc, char *argv[]) {
+      int jstatus = setjmp(jumper);
+      if (jstatus == 0) {
+        int a = atoi(argv[1]);
+        int b = atoi(argv[2]);
+        printf("%d/%d", a, b);
+        int result = div(a, b);
+        printf("=%d\n", result);
+      } 
+      else if (jstatus == -3)
+        printf(" --&gt; Error:divide by zero\n");
+      else
+        printf("Unhandled Error Case");
+    }
+</code></pre>
+
+<p><strong>執行結果</strong></p>
+
+<pre class="code"><code class="">    D:\cp&gt;gcc jump.c -o jump
+
+    D:\cp&gt;jump 7 2
+    7/2=3
+
+    D:\cp&gt;jump 7 0
+    7/0 --&gt; Error:divide by zero
+</code></pre>
+
+<p><strong>來自 jserv 的建議</strong></p>
+
+<pre class="code"><code class="">    =&gt; 請提及 C 語言作例外處理的重要性，以及如何用 setjump/longjump 實做 user-level thread 和 coroutine
+
+    可參見拙作: http://blog.linux.org.tw/~jserv/archives/001848.html
+</code></pre>
+
+<p><strong>參考文獻</strong></p>
+
+<ul>
+    <li>Java2s (C / ANSI-C) » setjmp.h » longjmp,  <a href="http://www.java2s.com/Code/C/setjmp.h/longjmplongjump.htm">http://www.java2s.com/Code/C/setjmp.h/longjmplongjump.htm</a>  </li>
+    <li>Exception Handling in C without C++ -- Clean error handling without overhead, by Tom Schotland and Peter Petersen <a href="http://www.on-time.com/ddj0011.htm">http://www.on-time.com/ddj0011.htm</a>  </li>
+    <li>第16集 C语言中一种更优雅的异常处理机制, 作者：王胜祥　来源：希赛网　<a href="http://www.csai.cn">http://www.csai.cn</a>　2005年5月19日  </li>
+    <li>第17集 全面了解setjmp与longjmp的使用, 作者：王胜祥　来源：希赛网　<a href="http://www.csai.cn">http://www.csai.cn</a>　2005年5月21日</li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

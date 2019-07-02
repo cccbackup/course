@@ -2,6 +2,6 @@ bak
 *.bak
 *.exe
 *.o
-*.html
-*.html.
+# *.html
+# *.html.
 node_modules

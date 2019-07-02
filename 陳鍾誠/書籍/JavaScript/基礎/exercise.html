@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../JavaScript.html" alt="">JavaScript</a> / <a href="../基礎.html" alt="">基礎</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 習題解答</h2>
+
+<p>1: 請寫一個程式計算 10! ，也就是 <code>10*9*8*....*1</code> 。</p>
+
+<p>第一版：沒用函數</p>
+
+<pre class="code"><code class="javascript">f = 1;
+i = 1;
+while (i&lt;=10) {
+    f = f * i;
+    i = i + 1;
+}
+console.log('f=', f);
+</code></pre>
+
+<p>第二版：有用函數</p>
+
+<pre class="code"><code class="javascript">function factorial(n) {
+    f = 1;
+    i = 1;
+    while (i&lt;=n) {
+        f = f * i;
+        i = i + 1;
+    }
+    return f;
+}
+
+console.log('factorial(10)=', factorial(10));
+console.log('factorial(5)=', factorial(5));
+console.log('factorial(3)=', factorial(3));
+console.log('factorial(100)=', factorial(100));
+</code></pre>
+<p></p>
+
+<h3> 寫一個程式把矩陣轉置。</h3>
+
+<p>檔案： matrix.js</p>
+
+<pre class="code"><code class="javascript">function print(a) 
+{
+    var s = "";
+    for (var i=0; i&lt;a.length; i++)
+    {
+        for (var j=0; j&lt;a[i].length; j++)
+        {
+            s = s+a[i][j]+'\t';
+        }
+        s = s + '\n';
+    }
+    console.log(s);
+}
+
+
+function transpose(a)
+{
+    var at=[];
+    for (var j=0; j&lt;a[0].length; j++)
+    {
+        at[j] = [];
+        for (var i=0; i&lt;a.length; i++)
+        {
+            at[j][i] = a[i][j];
+        }
+    }
+    return at;
+}
+
+var m = [[1,2,3], [3,12,1]];
+console.log("====== m =========");
+print(m);
+console.log("====== mt =========");
+print(transpose(m)); // =&gt; [[1,3], [2,2], [3,1]]
+
+function add(a,b) 
+{
+    var c = [];
+    for (var i=0; i&lt;a.length; i++)
+    {
+        c[i] = [];
+        for (var j=0; j&lt;a[i].length; j++)
+        {
+            c[i][j] = a[i][j]+b[i][j];
+        }
+    }
+    return c;
+}
+
+function sub(a,b) 
+{
+    var c = [];
+    for (var i=0; i&lt;a.length; i++)
+    {
+        c[i] = [];
+        for (var j=0; j&lt;a[i].length; j++)
+        {
+            c[i][j] = a[i][j]-b[i][j];
+        }
+    }
+    return c;
+}
+
+var a = [[1,2,3], [1,1,1]], b=[[2,2,2],[3,1,1]];
+
+console.log("==========a+b==========")
+print(add(a,b));
+
+console.log("==========a-b==========")
+print(sub(a,b));
+
+function mul(a,b) // a:m*n, b:n*k, c:m*k 
+{
+    var c = [];
+    for (var i=0; i&lt;a.length; i++)
+    {
+        c[i] = [];
+        for (var k=0; k&lt;b[0].length; k++) 
+        {
+            c[i][k] = 0;
+            for (var j=0; j&lt;a[i].length; j++)
+            {
+                c[i][k] = c[i][k]+a[i][j]*b[j][k];
+            }
+        }
+    }
+    return c;
+}
+
+var ma = [[1,2], 
+          [1,1]], 
+    mb = [[2,2],
+          [1,1]];
+
+console.log("=========== c=ma*mb =============");
+print(mul(ma,mb));
+
+function neg(a) 
+{
+    var c=[];
+    for (var i=0; i&lt;a.length; i++)
+    {
+        c[i] = [];
+        for (var j=0; j&lt;a[i].length; j++)
+        {
+            c[i][j] = -a[i][j];
+        }
+    }
+    return c;
+}
+
+console.log("============ neg(a) ==========");
+print(neg(a));
+
+function isMagic(a) 
+{
+    var a0sum =0;
+    for (var j=0;j&lt;a[0].length; j++)
+    {
+        a0sum = a0sum + a[0][j];
+    }
+    for (var i=0; i&lt;a.length; i++)
+    {
+        var rsum = 0;
+        for (var j=0; j&lt;a[i].length; j++)
+            rsum = rsum +a[i][j];
+        if (a0sum !== rsum)
+            return false; 
+    }
+    for (var j=0; j&lt;a[0].length; j++)
+    {
+        var csum = 0;
+        for (var i=0; i&lt;a.length; i++)
+            csum = csum +a[i][j];
+        if (a0sum !== csum)
+            return false; 
+    }
+    return true;
+}
+
+var magic = [[1,2,3], [2,3,1], [3,1,2]];
+console.log('isMagic(magic)=', isMagic(magic)); 
+
+var magic2 = [[1,2,3], [2,3,1], [3,2,1]];
+console.log('isMagic(magic2)=', isMagic(magic2)); 
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">NQU-192-168-60-101:js1 csienqu$ node matrix.js 
+====== m =========
+1    2    3    
+3    12    1    
+
+====== mt =========
+1    3    
+2    12    
+3    1    
+
+</code></pre>
+
+<h3> 回呼函數實作</h3>
+
+<p>2 請寫一個函數可以根據過濾函數f只留下符合的內容？</p>
+<pre class="tab">* 範例：filter(odd, [1,3,5,4,8,9])= [1,3,5,9] ，其中 odd 為判斷是否為奇數的函數。
+
+</pre>
+<p>檔案： filter.js</p>
+
+<pre class="code"><code class="javascirpt">function filter(f, a) {
+    var fa = [];
+    for (var i=0; i &lt; a.length; i++) {
+        if (f(a[i])) 
+            fa.push(a[i]);
+    }
+    return fa;
+}
+
+function odd(n) {
+    return n%2===1;
+}
+
+var b = filter(odd, [2,3,4,5,6,7,8,9]);
+console.log('b=', b);
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">$ node filter.js 
+b= [ 3, 5, 7, 9 ]
+
+</code></pre>
+
+<p>4 請用遞迴計算 sum(n) = 1+2+...+n ？</p>
+<pre class="tab"> * 範例：sum(10) = 55
+
+</pre>
+<p>檔案： sumRecursive.js</p>
+
+<pre class="code"><code class="">function sum(n) {
+  if (n===0) {
+    return 0;
+  } else {
+    // console.log(n);
+    var fn = sum(n-1)+n;
+    // console.log('n=%d fn=%d', n, fn);
+    return fn;
+  }
+}
+
+console.log('sum(10)=', sum(10));
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node sumRecursive
+sum(10)= 55
+
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

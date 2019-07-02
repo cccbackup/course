@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../07-語言處理.html" alt="">07-語言處理</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 語言合成技術</h2>
+
+<h3> 語言合成的範例 -- SciGen</h3>
+
+<p>SciGen 是一個自動產生論文的程式，該程式由美國麻省理工學院計算機科學與人工智慧實驗室的三位研究生傑里米·斯特里布林（Jeremy Stribling）、馬克斯·克倫（Max Krohn）和達納·阿瓜約（Dan Aguayo）所設計。</p>
+
+<p>SciGen 產生的論文曾經被拿去大量投稿到期刊與研討會，結果還有一些論文被接受準備刊登了，關於 SciGen 的進一步歷史請參考：</p>
+
+<ul>
+    <li>參考 -- <a href="https://zh.wikipedia.org/wiki/SCIgen">https://zh.wikipedia.org/wiki/SCIgen</a></li>
+</ul>
+<p>SciGen 有線上版，您可以實際使用 SciGen 產生論文看看：</p>
+
+<ul>
+    <li>系統 -- 用 SciGen 示範如何自動產生論文 (這個版本似乎會快取)</li>
+    <ul>
+        <li><a href="https://pdos.csail.mit.edu/archive/scigen/">https://pdos.csail.mit.edu/archive/scigen/</a></li>
+    </ul>
+</ul>
+<h3> 語言合成的方法</h3>
+
+<p>其實語言合成只要會使用 遞迴呼叫的方式，撰寫 BNF 語法的生成程式就行了，您可以試著做做下列習題：</p>
+
+<p>習題 1 ：自動產生英文語句</p>
+
+<p>提示：先用簡單的幾個字加上基本語法就行了，不用一下企圖心太大。</p>
+
+<p>簡易英文語法</p>
+
+<pre class="code"><code class="">S = NP VP
+NP = DET N
+VP = V NP
+N = dog | cat
+V = chase | eat
+DET = a | the
+</code></pre>
+
+<p>產生過程的範例</p>
+
+<pre class="code"><code class="">S = NP VP = (DET N) (V NP) 
+  = (a dog) (chase DET N) 
+  = a dog chase a cat
+</code></pre>
+
+<p>程式的使用範例</p>
+
+<pre class="code"><code class="">PS D:\ccc\book\aijs\code\07-language&gt; node genEnglish
+a cat eat the dog
+PS D:\ccc\book\aijs\code\07-language&gt; node genEnglish
+the cat chase the dog
+PS D:\ccc\book\aijs\code\07-language&gt; node genEnglish
+a cat chase a cat
+</code></pre>
+
+<p>習題 2 : 自動產生運算式語句</p>
+
+<p>簡易運算式語法</p>
+
+<pre class="code"><code class="">E = T [+-*/] E | T
+T = [0-9] | (E)
+</code></pre>
+
+<p>程式執行結果：</p>
+
+<pre class="code"><code class="">nqu-192-168-61-142:code mac020$ node genexp
+4
+0/0+(2)*9
+4-(9)*((((3*(4))-(8))+(0)+8/(8)+2)+2/6)
+3/(((((1*8+6)))))*((6/4/3))/(((2+9))+(((2))+8/((4*(5))*2))/4)
+(1+(1))-((7))
+(2+(((4))))+(5)
+((1/(((3+(7)-(4-1)/9*8/7-6)/(4)-3+3)-6-9*(((2+(((6*4/4)))*(8/3))))-9-0-1+5*8*((5)/(3)-1/(1)-9)+(5+5*5))))*5/2
+8
+1
+(0)*7
+</code></pre>
+
+<p>習題 3 : 小學數學問題產生器</p>
+
+<pre class="code"><code class="">S D:\ccc\book\aijs\code\07-language&gt; node genMath
+問題:   大雄有12個番茄
+        給了小華9個
+        又給了小華2個
+        請問大雄還有幾個番茄?
+
+答案:   1個
+PS D:\ccc\book\aijs\code\07-language&gt; node genMath
+問題:   小明有17個蘋果
+        給了小莉16個
+        又給了小莉1個
+        請問小明還有幾個蘋果?
+
+答案:   0個
+PS D:\ccc\book\aijs\code\07-language&gt; node genMath
+問題:   小華有6個番茄
+        給了大雄3個
+        又給了小明2個
+        請問小華還有幾個番茄?
+
+答案:   1個
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

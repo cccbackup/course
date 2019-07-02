@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../軟體工程.html" alt="">軟體工程</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 軟體工程</h2>
+
+<ol>
+    <li><a href="01-preface.html" alt="">簡介</a></li>
+    <li><a href="02-test.html" alt="">TDD 測試</a></li>
+    <li><a href="03-npm.html" alt="">NPM 套件</a></li>
+    <li><a href="04-git.html" alt="">GIT 合作</a></li>
+    <li><a href="05-quality.html" alt="">品質管控</a></li>
+    <li><a href="06-project.html" alt="">軟體專案</a></li>
+    <li><a href="07-analysis_.html" alt="">系統分析</a></li>
+    <li><a href="08-design_.html" alt="">系統設計</a></li>
+    <li><a href="09-implement.html" alt="">程式實作</a></li>
+    <li><a href="10-verify_.html" alt="">系統測試</a></li>
+    <li><a href="11-operation_.html" alt="">上線營運</a></li>
+</ol>
+<h2> 附錄</h2>
+<ol>
+    <li><a href="A1-uml_.html" alt="">UML 圖形建模</a></li>
+    <li><a href="A2-designPattern.html" alt="">JavaScript 的設計模式</a></li>
+    <li><a href="A3-refactor.html" alt="">Refactor 代碼重構</a></li>
+    <li><a href="rule.html" alt="">軟體法則</a></li>
+    <li><a href="reference.html" alt="">進階參考</a></li>
+</ol>
+<h2> 案例</h2>
+<ol>
+    <li><a href="C1-blogMvc_.html" alt="">經典網誌系統</a></li>
+    <li><a href="C2-blogAjax.html" alt="">AJAX網誌</a></li>
+    <li><a href="C3-WebPos_.html" alt="">WebPos系統</a></li>
+</ol>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 第 11 章 -- 上線與維護</h2>
+
+<p>對於《上線與維護》佈署的規劃，我們可以使用 UML 的《元件圖》 (Component Diagram) 和佈署圖 (Deployment Diagram) 表達。</p>
+
+<h3> 佈署圖 (Deployment Diagram)</h3>
+
+<p>UML 的佈署圖符號主要有下列圖示：</p>
+
+<pre class="code"><code class="puml">@startuml
+actor actor
+agent agent
+artifact artifact
+boundary boundary
+card card
+cloud cloud
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+interface  interface
+node node
+package package
+queue queue
+stack stack
+rectangle rectangle
+storage storage
+usecase usecase
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlDeployIcon.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<h3> 範例 : 沒有使用資料庫</h3>
+
+<pre class="code"><code class="puml">@startuml
+
+cloud "網路"
+actor "使用者"
+interface HTTP
+
+node "伺服器" {
+  package "Node.js" {
+    [Koa]
+    folder BlogMVC [
+      server.js -- 伺服器，MVC 中的 (C)
+      model.js -- 負責資料存取 (M)
+      view.js -- 負責畫面呈現 (V)
+    ]
+    Koa --&gt; BlogMVC
+  }
+}
+
+使用者 &lt;-&gt; 網路
+網路 - HTTP
+HTTP - 伺服器
+
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlDeployBlog1.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<h3> 範例 -- 使用資料庫</h3>
+
+<pre class="code"><code class="puml">@startuml
+
+cloud "網路"
+cloud "內部網路"
+actor "使用者"
+interface HTTP
+database MongoDB
+storage blog
+
+node "網站伺服器" {
+
+  package "Node.js" {
+    [Koa]
+    folder BlogMVC [
+      server.js -- 伺服器，MVC 中的 (C)
+      model.js -- 負責資料存取 (M)
+      view.js -- 負責畫面呈現 (V)
+    ]
+    Koa --&gt; BlogMVC
+  }
+}
+
+node "資料庫伺服器" {
+  database MongoDB {
+  }
+}
+
+使用者 &lt;-&gt; 網路
+網路 - HTTP
+HTTP -- 網站伺服器
+網站伺服器 &lt;--&gt; 內部網路
+內部網路 &lt;-&gt; 資料庫伺服器
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlDeployBlogDatabase.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+
+<h3> 佈署平台</h3>
+
+<p>對於 node.js 的網站，您可以選擇以下類型的佈署平台：</p>
+
+<ol>
+    <li>自建主機: 架設在自己機器上，可選擇採用 Linux / Windows 等系統，然後要自己申請對外 IP，這樣才能讓別人連上。</li>
+    <ul>
+        <li>如果只是要讓外網使用者連上進行測試，像是 ngrok 這樣的臨時網址是可以用的，但不太能長久營運。</li>
+    </ul>
+    <li>IaaS : Linode, DigitalOcean, Vultr (虛擬私有主機), Amazon EC2, Google Cloud Platform (GCP)</li>
+    <li>PaaS : Azure, Amazon, Heroku, Firebase, ...</li>
+</ol>
+<p>對於 Node.js 的佈署環境選擇，也有很多種不同的選擇：</p>
+
+<ol>
+    <li>作業系統: Linux / Windows</li>
+    <li>容器： Docker + Docker Compose </li>
+    <li>網站： Apache, Ngnix</li>
+    <li>Node.js 的永久執行： PM2 / Forever </li>
+    <li>網路框架: http, Koa, Express .... </li>
+</ol>
+<p>佈署是件複雜的事情，所以要盡量做到完全自動化，要達到自動佈署，您可以採用以下的一些 DevOps 方案</p>
+
+<ol>
+    <li>Jenkins : Continuous Integration & Deploy 方案</li>
+    <li>Husky : 讓 git commit 時可以掛上一些動作。</li>
+</ol>
+<h3> 練習 -- blogMVC 系統佈署</h3>
+
+<ol>
+    <li>選定佈署平台</li>
+    <ul>
+        <li>ex: Linode</li>
+    </ul>
+    <li>第一次佈署上去</li>
+    <ul>
+        <li>使用 git + pm2</li>
+    </ul>
+    <li>加上 SSL : 使用 <a href="https://www.sslforfree.com/">https://www.sslforfree.com/</a></li>
+    <ul>
+        <li>參考: <a href="https://medium.com/%E5%89%8D%E7%AB%AF%E5%A3%B9%E5%85%A9%E4%B8%89%E4%BA%8B/nodejs-express-10-%E5%88%86%E9%90%98%E7%94%B3%E8%AB%8B-letsencrypt-6a1fc2bce4fb" alt="">nodejs Express + 10 分鐘申請 letsencrypt</a></li>
+        <li>參考: <a href="https://blog.johnwu.cc/article/ssl-for-free.html" alt="">免費 SSL 申請</a></li>
+        <li>參考: <a href="https://free.com.tw/ssl-for-free/" alt="">SSL For Free 免費 SSL 憑證申請，使用 Let’s Encrypt 最簡單方法教學！</a></li>
+        <li>也可以使用 nginx + Let's Encrypt</li>
+    </ul>
+    <li>學習使用 DevOps 的方法</li>
+    <ul>
+        <li>TravisCI -- 持續整合測試</li>
+        <li>husky --  讓 git commit 時可以掛上一些動作。</li>
+    </ul>
+</ol>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../網站設計.html" alt="">網站設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> Koa 伺服端框架</h2>
+
+<h3> static server</h3>
+
+<p>檔案： koaStatic.js</p>
+
+<pre class="code"><code class="js">const serve = require('koa-static');
+const Koa = require('koa');
+const app = new Koa();
+
+app.use(serve('.'));
+
+app.listen(3000);
+
+console.log('listening on port 3000');
+</code></pre>
+
+<p>在該檔案的資料夾下放入 hello.html 如下</p>
+
+<pre class="code"><code class="">&lt;html&gt;
+&lt;body&gt;
+hello, 妳好！
+&lt;a href="http://tw.yahoo.com"&gt;yahoo!&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+
+<p>執行： </p>
+
+<pre class="code"><code class="">$ node koaStatic.js
+listening on port 3000
+</code></pre>
+
+<p>然後在瀏覽器中檢視 <a href="http://localhost:3000/hello.html">http://localhost:3000/hello.html</a> 你會看到該檔案。</p>
+
+<h3> introduction</h3>
+
+<p>在 Node.js 當中，目前最常被使用的 server 端框架應該是 Express.js ，但是我最喜歡的是 Koa.js 。</p>
+
+<p>Express.js 是比較早出來的 Node.js 伺服端框架，因此使用者比較多，但是自從 JavaScript 新標準 ECMAScript 6.0 出來之後，提出了新的 yield/Generator 語法，於是 Express.js 的創建者決定運用這種語法創造一個新的框架替代 Express.js ，這個新框架就是 Koa.js 。</p>
+
+<p>所以、Koa 基本上就是支援 yield/Generator/async/await 語法的 Express.js ，但是由於 Koa 是 2015 年才出現的框架，因此還是有很多人持續使用著 Express.js 。</p>
+
+<p>要學習 Koa 框架，最好的辦法就是直接去看 Koa 官方專案的範例，透過範例來學習 Koa 框架我認為是最快的方式。</p>
+
+<p>Koa 的官方網站上有十幾個經典範例，您可以從下列網址查看這些範例。</p>
+
+<ul>
+    <li><a href="https://github.com/koajs/examples/">https://github.com/koajs/examples/</a></li>
+</ul>
+<p>如果想了解 koa2 的 async/await 到底是怎麼實做出來的，可以參考下列文章：</p>
+
+<ul>
+    <li><a href="https://noootown.wordpress.com/2016/11/13/callback-promise-fetch-yield-async-await/" alt="">callback, promise, fetch, yield, async/await 發展簡易介紹</a></li>
+    <li><a href="https://www.zhihu.com/question/39571954" alt="">ES next中async/await proposal实现原理是什么？</a></li>
+    <li><a href="http://www.ruanyifeng.com/blog/2015/05/async.html" alt="">async 函数的含义和用法</a></li>
+    <li><a href="http://3dobe.com/archives/252/" alt="">理解 Javascript 的 async await</a></li>
+    <li>標準： <a href="https://tc39.github.io/ecmascript-asyncawait/" alt="">Async Functions</a></li>
+</ul>
+<h3> Koa@2</h3>
+
+<p>Koa@2 支援了 async/await 的 ES2017 語法，現在應該也有不少人開始採用了，想使用請參考下列文章：</p>
+
+<ul>
+    <li><a href="http://www.jianshu.com/p/6b816c609669" alt="">「新手向」koa2从起步到填坑</a></li>
+    <li><a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001471087582981d6c0ea265bf241b59a04fa6f61d767f6000" alt="">创建koa2工程</a></li>
+</ul>
+<p>Learn Koa2 from examples of f6 prject. </p>
+
+<ul>
+    <li><a href="https://github.com/ccckmit/f6" alt="">Koa2 f6 project</a></li>
+</ul>
+<h3> 習題</h3>
+
+<ol>
+    <li>請用 koa 寫一個靜態檔案伺服器 (參考 koaStream.js 範例)</li>
+    <li>Koa 官網中 koa-blog 範例的資料由於儲存在記憶體中，因此電腦一旦關機之後，資料就會消失。因此請您修改該專案，改將資料儲存在 mongodb 當中，這樣資料就可以永久儲存了！</li>
+</ol>
+<h3> reference</h3>
+<ul>
+    <li><a href="koa1.md" alt="">Koa 1 舊版</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

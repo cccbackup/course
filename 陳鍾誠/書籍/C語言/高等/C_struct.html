@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1>C 的結構與物件</h1>
+
+<h3>整個結構傳遞</h3>
+
+<p>C 語言沒有物件導向，只有一種稱為《結構》(struct) 的組織模式，可以讓你把很多個欄位放在一起，形成一種《多欄位結構》。</p>
+
+<p>舉例而言，假如我們要表達《複數》，可以將《實部 r 和虛部 i》組合之後，形成一個《複數結構》，以下是其程式範例：</p>
+
+<p><strong>檔案： complex.c</strong></p>
+
+<pre class="code"><code class="c">#include &lt;stdio.h&gt;
+
+typedef struct {
+  double r, i;
+} Complex;
+
+Complex add(Complex c1, Complex c2) {
+  Complex c;
+  c.r = c1.r+c2.r;
+  c.i = c1.i+c2.i;
+  return c;
+}
+
+Complex sub(Complex c1, Complex c2) {
+  Complex c;
+  c.r = c1.r-c2.r;
+  c.i = c1.i-c2.i;
+  return c;
+}
+
+Complex mul(Complex c1, Complex c2) {
+  Complex c;
+  c.r = c1.r*c2.r-c1.i*c2.i;
+  c.i = c1.r*c2.i+c1.i*c2.r;
+  return c;
+}
+
+void print(char *name, Complex c) {
+  printf("%s=%6.2f+%6.2fi\n", name, c.r, c.i);
+}
+
+int main() {
+  Complex o1={ .r=1.0, .i=2.0 };
+  Complex o2={ .r=2.0, .i=1.0 };
+
+  print("o1", o1);
+  print("o2", o2);
+
+  Complex add12 = add(o1, o2);
+  Complex sub12 = sub(o1, o2);
+  Complex mul12 = mul(o1, o2);
+
+  print("add(o1,o2)", add12);
+  print("sub(o1,o2)", sub12);
+  print("mul(o1,o2)", mul12);
+}
+</code></pre>
+
+<p><strong>執行結果</strong></p>
+
+<pre class="tab">D:\Dropbox\cccwd\db\c\code>gcc complex.c -o complex
+
+D:\Dropbox\cccwd\db\c\code>complex
+o1=  1.00+  2.00i
+o2=  2.00+  1.00i
+add(o1,o2)=  3.00+  3.00i
+sub(o1,o2)= -1.00+  1.00i
+mul(o1,o2)=  0.00+  5.00i
+</pre>
+<h3>只有傳遞指標，不須複製內容</h3>
+
+<p><strong>檔案： complex.c</strong></p>
+
+<pre class="code"><code class="c">#include &lt;stdio.h&gt;
+
+typedef struct {
+ double r, i;
+} Complex;
+
+Complex add(Complex *c1, Complex *c2) {
+  Complex c;
+  c.r = c1-&gt;r+c2-&gt;r;
+  c.i = c1-&gt;i+c2-&gt;i;
+  return c;
+}
+
+Complex sub(Complex *c1, Complex *c2) {
+  Complex c;
+  c.r = c1-&gt;r-c2-&gt;r;
+  c.i = c1-&gt;i-c2-&gt;i;
+  return c;
+}
+
+Complex mul(Complex *c1, Complex *c2) {
+  Complex c;
+  c.r = c1-&gt;r*c2-&gt;r-c1-&gt;i*c2-&gt;i;
+  c.i = c1-&gt;r*c2-&gt;i+c1-&gt;i*c2-&gt;r;
+  return c;
+}
+
+void print(char *name, Complex *c) {
+  printf("%s=%6.2f+%6.2fi\n", name, c-&gt;r, c-&gt;i);
+}
+
+int main() {
+  Complex o1={ .r=1.0, .i=2.0 };
+  Complex o2={ .r=2.0, .i=1.0 };
+  
+  print("o1", &amp;o1);
+  print("o2", &amp;o2);
+
+  Complex add12 = add(&amp;o1, &amp;o2);
+  Complex sub12 = sub(&amp;o1, &amp;o2);
+  Complex mul12 = mul(&amp;o1, &amp;o2);
+
+  print("add(o1,o2)", &amp;add12);
+  print("sub(o1,o2)", &amp;sub12);
+  print("mul(o1,o2)", &amp;mul12);
+}
+</code></pre>
+
+<p><strong>執行結果</strong></p>
+
+<pre class="tab">D:\Dropbox\cccwd\db\c\code>gcc complex2.c -o complex2
+
+D:\Dropbox\cccwd\db\c\code>complex2
+o1=  1.00+  2.00i
+o2=  2.00+  1.00i
+add(o1,o2)=  3.00+  3.00i
+sub(o1,o2)= -1.00+  1.00i
+mul(o1,o2)=  0.00+  5.00i
+</pre>
+<p>問題是，到底指標是甚麼？ 接下來我們將花比較多的時間，講述這個 C 語言當中令人又愛又恨的奇特概念！</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

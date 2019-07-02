@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../機率統計.html" alt="">機率統計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 聯合分布</h1>
+
+<h2> 聯合密度函數</h2>
+
+<p>定義：離散聯合密度函數</p>
+
+<blockquote>
+<p> 表示符號： <span class="math inline">P_{XY}(x,y) = P[X=x, Y=y]</span></p>
+<p> </p>
+<p> 必要條件：</p>
+<p> </p>
+<p> 1. <span class="math inline">P_{XY}(x,y) \ge 0</span> ;</p>
+<p> </p>
+<p> 2. <span class="math inline">\sum_{\forall x} \sum_{\forall y} P_{XY}(x,y) = 1</span> ;</p>
+</blockquote>
+<p></p>
+
+<p>定義 2：連續聯合密度函數</p>
+
+<blockquote>
+<p> 表示符號： <span class="math inline">P_{XY}(x,y)</span> (範圍：<span class="math inline">-\infty < x < \infty;-\infty < y < \infty;</span>)</p>
+<p> </p>
+<p> 必要條件：</p>
+<p> </p>
+<p> 1. <span class="math inline">P_{XY}(x,y) \ge 0</span> ;</p>
+<p> </p>
+<p> 2. <span class="math inline">\int_{-\infty}^{\infty} \int_{-\infty}^{\infty}  P_{XY}(x,y) dy dx = 1</span> ;</p>
+<p> </p>
+<p> 3. <span class="math inline">P[a \le X \le b, c \le Y \le d,] = \int_{a}^{b} \int_{c}^{d}  P_{XY}(x,y) dy dx</span> ;</p>
+</blockquote>
+
+<h2> 邊際密度函數</h2>
+
+<p>定義：離散邊際密度函數</p>
+
+<blockquote>
+<p> 1. 只有 X 的情況： <span class="math inline">P_{X}(x) = \sum_{\forall y} P_{XY}(x,y)</span></p>
+<p> 2. 只有 Y 的情況： <span class="math inline">P_{Y}(y) = \sum_{\forall x} P_{XY}(x,y)</span></p>
+</blockquote>
+
+<p>定義：連續邊際密度函數</p>
+
+<blockquote>
+<p> 1. 只有 X 的情況： <span class="math inline">P_{X}(x) = \int_{-\infty}^{\infty} P_{XY}(x,y) dy</span></p>
+<p> 2. 只有 Y 的情況： <span class="math inline">P_{Y}(y) = \int_{-\infty}^{\infty} P_{XY}(x,y) dx</span></p>
+</blockquote>
+
+<h2> 聯合分配的期望值</h2>
+
+<p>定義：聯合分配的期望值 E[H(X,Y)]</p>
+
+<blockquote>
+<p> 1. 離散的情況： <span class="math inline">E[H(X,Y)]=\sum_{\forall x} \sum_{\forall y} H(x,y) P_{XY}(x,y)</span></p>
+<p> </p>
+<p> 2. 連續的情況： <span class="math inline">E[H(X,Y)]=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} H(x,y) P_{XY}(x,y) dy dx</span></p>
+</blockquote>
+
+<p>定義：聯合分配中單一變數的期望值</p>
+
+<blockquote>
+<p> 1. 離散： <span class="math inline">E[X] = \sum_{\forall x} \sum_{\forall y} x P_{XY}(x,y) = \sum_{\forall x} x P_{X}(x) </span></p>
+<p> </p>
+<p> 2. 離散： <span class="math inline">E[Y] = \sum_{\forall y} \sum_{\forall x} y P_{XY}(x,y) = \sum_{\forall y} \sum_{\forall y} y P_{Y}(y)</span></p>
+<p> </p>
+<p> 3. 連續： <span class="math inline">E[X] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x P_{XY}(x,y) dy dx= \int_{-\infty}^{\infty} x P_{X}(x) dx</span></p>
+<p> </p>
+<p> 4. 連續： <span class="math inline">E[Y] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} y P_{XY}(x,y) dy dx = \int_{-\infty}^{\infty} y P_{Y}(y) dy</span></p>
+</blockquote>
+<p></p>
+
+<h2> 共變異數 (Covariance, 協方差)</h2>
+
+<p>定義：共變異數 Cov(X,Y)</p>
+
+<blockquote>
+<p> <span class="math inline">\sigma_{XY} = Cov(X, Y) = E[(X - \mu_X)(Y - \mu_Y)]</span></p>
+</blockquote>
+
+<p>定理：共變異數與期望值之關係</p>
+
+<blockquote>
+<p> <span class="math inline">Cov(X, Y) = E[X Y] - E[X] E[Y]</span></p>
+</blockquote>
+
+<p>定理：相互獨立時的期望值</p>
+
+<blockquote>
+<p> 如果 X, Y 相互獨立 ，則 E[X Y] = E[X] E[Y] 。</p>
+</blockquote>
+
+<h2> 相關係數 (Correlation)</h2>
+
+<p>定義：</p>
+
+<blockquote>
+<p> 相關係數 <span class="math inline">Cor(X,Y) = \rho_{X Y}</span></p>
+<p> </p>
+<p> <span class="math inline">Cor(X,Y) =  \rho_{X Y} = \frac{Cov(X,Y)}{\sqrt{Var(X) Var(Y)}}</span></p>
+</blockquote>
+<p></p>
+
+<p>定理：</p>
+
+<blockquote>
+<p> <span class="math inline">-1 \le \rho_{XY} \le 1</span></p>
+</blockquote>
+
+<p>定理：</p>
+
+<blockquote>
+<p> <span class="math inline">|\rho_{X Y}| = 1 \Leftrightarrow y = \beta_0 + \beta_1 X</span></p>
+</blockquote>
+
+<p>實作：相關係數的R 程式</p>
+
+<pre class="code"><code class="R">&gt; x = sample(1:10, 10)
+&gt; x
+ [1]  1  8 10  5  3  7  9  4  2  6
+&gt; cor(x, x+1)
+[1] 1
+&gt; cor(x, -x)
+[1] -1
+&gt; cor(x, 0.5*x)
+[1] 1
+&gt; cor(x, 0.5*x+1)
+[1] 1
+&gt; cor(x, -0.5*x+1)
+[1] -1
+&gt; y=sample(1:100, 10)
+&gt; y
+ [1]  4 53 20 68 29 74 17 49 78 62
+&gt; cor(x,y)
+[1] -0.06586336
+&gt; 
+</code></pre>
+
+<h2> 多變數聯合分布的情況</h2>
+
+<h3> 聯合分布與條件機率</h3>
+
+<blockquote>
+<p> 定義：如果 X,Y 滿足下列條件，則稱 X, Y 兩者之間獨立：</p>
+<p> </p>
+<p> <span class="math inline">P_{XY}(x,y) = P_{X}(x) P_{Y}(y)</span></p>
+</blockquote>
+<p></p>
+
+<h3> 多個變數的貝氏定理</h3>
+
+<blockquote>
+<p> 1. <span class="math inline">P(A,B|C) = P(C|A,B) * \frac{P(A,B)}{P(C)}</span> ;</p>
+<p> </p>
+<p> 2. <span class="math inline">P(A|B,C) = P(B,C|A) * \frac{P(A)}{P(B,C)}</span> ;</p>
+<p> </p>
+<p> 3. <span class="math inline">P(A,B|C,D) = P(C,D|A,B) * \frac{P(A,B)}{P(C,D)}</span> ;</p>
+</blockquote>
+
+<p>其他情況可以類推，只要能正確改寫 A , B 為任何隨機變數序列都行。</p>
+
+<h3> 條件獨立與貝氏定理</h3>
+
+<p>假如 A 與 B 在給定 C 的情況下條件獨立，那麼以下算式成立：</p>
+
+<blockquote>
+<p> <span class="math inline">P(A,B|C) = P(A|C) * P(B|C) = P(C|A)* P(C|B)*\frac{P(A) P(B)}{P(C)^2}</span></p>
+</blockquote>
+
+<h2> 結語</h2>
+
+<p>兩個位於樣本空間 S 的聯合隨機行為，會導致樣本空間變成其迪卡兒乘積 S×S，其樣本空間大小變成 <span class="math inline">|S|^2</span> 。</p>
+
+<p>而 k 個位於樣本空間 S 的聯合隨機行為，會導致樣本空間變成其迪卡兒乘積 S×S×...×S ，其樣本空間大小變成 <span class="math inline">|S|^n</span> 。</p>
+
+<p>如果兩個位於不同樣本空間 <span class="math inline">(S_X, S_Y)</span> 的聯合隨機行為，則會導致樣本空間變成 <span class="math inline">S_X \times S_Y</span> ，其樣本空間大小變為 <span class="math inline">|S_X| |S_Y|</span> 。</p>
+
+<p>此時 X, Y 的機率密度函數將會採用以下的「邊際機率密度函數」之算法，以便將聯合樣本空間 <span class="math inline">(S_X, S_Y)</span>  中的機率與單一樣本空間 <span class="math inline">S_X</span> 或 <span class="math inline">S_Y</span> 中的機率關聯起來。</p>
+
+<blockquote>
+<p> <span class="math inline">P(X=x) = P(x, *) = \sum_{y \in S_Y} P(x,y)</span> </p>
+<p> </p>
+<p> <span class="math inline">P(Y=y) = P(*, y) = \sum_{x \in S_X} P(x,y)</span> </p>
+</blockquote>
+
+<p>最後我們必須強調的是，樣本空間的選擇並沒有一定的標準，您可以視問題的需要來定義樣本空間，通常我們會盡量利用獨立的特性，讓樣本空間越小越好，否則將會很難計算。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

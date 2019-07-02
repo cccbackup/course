@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../演算法.html" alt="">演算法</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 演算法</h2>
+
+<ol>
+    <li><a href="01-tableLookup.html" alt="">查表法</a></li>
+    <li><a href="02-random.html" alt="">亂數產生法</a></li>
+    <li><a href="03-monteCarlo.html" alt="">蒙地卡羅法</a></li>
+    <li><a href="04-iterative.html" alt="">迭代法</a></li>
+    <li><a href="05-dynamicProgramming.html" alt="">動態規劃法</a></li>
+    <li><a href="06-divideConquer.html" alt="">分割擊破法</a></li>
+    <li><a href="07-hashing.html" alt="">雜湊法</a></li>
+    <li><a href="08-bruteForce.html" alt="">暴力法</a></li>
+    <li><a href="09-numerical.html" alt="">數值算法</a></li>
+    <li><a href="10-greedy.html" alt="">貪婪法</a></li>
+    <li><a href="11-graph.html" alt="">圖形表示法</a></li>
+    <li><a href="12-transformDomain.html" alt="">轉換領域法</a></li>
+    <li><a href="13-stringMatching.html" alt="">字串比對法</a></li>
+    <li><a href="14-cryptography.html" alt="">密碼學算法</a></li>
+    <li><a href="15-reduction.html" alt="">轉換化約法</a></li>
+</ol>
+<p><!--</p>
+<h2> AI 算法</h2>
+
+<ol>
+    <li><a href="02-hillClimbing.html" alt="">爬山演算法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/03-gradientDescendent.html" alt="">梯度下降法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/04-backPropagation.html" alt="">反傳遞算法</a></li>
+    <li><a href="05-geneticAlgorithm.html" alt="">遺傳演算法</a></li>
+    <li><a href="16-search.html" alt="">搜尋法</a></li>
+    <li><a href="17-gameSearch.html" alt="">對局搜尋法</a></li>
+    <li><a href="21-slotFilling.html" alt="">框架填充法</a></li>
+</ol>
+<h2> 系統程式</h2>
+
+<ol>
+    <li><a href="19-recursiveDescendent.html" alt="">遞迴下降法</a></li>
+</ol>
+<p>--></p>
+
+<h2> 參考資源</h2>
+
+<ul>
+    <li><a href="project.html" alt="">參考專案</a></li>
+    <li><a href="quantum.html" alt="">量子電腦</a></li>
+    <li><a href="parallel.html" alt="">平行算法</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 密碼學算法 Cryptography</h2>
+
+<h3> 對稱性加解密</h3>
+
+<p>對稱性加解密的方法有很多，像是DES、3DES、AES、Blowfish、IDEA、RC5、RC6 等等。</p>
+
+<p>所謂的『對稱性』是指加解密所用的金鑰 key 是相同的，因此只要雙方都擁有該組金鑰，就可以成功的完成『加密後解密』的動作。</p>
+
+<p>在此我們以 node.js 的 crypto 模組來展示 AES 加解密算法的過程。</p>
+
+<p>檔案： aes.js</p>
+
+<pre class="code"><code class="js">var crypto = require('crypto')
+var algorithm = 'aes-256-ctr'
+var password = 'd6F3Efeq'
+
+function encrypt(text) {
+  var cipher = crypto.createCipher(algorithm, password)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+ 
+function decrypt(text) {
+  var decipher = crypto.createDecipher(algorithm, password)
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
+ 
+var plainText  = "hello world"
+var cipherText = encrypt(plainText)
+var decryptText = decrypt(cipherText)
+console.log('plainText  =', plainText)
+console.log('cipherText =', cipherText)
+console.log('decryptText=', decryptText)
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">$ node aes
+plainText  = hello world
+cipherText = 0c8bd89c2e316f7f2245e0
+decryptText= hello world
+</code></pre>
+
+<h3> 非對稱性加解密</h3>
+
+<p>簡易 RSA 實作 (不支援超長整數）</p>
+
+<p>檔案： simpleRsa.js</p>
+
+<pre class="code"><code class="js">unction mpower(a, n, p) {
+  let r = a
+  for (let i=2; i&lt;=n; i++) {
+    r = (r * a) % p
+  }
+  return r
+}
+
+var p = 61, q = 53, N = p*q // lcm(61,53)=780
+let e = 17 , d = 413
+
+// var p = 37, q = 67, N = p * q
+// let e = 23, d = 
+
+var M1 = [65, 22, 37, 18, 29]
+var E1 = []
+var M2 = []
+for (let m of M1) {
+  let c = mpower(m, e, N)
+  E1.push(c)
+  let m2 = mpower(c, d, N)
+  M2.push(m2)
+}
+
+console.log('M1=', M1)
+console.log('E1=', E1)
+console.log('M2=', M2)
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node simpleRsa.js
+M1= [ 65, 22, 37, 18, 29 ]
+E1= [ 2790, 2558, 1350, 2100, 1912 ]
+M2= [ 65, 22, 37, 18, 29 ]
+</code></pre>
+
+<h3> 電子簽章與驗證</h3>
+
+<pre class="code"><code class="js">// openssl genrsa  -out server.pem 1024
+// openssl req -key server.pem -new -x509 -out cert.pem
+
+var crypto = require('crypto')
+var fs = require('fs')
+
+function signer(algorithm, privateKey, data){
+  var signer = crypto.createSign(algorithm);
+  signer.update(data);
+  sigature = signer.sign(privateKey, 'hex');
+  return sigature
+}
+
+function verify(algorithm, publicKey, sigature, data){
+  var verify = crypto.createVerify(algorithm);
+  verify.update(data);
+  return verify.verify(publicKey, sigature, 'hex')
+}
+
+var algorithm = 'RSA-SHA256'
+var data = "The data to be signed!"
+var privateKey = fs.readFileSync('server.pem').toString()
+var signature = signer(algorithm, privateKey, data)
+
+var publicKey = fs.readFileSync('cert.pem').toString()
+console.log('verify(data)=', verify(algorithm, publicKey, sigature, data))         // 驗證是否為公鑰發出者 (私鑰擁有者)
+console.log('verify(data+xxx)=', verify(algorithm, publicKey, sigature, data + "xxx"))
+
+</code></pre>
+
+<p>產生證書</p>
+
+<pre class="code"><code class="">$ openssl genrsa  -out server.pem 1024
+Generating RSA private key, 1024 bit long modulus
+..+++++
+...+++++
+e is 65537 (0x10001)
+csienqu-teacher:sign csienqu$ openssl req -key server.pem -new -x509 -out cert.pem
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:TW
+State or Province Name (full name) [Some-State]:Kinmen
+Locality Name (eg, city) []:Kinmen
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:nqu
+Organizational Unit Name (eg, section) []:csie
+Common Name (e.g. server FQDN or YOUR name) []:ccckmit
+Email Address []:ccckmit@gmail.com
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node sign
+verify(data)= true
+verify(data+xxx)= false
+</code></pre>
+<p></p>
+
+<h3> 參考</h3>
+
+<ul>
+    <li><a href="http://blog.fens.me/nodejs-crypto/" alt="">Node.js加密算法库Crypto</a></li>
+    <li><a href="https://blog.gtwang.org/programming/javascript-aes-symmetric-encryption-tutorial/" alt="">AES-JS：JavaScript 的AES 對稱式資料加密工具- G. T. Wang</a></li>
+    <li>進階: 量子電腦 -- <a href="https://www.youtube.com/playlist?list=PL50XnIfJxPDWDyea8EbbLe8GHfXkWU7W_" alt="">Quantum Computing Concepts</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

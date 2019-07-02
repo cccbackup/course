@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../人造語.html" alt="">人造語</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> Open Source Software</h1>
+
+<p>Open Source Software for Artificial Spoken Language (ASL)</p>
+
+<p>Project： <a href="https://github.com/ArtificialSpokenFoundation/artificialspoken">https://github.com/ArtificialSpokenFoundation/artificialspoken</a></p>
+
+<p>The project above support English/Chinese ASL now.</p>
+
+<p>A <a href="https://artificialspoken.org/IDE.html" alt="">IDE for ASL</a>  in the project is online now.</p>
+
+<p>chinese:</p>
+
+<h1> 人造語程式專案</h1>
+
+<p>專案： <a href="https://github.com/ArtificialSpokenFoundation/artificialspoken">https://github.com/ArtificialSpokenFoundation/artificialspoken</a></p>
+
+<h2> 範例</h2>
+
+<p>File: mtTest.js</p>
+
+<pre class="code"><code class="">var MT = require('aslt')
+
+MT.analysis('小明 和 小英:N 一起吃蘋果。\n')
+MT.analysis('小明有5個蘋果，給了小華3個蘋果，請問他還剩幾個蘋果？\n')
+MT.analysis('黑黑的天，大大的風，爸爸去捕魚，為甚麼 還 不 回 家？\n')
+MT.analysis('John:N 與 瑪莉:N 是 一 對 戀人。\n')
+MT.analysis('風與日。風日爭，旅人至，脫者勝，風狂吹，人緊衣，風敗，日暖照，人脫衣，日勝。\n')
+MT.analysis('蘋果和牛奶很好吃。蘋果牛奶很好喝。很好喝的蘋果牛奶。')
+MT.analysis('好大的蘋果。')
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node mtTest.js
+["小明","和","小英:N","一起","吃","蘋果","。","↓"]
+ 小明:N/ 和:V/ 小英:N:N/ 一起:a 吃:V/ 蘋果:N/ 。:. ↓:.
+["_xiǎo_míng","and","_xiǎo_yīng","together","eat","apple","。","↓"]
+=========================
+["小明","有","5","個","蘋果","，","給","了","小華","3","個","蘋果","，","請問","他","還","剩","幾個","蘋果","？","↓"]
+ 小明:N/ 有:V/ 5:a 個:a 蘋果:N/ ，:.
+ 給:V/ 了:a 小華:N/ 3:a 個:a 蘋果:N/ ，:.
+ 請問:V/ 他:N/ 還:a 剩:V/ 幾個:a 蘋果:N/ ？:. ↓:.
+["_xiǎo_míng","have","5","_gè","apple","，","give","_le","_xiǎo_huá","3","_gè","apple","，","Q","he","still","remain","several","apple","？","↓"]
+=========================
+["黑","黑","的","天","，","大大的","風","，","爸爸","去","捕","魚","，","為甚麼","還","不","回","家","？","↓"]
+ 黑:a 黑:a 的:a 天:N/ ，:.
+ 大大的:N 風:N/ ，:.
+ 爸爸:N/ 去:V 捕:V/ 魚:N/ ，:.
+ 為甚麼:V/ 還:a 不:a 回:V/ 家:N/ ？:. ↓:.
+["black","black","_de","sky","，","big","wind","，","papa","go","hunt","fish","，","why","still","no","back","home","？","↓"]
+=========================
+["John:N","與","瑪莉:N","是","一","對","戀人","。","↓"]
+ John:N:N/ 與:V/ 瑪莉:N:N/ 是:V/ 一:a 對:a 戀人:N/ 。:. ↓:.
+["John","and3","_mǎ_lì","is","one","correct","lover","。","↓"]
+=========================
+["風","與","日","。","風","日","爭","，","旅人","至","，","脫","者","勝","，","風","狂","吹","，","人","緊","衣","，","風","敗","，","日","暖","照","，","人","脫","衣","，","日","勝","。","↓"]
+ 風:N/ 與:V/ 日:N/ 。:.
+ 風:N 日:N/ 爭:V/ ，:.
+ 旅人:N/ 至:V/ ，:.
+ 脫:V/ 者:N/ 勝:V/ ，:.
+ 風:N/ 狂:V 吹:V/ ，:.
+ 人:N/ 緊:V/ 衣:N/ ，:.
+ 風:N/ 敗:V/ ，:.
+ 日:N/ 暖:V 照:V/ ，:.
+ 人:N/ 脫:V/ 衣:N/ ，:.
+ 日:N/ 勝:V/ 。:. ↓:.
+["wind","and3","sun","。","wind","sun","compete","，","traveler","come","，","takeOff","guy","win","，","wind","wild","blow","，","people","tight","cloth","，","wind","lose","，","sun","warm","shine","，","people","takeOff","cloth","，","sun","win","。","↓"]
+=========================
+["蘋果","和","牛奶","很","好吃","。","蘋果","牛奶","很","好","喝","。","很","好","喝","的","蘋果","牛奶","。"]
+ 蘋果:N/ 和:V/ 牛奶:N/ 很:a 好吃:V/ 。:.
+ 蘋果:N 牛奶:N/ 很:a 好:a 喝:V/ 。:.
+ 很:a 好:a 喝:V/ 的:a 蘋果:N 牛奶:N/ 。:.
+["apple","and","milk","very","good to eat","。","apple","milk","very","good","drink","。","very","good","drink","_de","apple","milk","。"]
+=========================
+["好","大","的","蘋果","。"]
+ 好:a 大:a 的:a 蘋果:N/ 。:.
+["good","big","_de","apple","。"]
+=========================
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

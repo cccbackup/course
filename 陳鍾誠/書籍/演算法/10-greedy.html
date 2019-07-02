@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../演算法.html" alt="">演算法</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 演算法</h2>
+
+<ol>
+    <li><a href="01-tableLookup.html" alt="">查表法</a></li>
+    <li><a href="02-random.html" alt="">亂數產生法</a></li>
+    <li><a href="03-monteCarlo.html" alt="">蒙地卡羅法</a></li>
+    <li><a href="04-iterative.html" alt="">迭代法</a></li>
+    <li><a href="05-dynamicProgramming.html" alt="">動態規劃法</a></li>
+    <li><a href="06-divideConquer.html" alt="">分割擊破法</a></li>
+    <li><a href="07-hashing.html" alt="">雜湊法</a></li>
+    <li><a href="08-bruteForce.html" alt="">暴力法</a></li>
+    <li><a href="09-numerical.html" alt="">數值算法</a></li>
+    <li><a href="10-greedy.html" alt="">貪婪法</a></li>
+    <li><a href="11-graph.html" alt="">圖形表示法</a></li>
+    <li><a href="12-transformDomain.html" alt="">轉換領域法</a></li>
+    <li><a href="13-stringMatching.html" alt="">字串比對法</a></li>
+    <li><a href="14-cryptography.html" alt="">密碼學算法</a></li>
+    <li><a href="15-reduction.html" alt="">轉換化約法</a></li>
+</ol>
+<p><!--</p>
+<h2> AI 算法</h2>
+
+<ol>
+    <li><a href="02-hillClimbing.html" alt="">爬山演算法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/03-gradientDescendent.html" alt="">梯度下降法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/04-backPropagation.html" alt="">反傳遞算法</a></li>
+    <li><a href="05-geneticAlgorithm.html" alt="">遺傳演算法</a></li>
+    <li><a href="16-search.html" alt="">搜尋法</a></li>
+    <li><a href="17-gameSearch.html" alt="">對局搜尋法</a></li>
+    <li><a href="21-slotFilling.html" alt="">框架填充法</a></li>
+</ol>
+<h2> 系統程式</h2>
+
+<ol>
+    <li><a href="19-recursiveDescendent.html" alt="">遞迴下降法</a></li>
+</ol>
+<p>--></p>
+
+<h2> 參考資源</h2>
+
+<ul>
+    <li><a href="project.html" alt="">參考專案</a></li>
+    <li><a href="quantum.html" alt="">量子電腦</a></li>
+    <li><a href="parallel.html" alt="">平行算法</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 貪婪演算法 Greedy Algorithm</h2>
+
+<p>『貪婪演算法』每次都會往目前看到最好的方向走去，而且盡量選取改善最多的那一步。</p>
+
+<h3> 找零錢問題</h3>
+
+<p>舉例而言，若你買東西給了紙鈔，那麼能否寫一個程式自動計算應該『找多少零錢』，而且要盡量讓『找錢的銅板數量愈少愈好』？</p>
+
+<p>這個問題可以用『貪婪算法』，從小於『剩餘金額』的最大類型銅板開始找起，因為這樣找一個零錢就可以『解決最多的剩餘金額』，所以是一種貪婪策略！</p>
+
+<p>以下是這個問題的想法圖示！</p>
+
+<p><figure>
+  <img src="./img/greedyCoin.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+
+<h3> 貪婪爬山法</h3>
+
+<p>我們也可以用『貪婪算法』來完成『爬山演算法』的動作，原本爬山演算法只要看到更高就往那邊爬，但是貪婪算法則要往『斜率最大的方向爬』。</p>
+
+<p><figure>
+  <img src="./img/greedyHillClimbing.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>上圖是二維平面，看不太出『貪婪算法』與爬山演算法的差別，假如是『三維圖形』時，那麼『貪婪算法』就會變得和『梯度爬山法』一樣，總是朝著斜率最大的方向爬去。</p>
+
+<h3> 貪婪圖形搜尋</h3>
+
+<p>對於 Graph 類的結構，我們也可以用『貪婪算法』來處理，每次都向下一層中最好的分支走去。</p>
+
+<p><figure>
+  <img src="./img/greedyGraphSearch.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+
+<h3> 最小擴展樹</h3>
+
+<p>檔案： minimalSpanningTree.js</p>
+
+<pre class="code"><code class="js">// See http://en.wikipedia.org/wiki/Kruskal's_algorithm
+// and http://programmingpraxis.com/2010/04/06/minimum-spanning-tree-kruskals-algorithm/
+
+var nodes = ["A", "B", "C", "D", "E", "F", "G"]
+var edges = [
+    ["A", "B", 7], ["A", "D", 5],
+    ["B", "C", 8], ["B", "D", 9], ["B", "E", 7],
+    ["C", "E", 5],
+    ["D", "E", 15], ["D", "F", 6],
+    ["E", "F", 8], ["E", "G", 9],
+    ["F", "G", 11]
+];
+
+
+function minimalSpanningTree(nodes, edges) {
+  var mst = [], nodeSet = {}
+  for (let node of nodes) {
+    nodeSet[node] = [node]
+  }
+  let sortedEdges = edges.sort((a,b) =&gt; a[2] - b[2])
+  for (let edge of sortedEdges) {
+    var n1 = edge[0], n2 = edge[1]
+    var t1 = nodeSet[n1]    
+    var t2 = nodeSet[n2]
+    if (t1 != t2) {
+      var t = t1.concat(t2)
+      nodeSet[n1] = nodeSet[n2] = t
+      mst.push(edge)
+      if (mst.length == nodes.length-1) break
+    }
+  }
+  return mst
+}
+
+console.log(minimalSpanningTree(nodes, edges))
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">$ node minimalSpanningTree.js
+[ [ 'C', 'E', 5 ],
+  [ 'A', 'D', 5 ],
+  [ 'D', 'F', 6 ],
+  [ 'A', 'B', 7 ],
+  [ 'B', 'E', 7 ],
+  [ 'B', 'C', 8 ] ]
+</code></pre>
+
+<h3> 霍夫曼編碼法</h3>
+
+<p>檔案: HuffmanCode.js</p>
+
+<pre class="code"><code class="js">// 程式修改自 -- https://gist.github.com/1995eaton/86f10f4d0247b4e4e65e
+
+// 參考 -- https://en.wikipedia.org/wiki/Binary_heap
+/* 堆積：
+插入節點: 在陣列的最末尾插入新節點。然後自下而上調整子節點與父節點（稱作 bubble-up 或 sift-up）
+         比較當前節點與父節點，不滿足「堆積性質」則交換。從而使得當前子樹滿足二元堆積的性質。
+         時間複雜度為 O(log n)。
+刪除樹根：刪除時，把堆積儲存的最後那個節點移到填在根節點處。再從上而下調整父節點與它的子節點。
+*/
+class Heap { // 堆積結構 Heap
+  constructor (fn) {
+    this.fn = fn    // fn 會取得排序欄位值
+    this.items = [] // items 為存放堆積的陣列
+  }
+  swap(i, j) {
+    let t = this.items[i]
+    this.items[i] = this.items[j]
+    this.items[j] = t
+  }
+  bubble(index) { // 冒泡調整，將大的往上調
+    var parent = ~~((index - 1) / 2)
+    if (this.item(parent) &lt; this.item(index)) {
+      this.swap(index, parent)
+      this.bubble(parent)
+    }
+  }
+  item(index) {
+    return this.fn(this.items[index])
+  }
+  pop() {
+    return this.items.pop()
+  }
+  sift(index, end) {
+    var child = index * 2 + 1
+    if (child &lt; end) {
+      if (child + 1 &lt; end &amp;&amp; this.item(child + 1) &gt; this.item(child)) {
+        child++
+      }
+      if (this.item(index) &lt; this.item(child)) {
+        this.swap(index, child)
+        return this.sift(child, end)
+      }
+    }
+  }
+  push() {
+    var lastIndex = this.items.length
+    for (var i = 0; i &lt; arguments.length; i++) {
+      this.items.push(arguments[i])
+      this.bubble(lastIndex++)
+    }
+  }
+  length() {
+    return this.items.length
+  }
+}
+
+var Huffman = {
+  encode: function(data) {
+    var prob = {}
+    var tree = new Heap((e)=&gt;e[0])
+    // 計算每個字出現的頻率
+    for (var i = 0; i &lt; data.length; i++) {
+      if (prob.hasOwnProperty(data[i])) {
+        prob[data[i]]++
+      } else {
+        prob[data[i]] = 1
+      }
+    }
+    // 將整個陣列順序打亂，然後放進堆積中（節點：以 [出現次數, 字元] 的方式儲存。
+    Object.keys(prob).sort((a, b) =&gt; ~~(Math.random() * 2))
+                     .forEach((e) =&gt; tree.push([prob[e], e]))
+    while (tree.length() &gt; 1) { // 當還沒有全部形成一棵樹 （還有很多棵）的時候
+      var first = tree.pop(), second = tree.pop()              // 取出頻率最小的兩個
+      tree.push([first[0] + second[0], [first[1], second[1]]]) // 將兩者合併成一個
+    }
+    // 上面迴圈完成後，樹已經建好了，開始進行編碼！
+    var dict = {}
+    var recurse = function(root, string) {
+      if (root.constructor === Array) {
+        recurse(root[0], string + '0') // 左邊為 0 
+        recurse(root[1], string + '1') // 右邊為 1
+      } else {
+        dict[root] = string // 已經到樹葉節點，設定該字元的編碼。
+      }
+    }
+    tree.items = tree.pop()[1] // 取得樹根
+    recurse(tree.items, '') // 對樹上每個節點進行編碼
+    var result = ''
+    for (var i = 0; i &lt; data.length; i++) {
+      result += dict[data.charAt(i)] // 對每個字元編碼後加入結果的 0101.... 字串
+    }
+    return {emap:dict, result:result}
+  },
+  decode: function(h) {
+    var data = h.result.split(''), dmap = {}
+    // 將 emap(ch)=&gt;binary 反轉為 dmap(binary)=&gt;ch    
+    for (let ch in h.emap) {
+      let binary = h.emap[ch]
+      dmap[binary] = ch
+    }
+    var result = ''
+    while (data.length) {
+      var i = 0, cur = ''
+      while (data.length) {
+        cur += data.shift()
+        if (dmap.hasOwnProperty(cur)) { // 查查看這個長度的二進位是否在 dmap 中
+          result += dmap[cur] // 有的話就進行編碼
+          break
+        }
+      }
+    }
+    return result
+  }
+}
+
+var enc = Huffman.encode('TESTTESTTESTTESTTESTTESTTESTTEST123abc')
+console.log('encode=', enc)
+var dec = Huffman.decode(enc)
+console.log('decode=', dec)
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node huffmanCode.js
+encode= { emap:
+   { '1': '10001',
+     '2': '1000001',
+     '3': '1000000',
+     T: '0',
+     a: '100001',
+     b: '10010',
+     c: '10011',
+     S: '101',
+     E: '11' },
+  result: '0111010011101001110100111010011101001110100111010011101010001100000110000001000011001010011' }
+decode= TESTTESTTESTTESTTESTTESTTESTTEST123abc
+</code></pre>
+
+<h3> 結語</h3>
+
+<p>對於『找零錢，霍夫曼編碼法，最小擴展樹』這類的問題而言，『貪婪算法』是可以找到最佳解的！</p>
+
+<p>但是對於其他問題，每次都貪婪的走，並不見得能找到整體最好的結果，甚至有時候結果會很差，因此是否要用貪婪算法，得視問題而定。</p>
+
+<h3> 參考</h3>
+
+<ul>
+    <li><a href="https://en.wikipedia.org/wiki/Greedy_algorithm">https://en.wikipedia.org/wiki/Greedy_algorithm</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

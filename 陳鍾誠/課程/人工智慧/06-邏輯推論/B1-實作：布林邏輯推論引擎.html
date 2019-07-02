@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../06-邏輯推論.html" alt="">06-邏輯推論</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 實作：布林邏輯的推論引擎</h2>
+
+<h3> 程式碼：推理引擎</h3>
+
+<pre class="code"><code class="javascript">檔案：kb.js (Knowledge Base 的簡寫)
+
+var log = console.log;
+
+var kb = function() {
+  this.rules = [];
+  this.facts = {};
+  this.dict  = {};
+}
+
+var kbp = kb.prototype;
+
+kbp.load = function(code) {
+  var lines = code.split(/[\.]+ ?/);
+  log("%j", lines);
+  for (var i in lines) {
+    if (lines[i].trim().length &gt; 0)
+      this.addRule(lines[i]);
+  }
+}
+  
+kbp.isFact=function(term) {
+  if (term.length == 0)
+    return true;
+  return this.facts[term];
+}
+
+kbp.check = function(rule) {
+  for (var i in rule.terms) {
+    var term = rule.terms[i].trim();
+    if (this.isFact(term))
+      continue;
+    else
+      return false;
+  }
+  return true;
+}
+
+kbp.addFact = function(term) {
+  this.facts[term] = true;
+  log("addFact(%s)", term);
+}
+
+kbp.addRule = function(line) {
+  var m = line.match(/^([^&lt;=]*)(&lt;=(.*))?$/);
+  var head = (m[1]==null)?"":m[1].trim();
+  var terms= (m[3]==null)?"":m[3].trim().split(/&amp;+/);
+  log("rule:head=%s terms=%j", head, terms);
+  var rule = { head:head, terms:terms, satisfy:false };
+  this.rules.push(rule);
+  this.dict[head] = { headHits: [rule], bodyHits:[] };  
+}
+
+kbp.forwardChaining = function() {
+  do {
+    var anySatisfy = false;
+    for (var i in this.rules) {
+      var rule = this.rules[i];
+      if (!rule.satisfy) {
+        if (this.check(rule)) {
+          this.addFact(rule.head);
+          rule.satisfy = true;
+          anySatisfy = true;
+        }
+      }
+    }
+  } while (anySatisfy);
+  log("facts=%j", Object.keys(this.facts));
+}
+
+kbp.trySatisfy = function(goal) {
+  log("trySatisfy(%s)", goal);
+  var word = this.dict[goal];
+  if (word == null) return false;
+  var headHits = word.headHits;
+  for (var i in headHits) {
+    var rule = headHits[i];
+    if (rule.satisfy) {
+      this.addFact(goal);
+      return true;
+    } else {
+      var isSatisfy = true;
+      for (var ti in rule.terms) {
+        var term = rule.terms[ti];
+        var satisfy = this.trySatisfy(term);
+        if (!satisfy) isSatisfy = false;
+      }
+      rule.satisfy = isSatisfy;
+      if (isSatisfy) {
+        this.addFact(goal);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+kbp.backwardChaining = function(goal) {
+  this.trySatisfy(goal);
+  log("facts=%j", Object.keys(this.facts));
+}
+
+module.exports = kb;
+</code></pre>
+
+<h3> 簡易的測試程式</h3>
+
+<p>檔案：kbTest.js</p>
+
+<pre class="code"><code class="javascript">var fs = require('fs'); // 引用檔案物件
+var kb = require('./kb');
+
+var code = "A&lt;=B. B&lt;=C&amp;D. C&lt;=E. D&lt;=F. E. F. Z&lt;=C&amp;D&amp;G.";
+var kb1 = new kb();
+kb1.load(code);
+kb1.forwardChaining();
+// kb1.backwardChaining("A");
+// kb1.backwardChaining("Z");
+</code></pre>
+
+<h3> 執行結果</h3>
+
+<pre class="code"><code class="">C:\Dropbox\Public\web\ai\code\KB&gt;node kbTest
+["A&lt;=B","B&lt;=C&amp;D","C&lt;=E","D&lt;=F","E","F","Z&lt;=C&amp;D&amp;G",""]
+rule:head=A terms=["B"]
+rule:head=B terms=["C","D"]
+rule:head=C terms=["E"]
+rule:head=D terms=["F"]
+rule:head=E terms=""
+rule:head=F terms=""
+rule:head=Z terms=["C","D","G"]
+addFact(E)
+addFact(F)
+addFact(C)
+addFact(D)
+addFact(B)
+addFact(A)
+facts=["E","F","C","D","B","A"]
+</code></pre>
+
+<h3> 結語</h3>
+
+<p>以上我們用 JavaScript 實作了一個簡易的布林邏輯推論引擎，採用洪氏邏輯的語法，以及前向推論 (forwardChaining) 的方式。(程式中也有附上後向推論的函數 backwardChaining，讀者可自行測試)。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

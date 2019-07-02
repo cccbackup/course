@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1>動態字串物件 — (Dynamic String)</h1>
+
+<p>可以動態增長的字串物件，讓您不用再為字串長度傷腦筋。</p>
+
+<p>歸根究底，字串誤用的問題，通常是由於 C 語言沒有提供一個標準的動態字串而造成的，如果您真的需要一個這樣的程式，那麼就應該採用一個支援動態字串的函式庫，然後將程式改寫如下。</p>
+
+<h3>範例、字串連接的 C 程式 (動態字串版)</h3>
+
+<pre class="code"><code class="c">Str *s = StrNew();
+for (i=0; i&lt;100; i++) {
+  StrAppend(s, token[i]);
+}
+</code></pre>
+<p>這樣的 C 語言程式，其實就與下列範例中的 Java 程式，看來相差不大了，最大的差別是 C 語言沒有支援物件的概念而已。</p>
+
+<p>範例、字串連接的 Java 程式</p>
+
+<pre class="code"><code class="java">String s = "";
+for (i=0; i&lt;100; i++)
+   s = s + token[i];
+</code></pre>
+
+<p>要能撰寫上述這樣的一個程式，動態字串函式庫至少要能支援 StrNew() 與 StrAppend() 這兩個函數，那麼我們應該怎麼做呢？其實，要自己打造這樣一個程式相當容易，筆者可以馬上撰寫一個，如以下範例所示。</p>
+
+<h3>範例：實作動態字串函式庫</h3>
+
+<pre class="code"><code class="c">typedef struct Str {
+  int len, size;
+  char *s;
+};
+
+Str *StrNew();
+void StrAppend(Str *str, char *s);
+
+Str *StrNew() {
+  Str *str = malloc(sizeof(Str));
+  str-&gt;s = malloc(1);
+  str-&gt;s[0] = '\0';
+  str-&gt;len = 0;
+  str-&gt;size = 1;
+}
+
+void StrAppend(Str *str, char *s) {
+  int newLen = str-&gt;len + strlen(s);
+  if (newLen+1 &gt; str-&gt;size) {
+    int newSize = max(str-&gt;size*2, newLen+1);
+    char *t = malloc(newSize);
+    sprintf(t, "%s%s", str-&gt;s, s);
+    free(str-&gt;s);
+    str-&gt;s = t;
+    str-&gt;len = newLen;
+    str-&gt;size = newSize;
+  } else {
+    strcat(&amp;str-&gt;s[str-&gt;len], s);
+    str-&gt;len += strlen(s);
+  }
+}
+</code></pre>
+
+<p>只要有了這樣一個函式庫，那麼我們就不需要為了 C 語言缺乏動態字串而困擾了，也就不需要每次都寫出難看且沒有效率的程式了，而是直接寫出乾淨，簡潔的函式庫了。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

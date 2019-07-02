@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../軟體工程.html" alt="">軟體工程</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 軟體工程</h2>
+
+<ol>
+    <li><a href="01-preface.html" alt="">簡介</a></li>
+    <li><a href="02-test.html" alt="">TDD 測試</a></li>
+    <li><a href="03-npm.html" alt="">NPM 套件</a></li>
+    <li><a href="04-git.html" alt="">GIT 合作</a></li>
+    <li><a href="05-quality.html" alt="">品質管控</a></li>
+    <li><a href="06-project.html" alt="">軟體專案</a></li>
+    <li><a href="07-analysis_.html" alt="">系統分析</a></li>
+    <li><a href="08-design_.html" alt="">系統設計</a></li>
+    <li><a href="09-implement.html" alt="">程式實作</a></li>
+    <li><a href="10-verify_.html" alt="">系統測試</a></li>
+    <li><a href="11-operation_.html" alt="">上線營運</a></li>
+</ol>
+<h2> 附錄</h2>
+<ol>
+    <li><a href="A1-uml_.html" alt="">UML 圖形建模</a></li>
+    <li><a href="A2-designPattern.html" alt="">JavaScript 的設計模式</a></li>
+    <li><a href="A3-refactor.html" alt="">Refactor 代碼重構</a></li>
+    <li><a href="rule.html" alt="">軟體法則</a></li>
+    <li><a href="reference.html" alt="">進階參考</a></li>
+</ol>
+<h2> 案例</h2>
+<ol>
+    <li><a href="C1-blogMvc_.html" alt="">經典網誌系統</a></li>
+    <li><a href="C2-blogAjax.html" alt="">AJAX網誌</a></li>
+    <li><a href="C3-WebPos_.html" alt="">WebPos系統</a></li>
+</ol>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 第 1 章 -- 軟體工程簡介</h2>
+
+<h3> 簡介 -- 為何撰寫本書？</h3>
+
+<p>這幾年我在金門大學教《軟體工程》課程的時候，一直有個困擾，那就是找不到《理論與實務兼備的教科書》。</p>
+
+<p>大部分的軟體工程書，為了避免只能和某個程式語言搭配，都會採用《抽象泛論》的方式，這樣才能涵蓋各種平台與領域。</p>
+
+<p>但是《抽離了程式的軟體工程》，又能剩下些甚麼呢？</p>
+
+<p>這樣的軟體工程書籍，對我和學生沒有甚麼幫助！</p>
+
+<p>在使用《與 Github 完全整合的教學法》兩年之後，我終於下定決心，寫一本《軟體工程》的書，以彌補這樣的缺憾。</p>
+
+<p>為了能夠讓《軟體工程》能建築在堅實的程式基礎上，我選擇了和 Node.js 緊密結合，以便讓讀者透過實作學習軟體工程的各方面技能。</p>
+
+<p>雖然這樣可能會讓不熟悉 Node.js 的讀者感到困擾，但是卻能《讓這本軟體工程書變得實用》，或許未來我會再撰寫使用其他語言的軟體工程書也說不定。</p>
+
+<p>在本書的前半部，我們將採用《由下而上》的方式，企圖透過《TDD 測試、NPM 套件、GIT 版本管理、品質與除錯、前後端整合測試》等主題，讓讀者能透過實作打下堅實的基礎，希望這樣的安排能幫助大家《以程式人的角度學習軟體工程》。</p>
+
+<p>接著在本書後半部，我們將採用《由上而下》的方式，透過《專案與團隊、系統分析、系統設計、程式實作、上線營運》等主題，讓讀者能從《宏觀到微觀》、《從系統到代碼》、運用 UML 之類的系統分析方法，幫助大家《從系統分析師的角度學習軟體工程》。</p>
+
+<p>透過這樣《由下而上、再由上而下》的方式，我們希望能讓學習者同時具備《宏觀與微觀》兩種視角，既全面又扎實的感受《軟體工程》，讓軟體工程不再只是《畫畫圖、寫寫報告》的抽象課程，而是對《理論與實戰》都有明顯幫助的課程！</p>
+
+<h3> 練習 1 -- node.js 安裝與使用</h3>
+
+<blockquote>
+<p> 基本參考：<a href="https://github.com/cccbook/sejs/tree/master/example/01-preface">https://github.com/cccbook/sejs/tree/master/example/01-preface</a></p>
+<p> 進階參考: <a href="https://github.com/se107a/ccclodash">https://github.com/se107a/ccclodash</a></p>
+</blockquote>
+
+<ol>
+    <li>請安裝好開發環境，包含 node.js 與 Visual Studio Code</li>
+    <ul>
+        <li><a href="https://nodejs.org/en/">https://nodejs.org/en/</a></li>
+        <li><a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li>
+    </ul>
+    <li>請寫一個 node.js 的程式 hello.js 印出 hello</li>
+</ol>
+<pre class="code"><code class="js">console.log('hello 你好！')
+</code></pre>
+
+<ol>
+    <li>請用 node hello.js 執行該程式</li>
+</ol>
+<pre class="code"><code class="">PS D:\course\sejs\example\01-preface\01-hello&gt; node hello
+hello 你好！
+</code></pre>
+<ol>
+    <li>請查看 lodash 套件</li>
+    <ul>
+        <li><a href="https://lodash.com/">https://lodash.com/</a></li>
+    </ul>
+    <li>請用 npm i lodash 安裝該套件</li>
+    <ul>
+        <li><a href="https://github.com/lodash/lodash">https://github.com/lodash/lodash</a></li>
+    </ul>
+</ol>
+<pre class="code"><code class="">PS D:\course\sejs\example\01-preface\02-lodash&gt; npm i lodash
+npm WARN npm npm does not support Node.js v10.11.0
+npm WARN npm You should probably upgrade to a newer version of node as we
+npm WARN npm can't make any promises that npm will work with this version.
+npm WARN npm Supported releases of Node.js are the latest release of 4, 6, 7, 8, 9.
+npm WARN npm You can find the latest version at https://nodejs.org/
++ lodash@4.17.11
+updated 1 package in 9.701s
+</code></pre>
+
+<ol>
+    <li>請寫一個程式去使用該套件的 chunk 函數 main.js。</li>
+</ol>
+<pre class="code"><code class="js">const _ = require('lodash')
+
+console.log("_.chunk(['a', 'b', 'c', 'd'], 2)=", _.chunk(['a', 'b', 'c', 'd'], 2))
+// =&gt; [['a', 'b'], ['c', 'd']]
+ 
+console.log("_.chunk(['a', 'b', 'c', 'd'], 3)", _.chunk(['a', 'b', 'c', 'd'], 3))
+// =&gt; [['a', 'b', 'c'], ['d']]
+</code></pre>
+<ol>
+    <li>請用 node main.js 執行你的程式</li>
+</ol>
+<pre class="code"><code class="">PS D:\course\sejs\example\01-preface\02-lodash&gt; node main.js
+_.chunk(['a', 'b', 'c', 'd'], 2)= [ [ 'a', 'b' ], [ 'c', 'd' ] ]
+_.chunk(['a', 'b', 'c', 'd'], 3) [ [ 'a', 'b', 'c' ], [ 'd' ] ]
+</code></pre>
+
+<p>做完這個練習，您應該已經會使用 node.js 與基本的 npm 套件安裝使用了，這樣我們就可以進入下一章的《TDD 測試》了。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

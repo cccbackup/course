@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../軟體工程.html" alt="">軟體工程</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 軟體工程</h2>
+
+<ol>
+    <li><a href="01-preface.html" alt="">簡介</a></li>
+    <li><a href="02-test.html" alt="">TDD 測試</a></li>
+    <li><a href="03-npm.html" alt="">NPM 套件</a></li>
+    <li><a href="04-git.html" alt="">GIT 合作</a></li>
+    <li><a href="05-quality.html" alt="">品質管控</a></li>
+    <li><a href="06-project.html" alt="">軟體專案</a></li>
+    <li><a href="07-analysis_.html" alt="">系統分析</a></li>
+    <li><a href="08-design_.html" alt="">系統設計</a></li>
+    <li><a href="09-implement.html" alt="">程式實作</a></li>
+    <li><a href="10-verify_.html" alt="">系統測試</a></li>
+    <li><a href="11-operation_.html" alt="">上線營運</a></li>
+</ol>
+<h2> 附錄</h2>
+<ol>
+    <li><a href="A1-uml_.html" alt="">UML 圖形建模</a></li>
+    <li><a href="A2-designPattern.html" alt="">JavaScript 的設計模式</a></li>
+    <li><a href="A3-refactor.html" alt="">Refactor 代碼重構</a></li>
+    <li><a href="rule.html" alt="">軟體法則</a></li>
+    <li><a href="reference.html" alt="">進階參考</a></li>
+</ol>
+<h2> 案例</h2>
+<ol>
+    <li><a href="C1-blogMvc_.html" alt="">經典網誌系統</a></li>
+    <li><a href="C2-blogAjax.html" alt="">AJAX網誌</a></li>
+    <li><a href="C3-WebPos_.html" alt="">WebPos系統</a></li>
+</ol>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2>第 10 章 -- 驗證 (整合測試)</h2>
+
+<p>在本書第 2 章，我們透過模仿 lodash 專案，經由實作學習了《單元測試/TDD/BDD》等基礎的測試概念，但是當我們所撰寫的是《應用程式》，而不是基礎函式庫時，就必須進行《系統測試》，這類測試必須引入更高階的函式庫。</p>
+
+<p>舉例而言，假如我們想測試 server 端的程式，我們可以使用 supertest 這個套件，supertest 可以對 http 協定的伺服器進行測試，對於傳統類以 server 為主的網站，supertest 就很夠用了。</p>
+
+<h3> 第一部分： Server 端的測試</h3>
+
+<p>在本章的第一部分中，我們將介紹如何用 mocha + supertest 進行傳統型 Server 網站測試！</p>
+
+<h3> supertest</h3>
+
+<p>Supertest 是個 http server 的測試框架，只能測後端 server ，但是無法測試前端瀏覽器。</p>
+
+<p>以下是一個來自 koa 官方範例 koa-example 的 supertest 案例：</p>
+
+<ul>
+    <li><a href="https://github.com/koajs/examples/tree/master/hello-world">https://github.com/koajs/examples/tree/master/hello-world</a></li>
+</ul>
+<p>假如我們用 koa 寫一個名稱為 server.js 的簡單 hello 伺服器</p>
+
+<pre class="code"><code class="js">const Koa = require('koa')
+const server = (module.exports = new Koa())
+
+server.use(async function (ctx) {
+  console.log('url=', ctx.url)
+  ctx.body = 'Hello World'
+})
+
+if (!module.parent) server.listen(3000)
+</code></pre>
+
+<p>我們打開瀏覽器會看到下列狀況！</p>
+
+<p><figure>
+  <img src="./img/koaHello.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+
+<p>然後我們可以用 supertest 寫個測試程式 test.js 如下：</p>
+
+<pre class="code"><code class="js">const server = require('./server').listen()
+const request = require('supertest').agent(server)
+
+describe('Hello World', function () {
+  after(function () {
+    server.close()
+  })
+
+  it('should say "Hello World"', function (done) {
+    request.get('/').expect(200).expect('Hello World', done)
+  })
+})
+
+</code></pre>
+
+<p>接著可以用 mocha 測試該程式，執行結果如下：</p>
+
+<pre class="code"><code class="">PS D:\course\sejs\example\06-system\01-classic\01-hello&gt; mocha
+
+
+  Hello World
+url= /
+    √ should say "Hello World" (85ms)
+
+
+  1 passing (112ms)
+</code></pre>
+
+<p>這樣，您應該會用 supertest 了！</p>
+
+<p>但是、上述範例太陽春了，我們需要更完整的系統來展示 Server 端系統測試，因此我們將 <a href="https://github.com/koajs/examples/tree/master/blog" alt="">koa 官方的 Blog 範例</a> 修改之後，成為《BlogMVC 簡易網誌系統》並進行測試，您可以在下列網址看到 BlogMVC 專案完整的程式碼：</p>
+
+<h3> BlogMVC 測試規劃</h3>
+
+<p>BlogMVC 這樣的《簡易網誌系統》，若寫成 <a href="https://zh.wikipedia.org/zh-tw/%E8%A1%A8%E7%8E%B0%E5%B1%82%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2" alt="">RESTful</a> 形式的表達方式，可以描述如下：</p>
+
+<ul>
+    <li>GET / : </li>
+    <ul>
+        <li>傳回《貼文列表》\n目前只有 0 則貼文</li>
+    </ul>
+    <li>POST /post/ : body={ title: '貼文 0', body: '內容 0' }</li>
+    <ul>
+        <li>應該會創建新貼文 (post 0)，然後轉址到根目錄 / 後顯示《貼文列表》</li>
+    </ul>
+    <li>GET /post/0 : </li>
+    <ul>
+        <li>應該會看到第 0 則貼文</li>
+    </ul>
+</ul>
+<p>若使用 UML 當中的《循序圖》(Sequence Diagram) 描述該案例，則可繪製出下列循序圖：</p>
+
+<pre class="code"><code class="puml">@startuml
+使用者 -&gt; Browser : 進入網站
+Browser -&gt; Server : GET /
+Server -&gt; Browser  : 顯示《貼文列表》
+Browser -&gt; 使用者 : &lt;p&gt;您總共有 &lt;strong&gt;0&lt;/strong&gt; 則貼文!&lt;/p&gt;
+...
+使用者 -&gt; Browser : 輸入貼文\n{ title: '標題 0', body: '內容 0' }
+Browser -&gt; Server : POST /post/ 儲存新貼文\nbody={ title: '標題 0', body: '內容 0' }
+Server -&gt; Browser  : 儲存貼文後轉址到 /
+Browser -&gt; 使用者 : / 顯示《貼文列表》
+...
+Browser -&gt; Server : GET /post/0
+Browser &lt;- Server : 顯示第 0 則貼文
+使用者 &lt;- Browser : &lt;h1&gt;標題 0&lt;/h1&gt;\n&lt;p&gt;內容 0&lt;/p&gt;
+@enduml
+</code></pre>
+
+<p><figure>
+  <img src="./img/UmlBlogSequence.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+<p></p>
+
+<h3> BlogMVC 測試程式</h3>
+
+<p>透過這樣的分析，要寫出測試案例就容易了。</p>
+
+<pre class="code"><code class="js">/* eslint-env mocha */
+const expect = require('chai').expect
+const server = require('./server').listen()
+const request = require('supertest').agent(server)
+
+describe('簡易網誌系統', function () {
+  after(function () {
+    server.close()
+  })
+
+  describe('GET /', function () { // 路徑 GET /
+    it('內文標題應該為《貼文列表》，而且只有 0 則貼文', function (done) {
+      request.get('/').expect(200, function (err, res) {
+        if (err) return done(err)
+
+        expect(res.header['content-type']).to.include('html') // 根目錄是個 html 文件
+        expect(res.text).to.include('&lt;title&gt;貼文列表&lt;/title&gt;') // 內文標題為 Posts
+        expect(res.text).to.include('&lt;p&gt;您總共有 &lt;strong&gt;0&lt;/strong&gt; 則貼文!&lt;/p&gt;')
+        done()
+      })
+    })
+  })
+
+  describe('POST /post', function () { // 路徑 POST /post/new
+    it('應該會創建新貼文，然後轉址到根目錄 /', function (done) {
+      request
+        .post('/post')
+        .send({ title: '貼文 0', body: '內容 0' })
+        .end(function (err, res) {
+          if (err) return done(err)
+
+          expect(res.header.location).to.equal('/') // 路徑 / =&gt; 根目錄是個 html 文件
+          done()
+        })
+    })
+  })
+
+  describe('GET /post/0', function () {
+    it('應該會看到第 0 則貼文', function (done) {
+      request.get('/post/0').expect(200, function (err, res) {
+        if (err) return done(err)
+
+        expect(res.header['content-type']).to.include('html')
+        expect(res.text).to.include('&lt;h1&gt;貼文 0&lt;/h1&gt;')
+        expect(res.text).to.include('&lt;p&gt;內容 0&lt;/p&gt;')
+        done()
+      })
+    })
+  })
+})
+
+</code></pre>
+
+<h3> BlogMVC 測試結果</h3>
+
+<pre class="code"><code class="">PS D:\course\sejs\project\blogMvc&gt; mocha
+
+
+  簡易網誌系統
+    GET /
+  &lt;-- GET /
+  --&gt; GET / 200 30ms 1.13kb
+      √ 內文標題應該為《貼文列表》，而且只有 0 則貼文 (116ms)
+    POST /post
+  &lt;-- POST /post
+  --&gt; POST /post 302 81ms 33b
+      √ 應該會創建新貼文，然後轉址到根目錄 / (97ms)
+    GET /post/0
+  &lt;-- GET /post/0
+  --&gt; GET /post/0 200 3ms 1.02kb
+      √ 應該會看到第 0 則貼文
+
+
+  3 passing (288ms)
+</code></pre>
+
+<h3> 第二部分：包含 AJAX 的網站之測試</h3>
+
+<p>對於新一代強調瀏覽器功能，具有《使用者介面互動與前端 JavaScript》的 AJAX (web 2.0) 程式而言，supertest 就無能為力了，此時我們可以引入像 Puppetter、 Selenium 等這類的《隱形瀏覽器》(Headless Browser)，透過程式去操控《隱形瀏覽器》來測試網站，而不是每次都用手工去測試，這樣會耗費大量的人力，吃力又不討好！</p>
+
+<h3> 測試程式</h3>
+
+<pre class="code"><code class="js">/* eslint-env mocha */
+const ok = require('assert').ok
+const app = require('./server').listen(3000)
+const puppeteer = require('puppeteer')
+var browser, page
+
+const opts = {
+  // headless: false,
+  slowMo: 100,
+  timeout: 10000
+}
+
+describe('blogAjax', function () {
+  before(async function () {
+    browser = await puppeteer.launch(opts)
+    page = await browser.newPage()
+  })
+  after(function () {
+    browser.close()
+    app.close()
+  })
+
+  describe('puppeteer', function () {
+    it('GET / should see &lt;p&gt;You have &lt;strong&gt;0&lt;/strong&gt; posts!&lt;/p&gt;', async function () {
+      await page.goto('http://localhost:3000', {
+        waitUntil: 'domcontentloaded'
+      })
+      let html = await page.content()
+      ok(html.indexOf('&lt;p&gt;You have &lt;strong&gt;0&lt;/strong&gt; posts!&lt;/p&gt;') &gt;= 0)
+    })
+    it('click createPost link', async function () {
+      await page.click('#createPost')
+      let html = await page.content()
+      ok(html.indexOf('&lt;h1&gt;New Post&lt;/h1&gt;') &gt;= 0)
+    })
+    it('fill {title:"aaa", body:"aaa"}', async function () {
+      await page.focus('#title')
+      await page.keyboard.type('aaa')
+      await page.focus('#body')
+      await page.keyboard.type('aaa')
+      await page.click('#savePost')
+    })
+    it('should see &lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt;', async function () {
+      let html = await page.content()
+      ok(html.indexOf('&lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt;') &gt;= 0)
+    })
+    it('should see &lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt;', async function () {
+      await page.click('#show0')
+      let html = await page.content()
+      ok(html.indexOf('&lt;h1&gt;aaa&lt;/h1&gt;') &gt;= 0)
+    })
+  })
+})
+
+</code></pre>
+
+<h3> 測試過程</h3>
+
+<pre class="code"><code class="">PS D:\course\sejs\project\blogAjax&gt; mocha --timeout 100000
+
+
+  blogAjax
+    puppeteer
+  &lt;-- GET /
+  --&gt; GET / 200 128ms 1.04kb
+  &lt;-- GET /main.js
+  --&gt; GET /main.js 200 12ms 1.96kb
+  &lt;-- GET /list/
+  --&gt; GET /list/ 200 15ms 2b
+      √ GET / should see &lt;p&gt;You have &lt;strong&gt;0&lt;/strong&gt; posts!&lt;/p&gt; (1322ms)
+      √ click createPost link (839ms)
+  &lt;-- POST /post
+create:id=&gt; 0
+create:get=&gt; { title: 'aaa', body: 'aaa' }
+create:save=&gt; { title: 'aaa',
+  body: 'aaa',
+  created_at: 2018-10-22T09:00:08.151Z,
+  id: 0 }
+  --&gt; POST /post 404 87ms -
+  &lt;-- GET /list/
+  --&gt; GET /list/ 200 17ms 77b
+      √ fill {title:"aaa", body:"aaa"} (2713ms)
+      √ should see &lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt; (106ms)
+  &lt;-- GET /post/0
+  --&gt; GET /post/0 200 5ms 75b
+      √ should see &lt;p&gt;You have &lt;strong&gt;1&lt;/strong&gt; posts!&lt;/p&gt; (666ms)
+
+
+  5 passing (15s)
+
+</code></pre>
+
+<h3> 結語</h3>
+
+<p>在本章的第一部分，我們示範了如何用 supertest 測試經典網站。然後在第二部分示範了如何用 puppeteer 測試有前端 JavaScript + AJAX 的網站。</p>
+
+<p>對於傳統的視窗程式，像是 Windows 的 C# 視窗程式，也有一些專用的測試方法與工具，您可以參考以下文章：</p>
+
+<blockquote>
+<p> 進階參考: <a href="https://msdn.microsoft.com/zh-tw/library/dd286726.aspx#VerifyingCodeUsingCUITCreate" alt="">使用 UI 自動化來測試您的程式碼</a></p>
+</blockquote>
+
+<p>同樣的，對於手機上的 APP，也有很多進行《系統測試》的工具，可以模仿用戶行為對 APP 進行測試，請參考下列文章：</p>
+
+<blockquote>
+<p> 進階參考: <a href="https://blog.csdn.net/hebbely/article/details/78901466" alt="">几款Android 应用自动化测试工具</a></p>
+</blockquote>
+
+<h3> 練習</h3>
+
+<h3> 練習 1 -- Supertest 測試初體驗</h3>
+
+<ol>
+    <li>請找出 koa 的官網並閱讀之</li>
+    <ul>
+        <li><a href="https://koajs.com/">https://koajs.com/</a></li>
+        <li><a href="https://github.com/koajs/koa">https://github.com/koajs/koa</a></li>
+    </ul>
+    <li>請找出 koa 的官方範例並閱讀 README.md</li>
+    <ul>
+        <li><a href="https://github.com/koajs/examples">https://github.com/koajs/examples</a></li>
+    </ul>
+    <li>請閱讀 hello-world 範例並執行之</li>
+    <ul>
+        <li><a href="https://github.com/koajs/examples/tree/master/hello-world">https://github.com/koajs/examples/tree/master/hello-world</a></li>
+        <li>node app.js</li>
+    </ul>
+    <li>請用 mocha + supertest 測試 hello 範例</li>
+    <ul>
+        <li>mocha test.js</li>
+    </ul>
+</ol>
+<h3> 練習 2 -- 經典網誌 Blog 的 supertest 測試</h3>
+
+<ol>
+    <li>請閱讀 blog 範例並執行之</li>
+    <ul>
+        <li><a href="https://github.com/koajs/examples/tree/master/blog">https://github.com/koajs/examples/tree/master/blog</a></li>
+    </ul>
+    <li>請用 mocha + supertest 測試 blog 範例</li>
+    <ul>
+        <li>mocha test.js</li>
+    </ul>
+    <li>請閱讀修改過的 blogMVC 範例並執行之</li>
+    <ul>
+        <li><a href="https://github.com/cccbook/sejs/tree/master/project/blogMVC">https://github.com/cccbook/sejs/tree/master/project/blogMVC</a></li>
+    </ul>
+    <li>請用 mocha + supertest 測試 blogMVC 範例</li>
+    <ul>
+        <li>mocha test.js</li>
+    </ul>
+</ol>
+<h3> 練習 3 -- 使用 puppeteer 測試 BlogAjax 網誌系統</h3>
+
+<ol>
+    <li>請執行 blogAjax 範例</li>
+    <ul>
+        <li><a href="https://github.com/cccbook/sejs/tree/master/project/blogAjax">https://github.com/cccbook/sejs/tree/master/project/blogAjax</a></li>
+    </ul>
+    <li>請閱讀 blogAjax 的原始碼</li>
+    <ul>
+        <li><a href="https://github.com/cccbook/sejs/tree/master/project/blogAjax">https://github.com/cccbook/sejs/tree/master/project/blogAjax</a></li>
+    </ul>
+    <li>請用 mocha + puppeteer 測試 blogAjax 範例</li>
+    <ul>
+        <li>mocha test.js</li>
+    </ul>
+</ol>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

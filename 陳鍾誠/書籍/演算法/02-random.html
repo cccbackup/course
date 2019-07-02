@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../演算法.html" alt="">演算法</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 演算法</h2>
+
+<ol>
+    <li><a href="01-tableLookup.html" alt="">查表法</a></li>
+    <li><a href="02-random.html" alt="">亂數產生法</a></li>
+    <li><a href="03-monteCarlo.html" alt="">蒙地卡羅法</a></li>
+    <li><a href="04-iterative.html" alt="">迭代法</a></li>
+    <li><a href="05-dynamicProgramming.html" alt="">動態規劃法</a></li>
+    <li><a href="06-divideConquer.html" alt="">分割擊破法</a></li>
+    <li><a href="07-hashing.html" alt="">雜湊法</a></li>
+    <li><a href="08-bruteForce.html" alt="">暴力法</a></li>
+    <li><a href="09-numerical.html" alt="">數值算法</a></li>
+    <li><a href="10-greedy.html" alt="">貪婪法</a></li>
+    <li><a href="11-graph.html" alt="">圖形表示法</a></li>
+    <li><a href="12-transformDomain.html" alt="">轉換領域法</a></li>
+    <li><a href="13-stringMatching.html" alt="">字串比對法</a></li>
+    <li><a href="14-cryptography.html" alt="">密碼學算法</a></li>
+    <li><a href="15-reduction.html" alt="">轉換化約法</a></li>
+</ol>
+<p><!--</p>
+<h2> AI 算法</h2>
+
+<ol>
+    <li><a href="02-hillClimbing.html" alt="">爬山演算法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/03-gradientDescendent.html" alt="">梯度下降法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/04-backPropagation.html" alt="">反傳遞算法</a></li>
+    <li><a href="05-geneticAlgorithm.html" alt="">遺傳演算法</a></li>
+    <li><a href="16-search.html" alt="">搜尋法</a></li>
+    <li><a href="17-gameSearch.html" alt="">對局搜尋法</a></li>
+    <li><a href="21-slotFilling.html" alt="">框架填充法</a></li>
+</ol>
+<h2> 系統程式</h2>
+
+<ol>
+    <li><a href="19-recursiveDescendent.html" alt="">遞迴下降法</a></li>
+</ol>
+<p>--></p>
+
+<h2> 參考資源</h2>
+
+<ul>
+    <li><a href="project.html" alt="">參考專案</a></li>
+    <li><a href="quantum.html" alt="">量子電腦</a></li>
+    <li><a href="parallel.html" alt="">平行算法</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 亂數產生法 Random</h2>
+
+<h3> 亂數產生</h3>
+
+<p>方法 1 : <a href="https://github.com/cccbook/algjs/blob/master/code/06-random/random.js">https://github.com/cccbook/algjs/blob/master/code/06-random/random.js</a></p>
+
+<pre class="code"><code class="js">var seed = 371
+const SEED_MAX = 9999997
+
+function random() {
+    seed = (seed+37 ) % SEED_MAX
+    var x = Math.sin(seed) * 93177
+    return x - Math.floor(x);
+}
+
+module.exports = random
+</code></pre>
+
+<p>方法 2 : <a href="https://github.com/cccbook/algjs/blob/master/code/06-random/random2.js">https://github.com/cccbook/algjs/blob/master/code/06-random/random2.js</a></p>
+
+<pre class="code"><code class="js">// 來源：https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
+var m_w = 123456789;
+var m_z = 987654321;
+var mask = 0xffffffff;
+
+// Takes any integer
+function seed(i) {
+    m_w = i;
+    m_z = 987654321;
+}
+
+// Returns number between 0 (inclusive) and 1.0 (exclusive),
+// just like Math.random().
+function random()
+{
+    m_z = (36969 * (m_z &amp; 65535) + (m_z &gt;&gt; 16)) &amp; mask;
+    m_w = (18000 * (m_w &amp; 65535) + (m_w &gt;&gt; 16)) &amp; mask;
+    var result = ((m_z &lt;&lt; 16) + m_w) &amp; mask;
+    result /= 4294967296;
+    return result + 0.5;
+}
+
+module.exports = { random, seed }
+</code></pre>
+
+<p>方法 3 : <a href="https://github.com/cccbook/algjs/blob/master/code/06-random/random3.js">https://github.com/cccbook/algjs/blob/master/code/06-random/random3.js</a></p>
+
+<pre class="code"><code class="js">const M = {}
+
+M.seed = function(s) {
+  return function() {
+      s = Math.sin(s) * 10000;
+      return s - Math.floor(s);
+  };
+};
+
+// usage:
+var random1 = M.seed(42);
+var random2 = M.seed(random1());
+M.random = M.seed(random2());
+
+module.exports = M
+
+</code></pre>
+
+<h3> 非均等分佈之亂數產生 -- 逆變換法</h3>
+<p></p>
+
+<ul>
+    <li><a href="https://github.com/cccbook/algjs/blob/master/code/06-random/distribution/rexp.js">https://github.com/cccbook/algjs/blob/master/code/06-random/distribution/rexp.js</a></li>
+</ul>
+<pre class="code"><code class="js">/*
+
+定理： 對任一連續分佈 F, 隨機變量 $X = F^{-1}(U)$ 的分佈為 F
+
+參考： https://zh.wikipedia.org/wiki/%E9%80%86%E5%8F%98%E6%8D%A2%E9%87%87%E6%A0%B7
+
+範例： 指數分佈的密度函數為 $f(x) = \lambda e^{-lambda x}$ 
+
+其累積密度函數為 ＄F(x) = 1-e^{-\lambda} x$ ， 
+
+Ｆ的逆變換為 $invF = -1/{\lambda} log(1-U)$
+
+因此我們可以用 invF 來產生該分佈的樣本。
+
+*/
+
+function rexp(lambda) {
+  return (-1/lambda) * Math.log(1-Math.random())
+}
+
+for (let i=0; i&lt;100; i++) {
+  console.log('rexp(20)=', rexp(20))
+}
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">csienqu-teacher:distribution csienqu$ node rexp
+rexp(20)= 0.06376054891755753
+rexp(20)= 0.021547350775182456
+rexp(20)= 0.003924013147755614
+rexp(20)= 0.06442474032283624
+rexp(20)= 0.04075782008572337
+rexp(20)= 0.07957684006591255
+rexp(20)= 0.004048475667393208
+rexp(20)= 0.0725709113584828
+...
+rexp(20)= 0.0036578005705508857
+rexp(20)= 0.007995594176028487
+rexp(20)= 0.0341919271281008
+rexp(20)= 0.0041195594418374495
+rexp(20)= 0.022637911380867494
+</code></pre>
+
+<h3> UUID 的產生</h3>
+
+<pre class="code"><code class="js">// https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r &amp; 0x3 | 0x8)
+    return v.toString(16)
+  })
+}
+
+console.log(uuidv4())
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">csienqu-teacher:06-random csienqu$ node uuid
+15f9d0e3-fca1-42ea-8657-51d7ee2d19ce
+csienqu-teacher:06-random csienqu$ node uuid
+9f5e13ca-9fa5-415a-bd19-5da039efdb58
+csienqu-teacher:06-random csienqu$ node uuid
+c1e2f29e-fb11-462d-94b0-5bff2fa072e1
+csienqu-teacher:06-random csienqu$ node uuid
+a1cf99c2-2a73-4a55-b33c-1e389a105ffb
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../網站設計.html" alt="">網站設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> HTTP</h2>
+
+<h3> HTTP</h3>
+
+<ul>
+    <li><a href="http.md" alt="">HTTP 的運作原理</a></li>
+    <li>https -- ssl 加密後的 http</li>
+    <li><a href="https://mdbookspace.com/view/jsw/README.md">https://mdbookspace.com/view/jsw/README.md</a></li>
+    <li><a href="https://dotblogs.com.tw/marcus116/archive/2011/05/29/26428.aspx" alt="">m@rcus 學習筆記: Http GET、POST Method</a> (讚!)</li>
+</ul>
+<h3> 用 chrome 開發人員工具看封包</h3>
+<p></p>
+
+<p>Chrome 開發人員工具/Network</p>
+
+<p>有上下兩層，開大一點，選線軸上有資料的部分，看下半部視窗的封包。</p>
+<p></p>
+<p></p>
+<p></p>
+
+<h3> 行動裝置</h3>
+
+<ul>
+    <li><a href="https://blog.toright.com/posts/3432/%E4%BD%A0%E4%B9%9F%E6%9C%83%E7%9A%84-web-http-%E5%B0%81%E5%8C%85%E9%99%A4%E9%8C%AF%E6%8A%80%E5%B7%A7%EF%BC%88client-%E7%AF%87%EF%BC%89.html" alt="">你也會的 Web HTTP 封包除錯技巧（Client 篇）</a></li>
+</ul>
+<h3> Curl</h3>
+
+<ul>
+    <li><a href="http://evelynnote.blogspot.com/2011/03/curl.html">http://evelynnote.blogspot.com/2011/03/curl.html</a></li>
+    <li><a href="http://blog.kent-chiu.com/2013/08/14/testing-rest-with-curl-command.html">http://blog.kent-chiu.com/2013/08/14/testing-rest-with-curl-command.html</a></li>
+    <li><a href="https://www.eebreakdown.com/2016/10/curl-http.html">https://www.eebreakdown.com/2016/10/curl-http.html</a></li>
+    <li><a href="https://ithelp.ithome.com.tw/users/20107304/ironman/1258" alt="">鯊魚咬電纜：30天玩Wireshark</a></li>
+    <li><a href="https://ithelp.ithome.com.tw/articles/10193287">https://ithelp.ithome.com.tw/articles/10193287</a></li>
+</ul>
+<pre class="code"><code class="">$ curl -i http://localhost:3000/
+HTTP/1.1 200 OK
+Content-Length: 192
+Last-Modified: Mon, 10 Sep 2018 01:53:15 GMT
+Cache-Control: max-age=0
+Content-Type: text/html; charset=utf-8
+Date: Mon, 10 Sep 2018 04:05:24 GMT
+Connection: keep-alive
+
+﻿&lt;html&gt;
+&lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-7" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;a href="hello.htm"&gt;hello.htm&lt;/a&gt;&lt;br/&gt;
+&lt;img src="ccc.jpg"&gt;&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>爬本校網頁</p>
+
+<pre class="code"><code class="">$ curl -i http://www.nqu.edu.tw
+HTTP/1.1 302 Found
+Date: Mon, 10 Sep 2018 04:12:24 GMT
+Server: Apache
+Location: https://www.nqu.edu.tw/
+Content-Length: 271
+Content-Type: text/html; charset=iso-8859-1
+
+&lt;!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN"&gt;
+&lt;html&gt;&lt;head&gt;
+&lt;title&gt;302 Found&lt;/title&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;Found&lt;/h1&gt;
+&lt;p&gt;The document has moved &lt;a href="https://www.nqu.edu.tw/"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;address&gt;Apache Server at www.nqu.edu.tw Port 80&lt;/address&gt;
+&lt;/body&gt;&lt;/html&gt;
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

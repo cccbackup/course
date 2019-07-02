@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../04-圖形搜尋.html" alt="">04-圖形搜尋</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 實作：以深度優先搜尋解決老鼠走迷宮問題</h2>
+
+<h3> 前言</h3>
+
+<p>雖然深度優先搜尋 (DFS) 與廣度優先搜尋 (BFS) 等演算法通常是用在「圖形」這種結構上的，不過「圖形」的結構倒是不一定要真實且完整的表達出來，在很多人工智慧的問題上，我們不會看到完整的「圖形結構」，只會看到某個節點有哪些鄰居節點，然後就可以用 BFS 與 DFS 進行搜尋了。</p>
+
+<p>老鼠走迷宮問題，就是一個可以採用圖形搜尋來解決的經典問題，其中每個節點的鄰居，就是上下左右四個方向，只要沒有被牆給擋住，就可以走到鄰居節點去，因此我們可以採用圖形搜尋的方法來解決迷宮問題，以下是我們的程式實作。</p>
+
+<h3> 程式實作：老鼠走迷宮</h3>
+
+<p>檔案：pathFinder.js</p>
+
+<pre class="code"><code class="javascript">var log = console.log;
+
+function matrixPrint(m) {
+  for(var i=0;i&lt;m.length;i++)
+    log(m[i]);
+}
+
+function strset(s, i, c) {
+  return s.substr(0, i) + c + s.substr(i+1);
+}
+
+function findPath(m, x, y) {
+  log("=========================");
+  log("x="+x+" y="+y);
+  matrixPrint(m);
+  if (x&gt;=6||y&gt;=8) return false;
+  if (m[x][y] == '*') return false;
+  if (m[x][y] == '+') return false;
+  if (m[x][y] == ' ') m[x] = strset(m[x], y, '.');
+  if (m[x][y] == '.' &amp;&amp; (x == 5 || y==7)) 
+    return true;
+  if (y&lt;7&amp;&amp;m[x][y+1]==' ') //向右
+    if (findPath(m, x,y+1)) return true;
+  if(x&lt;5&amp;&amp;m[x+1][y]==' ') //向下
+    if (findPath(m, x+1,y)) return true;
+  if(y&gt;0&amp;&amp;m[x][y-1]==' ') //向左
+    if (findPath(m, x,y-1)) return true;
+  if(x&gt;0&amp;&amp;m[x-1][y]==' ') //向上
+    if (findPath(m, x-1,y)) return true;
+  m[x][y]='+';
+  return false;
+}
+
+var m =["********", 
+        "** * ***",
+        "     ***",
+        "* ******",
+        "*     **",
+        "***** **"];
+    
+findPath(m, 2, 0);
+log("=========================");
+matrixPrint(m);
+</code></pre>
+
+<h3> 執行結果</h3>
+
+<pre class="code"><code class="">D:\Dropbox\Public\web\ai\code\search&gt;node pathFinder.js
+=========================
+x=2 y=0
+********
+** * ***
+     ***
+* ******
+*     **
+***** **
+=========================
+x=2 y=1
+********
+** * ***
+.    ***
+* ******
+*     **
+***** **
+=========================
+x=2 y=2
+********
+** * ***
+..   ***
+* ******
+*     **
+***** **
+=========================
+x=2 y=3
+********
+** * ***
+...  ***
+* ******
+*     **
+***** **
+=========================
+x=2 y=4
+********
+** * ***
+.... ***
+* ******
+*     **
+***** **
+=========================
+x=1 y=4
+********
+** * ***
+.....***
+* ******
+*     **
+***** **
+=========================
+x=1 y=2
+********
+** *.***
+.....***
+* ******
+*     **
+***** **
+=========================
+x=3 y=1
+********
+**.*.***
+.....***
+* ******
+*     **
+***** **
+=========================
+x=4 y=1
+********
+**.*.***
+.....***
+*.******
+*     **
+***** **
+=========================
+x=4 y=2
+********
+**.*.***
+.....***
+*.******
+*.    **
+***** **
+=========================
+x=4 y=3
+********
+**.*.***
+.....***
+*.******
+*..   **
+***** **
+=========================
+x=4 y=4
+********
+**.*.***
+.....***
+*.******
+*...  **
+***** **
+=========================
+x=4 y=5
+********
+**.*.***
+.....***
+*.******
+*.... **
+***** **
+=========================
+x=5 y=5
+********
+**.*.***
+.....***
+*.******
+*.....**
+***** **
+=========================
+********
+**.*.***
+.....***
+*.******
+*.....**
+*****.**
+</code></pre>
+
+<h3> 結語</h3>
+
+<p>在上面的輸出結果中，<code>*</code> 代表該位置是牆壁，而空格則代表是可以走的路，老鼠走過的地方會放下一個 <code>.</code> 符號，於是您可以看到在上述程式的輸出中，老鼠最後走出了迷宮，完成了任務。</p>
+
+<p>【本文由陳鍾誠取材並修改自 [維基百科]，採用創作共用的 [姓名標示、相同方式分享] 授權】</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

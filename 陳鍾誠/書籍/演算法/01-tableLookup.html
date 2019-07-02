@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../演算法.html" alt="">演算法</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 演算法</h2>
+
+<ol>
+    <li><a href="01-tableLookup.html" alt="">查表法</a></li>
+    <li><a href="02-random.html" alt="">亂數產生法</a></li>
+    <li><a href="03-monteCarlo.html" alt="">蒙地卡羅法</a></li>
+    <li><a href="04-iterative.html" alt="">迭代法</a></li>
+    <li><a href="05-dynamicProgramming.html" alt="">動態規劃法</a></li>
+    <li><a href="06-divideConquer.html" alt="">分割擊破法</a></li>
+    <li><a href="07-hashing.html" alt="">雜湊法</a></li>
+    <li><a href="08-bruteForce.html" alt="">暴力法</a></li>
+    <li><a href="09-numerical.html" alt="">數值算法</a></li>
+    <li><a href="10-greedy.html" alt="">貪婪法</a></li>
+    <li><a href="11-graph.html" alt="">圖形表示法</a></li>
+    <li><a href="12-transformDomain.html" alt="">轉換領域法</a></li>
+    <li><a href="13-stringMatching.html" alt="">字串比對法</a></li>
+    <li><a href="14-cryptography.html" alt="">密碼學算法</a></li>
+    <li><a href="15-reduction.html" alt="">轉換化約法</a></li>
+</ol>
+<p><!--</p>
+<h2> AI 算法</h2>
+
+<ol>
+    <li><a href="02-hillClimbing.html" alt="">爬山演算法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/03-gradientDescendent.html" alt="">梯度下降法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/04-backPropagation.html" alt="">反傳遞算法</a></li>
+    <li><a href="05-geneticAlgorithm.html" alt="">遺傳演算法</a></li>
+    <li><a href="16-search.html" alt="">搜尋法</a></li>
+    <li><a href="17-gameSearch.html" alt="">對局搜尋法</a></li>
+    <li><a href="21-slotFilling.html" alt="">框架填充法</a></li>
+</ol>
+<h2> 系統程式</h2>
+
+<ol>
+    <li><a href="19-recursiveDescendent.html" alt="">遞迴下降法</a></li>
+</ol>
+<p>--></p>
+
+<h2> 參考資源</h2>
+
+<ul>
+    <li><a href="project.html" alt="">參考專案</a></li>
+    <li><a href="quantum.html" alt="">量子電腦</a></li>
+    <li><a href="parallel.html" alt="">平行算法</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 查表法 Table Lookup</h2>
+
+<h3> 翻譯系統 (簡易英翻中)</h3>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node e2c a dog chase a cat
+[ '一隻', '狗', '追', '一隻', '貓' ]
+</code></pre>
+
+<p>程式碼</p>
+
+<pre class="code"><code class="javascript">var e2c = { dog:"狗", cat:"貓", a: "一隻", chase:"追", eat:"吃" };
+
+function mt(e) {
+  var c = [];
+  for (i in e) {
+    var eword = e[i];
+    var cword = e2c[eword];
+    c.push(cword);
+  }
+  return c;
+}
+
+var c = mt(process.argv.slice(2));
+console.log(c);
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">$ node e2c.js a dog
+[ '一隻', '狗' ]
+$ node e2c.js a dog chase a cat
+[ '一隻', '狗', '追', '一隻', '貓' ]
+$ node e2c.js a dog chase a car
+[ '一隻', '狗', '追', '一隻', undefined ]
+</code></pre>
+
+<p>補充說明：請注意上面的 e2c[eword] 這一行不能改用 e2c.eword, 原因是 e2c.eword 是在查詢 eword 這個詞，也就是 e2c['eword'] 的意思，上面範例中e2c['eword']  會是 undefined。</p>
+
+<p>e2c[eword] 才是在查詢像 e2c['dog'] 這樣的內容。</p>
+
+<p>請看下列的示範：</p>
+
+<pre class="code"><code class="">&gt; var e2c = { dog:"狗", cat:"貓", a: "一隻", chase:"追", eat:"吃" };
+undefined
+&gt; e2c
+{ dog: '狗', cat: '貓', a: '一隻', chase: '追', eat: '吃' }
+&gt; e2c.eword
+undefined
+&gt; var eword='dog'
+undefined
+&gt; eword
+'dog'
+&gt; e2c.eword
+undefined
+&gt; e2c['dog']
+'狗'
+&gt; e2c[eword]
+'狗'
+</code></pre>
+<p></p>
+
+<h3> 用查表加速 -- 以費氏數列為例</h3>
+
+<p>傳統用遞迴方式的費氏數列算法，會耗費很久的時間：</p>
+
+<pre class="code"><code class="js">function fibonacci (n) {
+  if (n &lt; 0) throw Error('fibonacci:n &lt; 0')
+  if (n === 0) return 0
+  if (n === 1) return 1
+  return fibonacci(n - 1) + fibonacci(n - 2)
+}
+
+var startTime = Date.now()
+console.log('fibonacci(43)=', fibonacci(43))
+var endTime = Date.now()
+var milliSeconds = endTime - startTime
+console.log('time:%dms', milliSeconds)
+
+</code></pre>
+
+<p>執行結果:</p>
+
+<pre class="code"><code class="">$ node .\fiboanacci.js
+fibonacci(43)= 433494437
+time:25530ms
+</code></pre>
+
+<p>加入查表，讓已經算過的就不需要算第二次，第二次之後改用查的！</p>
+
+<pre class="code"><code class="js">var fib = [0, 1]
+
+function fibonacci (n) {
+  if (n &lt; 0) throw Error('fibonacci:n &lt; 0')
+  if (fib[n] != null) return fib[n]
+  fib[n] = fibonacci(n - 1) + fibonacci(n - 2)
+  return fib[n]
+}
+
+var startTime = Date.now()
+console.log('fibonacci(43)=', fibonacci(43))
+var endTime = Date.now()
+var milliSeconds = endTime - startTime
+console.log('time:%dms', milliSeconds)
+
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node .\fiboanacci_lookup.js
+fibonacci(43)= 433494437
+time:14ms
+</code></pre>
+
+<h3> 用查表加速 C(n,k) 函數</h3>
+
+<p>排列組合中的 C(n, k) 函數，其定義為 n!/(k!(n-k!)) ，我們可以直接套公式計算之。</p>
+
+<pre class="code"><code class="js">function factorial(n) {
+  var p = 1
+  for (i=1; i&lt;=n; i++) {
+    p = p * i;
+  }
+  return p
+}
+
+function c(n, k) {
+  return factorial(n) / (factorial(k)*factorial(n-k))
+}
+
+console.log("c(5,2)=", c(5,2))
+console.log("c(7,3)=", c(7,3))
+console.log("c(12,5)=", c(12,5))
+console.log("c(60,30)=", c(60,30))
+</code></pre>
+
+<p>執行結果如下：</p>
+
+<pre class="code"><code class="">$ node .\Cnk
+c(5,2)= 10
+c(7,3)= 35
+c(12,5)= 792
+c(60,30)= 118264581564861470
+</code></pre>
+
+<p>其中前三個答案是對的，但是第四個 c(60, 30) 的答案很接近，但卻是錯的，因為計算過程中的 <code>factorial(60) = 60!</code> 太大，導致javascript 的雙精度浮點數無法精確表示，於是原本應該 c(60, 30) = 118264581564861420 ，卻計算出了 c(60, 30) = 118264581564861470 了！</p>
+
+<p>對於 c(n,k) 函數，我們還可以採用《帕斯卡公式》(Pascal's rule) 進行遞迴計算，其算式如下：</p>
+
+<p>C(n,k) = C(n-1, k-1) + C(n-1,k)     for (1 <=k<=n)</p>
+
+<p>於是我們可以寫出下列遞迴式：</p>
+
+<pre class="code"><code class="js">function c(n, k) {
+  if (k &lt; 0 || k &gt; n) return 0
+  if (k &gt; n-k) k = n - k
+  if (k==0 || n &lt;= 1) return 1
+  return c(n-1, k) + c(n-1, k-1)
+}
+
+console.log("c(5,2)=", c(5,2))
+console.log("c(7,3)=", c(7,3))
+console.log("c(12,5)=", c(12,5))
+console.log("c(60,30)=", c(60,30))
+</code></pre>
+
+<p>但是這個遞迴重複計算了太多次，導致執行 c(60, 30) 時會很久出不來，感覺好像當掉了，以下是執行結果 ...</p>
+
+<pre class="code"><code class="">PS D:\ccc\book\algjs\code\09-dynamicProgramming\combinatorial&gt; node .\CnkR
+c(5,2)= 10
+c(7,3)= 35
+c(12,5)= 792   // 後面就很久出不來了 ....
+</code></pre>
+
+<p>如果我們採用《查表法》的方式加速遞迴式，那麼很快就能計算出來了，以下是加了查表法的遞迴程式</p>
+
+<pre class="code"><code class="js">var C = []
+
+function c(n, k) {
+  if (k &lt; 0 || k &gt; n) return 0
+  if (k &gt; n-k) k = n - k
+  if (C[n] == null) C[n] = []
+  if (C[n][k] != null) return C[n][k]
+  if (k==0 || n &lt;= 1)
+    C[n][k] = 1
+  else 
+    C[n][k] = c(n-1,k) + c(n-1, k-1)
+  return C[n][k]
+}
+
+console.log("c(5,2)=", c(5,2))
+console.log("C=%j", C);
+console.log("c(7,3)=", c(7,3))
+console.log("c(12,5)=", c(12,5))
+console.log("c(60,30)=", c(60,30))
+</code></pre>
+
+<p>執行結果:</p>
+
+<pre class="code"><code class="">PS D:\ccc\book\algjs\code\09-dynamicProgramming\combinatorial&gt; node .\CnkRLookup
+c(5,2)= 10
+C=[null,[1],[1,2],[1,3],[null,4,6],[null,null,10]]
+c(7,3)= 35
+c(12,5)= 792
+c(60,30)= 118264581564861420
+</code></pre>
+
+<h3> 結語</h3>
+
+<p>對於需要重複計算的事項，我們只要先記在表格裡面，下次需要時就不需要再次計算，只要從表格裡面查出來就行了！</p>
+
+<p>如果該計算比查表時間多，那麼這樣的方法就可以加快速度！</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

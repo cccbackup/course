@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../10-機器學習.html" alt="">10-機器學習</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 機率式算法</h2>
+
+<h3> 蒙地卡羅演算法 (Monte Carlo Algorithm)</h3>
+
+<p>利用亂數隨機抽樣的方式以計算某種解答的演算法，被稱為蒙地卡羅演算法，其中最簡單的方法是直接取樣算法。</p>
+
+<p>舉例而言，假如我們不知道半徑為 1 的圓形面積，那麼就可以利用亂數隨機取樣 1百萬個 <code>X=random[-1...1], Y=random[-1...1]</code> 之間的的值，然後看看有多少點落在 <span class="math inline">x^2 + y^2 <=1</span> 的範圍之內 <code>P(in circle)</code>。最後利用 <code>4 * P(in circle)</code> 就可以計算出該圓形的面積。</p>
+
+<h3> 最大概似估計</h3>
+
+<ul>
+    <li>機率密度函數： <span class="math inline">f(X|\theta)</span>, <span class="math inline">\theta</span> 為未知。</li>
+    <li>概似函數：<span class="math inline">L(\theta) = \prod_{i=1}^n f(x_i)</span></li>
+    <li>求可以讓 <span class="math inline">L(\theta)</span> 最大化的 <span class="math inline">\theta</span> 參數 <span class="math inline">\hat{\theta}</span>。</li>
+    <ul>
+        <li>可以直接最大化 <span class="math inline">L(\theta)</span> ，或者最大化 <span class="math inline">ln L(\theta)</span> 亦可 </li>
+        <li>(因為許多獨立隨機變數的算式會表現為某些機率式的乘積，此時取 ln 可以讓這些乘積轉化為相加的運算，數學上會變得較為簡單)。</li>
+    </ul>
+    <li>用 <span class="math inline">\hat{\theta}</span> 取代 <span class="math inline">\theta</span> ，就可得到最大慨似估計式。</li>
+    <li>利用已知樣本求取「最大慨似估計式」的觀察值，以便估計其中的參數值。</li>
+</ul>
+<p>說明：如果是常態分布，通常 <span class="math inline">\theta = (\mu, \delta^2)</span></p>
+
+<p>對於任何一個隨機現象，我們可以用隨機變數 X 描述，假設樣本 x 的機率分布以 <span class="math inline">p(x)</span> 表示。</p>
+
+<p>假如經過觀察之後，經由觀察數據 <span class="math inline">x_1,x_2,\cdots,x_n</span> 的統計，得到其分布為 p'(x) ，於是我們就可以利用機率分布 p' 反推出 p 。</p>
+
+<p>一個最簡單的想法是 p(x) = p'(x) ，也就是這些觀察是具有代表性的，於是統計上的機率分布符合真實的機率分佈。</p>
+
+<p>這個想法的背後，其實是有理論基礎的，其理論稱為「最大似然法則」或「最大概似估計」 (Maximum Likelihood Estimation)。</p>
+
+<h3> 最大概似估計的數學想法</h3>
+
+<p>隨然我們觀察到的統計現象是 p'，但是真正的 p 卻有無限多種可能，基本上任何機率分布都可能產生觀察現象 p'。</p>
+
+<p>即便如此，每一個機率分布 p 會產生觀察現象 p' 的可能性卻大有不同，假如機率模型 p 與 p'(x) 的分布一致 ，那麼 p 產生 p'(x) 現象的機率將會是最大的。</p>
+
+<p>因此，設定 p(x) = p'(x) 的想法，其背後的目標乃是要最大化機率源模型 p 產生 p' 現象的可能性，這個最大化的目標就稱為「最大概似估計」。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

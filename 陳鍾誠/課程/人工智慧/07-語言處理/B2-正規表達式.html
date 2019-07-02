@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../07-語言處理.html" alt="">07-語言處理</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 正規表達式</h2>
+
+<p>正規語法 (Regular Grammar) 是一種相當簡單的語法，這種語法被 Perl 語言成功的用於字串比對，接著成為重要的程式設計工具。此種標準的正規語法後來被稱為正則表達式 (Regular Expression)。</p>
+
+<p>目前，大部分的語言都已納入正則表達式的函式庫，正規表達式可以說是程式設計師必定要瞭解的工具，也就是常識的一部分。系統程式設計師更應該要瞭解正則表達式，因為正規語法是程式語言當中，用來描述基本詞彙 (Vocabulary)，並據以建構詞彙掃描器 (Lexer) 的基礎語法，Lexer 是編譯器的基本元件之一。</p>
+
+<p>假如我們要用正則表達式描述整數數字，那麼，可以用 <code>[0123456789]+</code> 這個表達式，其中的中括號 <code>[</code> 與 <code>]</code> 會框住一群字元，用來代表字元群，加號 + 所代表的是重複 1 次或以上，因此，該表達式就可以描述像 3702451 這樣的數字。然而，在正則表達式中，為了更方便撰寫，於是允許用 <code>[0-9]+</code> 這樣的式子表達同樣的概念，其中的 0-9 其實就代表了 0123456789 等字元，這是一種簡便的縮寫法。甚至，可以再度縮短後以 <code>[\d]+</code> 代表，其中的 <code>\d</code> 就代表數字所成的字元集合。</p>
+
+<p>利用範例學習是理解正則表達式的有效方法，表格 1 就顯示了一些具有代表性的正則表達式範例。</p>
+
+<p>表格 1. 正則表達式的範例</p>
+
+<table>
+<tr><th>語法          </th><th> 正則表達式                 </th><th> 範例</th></tr>
+
+<tr><td>整數          </td><td> [0-9]+                    </td><td> 3704</td></tr>
+<tr><td>有小數點的實數 </td><td> [0-9]+\.[0-9]+            </td><td> 7.93</td></tr>
+<tr><td>英文詞彙       </td><td> [A-Za-z]+                 </td><td> Code</td></tr>
+<tr><td>變數名稱       </td><td> [A-Za-z<em>][A-Za-z0-9</em>]*    </td><td> _counter</td></tr>
+<tr><td>Email         </td><td> [a-zA-Z0-9<em>]+@[a-zA-Z0-9\.</em>]+ </td><td> ccc@kmit.edu.tw</td></tr>
+<tr><td>URL           </td><td> <a href="http://[a-zA-Z0-9\./_]+">http://[a-zA-Z0-9\./_]+</a>    </td><td> <a href="http://ccc.kmit.edu.tw/mybook/">http://ccc.kmit.edu.tw/mybook/</a></td></tr>
+</table>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

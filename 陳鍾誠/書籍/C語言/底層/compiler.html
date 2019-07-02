@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../底層.html" alt="">底層</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 編譯器</h1>
+<p>撰寫中 ....</p>
+<p></p>
+
+<h2> 剖析</h2>
+
+<ul>
+    <li><a href="https://github.com/embedded2015/rubi/blob/master/parser.c">https://github.com/embedded2015/rubi/blob/master/parser.c</a></li>
+</ul>
+<h2> 程式碼產生</h2>
+
+<ul>
+    <li><a href="https://github.com/embedded2015/rubi/blob/master/asm.h">https://github.com/embedded2015/rubi/blob/master/asm.h</a></li>
+</ul>
+<pre class="code"><code class="C">#ifndef RUBI_ASM_INCLUDED
+#define RUBI_ASM_INCLUDED
+
+#include &lt;stdint.h&gt;
+
+unsigned char *ntvCode;
+int ntvCount;
+
+enum { EAX = 0, ECX, EDX, EBX, ESP, EBP, ESI, EDI };
+
+static inline void emit(unsigned char val)
+{
+    ntvCode[ntvCount++] = (val);
+}
+static inline void emitI32(unsigned int val)
+{
+    emit(val &lt;&lt; 24 &gt;&gt; 24);
+    emit(val &lt;&lt; 16 &gt;&gt; 24);
+    emit(val &lt;&lt;  8 &gt;&gt; 24);
+    emit(val &lt;&lt;  0 &gt;&gt; 24);
+}
+static inline void emitI32Insert(unsigned int val, int pos)
+{
+    ntvCode[pos + 0] = (val &lt;&lt; 24 &gt;&gt; 24);
+    ntvCode[pos + 1] = (val &lt;&lt; 16 &gt;&gt; 24);
+    ntvCode[pos + 2] = (val &lt;&lt;  8 &gt;&gt; 24);
+    ntvCode[pos + 3] = (val &lt;&lt;  0 &gt;&gt; 24);
+}
+
+#endif
+</code></pre>
+<p></p>
+
+<h2> JIT 即時執行</h2>
+
+<p>範例 11: rubi/engine.c</p>
+
+<ul>
+    <li><a href="https://github.com/embedded2015/rubi/blob/master/engine.c">https://github.com/embedded2015/rubi/blob/master/engine.c</a></li>
+</ul>
+<pre class="code"><code class="C">// 以下為剪貼片段，並非完整程式碼 ...
+static void ssleep(uint32_t t) { usleep(t * CLOCKS_PER_SEC / 1000); }
+
+static void add_mem(int32_t addr) { mem.addr[mem.count++] = addr; }
+
+static int xor128()
+{
+    static uint32_t x = 123456789, y = 362436069, z = 521288629;
+    uint32_t t;
+    t = x ^ (x &lt;&lt; 11);
+    x = y; y = z; z = w;
+    w = (w ^ (w &gt;&gt; 19)) ^ (t ^ (t &gt;&gt; 8));
+    return ((int32_t) w &lt; 0) ? -(int32_t) w : (int32_t) w;
+}
+
+static void *funcTable[] = {
+    put_i32, /*  0 */ put_str, /*  4 */ put_ln, /*   8 */ malloc, /* 12 */
+    xor128,  /* 16 */ printf,  /* 20 */ add_mem, /* 24 */ ssleep, /* 28 */
+    fopen,   /* 32 */ fprintf, /* 36 */ fclose,  /* 40 */ fgets,   /* 44 */
+    free,    /* 48 */ freeAddr  /* 52 */
+};
+
+static int execute(char *source)
+{
+    init();
+    lex(source);
+    parser();
+    ((int (*)(int *, void **)) ntvCode)(0, funcTable);
+    dispose();
+    return 0;
+}
+// 程式未完 ....
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

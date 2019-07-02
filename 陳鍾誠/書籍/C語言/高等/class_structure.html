@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1>C 語言實作獨立的類別</h1>
+
+<p>在前述的範例當中，我們直接將資料與函數封裝在結構當中，以形成物件，這種實作方式並沒有為類別定義獨立的結構，於是每個物件當中都會有一份所有成員函數的指標，當物件的數量很多時，這可能會浪費不少記憶體。</p>
+
+<p>前述的這種實作方式，比較像是一種變形後的物件導向實作法，這種方法稱為原型 (Prototype) 導向的實作法，像是 JavaScript 就採用了類似的實作方式。如果我們要實作出像 Java 或 C# 一樣的物件導向作法，應該將類別的結構獨立出來，這樣會比較能夠規模化，而且通常可以節省記憶體。</p>
+
+<p>在以下的程式中，我們將再度用 C 語言實作出這種方式，將物件與類別獨立成兩個不同結構。如此，不管我們建立幾份物件，類別物件永遠都只會有一個，請看下列程式碼。</p>
+
+<p>程式實作：將類別獨立出來</p>
+
+<p><strong>檔案：polyClass.c</strong></p>
+
+<pre class="code"><code class="c">#include &lt;stdio.h&gt;
+
+#define ShapeClassMembers(OBJ) float (*area)(struct OBJ*)
+#define ShapeMembers(OBJ) 
+
+struct _Shape;
+
+typedef struct _ShapeClass { // Shape 物件，沒有欄位
+  ShapeClassMembers(_Shape);
+} ShapeClass;
+
+typedef struct _Shape {
+  ShapeClass *class;
+  ShapeMembers(_Shape);
+} Shape;
+
+float ShapeArea(Shape *obj) { return 0; }
+
+ShapeClass shapeClass = { .area = ShapeArea };
+
+struct _Circle;
+
+typedef struct _CircleClass {
+  ShapeClassMembers(_Circle);
+  float r;
+} CircleClass;
+
+typedef struct _Circle {
+  CircleClass *class;
+  ShapeMembers(_Circle);
+  float r;
+} Circle;
+
+float CircleArea(Circle *obj) { return 3.14 * obj-&gt;r * obj-&gt;r; }
+
+CircleClass circleClass = { .area = CircleArea };
+
+int main() {
+  Shape s = { .class = &amp;shapeClass };
+  Circle c = { .class = &amp;circleClass };
+  c.r = 3.0;
+  Shape *list[] = { &amp;s, (Shape*) &amp;c };
+  int i;
+  for (i=0; i&lt;2; i++) {
+    Shape *o = list[i];
+    printf("s.area()=%G\n", o-&gt;class-&gt;area(o));
+  }
+}
+</code></pre>
+
+<p><strong>執行結果</strong></p>
+
+<pre class="tab">D:\cp>gcc polyClass.c -o polyClass
+
+D:\cp>polyClass
+s.area()=0
+s.area()=28.26
+
+</pre>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

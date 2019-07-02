@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../科學計算.html" alt="">科學計算</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 牛頓力學</h1>
+<p></p>
+
+<p>如前文所述，根據牛頓的引力公式，可以用下列公式描述一維的引力現象：</p>
+
+<p><span class="math display">
+F=m a
+</span></p>
+
+<p><span class="math display">
+F=m {dv \over dt}=m v'(t)
+</span></p>
+
+<p><span class="math display">
+F=m {d^2x \over dt^2}=mx''(t)
+</span></p>
+
+<h2> 三維空間的引力</h2>
+<p></p>
+
+<p>三維空間中，若有一位於 P0 = (x0, y0, z0) 的質點，其質量為 m0，根據牛頓定律，對任一質量為 m 的點 P = (x,y,z) 形成的引力場大小如下：</p>
+
+<p><span class="math display">
+|p| = \frac{G m_0 m}{r^2} = \frac{c}{r^2} 
+</span></p>
+
+<p>其中常數 <span class="math inline">c = G m_0 m</span>, 半徑 <span class="math inline">r=\sqrt{(x-x_0)^2+(y-y_0)^2+(z-z_0)^2}</span></p>
+
+<p>由於重力場的方向指向 P0，反過來的逆重力場的方向為：</p>
+
+<p><span class="math display">
+v_r = [x-x_0, y-y_0, z-z_0]
+</span></p>
+
+<p>朝向重力場方向的單位引力可以表示為</p>
+
+<p><span class="math display">
+\frac{-1}{r} v_r 
+</span></p>
+
+<p>該質點所形成的《引力場》為</p>
+
+<p><span class="math display">
+p = |p| (- \frac{1}{r} v_r) = - \frac{c}{r^3} v_r = -c [\frac{x-x_0}{r^3}, \frac{y-y_0}{r^3}, \frac{z-z_0}{r^3}]
+</span></p>
+
+<h2> 拉普拉斯方程式</h2>
+
+<p>讓我們計算上述重力場當中，算式 <span class="math inline">\frac{1}{r}</span> 的梯度如下：</p>
+
+<p><span class="math display">
+\frac{\partial}{\partial x} \frac{1}{r} = \frac{-2(x-x_0)}{2[(x-x_0)^2 + (y-y_0)^2 + (z-z_0)^2]^{3/2}} = - \frac{x-x_0}{r^3}
+</span></p>
+
+<p>同理可得：</p>
+
+<p><span class="math display">
+\frac{\partial}{\partial y} \frac{1}{r} = - \frac{y-y_0}{r^3}  \\ \\
+\frac{\partial}{\partial z} \frac{1}{r} = - \frac{z-z_0}{r^3}
+</span></p>
+
+<p>根據上述算式與前一段的重力場 p ，我們可以看出如下結果</p>
+
+<p><span class="math display">
+p = c [\frac{\partial}{\partial x} \frac{1}{r} , \frac{\partial}{\partial y} \frac{1}{r}, \frac{\partial}{\partial z} \frac{1}{r}] = \nabla \frac{c}{r}
+</span></p>
+
+<p>這個結果表示 p 為純量函數 <span class="math inline">f(x,y,z)=\frac{c}{r}</span> 之梯度，其中的 f 代表引力場的位能函數。</p>
+
+<p>如果我們繼續對上述的 p 進行微分，那麼就可得到物理上極其重要的《拉普拉斯方程式》(Laplace Equation)如下：</p>
+
+<p><span class="math display">
+\frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2} = 0
+</span></p>
+
+<p>這是因為繼續微分 p 之後會得到</p>
+
+<p><span class="math display">
+\frac{\partial^2}{\partial x^2} \frac{1}{r} = -\frac{1}{r^3} + \frac{3(x-x_0)^2}{r_5} \\ \\
+\frac{\partial^2}{\partial y^2} \frac{1}{r} = -\frac{1}{r^3} + \frac{3(y-y_0)^2}{r_5} \\ \\
+\frac{\partial^2}{\partial z^2} \frac{1}{r} = -\frac{1}{r^3} + \frac{3(z-z_0)^2}{r_5} \\ \\
+</span></p>
+
+<p>上述三式相加之後，得到</p>
+
+<p><span class="math display">
+-\frac{1}{r^3} * 3 + \frac{3(x-x_0)^2}{r^5} + \frac{3(y-y_0)^2}{r^5} + \frac{3(z-z_0)^2}{r^5} = -\frac{3}{r^3} + \frac{3r^2}{r^5} = 0
+</span></p>
+
+<p>由於拉普拉斯方程式的這種二次微分加總函數在物理學上非常重要，因此數學家們定義了一個《拉普拉斯算子》(Laplace Operator) 如下：</p>
+
+<p><span class="math display">
+\nabla^2 = \Delta = \frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}+\frac{\partial^2}{\partial z^2}
+</span></p>
+
+<p>於是上述的《拉普拉斯方程式》就可以寫成</p>
+
+<p><span class="math display">
+\nabla^2 f = 0
+</span></p>
+
+<p>上述為單一質點產生的《引力場》，但是如果擴充到《多質點》產生的引力場，拉普拉斯方程式一樣會成立。甚至對於《靜電的庫倫力》所產生的電力場，也一樣滿足《拉普拉斯方程式》。</p>
+
+<p>這就是《拉普拉斯方程式》在物理上極其重要的原因了！</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

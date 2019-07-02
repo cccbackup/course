@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../網頁設計.html" alt="">網頁設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> JavaScript 遊戲設計</h2>
+
+<h3> 簡介</h3>
+
+<ul>
+    <li>maxwihlborg -- 怎麼用 Canvas 寫遊戲的教學影片！</li>
+    <li>首頁： <a href="http://maxwihlborg.com/experiments/">http://maxwihlborg.com/experiments/</a></li>
+    <li>程式專案： <a href="https://github.com/maxwihlborg/youtube-tutorials/">https://github.com/maxwihlborg/youtube-tutorials/</a></li>
+    <li>線上展示： <a href="http://www.maxwihlborg.com/youtube-demos/">http://www.maxwihlborg.com/youtube-demos/</a></li>
+    <li>影片： <a href="https://www.youtube.com/playlist?list=PLDu4C7CHISoKbi-do2VKUfS6cv36C57y4">https://www.youtube.com/playlist?list=PLDu4C7CHISoKbi-do2VKUfS6cv36C57y4</a></li>
+    <li>原始碼： <a href="https://github.com/maxwihlborg/youtube-tutorials">https://github.com/maxwihlborg/youtube-tutorials</a></li>
+    <li>乒乓球遊戲： <a href="http://maxwihlborg.com/2014/02/08/pong/">http://maxwihlborg.com/2014/02/08/pong/</a></li>
+    <li>程式碼： <a href="https://github.com/maxwihlborg/youtube-tutorials/blob/master/pong/index.html">https://github.com/maxwihlborg/youtube-tutorials/blob/master/pong/index.html</a></li>
+</ul>
+<h3> 範例一 : 移動球 (不順暢)</h3>
+
+<p>檔案： @[[ballmove1.html]](code/canvas/ballmove1.html)</p>
+
+<pre class="code"><code class="">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;img id="ball" src="ball.jpg" alt="The Scream"&gt;
+&lt;p&gt;Canvas:&lt;/p&gt;
+&lt;canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;"/&gt;
+&lt;script&gt;
+var img, ctx, canvas;
+var x=0, y=0;
+
+window.onload = function() {
+  canvas = document.getElementById("myCanvas");
+  ctx = canvas.getContext("2d");
+  img = document.getElementById("ball");
+  setTimeout(draw, 100);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, x, y);
+  x+=10; y+=10;
+  setTimeout(draw, 100);  
+}
+
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+
+<h3> 範例二 : 移動球 (順暢)</h3>
+
+<p>檔案： @[[ballmove2.html]](code/canvas/ballmove2.html)</p>
+
+<pre class="code"><code class="">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;img id="ball" src="ball.jpg" alt="The Scream" style="display:none"&gt;
+&lt;p&gt;Canvas:&lt;/p&gt;
+&lt;canvas id="myCanvas" width="240" height="297" style="border:1px solid #d3d3d3;"/&gt;
+&lt;script&gt;
+var img, ctx, canvas;
+var x=0, y=0;
+
+window.onload = main;
+
+function update() {
+  x+=2; y+=2;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, x, y);
+}
+
+function main() {
+  img = document.getElementById("ball");
+  canvas = document.getElementById("myCanvas");
+  ctx = canvas.getContext("2d");
+  var loop = function() {
+    update();
+    draw();
+    window.requestAnimationFrame(loop, canvas);
+  };
+  window.requestAnimationFrame(loop, canvas);
+}
+
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+
+<h3> 遊戲設計 -- 碰撞球</h3>
+
+<p>檔案： @[[ballgame1.html]](code/canvas/ballgame1.html)</p>
+
+<pre class="code"><code class="">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;img id="ball" src="ball.jpg" alt="The Scream" style="display:none"&gt;
+&lt;p&gt;Canvas:&lt;/p&gt;
+&lt;canvas id="myCanvas" width="240" height="297" style="border:1px solid #d3d3d3;"/&gt;
+&lt;script&gt;
+var img, ctx, canvas;
+var x=0, y=0;
+
+window.onload = main;
+
+var dx = 2, dy=2;
+function update() {
+  x+=dx; y+=dy;
+  if (x &lt; 0 &amp;&amp; dx &lt; 0)
+    dx = -1 * dx;
+  else if (x+img.width &gt;= canvas.width &amp;&amp; dx &gt; 0)
+    dx = -1 * dx;
+  if (y &lt; 0 &amp;&amp; dy &lt; 0)
+    dy = -1 * dy;
+  else if (y+img.height &gt;= canvas.height &amp;&amp; dy &gt; 0)
+    dy = -1 * dy;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, x, y);
+}
+
+function main() {
+  img = document.getElementById("ball");
+  canvas = document.getElementById("myCanvas");
+  ctx = canvas.getContext("2d");
+  var loop = function() {
+    update();
+    draw();
+    window.requestAnimationFrame(loop, canvas);
+  };
+  window.requestAnimationFrame(loop, canvas);
+}
+
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+
+<h3> 進階參考</h3>
+
+<p>課程： <a href="https://www.udacity.com/course/html5-game-development--cs255" alt="">HTML5 Game Development</a></p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

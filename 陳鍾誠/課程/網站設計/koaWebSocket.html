@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../網站設計.html" alt="">網站設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 採用 WebSocket 方式的通訊範例</h2>
+
+<p>Node.js 的 socket.io 套件是對 WebSocket 通訊方式的一個易學易用包裝。</p>
+
+<p>Socket.io 最簡單的入門範例是一個聊天室，請參考下列文章瞭解如何寫一個聊天室。</p>
+
+<ul>
+    <li><a href="http://socket.io/get-started/chat/">http://socket.io/get-started/chat/</a></li>
+</ul>
+<p>重要程式碼片段：</p>
+
+<p>前端：</p>
+
+<pre class="code"><code class="html">&lt;script src="/socket.io/socket.io.js"&gt;&lt;/script&gt;
+&lt;script src="https://code.jquery.com/jquery-1.11.1.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  $(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+  });
+&lt;/script&gt;
+</code></pre>
+
+<p>後端：</p>
+
+<pre class="code"><code class="">io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+  });
+});
+</code></pre>
+
+<p>執行結果：</p>
+
+<ul>
+    <li>影片 -- <a href="https://i.cloudup.com/transcoded/zboNrGSsai.mp4">https://i.cloudup.com/transcoded/zboNrGSsai.mp4</a></li>
+</ul>
+<p>Socket.io 的官網裡有更多的應用範例，請用 git clone 下載 Socket.io 後執行其中的以下範例：</p>
+
+<ul>
+    <li><a href="https://github.com/socketio/socket.io/tree/master/examples">https://github.com/socketio/socket.io/tree/master/examples</a></li>
+</ul>
+<p>我建議大家仔細看其中兩個範例，一個是聊天室 chat (更完整版)，另一個是畫板 whiteboard 。</p>
+
+<ul>
+    <li><a href="https://github.com/socketio/socket.io/tree/master/examples/chat">https://github.com/socketio/socket.io/tree/master/examples/chat</a></li>
+    <li><a href="https://github.com/socketio/socket.io/tree/master/examples/whiteboard">https://github.com/socketio/socket.io/tree/master/examples/whiteboard</a></li>
+</ul>
+<p>然後透過這些範例進一步學習更多的 socket.io 使用方式。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

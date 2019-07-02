@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../07-語言處理.html" alt="">07-語言處理</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 生成語法</h2>
+
+<h3> BNF 與生成語法</h3>
+
+<p>先讓我們來看一個很簡單的生成語法範例，如下所示。</p>
+
+<table>
+<tr><th>BNF 語法 </th><th> 生成的語言</th></tr>
+
+<tr><td>S = A B <a href="br/">br/</a>A = a ｜ b<a href="br/">br/</a>B = c ｜ d   </td><td>   L = {ab, ac, bc, bd}</td></tr>
+</table>
+
+<p>我們也可以用類似的語法描述自然語言，以下是一個範例。</p>
+
+<table>
+<tr><th>BNF 語法 </th><th> 生成的語言</th></tr>
+
+<tr><td>S = N V <a href="br/">br/</a>N = John ｜ Mary<a href="br/">br/</a>V = eats ｜ talks   </td><td>   L = {John eats, John talks, Mary eats, Mary Talks}</td></tr>
+</table>
+
+<h3> 運算式語法</h3>
+
+<p>以下規則描述了一個數學運算式的語法，其中的 E 代表運算式 (Expression)，而 T 代表運算式中的一個基本項 (Term)。</p>
+
+<blockquote>
+<p> E = T | T [+-*/] E </p>
+</blockquote>
+
+<p>這條規則代表說 E 可以生成 T ，或者先生成 T 之後緊跟著 +-*/ 其中的一個字元，然後再遞回性的生成 E 。</p>
+
+<p>同樣的、T = [0-9] 代表 T 可以生成 0 到 9 當中的一個數字，或者生成 「(」 符號後再生成 E 接著生成 「)」 符號。</p>
+
+<p>E =T | T [+-*/] ET = [0-9]</p>
+
+<p>以下是符合該語法與不符合該語法的一些語句範例。</p>
+
+<table>
+<tr><th>符合語法的範例 </th><th> 不符合語法的範例</th></tr>
+
+<tr><td>4   </td><td> x+y</td></tr>
+<tr><td>2+5 </td><td> 3+)8</td></tr>
+<tr><td>2-1<strong>(2)-(9</strong>0) </td><td> (3-*8)/4</td></tr>
+<tr><td>8+(5-7<strong>((6)</strong>((2))<strong>(7)</strong>8+4+(6))/(6-1)-(9)) </td><td> </td></tr>
+</table>
+
+<h3> 英語的語法</h3>
+<p></p>
+
+<p>語言的剖析範例</p>
+
+<pre class="code"><code class="">S = NP VP
+NP = D N
+VP = V NP
+</code></pre>
+
+<p><figure>
+  <img src="./img/EnglishTree1.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>接著，讓我們來看看一組較為完整的英語語法規則。</p>
+
+<table>
+<tr><th>規則        </th><th> 說明</th></tr>
+
+<tr><td>S => NP VP </td><td> 句子 = 名詞子句 接 動詞子句</td></tr>
+<tr><td>NP => Det Adj<strong> N PP</strong> </td><td> 名詞子句 = 定詞 接 名詞</td></tr>
+<tr><td>VP => V (NP PP*) </td><td> 動詞子句 = 動詞 接 名詞子句 接副詞子句</td></tr>
+<tr><td>PP => P NP </td><td> 副詞子句 = 副詞 接 名詞子句</td></tr>
+</table>
+<p></p>
+
+<p>根據這樣的規則，我們就可以將 『The dog saw a man in the park.』 這句話，剖析成下列的語法樹。</p>
+
+<p><figure>
+  <img src="./img/EnglishTree1.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>甚至，對於更複雜的句子，像是 『Ordinary daily multivitamin and mineral supplements could help adults with diabetes fight off some minor infections.』，也可能轉換成下列的剖析樹。</p>
+
+<p><figure>
+  <img src="./img/EnglishTree2.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>一般來說，目前的自然語言剖析技術並沒有辦法將所有句子都轉換成完整的樹狀結構，通常只有 60%-70% 左右的成功率而已。因此，有時會採用部分剖析樹直接使用，而非一定要完全剖析成功。</p>
+
+<p>當然，英語的語法並沒有那麼簡單，語法規則可能會愈寫愈複雜，但是仍然難以正確剖析所有英文語句，以下是一組更複雜的英語語法：</p>
+
+<ul>
+    <li><a href="http://able2know.org/topic/30765-1" alt="">English Defined as a Formal Grammar</a></li>
+    <li><a href="http://www.scientificpsychic.com/grammar/enggram1.html">http://www.scientificpsychic.com/grammar/enggram1.html</a></li>
+</ul>
+<pre class="code"><code class="">SENTENCE: STATEMENT | QUESTION | COMMAND 
+STATEMENT: ADJ+[] ADVERB+[] (SUBJECT) ADJECTIVE+[] (VERB)
+QUESTION: ADJ+[] ADVERB+[] (DO SUBJECT) ADJECTIVE+[] (VERB)
+COMMAND: ADJ+[] ADVERB+[] (VERB)
+
+ADVERB: ADV
+| WHEN (STATEMENT)
+| IF (STATEMENT) 
+| GERUND 
+| PREPLY NP
+ADJECTIVE: GERUND | PREPISH NP | ADJ
+WHEN: "when" | "whereby" | "until" | "unless" 
+IF: ["not"] ("if" | "only if" | "because") 
+AND: "and" | "but" | "or"
+PREPLY: [not] ("to"|"onto"|"into"|"of"|"out of"|"in"|"within"|"by"|"with"|"without")
+PREPISH: [not] ("to"|"of"|"in"|"by"|"with"|"without")
+ADJ: ADJ ("and"|",") ADJ | GERUND
+NP: (("a"|"the") (ADJ+[] SNP))} WHICH CLAUSE
+CLAUSE: ADJECTIVE+[] ADVERB+[] SUBJECT VERB
+| ADJECTIVE+[] ADVERB+[] SUBJECT VERB PREP 
+SUBJECT: NP
+OBJECT: NP
+WHICH: "that" | ""
+GERUND: FOGHORN GER
+FOGHORN: (PREPLY "-" NP)[] "-" OBJECT
+ADJ: ADJ AND ADJ|
+"purple"| "smelly"| "happy"| "windy" | "unbelievable" etc.
+ADV: ADV AND ADV |
+"quicky" | "slowly" | "happily"
+NOUN: "cat" | "dog" | "man" | etc.
+VERB: ("berate" [OBJECT]) | ("stop" [OBJECT]) | ("flee" [OBJECT]) | ("put" OBJECT) LOCATION+ ...
+GER: "berating" | "stopping" | "fleeing" | "putting" etc.
+</code></pre>
+<p></p>
+
+<h3> 參考文獻</h3>
+<ul>
+    <li><a href="http://www.cs.pomona.edu/classes/cs181NLP/text/">http://www.cs.pomona.edu/classes/cs181NLP/text/</a></li>
+    <li><a href="http://www.cs.pomona.edu/classes/cs181NLP/text/12.pdf" alt="">Chapter 12. Formal Grammars of English (pdf)</a></li>
+    <li><a href="http://english.stackexchange.com/questions/32447/is-there-an-ebnf-that-covers-all-of-english" alt="">Is there an EBNF that covers all of English</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

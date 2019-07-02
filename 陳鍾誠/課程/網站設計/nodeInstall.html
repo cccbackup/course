@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../網站設計.html" alt="">網站設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> Node.js 開發環境</h2>
+
+<p>Node.js 是 Ryan Dahl 基於 Google 的 V8 引擎於 2009 年釋出的一個 JavaScript 開發平台，主要聚焦於 Web 程式的開發，通常用被來寫網站。</p>
+
+<p>但是、要開發網站就勢必要把「 HTML, CSS, Web」等等技術扯進來，這對那些單純想用 JavaScript 做為第一門語言的學習者而言，勢必是非常困擾的。有鑑於此，我們將撰寫一系列用 Node.js 學基礎 JavaScript 語法的文章，以便讓初學者也能透過 Node.js 這個環境學會 JavaScript 語言。</p>
+
+<h3> node.js 的安裝</h3>
+
+<p>您可以 node.js 的官方網站中下載並安裝此一開發環境，網址如下：</p>
+
+<ul>
+    <li><a href="http://nodejs.org/">http://nodejs.org/</a></li>
+</ul>
+<p><figure>
+  <img src="./img/NodeJsOrg.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+<p></p>
+
+<p>在筆者撰寫本書時， node.js 穩定版為 v4.4.4，而目前開發版本為 v6.1.0，筆者通常會選擇安裝《穩定版》(除非有最新功能的特殊需求，筆者才會選擇目前開發版)。</p>
+
+<p>您可以下載後一直按下一步就可以安裝完成了。(筆者所使用的環境是 Windows 8，所以下載時會得到 windows 版的安裝檔，例如 node-v4.4.4-x64.msi 這樣的檔案)。</p>
+
+<p>筆者在 Windows 中安裝完成之後，可以在應用程式區域找到 node.js 的相關程式。</p>
+
+<p>點選了 <code>node.js command prompt</code> 可以啟動了一個命令列環境，然後用編輯器 (我是用 Visual Studio Code) 寫了一個 hello.js 的程式如下。</p>
+
+<p>檔案： hello.js</p>
+
+<pre class="code"><code class="javascript">console.log("hello!");
+</code></pre>
+
+<p>我們將 hello.js 檔案放在 <code>D:\jsbook\</code> 這個資料夾裏面，然後在 <code>node.js command prompt</code> 裡面用下列操作，</p>
+
+<pre class="code"><code class="">Your environment has been set up for using Node.js 5.1.0 (x64) and npm.
+
+C:\Users\user&gt;d:
+
+D:\&gt;cd jsbook
+
+D:\jsbook&gt;dir
+ 磁碟區 D 中的磁碟是 Data
+ 磁碟區序號:  9EBE-C367
+
+ D:\jsbook 的目錄
+
+2016/07/02  上午 09:13    &lt;DIR&gt;          .
+2016/07/02  上午 09:13    &lt;DIR&gt;          ..
+2016/07/02  上午 09:13                22 hello.js
+               1 個檔案              22 位元組
+               2 個目錄  104,252,784,640 位元組可用
+
+D:\jsbook&gt;node hello.js
+hello!
+</code></pre>
+
+<p>您會看到當我們用 <code>node hello.js</code> 這個指令執行該程式時，畫面中會出現該程式的執行結果，印出 <code>hello!</code> 訊息！</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

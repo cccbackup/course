@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../科學計算.html" alt="">科學計算</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 物理與計算</h2>
+
+<p>在物理學裏，研究的焦點是《力》！</p>
+
+<p>數學裏我們用《向量》描述《力》，然後用《向量場》描述《力場》。</p>
+
+<p>《經典物理》裏的《力場》有《引力場》與《電磁場》，而《量子物理》裏則多出了原子內的《弱作用力與強作用力》。</p>
+<p></p>
+
+<h3> 一維的力場</h3>
+
+<p>根據牛頓的引力公式，以微積分的符號描述一維的引力現象，可以寫成：</p>
+
+<p><span class="math display">
+F=m a
+</span></p>
+
+<p><span class="math display">
+F=m {dv \over dt}=m v'(t)
+</span></p>
+
+<p><span class="math display">
+F=m {d^2x \over dt^2}=mx''(t)
+</span></p>
+
+<h3> 多維的力場</h3>
+
+<p>牛頓為了描述《力》而發展出來的《微積分》，在多變數的狀況下，會變成《向量微積分》(基本上就是《多變數微積分》)，在眾多數學家的持續發展之下，《向量微積分》成為計算物理學的利器。</p>
+<p></p>
+
+<p>一個《純量場》 (例如位能) 取微分成為《梯度》之後，就成為了《向量場》(例如引力) ，當然、反過來將《向量場》積分之後，就會變成《純量場》。</p>
+<p></p>
+
+<p>牛頓力學是如此，電磁學也是如此，《引力》和《靜電庫倫力》都會形成《力場》，而這些力場積分之後就形成了《引力位能》與《靜電力位能》。</p>
+<p></p>
+
+<p>《梯度》的數學定義如下：</p>
+
+<p><span class="math display">
+\nabla_{x} f(x) = \left[ \frac{\partial }{\partial x_1} f(x), \frac{\partial }{\partial x_2} f(x),\cdots,\frac{\partial }{\partial x_n} f(x) \right]^T=\frac{\partial }{\partial{x}} f(x)
+</span></p>
+
+<p>若把《梯度》當成一個《巨型算子》可以寫為如下形式：</p>
+
+<p><span class="math display">
+\nabla_{x} = \left[ \frac{\partial }{\partial x_1}, \frac{\partial }{\partial x_2},\cdots,\frac{\partial }{\partial x_n} \right]^T=\frac{\partial }{\partial{x}}
+</span></p>
+
+<p>這樣的數學雖然只是《基本的偏微分》，但是卻足以嚇倒很多人 (包括我在內！)。</p>
+
+<h3> 梯度的計算</h3>
+
+<p>其實、很多數學只要回到基本定義，就一點都不可怕了！</p>
+
+<p>讓我們先回頭看看梯度中的基本元素，也就是偏微分，其定義是：</p>
+
+<p><span class="math display">
+\frac{\partial }{\partial x_1} f(x) = \lim_{h \to 0} \frac{f(x_1, ..., x_i+h, ...., x_n)-f(x_1, ..., x_i, ...., x_n)}{h}
+</span></p>
+
+<p>舉例而言，假如對 <span class="math inline">f(x,y) = x^2+y^2</span>  這個函數而言，其對 x 的偏微分就是：</p>
+
+<p><span class="math display">
+\frac{\partial }{\partial x} f(x,y) = \lim_{h \to 0} \frac{f(x+h,y)-f(x,y)}{h}
+</span></p>
+
+<p>而對 y 的偏微分就是：</p>
+
+<p><span class="math display">
+\frac{\partial }{\partial y} f(x,y) = \lim_{h \to 0} \frac{f(x,y+h)-f(x,y)}{h}
+</span></p>
+
+<p>於是我們可以寫一個函數 df 來計算偏微分：</p>
+
+<pre class="code"><code class="js">// 函數 f 對變數 k 的偏微分: df(p) / dk
+let df = function (f, p, k, h=0.001) {
+  let p1 = clone(p)
+  p1[k] += h
+  return (f(p1) - f(p)) / h
+}
+</code></pre>
+
+<p>這樣我們就可以用下列指令計算出 f(x,y) 在 (1,1) 這點的偏導數：</p>
+
+<pre class="code"><code class="js">df(f, {x:1, y:1}, 'x')
+</code></pre>
+
+<p>只要我們對每個變數都取偏導數，然後形成一個向量，就能計算出《梯度》了！ 其 JavaScript 程式如下：</p>
+
+<pre class="code"><code class="js">// 函數 f 在點 p 上的梯度    ∇f(p)
+let grad = function (f, p) {
+  let gp = {}
+  for (let k in p) {
+    gp[k] = nn.df(f, p, k) // 對變數 k 取偏導數後，放入梯度向量 gp 中
+  }
+  return gp
+}
+</code></pre>
+
+<p>於是我們可以用 grad() 下列程式計算 f 在 (1,1) 這點的梯度。</p>
+
+<pre class="code"><code class="js">grad(f, {x:1, y:1})
+</code></pre>
+
+<p>假如我們定義函數 f 為 <span class="math inline">f(x,y) = x^2+y^2</span> ，那麼 f 在 (1,1) 的梯度將會是 (2x, 2y) = (2,2)。</p>
+<p></p>
+
+<p>讓我們用程式實作一下，並驗證看看梯度的計算是否正確：</p>
+
+<p>先定義函數 <span class="math inline">f(x,y) = x^2+y^2</span></p>
+
+<pre class="code"><code class="js">function f (p) {
+  let {x,y} = p
+  return (x * x + y * y)
+}
+</code></pre>
+
+<p>然後呼叫我們的示範套件 nn，看看其計算結果是否正確：</p>
+
+<pre class="code"><code class="js">console.log('df(f(x:1,y:1), x) = ', df(f, {x:1, y:1}, 'x'))
+
+console.log('grad(f(x:1,y:1))=', grad(f, {x:1, y:1}))
+
+</code></pre>
+
+<p>執行結果如下：</p>
+
+<pre class="code"><code class="">$ node .\gradientEx.js
+df(f(x:1,y:1), x) =  2.010000000000023
+grad(f(x:1,y:1))= { x: 2.010000000000023, y: 2.010000000000023 }
+</code></pre>
+
+<p>您可以看到《偏微分與梯度》的計算，基本上都非常接近，所以是正確的。</p>
+<p></p>
+
+<h3> 旋轉型的力場</h3>
+
+<p>對於《旋轉型的力》，我們一樣會用《向量場》表示，但由於《圓周運動》是描述《旋轉型力量》的關鍵，數學上我們通常用《三角函數》 sin, cos 來描述圓周運動。</p>
+
+<p>但是根據以下的《尤拉公式》，我們可以將《實數空間》擴充到《複數空間》，就能更好的利用 <span class="math inline">e^{i \theta}</span> 來描述《旋轉型的力量》所造成的效果。</p>
+
+<p><span class="math display">
+e^{i \theta} = cos(\theta) + i sin(\theta)
+</span></p>
+
+<p>透過上述的《尤拉公式》，我們可以引出《傅立葉轉換》，將《點空間》轉換到《頻率空間》，因而形成</p>
+
+<p><span class="math display">
+\hat{f}(\xi) = \int_{-\infty}^\infty f(x)\ e^{- 2\pi i x \xi}\,dx = \int_{-\infty}^\infty f(x)\ (cos (- 2\pi i x \xi) + i sin(- 2\pi i x \xi)) \,dx
+</span></p>
+
+<p>在《訊號處理》領域，《傅立葉轉換》是用來描述《波函數》的利器，而這些波函數其實就是《粒子點的圓周運動》所造成的現象。</p>
+
+<p>或許這就是《數學版的波粒二象性》吧！</p>
+<p></p>
+
+<p>像是《旋轉的鐵盤、齒輪》、以及《流體力學》的《液體漩渦》、還有《震盪的電荷》能產生《電磁波》、《量子力學》裏的《機率波》與《狄拉克波動方程》等等，都是可以用《複數空間》與《傅立葉轉換》處理的領域！</p>
+
+<p>我很難想像，要是沒有這些數學，那麼該如何處理那些《圓周運動和波動》呢？</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

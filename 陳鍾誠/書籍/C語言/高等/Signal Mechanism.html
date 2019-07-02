@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 訊號機制 -- (signal) 攔截中斷訊號的處理機制</h2>
+
+<p><strong>程式範例</strong></p>
+
+<pre class="code"><code class="C">    #include &lt;signal.h&gt;
+    #include &lt;stdio.h&gt;
+    #include &lt;windows.h&gt;
+
+    void sigdump(int sig) {
+        printf("catch a signal:%d\n", sig);
+    }
+
+    int main(int argc, void *argv[]) {
+        signal(SIGABRT, &amp;sigdump);    // Process abort signal.
+        signal(SIGFPE, &amp;sigdump);    // Erroneous arithmetic operation.
+        signal(SIGILL, &amp;sigdump);    // Illegal instruction.
+        signal(SIGINT, &amp;sigdump);    // Terminal interrupt signal. Ctrl-C
+        signal(SIGSEGV, &amp;sigdump);    // Invalid memory reference.
+        signal(SIGTERM, &amp;sigdump);    // Termination signal.
+        int a=7, b=0, result;
+        if (strcmp(argv[1], "FPE")==0)
+          result = a/b;
+        else if (strcmp(argv[1], "SEGV")==0) {
+          * (int*) (10000) = 1;
+        }
+        Sleep(1000*10);
+        return 0;
+    }
+</code></pre>
+
+<p><strong>執行結果</strong></p>
+
+<pre class="code"><code class="">    D:\cp&gt;gcc signal.c -o signal
+
+    D:\cp&gt;signal FPE
+    catch a signal:8
+
+    D:\cp&gt;signal SEGV
+    catch a signal:11
+
+    D:\cp&gt;signal
+    catch a signal:11
+
+    D:\cp&gt;signal X     // 執行後請在 10 秒鐘內按下 Ctrl-C，就會出現 catch a signal:2 的訊息
+    catch a signal:2  
+</code></pre>
+
+<p><strong>來自 jserv 的建議</strong></p>
+
+<pre class="code"><code class="">    =&gt; 這個案例不好，第一個因為 &lt;windows.h&gt;，另外沒有闡述 UNIX signal 和 Windows 對於 POSIX 的支援狀況
+</code></pre>
+
+<p><strong>參考文獻</strong></p>
+
+<ul>
+    <li>C语言编程技巧-signal(信号), 2008-12-08 来源：网络 -- <a href="http://www.uml.org.cn/c++/200812083.asp">http://www.uml.org.cn/c++/200812083.asp</a></li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

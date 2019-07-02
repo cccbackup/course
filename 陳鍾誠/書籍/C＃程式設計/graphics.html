@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../C＃程式設計.html" alt="">C＃程式設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> C# 視窗程式：繪圖功能</h1>
+
+<h2> 畫圖功能示範</h2>
+
+<p>教學錄影：C# 畫圖功能示範 -- <a href="http://youtu.be/8aAql8R4WSg">http://youtu.be/8aAql8R4WSg</a></p>
+
+<p>專案下載：<a href="https://dl.dropbox.com/u/101584453/cs/code/PaintDemo.zip">https://dl.dropbox.com/u/101584453/cs/code/PaintDemo.zip</a></p>
+
+<pre class="code"><code class="CS">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace WindowsFormsApplication1
+{
+    public partial class Form1 : Form
+    {
+        Graphics g;
+        Pen pen;
+        Font font;
+        Brush brush;
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            g = this.CreateGraphics();
+            pen = new Pen(Color.Black, 3);
+            font = new Font("標楷體", 16);
+            brush = new SolidBrush(Color.Black);
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            g.DrawLine(pen, new Point(1, 1), new Point(300, 100));
+            g.DrawLine(pen, new Point(100, 1), new Point(300, 100));
+            g.DrawRectangle(pen, new Rectangle(50, 50, 100, 100));
+
+            g.DrawString("Hello! 你好！", font, brush, new PointF(150.0F, 150.0F));
+
+            Image image = Image.FromFile("../../ccc.jpg");
+            g.DrawImage(image, new Point(200, 200));
+        }
+    }
+}
+</code></pre>
+
+<h2> 小畫板</h2>
+
+<p>教學錄影：</p>
+<ul>
+    <li>C# 小畫板 (2) -- <a href="http://youtu.be/HkOkWRQ_Ad4">http://youtu.be/HkOkWRQ_Ad4</a></li>
+    <li>C# 小畫板 (3) -- <a href="http://youtu.be/VXaQu_yYu08">http://youtu.be/VXaQu_yYu08</a></li>
+</ul>
+<p>專案下載：<a href="https://dl.dropbox.com/u/101584453/cs/code/Painter.zip">https://dl.dropbox.com/u/101584453/cs/code/Painter.zip</a></p>
+
+<p><figure>
+  <img src="Painter.png" alt=""></img>
+<figcaption>小畫板執行畫面</figcaption></figure>
+</p>
+
+<pre class="code"><code class="CS">using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Painter
+{
+    public partial class Form1 : Form
+    {
+        Graphics g;                 // 繪圖區
+        Pen pen;                    // 畫筆
+        bool isMouseDown = false;   // 紀錄滑鼠是否被按下
+        List&lt;Point&gt; points = new List&lt;Point&gt;(); // 紀錄滑鼠軌跡的陣列。
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            g = this.CreateGraphics(); // 取得繪圖區物件
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; // 設定反鋸齒模式
+            pen = new Pen(Color.Black, 3); // 設定畫筆為黑色、粗細為 3 點。
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            isMouseDown = true; // 滑鼠被按下後設定旗標值。
+            points.Add(e.Location); // 將點加入到 points 陣列當中。
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMouseDown) // 如果滑鼠被按下
+            {
+                points.Add(e.Location); // 將點加入到 points 陣列當中。
+                // 畫出上一點到此點的線段。
+                g.DrawLine(pen, points[points.Count - 2], points[points.Count - 1]);
+            }
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            points.Add(new Point(-1, -1)); // 滑鼠放開時，插入一個斷點 (-1,-1)，以代表前後兩點之間有斷開。
+            isMouseDown = false; // 滑鼠已經沒有被按下了。
+        }
+    }
+}
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

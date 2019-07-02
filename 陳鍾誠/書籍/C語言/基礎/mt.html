@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../基礎.html" alt="">基礎</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 翻譯系統</h1>
+
+<h2> 範例：字典 -- dict.c</h2>
+
+<p>C 語言沒有物件，也沒有字典結構與對應的函式庫。</p>
+
+<p>C 語言可以說是高階語言裡面的低階語言，很多東西你都要自己來實作，或者採用其他人所寫的函式庫。</p>
+
+<h3> 人員查詢 -- 姓名年齡分成兩個陣列</h3>
+
+<p>以下是一個實現用《姓名》搜尋《年齡》的範例，這種搜尋法是線性搜尋，比較慢但程式相對簡單！</p>
+
+<p>檔案：dict.c</p>
+
+<pre class="code"><code class="javascript">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int  size    = 3;
+char *name[] = { "john", "mary", "george" };
+int  age[]   = { 20,     30,     40       };
+
+int findPeople(char *pName, int pSize) {
+  int i;
+  for (i=0; i&lt;size; i++) {
+    if (strcmp(name[i], pName)==0) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+int main() {
+  int mi = findPeople("mary", size);
+  if (mi &lt; 0) {
+    printf("not found!\n");
+  } else {
+    printf("people[%d]: name=%s, age=%d\n", mi, name[mi], age[mi]);
+  }
+}
+
+
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\Dropbox\cccwd\db\c\code&gt;gcc dict.c -o dict
+
+D:\Dropbox\cccwd\db\c\code&gt;dict
+people[1]: name=mary, age=30
+</code></pre>
+
+<h3> 人員查詢 -- 使用結構 (struct)</h3>
+
+<p>以下改使用結構 struct 來儲存人的姓名和年齡，結構和物件有點像，可以用 object.data 存取資料，但是通常不會將函數宣告在結構裡面。(因為 C 沒有支援物件的觀念，所以試圖模仿物件導向時，寫起來會很囉唆且麻煩)。</p>
+
+<p>檔案：dict2.c</p>
+
+<pre class="code"><code class="javascript">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+#define SIZE 3
+
+typedef struct {
+  char *name;
+  int  age;
+} People;
+
+People peoples[] = {
+  { .name="john", .age=20}, 
+  { .name="mary", .age=30}, 
+  { .name="george", .age=40}
+};
+
+int findPeople(char *pName, int pSize) {
+  int i;
+  for (i=0; i&lt;pSize; i++) {
+    if (strcmp(peoples[i].name, pName)==0) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+int main() {
+  int mi = findPeople("mary", SIZE);
+  if (mi &lt; 0) {
+    printf("not found!\n");
+  } else {
+    printf("people[%d]: name=%s, age=%d\n", mi, peoples[mi].name, peoples[mi].age);
+  }
+}
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">D:\Dropbox\cccwd\db\c\code&gt;gcc dict2.c -o dict2
+
+D:\Dropbox\cccwd\db\c\code&gt;dict2
+people[1]: name=mary, age=30
+
+</code></pre>
+
+<h2> 英翻中系統 (版本 1)</h2>
+
+<p>程式： mt.c</p>
+
+<pre class="code"><code class="CPP">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+char *e[] = {"dog", "cat", "a",    "chase",  "eat", NULL};
+char *c[] = {"狗",  "貓",  "一隻", "追",     "吃" , NULL};
+
+int find(char *nameArray[], char *name) {
+  for (int i=0; nameArray[i] != NULL; i++) {
+    if (strcmp(nameArray[i], name)==0)
+    return i;
+  }
+  return -1;
+}
+
+void mt(char *words[], int len) {
+  for (int i=0; i&lt;len; i++) {
+    int ei = find(e, words[i]);
+    if (ei &lt; 0)
+      printf(" _ ");
+    else
+      printf(" %s ", c[ei]);
+  }
+}
+
+int main(int argc, char *argv[]) {
+  mt(&amp;argv[1], argc-1);
+}
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">$ gcc mt.c -std=c99 -o mt
+
+$ ./mt a dog chase a cat
+ 一隻  狗  追  一隻  貓
+</code></pre>
+
+<h2> 英翻中系統 (版本 2 英中互翻)</h2>
+
+<p>程式： mt2.c</p>
+
+<pre class="code"><code class="CPP">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+char *e[] = {"dog", "cat", "a",    "chase",  "eat", NULL};
+char *c[] = {"狗",  "貓",  "一隻", "追",     "吃" , NULL};
+
+int find(char *nameArray[], char *name) {
+  int i;
+  for (i=0; nameArray[i] != NULL; i++) {
+    if (strcmp(nameArray[i], name)==0) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+void mt(char *words[], int len) {
+  int i;
+  for (i=0; i&lt;len; i++) {
+    int ei = find(e, words[i]);
+    int ci = find(c, words[i]);
+    if (ei &gt;= 0) {
+      printf(" %s ", c[ei]);
+    } else if (ci &gt;=0) {
+      printf(" %s ", e[ci]);
+    } else {
+      printf(" _ ");
+    }
+  }
+}
+
+int main(int argc, char *argv[]) {
+  mt(&amp;argv[1], argc-1); // 從 argv (例如：mt a dog chase a cat) 中取出尾部的位址 (例如：a dog chase a cat)。
+}
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">D:\Dropbox\cccwd\db\c\code&gt;gcc mt2.c -o mt2
+
+D:\Dropbox\cccwd\db\c\code&gt;mt2 a dog chase a cat
+ 一隻  狗  追  一隻  貓
+
+D:\Dropbox\cccwd\db\c\code&gt;mt2 一隻 狗 追 一隻 貓
+ a  dog  chase  a  cat
+
+D:\Dropbox\cccwd\db\c\code&gt;mt2 a 狗 chase 一隻 cat
+ 一隻  dog  追  a  貓
+</code></pre>
+
+<h2> 中翻英系統</h2>
+
+<p>程式： c2e.c</p>
+
+<pre class="code"><code class="CPP">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+char *e[] = {"dog", "cat", "a",    "chase",  "eat", NULL};
+char *c[] = {"狗",  "貓",  "一隻", "追",     "吃" , NULL};
+
+int find(char *nameArray[], char *name) {
+  int i;
+  for (i=0; nameArray[i] != NULL; i++) {
+    if (strcmp(nameArray[i], name)==0) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+// 注意，一個中文字佔兩個 byte，也就是兩個 char
+void mt(char *s) {
+  int i, len;
+  for (i=0; i&lt;strlen(s); ) {  
+    for (len=8; len&gt;0; len-=2) {
+      char word[9];
+      strncpy(word, &amp;s[i], 9);
+      word[len] = '\0';
+      int ci = find(c, word);
+      if (ci &gt;= 0) {
+        printf(" %s ", e[ci]);
+        i+=len;
+        break;
+      }
+    }
+    if (len &lt;=0) {
+      printf(" _ ");
+      i+=2; // 跳過一個中文字
+    }
+  }
+}
+
+int main(int argc, char *argv[]) {
+  mt(argv[1]); // 從 argv (例如：mt 一隻狗追一隻貓) 中取出參數一 (例如：一隻狗追一隻貓)
+}
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">D:\Dropbox\cccwd\db\c\code&gt;gcc c2e.c -o c2e
+
+D:\Dropbox\cccwd\db\c\code&gt;c2e 一隻狗
+ a  dog
+
+D:\Dropbox\cccwd\db\c\code&gt;c2e 一隻狗追一隻貓
+ a  dog  chase  a  cat
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

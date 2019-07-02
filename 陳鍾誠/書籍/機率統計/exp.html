@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../機率統計.html" alt="">機率統計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 期望值與動差生成函數</h1>
+
+<h2> 期望值</h2>
+
+<p>定義：期望值 E(X) , (通常用符號 <span class="math inline">\mu</span> 代表, <span class="math inline">\mu=E(X)</span>)</p>
+
+<blockquote>
+<p> 離散分布： <span class="math inline">E[X] = \sum_{s \in S, x=X(s)} x P(x)</span>  　　　　; 通常簡寫為 <span class="math inline">\sum_{x \in X(S)} x P(x)</span> 或者直接寫 <span class="math inline">\sum_{\forall x} x P(x)</span>　</p>
+<p> </p>
+<p> 連續分布： <span class="math inline">E[X] = \int_{-\infty}^{\infty} x f(x) dx</span></p>
+</blockquote>
+
+<p>期望值的相關定理：</p>
+
+<blockquote>
+<p> 1. <span class="math inline">E[c] = c</span> ;</p>
+<p> </p>
+<p> 2. <span class="math inline">E[c X] = c E[X]</span> ;</p>
+<p> </p>
+<p> 3. <span class="math inline">E[X + Y] = E[X] + E[Y]</span> ;</p>
+</blockquote>
+
+<p>證明</p>
+
+<p>定理 1: E[c] = c</p>
+
+<blockquote>
+<p> <span class="math inline">E[c] = \sum_{x \in X(S)} (c P(x))</span> ; 根據期望值定義</p>
+<p> </p>
+<p> <span class="math inline">= c\;\sum_{x \in X(S)} P(x)</span>  ; 根據基本算術</p>
+<p> </p>
+<p> <span class="math inline">= c</span>                       ; 因為 P(x) 是機率密度函數</p>
+</blockquote>
+
+<p>定理 2: E[c X] = c E[X]</p>
+
+<blockquote>
+<p> <span class="math inline">E[c X] = \sum_{x \in X(S)} (c  x  P(x))</span>  ; 根據期望值定義</p>
+<p> </p>
+<p> <span class="math inline">= c\;\sum_{x \in X(S)} (x  P(x))</span>  ; 根據基本算術</p>
+<p> </p>
+<p> <span class="math inline">= c\;E[X]</span>                    ; 根據期望值定義</p>
+</blockquote>
+
+<p>定理 3 : E[X + Y] = E[X] + E[Y]</p>
+
+<blockquote>
+<p> 假如離散隨機變數 X, Y 的機率密度函數分別用 <span class="math inline">P(X) , P(Y)</span> 代表。</p>
+<p> </p>
+<p> <span class="math inline">E[X+Y] = \sum_{s \in S, x=X(S), y=Y(s)} (x P(x) + y P(y))</span>  ; 根據期望值定義</p>
+<p> </p>
+<p> <span class="math inline">= \sum_{x \in X(S)} (x P(X)) + \sum_{y \in Y(S)} (y P(y))</span> ;  根據乘法對加法的分配率</p>
+<p> </p>
+<p> <span class="math inline">=E(X) + E(Y)</span> ;</p>
+</blockquote>
+
+<p>以上證明了離散的情況，連續的情況雷同，請比照上述寫法撰寫。</p>
+
+<h2> 變異數</h2>
+
+<p>定義：變異數 Var(X)</p>
+
+<blockquote>
+<p> 離散隨機變數 X 的變異數 Var(X) 定義如下</p>
+<p> </p>
+<p> <span class="math inline">Var(X) = \sigma^2 = E[(X-\mu)^2] = \sum_{x \in X(S)} (x-\mu)^2 P(x)</span></p>
+<p> </p>
+<p> 說明：</p>
+<p> </p>
+<p> 1. 上式中的 Var(X) 稱為 X 的變異數，而其平方根 <span class="math inline">\Sigma</span> 稱為 X 的標準差。 ( <span class="math inline">\mu</span> 為 X 的期望值)</p>
+<p> 2. 以上算式中 <span class="math inline">\sum</span> 的下標均為 <span class="math inline">x \in X(S)</span>，而非 <span class="math inline">x \in S</span>，也就是 x 是實數值，而非樣本點。</p>
+<p> 3. 這也是為何要將隨機變數定義為實函數的原因，這樣才能對這些「變數」進行 +, -, * > 等代數運算，並且可以進行期望值與變異數的計算。</p>
+</blockquote>
+
+<p>定理： <span class="math inline">Var(X) = E[X^2] - (E[X])^2</span> </p>
+
+<blockquote>
+<p> <span class="math inline">Var(X) = E[(X-\mu)^2]</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= E[X^2 - 2 \mu X + \mu^2]</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= E[X^2] - 2 \mu E[X] + \mu^2</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= E[X^2] - 2 E[X] E[X] + E[X]^2</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= E[X^2] - E[X]^2</span> .</p>
+</blockquote>
+
+<h2> 不偏估計式</h2>
+
+<p>定義：(不偏估計式) 若 <span class="math inline">E[\hat{\theta}]=\theta</span> 則稱估計式 <span class="math inline">\hat{\theta}</span> 為 <span class="math inline">\theta</span> 的不偏估計式。</p>
+
+<h2> 平均值的估計</h2>
+
+<blockquote>
+<p> 定理： <span class="math inline">\bar{x}=\frac{x_1+x_2+...+x_n}{n}</span> 是 <span class="math inline">E(X)=\mu</span> 的不偏估計式。</p>
+<p> </p>
+<p> 證明：</p>
+<p> </p>
+<p> <span class="math inline">E(\bar{x}) = E(\frac{x_1+x_2+...+x_n}{n}) = \frac{E(x_1)+E(x_2)+....+E(x_n)}{n} = \frac{n E(X)}{n} = E(X)</span> </p>
+</blockquote>
+
+<h2> 樣本變異數</h2>
+
+<p>樣本變異數的定義如下：</p>
+
+<p><span class="math inline">S^2=\frac{\sum_{i=1}^n (x_i-\bar{x})^2}{n-1}</span></p>
+
+<p>定理： <span class="math inline">S^2</span> 是 <span class="math inline">var(x)=\sigma^2=E[(X-\mu)^2]</span> 的不偏估計式。</p>
+
+<p>證明：</p>
+
+<blockquote>
+<p> <span class="math inline">E[S^2] = E[\frac{\sum_{i=1}^n (x_i-\bar{x})^2}{n-1}]</span> </p>
+<p> </p>
+<p> <span class="math inline">=\frac{E[\sum_{i=1}^n (x_i-\bar{x})^2]}{n-1}</span> ; </p>
+<p> </p>
+<p> <span class="math inline">= \frac{E[\sum_{i=1}^n ((x_i-\mu)-(\bar{x}-\mu))^2]}{n-1}</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= \frac{1}{n-1} E[\sum_{i=1}^n ((x_i-\mu)^2-2(x_i-\mu)(\bar{x}-\mu)+(\bar{x}-\mu)^2)]</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= \frac{1}{n-1} E[\sum_{i=1}^n (x_i-\mu)^2-2(\bar{x}-\mu) \sum_{i=1}^n (x_i-\mu)+n (\bar{x}-\mu)^2)]</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= \frac{1}{n-1} E[\sum_{i=1}^n (x_i-\mu)^2-2 n (\bar{x}-\mu)^2+n (\bar{x}-\mu)^2)]</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= \frac{1}{n-1} E[\sum_{i=1}^n (x_i-\mu)^2-n (\bar{x}-\mu)^2]</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= \frac{1}{n-1} (\sum_{i=1}^n E[(x_i-\mu)^2]-n E[(\bar{x}-\mu)^2])</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= \frac{1}{n-1} (\sum_{i=1}^n E[(x_i-\mu)^2]-n E[(\bar{x}-\mu)^2])</span> ;</p>
+<p> </p>
+<p> <span class="math inline">= \frac{1}{n-1} (\sum_{i=1}^n \; \sigma_{x_i}^2-n \sigma_{\bar{x}}^2)</span> ; 但是由於 <span class="math inline">\sigma_{x_i}^2 = \sigma^2</span> 且 <span class="math inline">\sigma_{\bar{x}}^2=\frac{\sigma}{n}</span></p>
+<p> </p>
+<p> <span class="math inline">= \frac{1}{n-1} (n \sigma^2 - \sigma^2) = \frac{1}{n-1} ((n-1)\sigma^2) = \sigma^2</span> ; </p>
+</blockquote>
+
+<p>所以得證 <span class="math inline">S^2</span> 是 <span class="math inline">\sigma^2</span> 的不偏估計式。</p>
+
+<h2> 期望值的函數</h2>
+
+<p>有時，我們會想計算某個隨機變數之函數的期望值，像是 E[g(X)]。</p>
+
+<p>某隨機變數 X 之函數 g(X) 的期望值</p>
+
+<blockquote>
+<p> <strong>期望值 E[g(X)]：</strong></p>
+<p> </p>
+<p> <span class="math inline">E[g(X)] = \sum_{x \in X(S)} g(x) P(x)</span></p>
+</blockquote>
+
+<p>舉例而言， <span class="math inline">E[X^3 + 2 X^2 + 3 X + 2]</span> 就是一個隨機變數 X 的函數 <span class="math inline">g(x)=X^3 + 2 X^2 + 3 X + 2</span> 的期望值。</p>
+
+<p>而且、由於上述定理 1, 2, 3 的特性，這些期望值的函數還可以拆開來算，舉例如下：</p>
+
+<blockquote>
+<p> <span class="math inline">E[X^3 + 2 X^2 + 3 X + 2]</span> ;</p>
+<p> </p>
+<p> <span class="math inline">=E[X^3] + E[2 X^2] + E[3 X] + E[2]</span> ;</p>
+<p> </p>
+<p> <span class="math inline">=E[X^3] + 2 E[X^2] + 3 E[X] + 2</span> .</p>
+</blockquote>
+
+<p>在以上的範例中， <span class="math inline">E[X]</span> 稱為 X 的 1 級動差， <span class="math inline">E[X^2]</span> 稱為 X 的 2 級動差， <span class="math inline">E[X^3]</span> 稱為 X 的 3 級動差 ....</p>
+
+<h2> k 階動差 (Kth Ordinary Moment)</h2>
+
+<blockquote>
+<p> 定義： <span class="math inline">E[X^k]</span> 稱為隨機變數 X 的 k 階動差 (Kth ordinary moment)</p>
+</blockquote>
+
+<p>動差的慨念就像是期望值的多項式，我們可以將任何一個多項式的動差寫成 k 個動差的組合，這樣就能將任何的函數的動差給支解。</p>
+
+<p>但是、可惜的是，即使我們將函數分解成動差的組合，其計算上仍然是相當複雜的，但是如果我們只是想變任某個期望值函數對應的原始機率分布為何，那麼可以藉助「動差生成函數」來完成這項任務，以下是動差生成函數的定義。</p>
+
+<h2> 動差生成函數</h2>
+
+<blockquote>
+<p> 定義：隨機變數 X 的動差生成函數 (Moment Generating Function, m.g.f) <span class="math inline">m_X(t)</span> 為以下函數</p>
+<p> </p>
+<p> <span class="math inline">m_X(t) = E[e^{tX}] = E(1+ t X + \frac{(t X)^2}{2!} + .... + \frac{(t X)^k}{k!}+ .....)</span></p>
+<p> </p>
+<p> 動差存在的條件是期望值 <span class="math inline">E[e^{tX}]</span> 在開區間 (-h, h) 內是有限的。</p>
+</blockquote>
+
+<p>根據以上定義，離散分布與連續分布的動差生成函數分別可以寫成以下算式：</p>
+
+<blockquote>
+<p> 離散分布： <span class="math inline">E(e^{t X}) = \sum_{x \in S} {e^{t x}} P(x)</span></p>
+<p> </p>
+<p> 連續分布： <span class="math inline">E(e^{t X}) = \int_{-\infty}^{\infty} {e^{t x}} f(x) dx</span></p>
+</blockquote>
+
+<p>那麼、動差生成函數到底有甚麼用呢？</p>
+
+<p>關於這個問題，可以讓我們回到泰勒展開式這個微積分的概念來看，就能理解「動差生成函數」背後的原理了。</p>
+
+<p>根據泰勒展開式，我們可以將函數 <span class="math inline">e^{tX}</span> 展開如下：</p>
+
+<p><span class="math inline">e^{tX} = 1+ t X + \frac{(t X)^2}{2!} + .... + \frac{(t X)^k}{k!}+ .....</span></p>
+
+<p>您可以看到在上述展開式當中，不管 k 為何，每一項的 <span class="math inline">X^k</span> 都存在，並不會消失，而且 <span class="math inline">X^k</span> 的係數為 <span class="math inline">\frac{t^k}{k!}</span> ，
+因此、只要在某個夠小的開區間 (-h, h) 內這個動差生成函數是有限的，那麼隨機變數 <span class="math inline">X</span> 與函數 <span class="math inline">e^{tX}</span> 之間將會有對映關係，而機率密度函數 P(X) 與動差生成函數 <span class="math inline">E(e^{t X})</span> 也可以被證明有一對一的對映關係。</p>
+
+<p>於是、動差生成函數就成了一個機率分布的「指紋」，意思是如果兩個隨機變數 X, Y 的動差生成函數 <span class="math inline">E(e^{t X})=E(e^{t Y})</span> ，則這兩個機率分布也必然相同。</p>
+
+<p>思考 1：</p>
+
+<blockquote>
+<p> 思考：為何動差生成函數可以做為一個機率分布的「指紋」呢？</p>
+<p> </p>
+<p> 說明：如果兩個機率分布 P(X) 與 P(Y) 的動差生成函數相同，那麼將意味著 <span class="math inline">E(e^{t X})=E(e^{t X})</span> ，根據泰勒展開式可得到</p>
+<p> </p>
+<p> <span class="math inline">E(1+ t X + .... + \frac{(t X)^k}{k!}+ .....)=E(1+ t Y + .... + \frac{(t Y)^k}{k!}+ .....)</span></p>
+<p> </p>
+<p> 因此在每一階的動差上， <span class="math inline">E[X^k]</span> 都與 <span class="math inline">E[Y^k]</span> 相同，因此這兩個分布也就應該是一樣的了。</p>
+</blockquote>
+
+<p>回顧 1：</p>
+
+<blockquote>
+<p> f(x) 在 0 點的泰勒展開式 (麥克羅林級數) 可以作為一個函數的指紋，意思是如果兩個函數的泰勒展開式相同，則這兩個函數必然相同 (這點是高等微積分課程的核心)。</p>
+</blockquote>
+
+<p>回顧 2：</p>
+
+<blockquote>
+<p> 函數 f(x) 的特徵函數 (Characteristic function) 為 <span class="math inline">E(e^{i t X}) = e^i E(e^{t X}) = e^i  E(1+ t X + \frac{(t X)^2}{2!} + .... + \frac{(t X)^k}{k!}+ .....)</span></p>
+</blockquote>
+
+<h2> 結語</h2>
+
+<p>為何數學家要將隨機變數定義成一種函數，然後將樣本映射到實數空間上，而不是直接對樣本進行機率運算呢？筆者認為應該是為了期望值而布的局，因為將樣本映射到實數之後，才能用下列算式計算期望值。</p>
+
+<blockquote>
+<p> <span class="math inline">E[X] = \sum_{x \in X(S)} x P(x)</span></p>
+</blockquote>
+
+<p>而隨機變數之間的代數運算，像是 「3X」 , 「X+Y」 , 「X-2Y」 ,「<code>X*Y</code>」, 「<code>X*X*X*X</code>」等 運算的結果，也仍然是一種作用在樣本空間 S 的實函數，只是當 X, Y 兩者的樣本空間有所不同時，我們必須以兩者樣本空間的迪卡兒乘積 <span class="math inline">S = (S_X, S_Y)</span> 作為樣本空間。</p>
+
+<p>在這種情況下，期望值函數也才能運作在 +, - * 等運算空間中，得到以下的廣義期望值：</p>
+
+<blockquote>
+<p> <span class="math inline">E[g(X)] = \sum_{x \in X(S)} g(x) P(x)</span></p>
+</blockquote>
+
+<p>「動差生成函數」可以做為機率分布的指紋，因此如果兩個機率分布的「動差生成函數」相同，那麼其機率分布也會相同。</p>
+
+<p>「動差生成函數」的定義如下：</p>
+
+<blockquote>
+<p> <span class="math inline">m_X(t) = E[e^{tX}] = E(1+ t X + \frac{(t X)^2}{2!} + .... + \frac{(t X)^k}{k!}+ .....)</span></p>
+</blockquote>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

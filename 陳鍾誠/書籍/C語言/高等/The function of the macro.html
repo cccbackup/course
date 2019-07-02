@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../高等.html" alt="">高等</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> C 語言 -- 使用 Inline 函數</h2>
+<p></p>
+<p></p>
+
+<p><strong>程式範例</strong></p>
+
+<p>檔案：inline.c</p>
+
+<pre class="code"><code class="">    inline int max(a,b) {
+      return (a&gt;b?a:b);
+    }
+
+    inline int min(a,b) {
+      return (a&lt;b?a:b);
+    }
+
+    int main() {
+      int x = max(3,5);
+      int y = min(3,5);
+      printf("max(3,5)=%d\n", x);
+      printf("min(3,5)=%d\n", y);
+    }
+</code></pre>
+
+<p><strong>巨集展開結果</strong></p>
+
+<p>執行 gcc -E inline.c -o inline.i 指令之後，就會得到 inline.i</p>
+
+<p>檔案：inline.i</p>
+
+<pre class="code"><code class="">   inline int max(a,b) {
+      return (a&gt;b?a:b);
+    }
+
+    inline int min(a,b) {
+      return (a&lt;b?a:b);
+    }
+
+    int main() {
+      int x = max(3,5);
+      int y = min(3,5);
+      printf("max(3,5)=%d\n", x);
+      printf("min(3,5)=%d\n", y);
+    }
+</code></pre>
+
+<p><strong>來自 jserv 的建議</strong></p>
+
+<p>原本我寫了這句：「將函數巨集化 — (inline) 使用 inline 可以增快速度，但也會讓程式碼增大」，但似乎有很大問題，所以我就拿掉了，但是我搞不清楚問題在哪？所以忠實呈現 jserv 的來信建議。</p>
+
+<pre class="tab">"將函數巨集化 — (inline) 使用 inline 可以增快速度，但也會讓程式碼增大。"
+
+=> 這嚴重誤導讀者！
+C99 的 inline 行為和 macro 不同，請見:
+http://www.greenend.org.uk/rjk/tech/inline.html
+
+</pre>
+<p>後來經過 討論 之後，我開始理解 jserv 所說的誤導是指甚麼了，請容我總結一下錯誤的原因。</p>
+
+<p>inline 並非強制要編譯器以巨集方式展開，而是提示編譯器可以用巨集或函數呼叫的方式處理，也就是授權編譯器決定要不要用巨集展開的意思。
+以下是我和 jserv 的討論的過程</p>
+
+<p>  　Jim Huang： 在 C99，inline function 本質上還是 function，是程式開發者對 C 編譯器的最佳化「提示」，不總是會像 macro 一般透過 C preprocessor 一樣「展開」。可以做個簡單的實驗，gcc -O0 (關閉最佳化) 對照看輸出的組合語言 ('-S' 選項)，inline 沒有實際作用
+　陳鍾誠：原來如此，也就是《提示編譯器你可以自行決定要用巨集還是函數呼叫的意思》是嗎？  
+　　Jim Huang： 改說「提示編譯器在適當的時機，可將函式當作巨集一般展開到函式呼叫之處」，這樣會更清楚  
+　　盧釔辰 我的理解是： inline 只是"建議"編譯器你在這裡可以把整個function貼過來，好減少呼叫函式所需的長程跳躍但是否要這麼做，會由編譯器自行決定所以inline有可能會被編譯器使用，也有可能不會。請問2位大師，我理解的對嗎？如果有錯誤指正，我會很開心  
+　　Jim Huang ： 盧釔辰: inline function 無法在每個場合都將 function body 予以 inlining，比方說 inline void foo(int n) { char str[n]; ... } 因為用到 variable sized data type，編譯器看到 inline 關鍵字卻無法達到預期效果 (請想想為什麼)</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

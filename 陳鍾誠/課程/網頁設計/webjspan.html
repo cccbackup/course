@@ -1,0 +1,166 @@
+<h1 id="網頁中的-javascript">網頁中的 JavaScript</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">function</span> <span class="at">add</span>(a<span class="op">,</span>b) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="cf">return</span> a<span class="op">+</span>b <span class="op">&lt;</span> c</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="op">}</span></a></code></pre></div>
+<p>前端的網頁技術，主要是結合 HTML/CSS/JavaScript 三者的技術，這三種技術也是前端工程師必備的知識。</p>
+<p>除了用 HTML 呈現，用 CSS 排版，然後用 JavaScript 操控顯示之外， JavaScript 還得負責與後端的 server 進行通訊，以便將使用者輸入的訊息傳給 server ，或者接收由 server 傳來的訊息以顯示新的畫面資訊 (這些畫面資訊主要還是 HTML 、圖片與 Canvas 畫布中的圖形)。</p>
+<p>Server 由於可以存取檔案與資料庫，因此可以不斷提供訊息給瀏覽器，不需要一次就將所有訊息往瀏覽器丟，只要在使用者想要該資訊時才提供出來就可以了。</p>
+<h2 id="javascriptbrowser-與-dom">JavaScript、Browser 與 DOM</h2>
+<p>JavaScript 之所以重要，是因為 JavaScript 是瀏覽器當中規定的標準語言。這是因為網站技術早期最重要的Netscape 瀏覽器將 JavaScript 內建於其中， 以便能夠進行一些互動程式的效果，因此才讓 JavaScript 成為瀏覽器的的標準語言。</p>
+<p>在瀏覽器中，要用 JavaScript 設計出互動效果，畢需借助 DOM (Document Object Model) 這個 HTML 的抽象化物件模型，這個模型將 整個 HTML 文件視為一個樹狀結構的物件，於是 JavaScript 可以透過操控物件屬性的方式，達成某些互動性的顯示效果。這種互動性的 顯示效果形成了瀏覽器特有的視覺化互動模式，可以說是近 15 年來 Web 的發展重點之所在。</p>
+<p>接著、就讓我們透過一些簡單的程式範例，看看如何用 JavaScript 操控 DOM 物件模型，以便完成這種互動效果。</p>
+<h3 id="取得內容innertext-與-innerhtml">取得內容：innerText 與 innerHTML</h3>
+<p>以下範例會取得 hi 節點的 innerText 與 innerHTML 顯示出來，請觀察其不同點。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">&lt;title&gt;</span>節點存取示範<span class="kw">&lt;/title&gt;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="kw">&lt;div</span><span class="ot"> id</span> <span class="ot">=</span><span class="st">&quot;hi&quot;</span><span class="kw">&gt;&lt;b&gt;</span>你好!<span class="kw">&lt;/b&gt;&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;button&quot;</span><span class="ot"> value=</span><span class="st">&quot;hi.innerText&quot;</span> </a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="ot">             onclick=</span><span class="st">&quot;alert(document.getElementById(&#39;hi&#39;).innerText)&quot;</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;button&quot;</span><span class="ot"> value=</span><span class="st">&quot;hi.innerHTML&quot;</span> </a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="ot">             onclick=</span><span class="st">&quot;alert(document.getElementById(&#39;hi&#39;).innerHTML)&quot;</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-11" title="11">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
+<h3 id="顯示與隱藏-show-and-hide">顯示與隱藏 (Show and hide)</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">&lt;title&gt;</span>範例 -- 顯示隱藏<span class="kw">&lt;/title&gt;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="kw">&lt;div</span><span class="ot"> id</span> <span class="ot">=</span><span class="st">&quot;hi&quot;</span><span class="kw">&gt;&lt;b&gt;</span>你好!<span class="kw">&lt;/b&gt;&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;button&quot;</span><span class="ot"> value=</span><span class="st">&quot;hi.show()&quot;</span><span class="ot"> onclick=</span><span class="st">&quot;document.getElementById(&#39;hi&#39;).style.visibility=&#39;visible&#39;&quot;</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;button&quot;</span><span class="ot"> value=</span><span class="st">&quot;hi.hide()&quot;</span><span class="ot"> onclick=</span><span class="st">&quot;document.getElementById(&#39;hi&#39;).style.visibility=&#39;hidden&#39;&quot;</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
+<h2 id="功能表程式">功能表程式</h2>
+<p>JavaScript 是唯一被各家瀏覽器所共同支援的程式語言，因此在設計網站的時候，我們如果不採用像 Flash 或 Silverlight 這樣的外掛技術，就必須採用 JavaScript 來設計互動式網頁。</p>
+<p>在 node.js 這樣的伺服端 JavaScript 開發平台推出之後，我們就能夠採用 JavaScript 同時設計 Client 端與 Server 端的程式，這樣的模式相當的吸引人，我們會在後續的文章中介紹這樣的網站設計方法。</p>
+<p>在本節當中，我們將透過 JavaScript 設計一個互動網頁的功能表，以便展示瀏覽器中的 JavaScript 程式是如何運作的。</p>
+<p>以下是一個功能表的程式的執行結果，當我們的滑鼠移到功能項上時，就會浮現子功能表，而當我們點下子功能表中的項目時，就會出現一個 alert 視窗，顯示該功能子項被點選的訊息。</p>
+<p><img src="JavaScriptMenuRun.jpg" /></p>
+<p>以下是這個網頁的原始 HTML 程式碼，其中 <code>&lt;style&gt;...&lt;/style&gt;</code> 部分是 CSS 原始碼，而 <code>&lt;script ...&lt;/script&gt;</code> 部分則是 JavaScript 程式碼。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">&lt;title&gt;</span>範例 -- 功能表實作&lt;/title&gt;</a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="fu">.menu</span>   { <span class="kw">background-color</span>:<span class="cn">black</span><span class="op">;</span> <span class="kw">color</span>:<span class="cn">white</span><span class="op">;</span> <span class="kw">padding</span>:<span class="dv">10</span><span class="dt">px</span><span class="op">;</span> </a>
+<a class="sourceLine" id="cb4-6" title="6">          <span class="kw">vertical-align</span>:<span class="dv">top</span><span class="op">;</span> <span class="kw">width</span>:<span class="dv">100</span><span class="dt">px</span><span class="op">;</span> <span class="kw">list-style-type</span>:<span class="dv">none</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="fu">.menu</span> a { <span class="kw">color</span>:<span class="cn">white</span><span class="op">;</span> <span class="kw">text-decoration</span>:<span class="dv">none</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw">function</span> <span class="at">show</span>(id) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="va">document</span>.<span class="at">getElementById</span>(id).<span class="va">style</span>.<span class="at">visibility</span><span class="op">=</span><span class="st">&#39;visible&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="op">}</span></a>
+<a class="sourceLine" id="cb4-13" title="13"> </a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="kw">function</span> <span class="at">hide</span>(id) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-15" title="15">  <span class="va">document</span>.<span class="at">getElementById</span>(id).<span class="va">style</span>.<span class="at">visibility</span><span class="op">=</span><span class="st">&#39;hidden&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="op">}</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="kw">&lt;/script&gt;</span>    </a>
+<a class="sourceLine" id="cb4-18" title="18">  <span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb4-19" title="19">  <span class="kw">&lt;body</span><span class="ot"> onload=</span><span class="st">&quot;JavaScript:hide(&#39;popup1&#39;);hide(&#39;popup2&#39;);&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-20" title="20">      <span class="kw">&lt;ul</span><span class="ot"> onmouseover=</span><span class="st">&quot;show(&#39;popup1&#39;);&quot;</span><span class="ot">  onmouseout=</span><span class="st">&quot;hide(&#39;popup1&#39;)&quot;</span> </a>
+<a class="sourceLine" id="cb4-21" title="21"><span class="ot">          style=</span><span class="st">&quot;position:absolute; left:100px; top:20px&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-22" title="22">        <span class="kw">&lt;li</span><span class="ot"> id=</span><span class="st">&quot;menu1&quot;</span><span class="ot"> class=</span><span class="st">&quot;menu&quot;</span><span class="kw">&gt;</span>menu1<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb4-23" title="23">        <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;popup1&quot;</span><span class="ot"> class=</span><span class="st">&quot;menu&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-24" title="24">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;1.1&#39;);&quot;</span><span class="kw">&gt;</span>menu 1.1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb4-25" title="25">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;1.2&#39;);&quot;</span><span class="kw">&gt;</span>menu 1.2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb4-26" title="26">        <span class="kw">&lt;/ul&gt;</span> </a>
+<a class="sourceLine" id="cb4-27" title="27">      <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb4-28" title="28">      <span class="kw">&lt;ul</span><span class="ot"> onmouseover=</span><span class="st">&quot;show(&#39;popup2&#39;);&quot;</span><span class="ot"> onmouseout=</span><span class="st">&quot;hide(&#39;popup2&#39;)&quot;</span> </a>
+<a class="sourceLine" id="cb4-29" title="29"><span class="ot">          style=</span><span class="st">&quot;position:absolute; left:220px; top:20px&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-30" title="30">        <span class="kw">&lt;li</span><span class="ot"> id=</span><span class="st">&quot;menu2&quot;</span><span class="ot"> class=</span><span class="st">&quot;menu&quot;</span><span class="kw">&gt;</span>menu2<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb4-31" title="31">        <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;popup2&quot;</span><span class="ot"> class=</span><span class="st">&quot;menu&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-32" title="32">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;2.1&#39;);&quot;</span><span class="kw">&gt;</span>menu 2.1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb4-33" title="33">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;2.2&#39;);&quot;</span><span class="kw">&gt;</span>menu 2.2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb4-34" title="34">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;2.3&#39;);&quot;</span><span class="kw">&gt;</span>menu 2.3<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb4-35" title="35">        <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb4-36" title="36">      <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb4-37" title="37">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb4-38" title="38"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
+<p>雖然以上程式只是一個小小的功能表程式碼，但是要能夠讀懂，而且寫得出來，卻要懂相當多的技術才行，這些技術包含 HTML, CSS , JavaScript 與 Document Object Model (DOM)。</p>
+<h3 id="程式解析">程式解析</h3>
+<p>在 HTML 的一開始，我們用以下語法描述了功能表所需要的 CSS 樣式，當我們套用在像 <code>&lt;li id="menu2" class="menu"&gt;menu2&lt;/li&gt;</code> 這樣的 HTML 項目上時，就會呈現比較好看的功能表排版格式，而這正是 CSS 樣式的功用。</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="fu">.menu</span>   { <span class="kw">background-color</span>:<span class="cn">black</span><span class="op">;</span> <span class="kw">color</span>:<span class="cn">white</span><span class="op">;</span> <span class="kw">padding</span>:<span class="dv">10</span><span class="dt">px</span><span class="op">;</span> </a>
+<a class="sourceLine" id="cb5-3" title="3">          <span class="kw">vertical-align</span>:<span class="dv">top</span><span class="op">;</span> <span class="kw">width</span>:<span class="dv">100</span><span class="dt">px</span><span class="op">;</span> <span class="kw">list-style-type</span>:<span class="dv">none</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="fu">.menu</span> a { <span class="kw">color</span>:<span class="cn">white</span><span class="op">;</span> <span class="kw">text-decoration</span>:<span class="dv">none</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="kw">&lt;/style&gt;</span></a></code></pre></div>
+<p>以上的 CSS 語法中，要求功能表要以黑底白字的方式 (<code>background-color:black; color:white;</code>) 顯示，邊緣補上 10 點的空白(<code>padding:10px;</code>)，而且是以向上靠攏 (<code>vertical-align:top;</code>) 的方式，每個功能表的寬度都是 100 點 (<code>width:100px;</code>)，然後不要顯示項目前面的點符號 (<code>list-style-type:none;</code>)。</p>
+<p>接著是一段 JavaScript 程式碼的語法，定義了 show(id) 與 hide(id) 這兩個函數，我們可以用這兩個函數在適當的時候讓功能表顯示出來或者是隱藏掉，這樣才能做到「浮現」的功能。</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">function</span> <span class="at">show</span>(id) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="va">document</span>.<span class="at">getElementById</span>(id).<span class="va">style</span>.<span class="at">visibility</span><span class="op">=</span><span class="st">&#39;visible&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-5" title="5"> </a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="kw">function</span> <span class="at">hide</span>(id) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-7" title="7">  <span class="va">document</span>.<span class="at">getElementById</span>(id).<span class="va">style</span>.<span class="at">visibility</span><span class="op">=</span><span class="st">&#39;hidden&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="kw">&lt;/script&gt;</span>    </a></code></pre></div>
+<p>然後，開始進入 HTML 的 body 區塊，其中定義了兩組功能表，第一組的內容如下：</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1">      <span class="kw">&lt;ul</span><span class="ot"> onmouseover=</span><span class="st">&quot;show(&#39;popup1&#39;);&quot;</span><span class="ot">  onmouseout=</span><span class="st">&quot;hide(&#39;popup1&#39;)&quot;</span> </a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="ot">          style=</span><span class="st">&quot;position:absolute; left:100px; top:20px&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">        <span class="kw">&lt;li</span><span class="ot"> id=</span><span class="st">&quot;menu1&quot;</span><span class="ot"> class=</span><span class="st">&quot;menu&quot;</span><span class="kw">&gt;</span>menu1<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">        <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;popup1&quot;</span><span class="ot"> class=</span><span class="st">&quot;menu&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;1.1&#39;);&quot;</span><span class="kw">&gt;</span>menu 1.1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;1.2&#39;);&quot;</span><span class="kw">&gt;</span>menu 1.2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">        <span class="kw">&lt;/ul&gt;</span> </a>
+<a class="sourceLine" id="cb7-8" title="8">      <span class="kw">&lt;/ul&gt;</span></a></code></pre></div>
+<p>上述區塊最外層的 <code>&lt;ul&gt;...&lt;/ul&gt;</code> 定義了整個功能表的結構，是由功能母項 <code>&lt;li id="menu1" class="menu"&gt;menu1&lt;/li&gt;</code> 與子功能表 <code>&lt;ul id="popup1" class="menu"&gt;...&lt;/ul&gt;</code> 所組合而成的，而 <code>&lt;ul onmouseover="show('popup1');"  onmouseout="hide('popup1')" style="position:absolute; left:100px; top:20px"&gt;</code> 這一段除了定義了該功能表要顯示在絕對位置 (100,20) 的地方之外，還定義了 onmouseover 與 onmouseout 的事件，這兩個事件讓功能表可以在滑鼠移入時顯示出來，然後在滑鼠移出時隱藏起來，因而做到了浮現式功能表所要求的條件。</p>
+<p>由於我們在 <code>&lt;li&gt;...&lt;/li&gt;</code> 內的超連結 <code>&lt;a href="JavaScript:alert('2.1');"&gt;menu 2.1&lt;/a&gt;</code> 使用了 JavaScript 語法，因此在該超連結被點選時，就會有警告視窗顯示 2.1 的訊息，這個訊息僅僅是讓我們知道該功能項被點選了而已，沒有真實的功能。</p>
+<p>同樣的、第二個功能表的程式碼也是非常類似的，請讀者看看是否能夠讀者其內容。</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" title="1">      <span class="kw">&lt;ul</span><span class="ot"> onmouseover=</span><span class="st">&quot;show(&#39;popup2&#39;);&quot;</span><span class="ot"> onmouseout=</span><span class="st">&quot;hide(&#39;popup2&#39;)&quot;</span> </a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="ot">          style=</span><span class="st">&quot;position:absolute; left:220px; top:20px&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-3" title="3">        <span class="kw">&lt;li</span><span class="ot"> id=</span><span class="st">&quot;menu2&quot;</span><span class="ot"> class=</span><span class="st">&quot;menu&quot;</span><span class="kw">&gt;</span>menu2<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">        <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;popup2&quot;</span><span class="ot"> class=</span><span class="st">&quot;menu&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-5" title="5">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;2.1&#39;);&quot;</span><span class="kw">&gt;</span>menu 2.1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-6" title="6">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;2.2&#39;);&quot;</span><span class="kw">&gt;</span>menu 2.2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-7" title="7">          <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;JavaScript:alert(&#39;2.3&#39;);&quot;</span><span class="kw">&gt;</span>menu 2.3<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">        <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb8-9" title="9">      <span class="kw">&lt;/ul&gt;</span></a></code></pre></div>
+<p>看到這裡，讀者應該大致理解了上述功能表網頁的運作原理，但事實上、我們還漏掉了一行重要的程式碼，那就是 <code>&lt;body onload="JavaScript:hide('popup1');hide('popup2');"&gt;</code> 這一行，這一行讓浮現功能表能在一開始就處於隱藏狀態，才不會一進來就看到兩個功能表都浮現出來的錯誤情況。</p>
+<p>從上述範例中，您可以看到瀏覽器中的 JavaScript ，通常是透過調整網頁某些項目的 CSS 屬性，以達成互動性的功能，這種互動網頁技術，事實上是結合了 HTML+CSS+JavaScript 等技術才能達成的功能，因此這三項技術在瀏覽器當中幾乎是合為一體、可以說是缺一不可的。</p>
+<h2 id="html-編輯器">HTML 編輯器</h2>
+<p>在本節當中，我們將透過 JavaScript 設計一個 HTML 編輯器，讓您可以直接在瀏覽器當中看到 HTML 網頁的呈現結果， 筆者認為這個範例對學習動態網頁設計是一個非常簡單、卻又很有啟發性的程式。因為他很明顯的展現了動態網頁的原理。</p>
+<p>以下是該 HTML 編輯器的執行結果，當我們在 CSS 與 HTML 區塊輸入對應的原始碼之後，就可以按下「→」按鈕，然後在 呈現的 <code>&lt;div id="showbox" ...&lt;/div&gt;</code> 區塊看到兩者搭配時的呈現結果。</p>
+<p><img src="HtmlEditorRun.jpg" /></p>
+<p>您也可以點選下列連結以實際檢視該網頁：</p>
+<ul>
+<li>HTML 編輯器：<a href="HtmlEditor.htm">HtmlEditor.htm</a></li>
+</ul>
+<p>以下是這個網頁的原始 HTML 程式碼，其中有兩大段是我們預設填入的 CSS 與 HTML 原始碼，這兩段原則上可以去掉，但是 為了測試方便起見，我們就留在檔案中，請讀者閱讀的時候仔細區分之。</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb9-3" title="3">textarea<span class="op">,</span> <span class="pp">#showbox</span> { <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#9f9f9f</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="kw">&lt;style</span><span class="ot"> id=</span><span class="st">&quot;showboxstyle&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="kw">function</span> <span class="at">convert</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-9" title="9">  <span class="kw">var</span> cssbox  <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&quot;cssbox&quot;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-10" title="10">  <span class="kw">var</span> editbox <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&quot;editbox&quot;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-11" title="11">  <span class="kw">var</span> showbox <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&quot;showbox&quot;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-12" title="12">  <span class="kw">var</span> showboxstyle <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&quot;showboxstyle&quot;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-13" title="13">  <span class="va">showbox</span>.<span class="at">innerHTML</span> <span class="op">=</span> <span class="va">editbox</span>.<span class="at">value</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-14" title="14">  <span class="va">showboxstyle</span>.<span class="at">innerHTML</span> <span class="op">=</span> <span class="va">cssbox</span>.<span class="at">value</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="op">}</span></a>
+<a class="sourceLine" id="cb9-16" title="16"><span class="kw">&lt;/script&gt;</span>   </a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb9-18" title="18"><span class="kw">&lt;form&gt;</span></a>
+<a class="sourceLine" id="cb9-19" title="19"><span class="kw">&lt;table</span><span class="ot"> width=</span><span class="st">&quot;95%&quot;</span><span class="ot"> style=</span><span class="st">&quot;border-collapse: collapse; border: 0px;&quot;</span><span class="kw">&gt;&lt;tr&gt;</span></a>
+<a class="sourceLine" id="cb9-20" title="20"><span class="kw">&lt;tr&gt;&lt;td</span><span class="ot"> colspan=</span><span class="st">&quot;2&quot;</span><span class="ot"> style=</span><span class="st">&quot;text-align:center&quot;</span><span class="kw">&gt;</span>HTML 原始碼　　<span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;button&quot;</span><span class="ot"> value=</span><span class="st">&quot; → &quot;</span><span class="ot"> onclick=</span><span class="st">&quot;JavaScript:convert()&quot;</span><span class="kw">/&gt;</span>　　　顯示結果<span class="kw">&lt;/td&gt;&lt;/tr&gt;</span></a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="kw">&lt;td</span><span class="ot"> width=</span><span class="st">&quot;50%&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-22" title="22"><span class="kw">&lt;textarea</span><span class="ot"> id=</span><span class="st">&quot;cssbox&quot;</span><span class="ot"> style=</span><span class="st">&quot;width:100%; height:100px;&quot;</span> <span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-23" title="23"><span class="co">&lt;!-- 預設貼入的CSS：開始 --&gt;</span></a>
+<a class="sourceLine" id="cb9-24" title="24">td, th { padding:10px; }</a>
+<a class="sourceLine" id="cb9-25" title="25">th { background-color:black; color:white; }</a>
+<a class="sourceLine" id="cb9-26" title="26">table { border-collapse: collapse; border: 1px solid #373737; }</a>
+<a class="sourceLine" id="cb9-27" title="27"><span class="co">&lt;!---預設貼入的CSS：結束 --&gt;</span></a></code></pre></div>
+<h2 id="前端網頁的框架">前端網頁的框架</h2>
+<p>jQuery / Angular.js / React.js / Vue.js 等等都是前端網頁的常用框架。</p>
+<p>在此我們將只使用原生 JavaScript (有人戲稱為 Vanilla.js) ，而不採用 jQuery / Angular.js / React.js / Vue.js 這些外部框架。</p>
+<h2 id="原生-javascript">原生 JavaScript</h2>
+<p>在 <a href="http://vanilla-js.com/">Vanilla.js</a> 網站上，開了一個玩笑，創造出一個空無一物的套件，關於這件事情可以參考 <a href="http://www.ithome.com.tw/voice/106182">《精通VanillaJS》</a> 一文。</p>
+<p>上述我用 jQuery 寫的那些應用，其實改用《原生 JavaScript》也都可以輕易地做出來，因此使用 jQuery 只是讓語法更短一點，不過由於《原生 JavaScript》一直在進步，所以也短不了多少了。</p>
+<p>因此我現在通常改用《<a href="http://vanilla-js.com/">Vanilla.js</a> + <a href="http://purecss.io/">PureCSS</a> 樣板》取代之前使用的《<a href="https://jquery.com/">jQuery</a> + <a href="http://getbootstrap.com/">Bootstrap</a>》之組合，感覺比較不會那麼擁腫。</p>

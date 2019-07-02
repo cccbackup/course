@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../演算法.html" alt="">演算法</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 演算法</h2>
+
+<ol>
+    <li><a href="01-tableLookup.html" alt="">查表法</a></li>
+    <li><a href="02-random.html" alt="">亂數產生法</a></li>
+    <li><a href="03-monteCarlo.html" alt="">蒙地卡羅法</a></li>
+    <li><a href="04-iterative.html" alt="">迭代法</a></li>
+    <li><a href="05-dynamicProgramming.html" alt="">動態規劃法</a></li>
+    <li><a href="06-divideConquer.html" alt="">分割擊破法</a></li>
+    <li><a href="07-hashing.html" alt="">雜湊法</a></li>
+    <li><a href="08-bruteForce.html" alt="">暴力法</a></li>
+    <li><a href="09-numerical.html" alt="">數值算法</a></li>
+    <li><a href="10-greedy.html" alt="">貪婪法</a></li>
+    <li><a href="11-graph.html" alt="">圖形表示法</a></li>
+    <li><a href="12-transformDomain.html" alt="">轉換領域法</a></li>
+    <li><a href="13-stringMatching.html" alt="">字串比對法</a></li>
+    <li><a href="14-cryptography.html" alt="">密碼學算法</a></li>
+    <li><a href="15-reduction.html" alt="">轉換化約法</a></li>
+</ol>
+<p><!--</p>
+<h2> AI 算法</h2>
+
+<ol>
+    <li><a href="02-hillClimbing.html" alt="">爬山演算法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/03-gradientDescendent.html" alt="">梯度下降法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/04-backPropagation.html" alt="">反傳遞算法</a></li>
+    <li><a href="05-geneticAlgorithm.html" alt="">遺傳演算法</a></li>
+    <li><a href="16-search.html" alt="">搜尋法</a></li>
+    <li><a href="17-gameSearch.html" alt="">對局搜尋法</a></li>
+    <li><a href="21-slotFilling.html" alt="">框架填充法</a></li>
+</ol>
+<h2> 系統程式</h2>
+
+<ol>
+    <li><a href="19-recursiveDescendent.html" alt="">遞迴下降法</a></li>
+</ol>
+<p>--></p>
+
+<h2> 參考資源</h2>
+
+<ul>
+    <li><a href="project.html" alt="">參考專案</a></li>
+    <li><a href="quantum.html" alt="">量子電腦</a></li>
+    <li><a href="parallel.html" alt="">平行算法</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 第 16 章 - 搜尋法 Search </h1>
+
+<h2> 二分搜尋法</h2>
+
+<ul>
+    <li><a href="https://en.wikipedia.org/wiki/Binary_search_algorithm" alt="">Wikipedia: Binary search algorithm</a></li>
+    <li><a href="https://www.facebook.com/photo.php?fbid=10219613817241425&set=a.1158285882748&type=3" alt="">二分法找出第一個"1"的位置</a></li>
+</ul>
+<h2> 問題一：《狼、羊、甘藍菜》過河的問題</h2>
+
+<p>題目:有一個人帶著一匹狼、一頭羊和一棵甘藍菜打算過河到對岸去。他的船很小, 每次只能載兩個東西:</p>
+
+<p>也就是 【人 + 狼】 【人 + 羊】, 或【人 + 甘藍菜】。</p>
+
+<p>困難的地方是, 如果他先載了甘藍菜過去, 狼就會趁機把羊吃掉了。而如果他先把狼送過去, 羊也會趁他離開時把甘藍菜吃掉。 </p>
+
+<p>請問：他應該怎麼樣做才能夠把這二種動物和甘藍菜都送到對岸呢? 請找出運送順序！</p>
+
+<p>程式：請寫一個程式搜尋出這個問題的解答！</p>
+<p></p>
+
+<h3> 解答</h3>
+
+<p>檔案： shipSearch.js</p>
+
+<pre class="code"><code class="js">var c = console;
+var objs = ["人", "狼", "羊", "菜"];
+var state= [   0,  0 ,   0,    0 ];
+
+function neighbors(s) {
+    var side = s[0];
+    var next = [];
+    checkAdd(next, move(s,0));
+    for (var i=1; i&lt;s.length; i++) {
+        if (s[i]===side)
+          checkAdd(next, move(s, i));
+    }
+    return next;
+}
+
+function checkAdd(next, s) {
+    if (!isDead(s)) {
+        next.push(s);
+    }
+}
+
+function isDead(s) {
+    if (s[1]===s[2] &amp;&amp; s[1]!==s[0]) return true; // 狼吃羊
+    if (s[2]===s[3] &amp;&amp; s[2]!==s[0]) return true; // 羊吃菜
+    return false;
+}
+
+// 人帶著 obj 移到另一邊
+function move(s, obj) {
+    var newS = s.slice(0); // 複製一份陣列
+    var side = s[0];
+    var anotherSide = (side===0)?1:0;
+    newS[0] = anotherSide;
+    newS[obj] = anotherSide;
+    return newS; 
+}
+
+var visitedMap = {};
+
+function visited(s) {
+    var str = s.join('');
+    return (typeof visitedMap[str] !== 'undefined');
+}
+
+function isSuccess(s) {
+    for (var i=0; i&lt;s.length; i++) {
+      if (s[i]===0) return false;        
+    }
+    return true;
+}
+
+function state2str(s) {
+    var str = "";
+    for (var i=0; i&lt;s.length; i++) {
+        str += objs[i]+s[i]+" ";
+    }
+    return str;
+}
+
+var path = [];
+
+function printPath(path) {
+    for (var i=0; i&lt;path.length; i++)
+      c.log(state2str(path[i]));
+}
+
+function dfs(s) {
+  if (visited(s)) return;
+  path.push(s);
+//  c.log('visit:', state2str(s));
+  if (isSuccess(s)) {
+      c.log("success!");
+      printPath(path);
+      return;
+  }
+  visitedMap[s.join('')] = true;
+  var neighborsList = neighbors(s); 
+  for (var i in neighborsList) { 
+    dfs(neighborsList[i]);
+  }
+  path.pop();
+}
+
+dfs(state); 
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node shipSearch
+success!
+人0 狼0 羊0 菜0 
+人1 狼0 羊1 菜0 
+人0 狼0 羊1 菜0 
+人1 狼1 羊1 菜0 
+人0 狼1 羊0 菜0 
+人1 狼1 羊0 菜1 
+人0 狼1 羊0 菜1 
+人1 狼1 羊1 菜1 
+</code></pre>
+
+<h2> 問題二：以廣度優先搜尋解決拼圖問題</h2>
+
+<p>以下的「拼圖問題」是將一個已經移動打亂過的拼盤，想辦法移動回原本樣子的問題。</p>
+
+<p><figure>
+  <img src="https://cccbook.github.io/algjs/docs/img/puzzle.jpg" alt=""></img>
+<figcaption>圖、本文程式中的拼圖問題</figcaption></figure>
+</p>
+
+<p>在以下程式中，我們用一個 3*3 的陣列來代表拼盤，並且用數字 0 來代表其中的空格，因此將方塊 2 移動到空格，其實是用將 0 與 2 兩個數字位置交換所達成的。</p>
+
+<p>透過這樣的資料結構，我們就可以用「廣度優先搜尋」(BFS) 來解決拼圖問題了，以下是我們用 JavaScript 實作，並用 node.js 進行測試的結果。</p>
+
+<h3> 程式實作：拼圖問題</h3>
+
+<p>檔案：puzzleSearch.js</p>
+
+<pre class="code"><code class="javascript">var util = require("util");
+var log = console.log;
+var up = 1, right=2, down=3, left=4;
+
+function enqueue(a, o) { a.push(o); }
+function dequeue(a) { return a.shift(); }
+function equal(a, b) { return JSON.stringify(a)===JSON.stringify(b); }
+function board2str(b) { return b.join("\n"); }
+
+function findXY(board, value) {
+  for (var x=0; x&lt;board.length; x++)
+    for (var y=0; y&lt;board[x].length; y++)
+      if (board[x][y] === value)
+        return {x:x,y:y};
+  return null;
+}
+
+function boardClone(b) {
+  var nb = [];
+  for (var x in b)
+    nb[x] = b[x].slice(0);
+  return nb;
+}
+
+function swap(b,x1,y1,x2,y2) {
+  x2 = Math.round(x2), y2=Math.round(y2);
+  if (x2&lt;0 || x2 &gt; 2 || y2&lt;0 || y2&gt;2) 
+    return false;
+  var t = b[x1][y1];
+  b[x1][y1]=b[x2][y2];
+  b[x2][y2]=t;
+  return true;
+}
+
+function move(board, dir) {
+  var xy = findXY(board, 0);
+  var x = xy.x, y=xy.y;
+  var nboard = boardClone(board);
+  var s = false;
+  switch (dir) {
+    case up:    s=swap(nboard,x,y,x-1,y); break;
+    case right: s=swap(nboard,x,y,x,y+1); break;
+    case down:  s=swap(nboard,x,y,x+1,y); break;
+    case left:  s=swap(nboard,x,y,x,y-1); break;
+  }
+  if (s)
+    return nboard;
+  else
+    return null;
+}
+
+function moveAdd(board, dir, neighbors) {
+  var nboard = move(board, dir);
+  if (nboard !== null) {
+    neighbors.push(nboard);
+  }
+}
+
+function getNeighbors(board) {
+  var neighbors = [];
+  moveAdd(board, up,    neighbors);
+  moveAdd(board, down,  neighbors);
+  moveAdd(board, right, neighbors);
+  moveAdd(board, left,  neighbors);
+  return neighbors;
+}
+
+var goal = [[1,2,3], 
+            [8,0,4],
+            [7,6,5]];
+
+var start= [[1,3,4], 
+            [8,2,5],
+            [7,0,6]];
+
+var queue=[start];            // BFS 用的 queue, 起始點為 1。
+var visited={};
+var parent={};
+var level={};
+
+function bfs(q, goal) { // 廣度優先搜尋
+  while (q.length &gt; 0) {
+    var node = dequeue(q);     // 否則、取出 queue 的第一個節點。
+    var nodestr = board2str(node);
+//  log("q.length=%d level=%d\n===node===\n%s==parent==\n%s", q.length, level[nodestr], nodestr, parent[nodestr]); // 印出節點
+    if (equal(node, goal)) return true;
+    if (visited[nodestr]===undefined)        // 如果該節點尚未拜訪過。
+      visited[nodestr] = true; //   標示為已拜訪
+    else                       // 否則 (已訪問過)
+      continue;                //   不繼續搜尋，直接返回。
+    var neighbors = getNeighbors(node); // 取出鄰居。
+    for (var i in neighbors) { // 對於每個鄰居
+      var n = neighbors[i];
+      var nstr = board2str(n);
+      if (!visited[nstr]) {    // 假如該鄰居還沒被拜訪過
+        parent[nstr] = nodestr;
+    level[nstr] = level[nodestr] + 1;
+        enqueue(q, n);         //   就放入 queue 中
+      }
+    }
+  }
+  return false;
+}
+
+function backtrace(goal) {
+  log("======= backtrace =========");
+  var nodestr = board2str(goal);
+  while (nodestr !== undefined) {
+    log("%s\n", nodestr);
+    nodestr = parent[nodestr];
+  }
+}
+
+level[board2str(start)]=0;
+var found = bfs(queue, goal); // 呼叫廣度優先搜尋。
+log("bfs:found=%s", found);
+if (found)
+  backtrace(goal);
+</code></pre>
+
+<h3> 執行結果</h3>
+
+<pre class="code"><code class="">D:\Dropbox\Public\web\ai\code\search&gt;node puzzleSearch.js
+bfs:found=true
+======= backtrace =========
+1,2,3
+8,0,4
+7,6,5
+
+1,0,3
+8,2,4
+7,6,5
+
+1,3,0
+8,2,4
+7,6,5
+
+1,3,4
+8,2,0
+7,6,5
+
+1,3,4
+8,2,5
+7,6,0
+
+1,3,4
+8,2,5
+7,0,6
+</code></pre>
+
+<h3> 結語</h3>
+
+<p>在上述執行結果中，我們是將盤面拼完後，才逆向追蹤印出移動過程，因此整個移動方法應該從最下面的盤面看起。換句話說，真正的順序如下：</p>
+
+<pre class="code"><code class="">1,3,4    1,3,4    1,3,4     1,3,0    1,0,3    1,2,3
+8,2,5 =&gt; 8,2,5 =&gt; 8,2,0 =&gt;  8,2,4 =&gt; 8,2,4 =&gt; 8,0,4
+7,0,6    7,6,0    7,6,5     7,6,5    7,6,5    7,6,5
+</code></pre>
+
+<p>從上面過程中，您可以看出我們的程式將打亂的盤面給拼回來了。</p>
+<p></p>
+
+<h2> 實作：以深度優先搜尋解決老鼠走迷宮問題</h2>
+
+<p>雖然深度優先搜尋 (DFS) 與廣度優先搜尋 (BFS) 等演算法通常是用在「圖形」這種結構上的，不過「圖形」的結構倒是不一定要真實且完整的表達出來，在很多人工智慧的問題上，我們不會看到完整的「圖形結構」，只會看到某個節點有哪些鄰居節點，然後就可以用 BFS 與 DFS 進行搜尋了。</p>
+
+<p>老鼠走迷宮問題，就是一個可以採用圖形搜尋來解決的經典問題，其中每個節點的鄰居，就是上下左右四個方向，只要沒有被牆給擋住，就可以走到鄰居節點去，因此我們可以採用圖形搜尋的方法來解決迷宮問題，以下是我們的程式實作。</p>
+
+<h3> 程式實作：老鼠走迷宮</h3>
+
+<p>檔案：pathFinder.js</p>
+
+<pre class="code"><code class="javascript">var log = console.log;
+
+function matrixPrint(m) {
+  for(var i=0;i&lt;m.length;i++)
+    log(m[i]);
+}
+
+function strset(s, i, c) {
+  return s.substr(0, i) + c + s.substr(i+1);
+}
+
+function findPath(m, x, y) {
+  log("=========================");
+  log("x="+x+" y="+y);
+  matrixPrint(m);
+  if (x&gt;=6||y&gt;=8) return false;
+  if (m[x][y] == '*') return false;
+  if (m[x][y] == '+') return false;
+  if (m[x][y] == ' ') m[x] = strset(m[x], y, '.');
+  if (m[x][y] == '.' &amp;&amp; (x == 5 || y==7)) 
+    return true;
+  if (y&lt;7&amp;&amp;m[x][y+1]==' ') //向右
+    if (findPath(m, x,y+1)) return true;
+  if(x&lt;5&amp;&amp;m[x+1][y]==' ') //向下
+    if (findPath(m, x+1,y)) return true;
+  if(y&gt;0&amp;&amp;m[x][y-1]==' ') //向左
+    if (findPath(m, x,y-1)) return true;
+  if(x&gt;0&amp;&amp;m[x-1][y]==' ') //向上
+    if (findPath(m, x-1,y)) return true;
+  m[x][y]='+';
+  return false;
+}
+
+var m =["********", 
+        "** * ***",
+        "     ***",
+        "* ******",
+        "*     **",
+        "***** **"];
+    
+findPath(m, 2, 0);
+log("=========================");
+matrixPrint(m);
+</code></pre>
+
+<h3> 執行結果</h3>
+
+<pre class="code"><code class="">D:\Dropbox\Public\web\ai\code\search&gt;node pathFinder.js
+=========================
+x=2 y=0
+********
+** * ***
+     ***
+* ******
+*     **
+***** **
+=========================
+x=2 y=1
+********
+** * ***
+.    ***
+* ******
+*     **
+***** **
+=========================
+x=2 y=2
+********
+** * ***
+..   ***
+* ******
+*     **
+***** **
+=========================
+x=2 y=3
+********
+** * ***
+...  ***
+* ******
+*     **
+***** **
+=========================
+x=2 y=4
+********
+** * ***
+.... ***
+* ******
+*     **
+***** **
+=========================
+x=1 y=4
+********
+** * ***
+.....***
+* ******
+*     **
+***** **
+=========================
+x=1 y=2
+********
+** *.***
+.....***
+* ******
+*     **
+***** **
+=========================
+x=3 y=1
+********
+**.*.***
+.....***
+* ******
+*     **
+***** **
+=========================
+x=4 y=1
+********
+**.*.***
+.....***
+*.******
+*     **
+***** **
+=========================
+x=4 y=2
+********
+**.*.***
+.....***
+*.******
+*.    **
+***** **
+=========================
+x=4 y=3
+********
+**.*.***
+.....***
+*.******
+*..   **
+***** **
+=========================
+x=4 y=4
+********
+**.*.***
+.....***
+*.******
+*...  **
+***** **
+=========================
+x=4 y=5
+********
+**.*.***
+.....***
+*.******
+*.... **
+***** **
+=========================
+x=5 y=5
+********
+**.*.***
+.....***
+*.******
+*.....**
+***** **
+=========================
+********
+**.*.***
+.....***
+*.******
+*.....**
+*****.**
+</code></pre>
+
+<p>在上面的輸出結果中，<code>*</code> 代表該位置是牆壁，而空格則代表是可以走的路，老鼠走過的地方會放下一個 <code>.</code> 符號，於是您可以看到在上述程式的輸出中，老鼠最後走出了迷宮，完成了任務。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

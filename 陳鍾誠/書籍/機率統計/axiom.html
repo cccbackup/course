@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../機率統計.html" alt="">機率統計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 機率的公理系統</h1>
+
+<p>機率的公理系統，主要有比較簡單的《初等機率測度》，以及比較周延的《Kolmogorov 機率測度》公理系統等兩套。</p>
+
+<p>本文主要在檢視《初等機率測度》與《Kolmogorov 機率測度》之間的差異！</p>
+
+<h2> 機率公理系統 1 (初等機率測度)</h2>
+
+<p>一般人學習數學的時候都是從直覺概念開始的，例如我們小學的時候透過算幾個蘋果學到加法，然後用好幾排的蘋果學到乘法，接著就會背誦九九乘法表，然後在中學的時候導入變數的觀念，於是學會了聯立方程式的解法。</p>
+
+<p>但是數學家們看數學往往是從公理系統開始的，透過公理系統進行推論以建立定理，然後推論出整個數學體系。讓我們學習一下數學家的想法，先來看看機率的公理系統有何特色。</p>
+
+<p>以下三條法則是機率的基本公理：(初等機率測度)</p>
+
+<blockquote>
+<p> 公理 (1). <span class="math inline">P(S) = 1</span></p>
+<p> </p>
+<p> 公理 (2). <span class="math inline">P(A) \ge 0</span></p>
+<p> </p>
+<p> 公理 (3). <span class="math inline">P(A1 \cup A2) = P(A1) + P(A2) \; ; \; if \; A1 \cap A2 = \emptyset</span></p>
+</blockquote>
+
+<h2> 機率公理系統 2 (Kolmogorov 機率測度)</h2>
+
+<p>維基百科的公理系統中所撰寫的機率公理系統，是比較強大的 Kolmogorov 機率測度公理，其定義如下：</p>
+
+<blockquote>
+<p> 第一公理</p>
+<p> 對於任意一個集合 <span class="math inline">E\in \mathfrak{F}</span> ， 即對於任意的事件 <span class="math inline">P(E)\in [0,1]</span> 。即，任一事件的機率都可以用0到1區間上的一個實數來表示。</p>
+<p> </p>
+<p> 第二公理</p>
+<p> <span class="math inline">P(\Omega) = 1</span> 。即，整體樣本集合中的某個基本事件發生的機率為1。更加明確地說，在樣本集合之外已經不存在基本事件了。</p>
+<p> </p>
+<p> 第三公理</p>
+<p> 任意兩兩不相交事件 <span class="math inline">E_1, E_2, ...</span> 的可數序列滿足 <span class="math inline">P(E_1 \cup E_2 \cup \cdots) = \sum P(E_i)</span> 。即，不相交子集的並的事件集合的機率為那些子集的機率的和。這也被稱為是σ可加性。如果存在子集間的重疊，這一關係不成立。</p>
+</blockquote>
+<p></p>
+
+<h2> 兩個公理系統的差異</h2>
+
+<p>上述兩個公理系統之間，其實只有第三條有差異，但問題是：『為何 Kolmogorov 要提出一個比較複雜的公理系統』來取代原本的『初等機率測度』公理系統呢？</p>
+
+<p>關於這個問題，其實非常困難，屬於高等數學的一部分，我們得請教真正的數學家了！</p>
+
+<p>首先讓我這個不夠專業的人，試圖證明幾件事好了，這幾個證明會展示出一般人的思考方式。</p>
+
+<h2> 疑問一 :</h2>
+
+<p>針對這個公理系統，我同學提出一個論證，認為這個公理系統是錯的，因為維基百科裏的公理系統和這個不一樣。請問您認為上述公理系統是否與維基百科等價呢？ 若認為是請證明等價性，若認為不是請說明兩者為何不等價。</p>
+
+<p>維基百科的公理系統 (Kolmogorov 機率測度) 如下：</p>
+
+<blockquote>
+<p> 第一公理</p>
+<p> 對於任意一個集合 <span class="math inline">E\in \mathfrak{F}</span> ， 即對於任意的事件 <span class="math inline">P(E)\in [0,1]</span> 。即，任一事件的機率都可以用0到1區間上的一個實數來表示。</p>
+<p> </p>
+<p> 第二公理</p>
+<p> <span class="math inline">P(\Omega) = 1</span> 。即，整體樣本集合中的某個基本事件發生的機率為1。更加明確地說，在樣本集合之外已經不存在基本事件了。</p>
+<p> </p>
+<p> 第三公理</p>
+<p> 任意兩兩不相交事件 <span class="math inline">E_1, E_2, ...</span> 的可數序列滿足 <span class="math inline">P(E_1 \cup E_2 \cup \cdots) = \sum P(E_i)</span> 。即，不相交子集的並的事件集合的機率為那些子集的機率的和。這也被稱為是σ可加性。如果存在子集間的重疊，這一關係不成立。</p>
+</blockquote>
+
+<p>我的想法與證明：</p>
+
+<blockquote>
+<p> 問題重新描述：兩個系統的前兩條公理相同，只是符號不同，其中 <span class="math inline">\Omega=S</span> ， 事件我們用 A 維基百科用 E，因此只要證明第三條相等即可：</p>
+<p> </p>
+<p> 公理 1.3: <span class="math inline">P(A1 \cup A2) = P(A1) + P(A2) \; ; \; if \; A1 \cap A2 = \emptyset</span> </p>
+<p> 公理 2.3: <span class="math inline">P(E_1 \cup E_2 \cup \cdots) = \sum P(E_i)</span></p>
+<p> </p>
+<p> 請用公理系統 1 與集合論定理證明公理 2.3。</p>
+</blockquote>
+
+<p>證明：</p>
+
+<blockquote>
+<p> 當 <span class="math inline">A_i \cap A_j=\emptyset ; i \neq j</span> 時，根據公理 1.3  <span class="math inline">P(A_i \cup A_j) = P(A_i) + P(A_j)</span> ，</p>
+<p> </p>
+<p> 於是可套用公理 1.3 並令 <span class="math inline">A1=E_1, A2=(E_2 \cup E_3 \cdots)</span> 推論如下：</p>
+<p> </p>
+<p> <span class="math inline">P(E_1 \cup E_2 \cup E_3 \cdots) = P(E_1 \cup (E_2 \cup E_3 \cdots))=P(E_1)+P(E_2 \cup E_3 \cdots)</span>  ;</p>
+<p> </p>
+<p> <span class="math inline">=P(E_1)+P(E_2)+P(E_3 \cdots) = ... = \sum P(E_i)</span>  ;</p>
+<p> </p>
+<p> 證明完畢!</p>
+</blockquote>
+<p></p>
+
+<h2> 疑問二 :</h2>
+
+<p>針對這個公理系統，我同學提出一個論證，認為本書公理系統有問題，特別是第三條公理，不過其論述卻是按著維基的第三條進行的，該論述如下所示。</p>
+
+<blockquote>
+<p> 假如有個系統的樣本空間 S 為可數無限多 (例如有理數 Q) (就是分數)， 那麼每個有理數的機率將會是 <span class="math inline">1/\infty = 0</span> ，於是會得到 <span class="math inline">\sum_{i=1}^{\infty} \sum_{j=1}^{\infty} P(i/j) = 0+0+0+.... = 0 \ne 1 = P(Q)</span> </p>
+<p> </p>
+<p> 於是就會造成所有元素的機率總和不等於樣本空間機率的問題，也就不符合第三條公理了。</p>
+<p> </p>
+<p> 請問您如何看待以上論述。</p>
+</blockquote>
+
+<p>我的看法：</p>
+
+<blockquote>
+<p> <span class="math inline">1/\infty = 0</span> 其實並不是零，在我所知道的數學裏、無限大甚至不是一個數字，而是一種辯證法。濫用無限大會造成很多詭論，例如：</p>
+<p> </p>
+<p> 所有奇數的數量是無限大，所有偶數的數量也是無限大，於是自然數數量等於=奇數數量+偶數數量，結果導致推論：</p>
+<p> </p>
+<p> <span class="math inline">\infty=\infty+\infty</span> 於是可推論 <span class="math inline">0=\infty-\infty=\infty+\infty-\infty=\infty</span> ，這就產生了零等於無限大的詭論。</p>
+<p> </p>
+<p> 所以、上述的論點說 <span class="math inline">\sum_{i=1}^{\infty} \sum_{j=1}^{\infty} P(i/j) = 0 \ne 1 = P(Q)</span>  其實是有問題的，問題在 P(i/j) 並非是零，而是無限大分之一，但是我們不能直接寫 <span class="math inline">1/\infty</span> ，因為無限大其實不是一個數字，我們必須用極限的方式來論證。</p>
+<p> </p>
+<p> <span class="math inline">\lim_{n\to \infty} \lim_{m\to\infty} \sum_{i=1}^{n} \sum_{j=1}^{m} P(i/j) = \lim_{n\to \infty} \lim_{m\to\infty} n * m * \frac{1}{n * m} = 1 = P(Q)</span></p>
+<p> </p>
+<p> 於是就破解了上述的疑問。</p>
+</blockquote>
+
+<h2> 疑問三 :</h2>
+
+<p>問題是上述的《初等機率測度》和《Kolmogorov 機率測度》兩套公理系統是否等價呢？</p>
+
+<p>這個問題其實很深，在離散的情況下，兩者基本上沒有甚麼差異，但是在連續的實數空間中，甚至是包含無窮數列的空間中，那兩者就有一些涵蓋性上的差異了。</p>
+
+<p>有關這個問題，已經超越我的能力範圍了，請參考 《蔡聰明》教授 的解說：</p>
+
+<ul>
+    <li><a href="http://w3.math.sinica.edu.tw/math_media/d202/20207.pdf" alt="">《機率論為何要建立在機率空間上面?》 (PDF)</a>  -- 蔡聰明</li>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

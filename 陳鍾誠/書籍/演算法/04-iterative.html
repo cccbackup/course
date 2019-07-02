@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../演算法.html" alt="">演算法</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 演算法</h2>
+
+<ol>
+    <li><a href="01-tableLookup.html" alt="">查表法</a></li>
+    <li><a href="02-random.html" alt="">亂數產生法</a></li>
+    <li><a href="03-monteCarlo.html" alt="">蒙地卡羅法</a></li>
+    <li><a href="04-iterative.html" alt="">迭代法</a></li>
+    <li><a href="05-dynamicProgramming.html" alt="">動態規劃法</a></li>
+    <li><a href="06-divideConquer.html" alt="">分割擊破法</a></li>
+    <li><a href="07-hashing.html" alt="">雜湊法</a></li>
+    <li><a href="08-bruteForce.html" alt="">暴力法</a></li>
+    <li><a href="09-numerical.html" alt="">數值算法</a></li>
+    <li><a href="10-greedy.html" alt="">貪婪法</a></li>
+    <li><a href="11-graph.html" alt="">圖形表示法</a></li>
+    <li><a href="12-transformDomain.html" alt="">轉換領域法</a></li>
+    <li><a href="13-stringMatching.html" alt="">字串比對法</a></li>
+    <li><a href="14-cryptography.html" alt="">密碼學算法</a></li>
+    <li><a href="15-reduction.html" alt="">轉換化約法</a></li>
+</ol>
+<p><!--</p>
+<h2> AI 算法</h2>
+
+<ol>
+    <li><a href="02-hillClimbing.html" alt="">爬山演算法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/03-gradientDescendent.html" alt="">梯度下降法</a></li>
+    <li><a href="https://cccbook.github.io/algjs/docs/html/04-backPropagation.html" alt="">反傳遞算法</a></li>
+    <li><a href="05-geneticAlgorithm.html" alt="">遺傳演算法</a></li>
+    <li><a href="16-search.html" alt="">搜尋法</a></li>
+    <li><a href="17-gameSearch.html" alt="">對局搜尋法</a></li>
+    <li><a href="21-slotFilling.html" alt="">框架填充法</a></li>
+</ol>
+<h2> 系統程式</h2>
+
+<ol>
+    <li><a href="19-recursiveDescendent.html" alt="">遞迴下降法</a></li>
+</ol>
+<p>--></p>
+
+<h2> 參考資源</h2>
+
+<ul>
+    <li><a href="project.html" alt="">參考專案</a></li>
+    <li><a href="quantum.html" alt="">量子電腦</a></li>
+    <li><a href="parallel.html" alt="">平行算法</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 迭代法 Iterative </h2>
+
+<h3> 迭代法</h3>
+
+<p>話說《迭代法》，感覺非常神奇，但是說穿了很簡單！</p>
+
+<p>迭代法的關鍵，可以說是一種《函數不動點》的尋找，也就是尋找符合條件 x=f(x) 的 x 值。</p>
+
+<p>透過反覆計算 x[k+1] = f(x[k]) 的方式，假如最後達到收斂，那麼我們就知道該 x 值會是 x=f(x) 的解答。</p>
+
+<p>以下是迭代法的計算過程：</p>
+
+<pre class="code"><code class="">x2 =f(x1)
+x3 =f(x2)
+... 
+x[k+1] =f(x[k])
+</code></pre>
+
+<p>所謂的不動點，就是 x=f(x) 這樣一個方程式。我們從 k=0 開始反覆用 x[k+1] =f(x[k]) 去找下一個 x[k+1]，當我們找到符合 x[k+1] =f(x[k]) 的 x 時， x 基本上就定住了，這時我們找到的 x 就是 x=f(x) 的一個解答！</p>
+
+<p>問題是，如果我們並非想找 f(x)=x 的解，而是 f(x)=0 的解呢？ 那該怎麼辦？</p>
+
+<p>其實答案很簡單， 只要修改方程式，想辦法讓 x 出 現在其中一邊就行了。</p>
+
+<p>舉例而言， 假如我們想要找 f(x)=0 的解， 那麼我們可以對兩邊各加一個 x ，變成 f(x)+x = x 該等式仍然會成立。這樣就可以進行迭代了！</p>
+
+<p>當然、迭代的形式不只一種， 對於 f(x)=0，以下都是可以用的迭代形式。</p>
+
+<p><span class="math display">
+\begin{aligned}
+& x=f(x)+x \\
+
+x^2=f(x)+x^2 \qquad & x=(f(x)+x^2)/x \\
+
+3x^3=f(x)+3x^3 \qquad & x=(f(x)+3x^3)/(3x^2) \\
+
+f(x)/4=0 \qquad & x= x-f(x)/4
+\end{aligned}
+</span></p>
+
+<p>於是、您只要選擇一個起點， 像是 x=3 ，然後開始反複套用迭代公式，看看是否會收斂就行了！</p>
+
+<p>假如我們的迭代公式是 x=g(x)，那麼只要隨便選一個起點，例如 x1=3，然後用 x2 =g(x1)，x3=g(x2) … 一直算下去，直到收斂為止。</p>
+
+<p>以下是一個迭代法的程式範例， 用來尋找 <code>x*x-4*x+1</code> 的解！</p>
+
+<pre class="code"><code class="javascript">function f(x) { return x*x-4*x+1; }
+
+function g(x) { return x-f(x)/4; }
+
+function isolve(g, x) {
+  console.log("x=", x);
+  for (var i=0; i&lt;100000; i++) {
+    if (Math.abs(x-g(x)) &lt; 0.001)
+      return x;
+    x = g(x);
+    console.log("x=", x);
+  }
+  return x;
+}
+
+var x = isolve(g, 1)
+console.log("x=", x, "f(x)=", f(x))
+</code></pre>
+
+<p>執行結果：</p>
+
+<pre class="code"><code class="">$ node iteration.js
+x= 1
+x= 1.5
+x= 2.1875
+x= 2.9287109375
+x= 3.4630849361419678
+x= 3.6779305535505813
+x= 3.7240678179159414
+x= 3.7309653577225825
+x= 3.7309653577225825 f(x)= -0.0037589303643326133
+</code></pre>
+
+<p>這種迭代法，其實幾乎可以用來解所有的方程式，最大的問題是《可能不會收斂》！，</p>
+
+<p>而且不同的迭代方法，收斂速度也常 常有差異</p>
+
+<p>在此我們舉一個簡單的例子， 假如您想求某個數 n 的平方根。那麼可以用下列三種的迭代算式</p>
+
+<ol>
+    <li><span class="math inline">3/x = 3/x</span></li>
+    <li><span class="math inline">x_{k+1} = x_k - \frac{1}{4} (x^2_k -3)</span></li>
+    <li><span class="math inline">x_{k+1} = \frac{1}{2} (x_k + \frac{3}{x_k})</span></li>
+</ol>
+<p>然後實作這三種方法，程式碼如下：</p>
+
+<p>檔案： iterative3.js</p>
+
+<pre class="code"><code class="javascript">var f1 = (x) =&gt; 3 / x
+var f2 = (x) =&gt; x - 1 / 4 * (x * x - 3)
+var f3 = (x) =&gt; 1 / 2 * (x + 3 / x)
+
+var x1, x2, x3
+x1 = x2 = x3 = 1
+for (var i = 0; i &lt; 20; i++) {
+  x1 = f1(x1);  x2 = f2(x2); x3 = f3(x3)
+  console.log('x1:', x1, 'x2', x2, 'x3', x3)
+}
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ node iterative3
+x1: 3 x2 1.5 x3 2
+x1: 1 x2 1.6875 x3 1.75
+x1: 3 x2 1.7255859375 x3 1.7321428571428572
+x1: 1 x2 1.7311742305755615 x3 1.7320508100147274
+x1: 3 x2 1.7319331764233397 x3 1.7320508075688772
+x1: 1 x2 1.73203504452438 x3 1.7320508075688772
+x1: 3 x2 1.7320486956592371 x3 1.7320508075688772
+x1: 1 x2 1.732050524625521 x3 1.7320508075688772
+x1: 3 x2 1.7320507696616354 x3 1.7320508075688772
+x1: 1 x2 1.7320508024902694 x3 1.7320508075688772
+x1: 3 x2 1.732050806888473 x3 1.7320508075688772
+x1: 1 x2 1.7320508074777203 x3 1.7320508075688772
+x1: 3 x2 1.7320508075566647 x3 1.7320508075688772
+x1: 1 x2 1.7320508075672412 x3 1.7320508075688772
+x1: 3 x2 1.7320508075686583 x3 1.7320508075688772
+x1: 1 x2 1.7320508075688479 x3 1.7320508075688772
+x1: 3 x2 1.7320508075688732 x3 1.7320508075688772
+x1: 1 x2 1.7320508075688767 x3 1.7320508075688772
+x1: 3 x2 1.7320508075688772 x3 1.7320508075688772
+x1: 1 x2 1.7320508075688772 x3 1.7320508075688772
+</code></pre>
+
+<p>這三種方法的收斂情形如下圖：</p>
+
+<p><figure>
+  <img src="./img/iteration.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>因此、好的迭代算式可以讓你上天堂，不好的迭代算式會讓你住牢房！</p>
+
+<p>如果想要確定迭代法會收斂， 必須要好好的設計《迭代函數》 與《初始值》才行！</p>
+
+<p>當然、有人可能會問， 假如我想解的不是方程式，而是像下列的這種《方程組》的話，那該怎麼辦呢？</p>
+
+<p><figure>
+  <img src="./img/equationSet.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>其實這個問題， 只要稍微轉換一下，就可以讓 《方程組變成單一的方程式》</p>
+
+<p>假如您想求解下列方程組</p>
+
+<pre class="code"><code class="">  f(x)=0
+  g(x)=0
+</code></pre>
+
+<p>那麼只要改寫為</p>
+<p></p>
+
+<p><span class="math inline">f^2(x) +g^2(x) = 0</span></p>
+
+<p>就可以《將方程組變成方程式》了。</p>
+
+<p>只是這樣一來，線性的方程組就有可能變成了 《二次的非線性方程式》</p>
+
+<p>這就是，用解方程式的方法來解方程組，所需要付出的代價了。</p>
+
+<p>不過迭代法確實是一個，很好的《數值方法》 可以用來解很多方程式。</p>
+<p></p>
+
+<h3> 結語</h3>
+
+<p>您可以看到迭代法可以用來求方程式的解，也可以用來尋找馬可夫鏈的平衡機率，當然還有很多領域的問題，都可以用迭代法來解決。</p>
+
+<p>例如 EM 演算法，就是用迭代法來求最大機率模型的方法。</p>
+
+<p>另外還有 KMEAN 演算法，則是用迭代進行機器學習的方法。</p>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

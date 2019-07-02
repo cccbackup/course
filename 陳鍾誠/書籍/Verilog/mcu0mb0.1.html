@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../Verilog.html" alt="">Verilog</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> MCU0 迷你版 -- mcu0mb0.1 (獨立記憶體+直接存取)</h2>
+
+<h3> 原始碼</h3>
+
+<pre class="code"><code class="Verilog">`define OP   IR[15:12] // 運算碼
+`define C    IR[11:0]  // 常數欄位
+`define A    R[0]      // 累積器
+`define PC   R[1]      // 程式計數器
+`define SW   R[2]      // 狀態暫存器
+`define N    `SW[15]   // 負號旗標
+`define Z    `SW[14]   // 零旗標
+`define M    {mem0.m[`C], mem0.m[`C+1]} // 存取的記憶體
+
+module memory();
+  integer i;  
+  reg [7:0] m[0:32];  // 內部的快取記憶體
+  initial begin // 初始化
+    $readmemh("mcu0m.hex", m);
+    for (i=0; i &lt; 32; i=i+2) begin
+       $display("%8x: %8x", i, {m[i], m[i+1]});
+    end
+  end
+endmodule
+
+module mcu(input clock); // MCU0-Mini 的快取版
+  parameter [3:0] LD=4'h0,ADD=4'h1,JMP=4'h2,ST=4'h3,CMP=4'h4,JEQ=4'h5;
+  reg [15:0] IR;    // 指令暫存器
+  reg [15:0] R[0:2];
+  reg [15:0] pc0;
+  
+  initial begin // 初始化
+    `PC = 0; // 將 PC 設為起動位址 0
+    `SW = 0;
+  end
+  always @(posedge clock) begin // 在 clock 時脈的正邊緣時觸發
+    IR = {mem0.m[`PC], mem0.m[`PC+1]};    // 指令擷取階段：IR=m[PC], 2 個 Byte 的記憶體
+    pc0= `PC;                   // 儲存舊的 PC 值在 pc0 中。
+    `PC = `PC+2;                // 擷取完成，PC 前進到下一個指令位址
+    case (`OP)                  // 解碼、根據 OP 執行動作
+      LD: `A = `M;         // LD C
+      ST: `M = `A;        // ST C
+      CMP: begin `N=(`A &lt; `M); `Z=(`A==`M); end // CMP C
+      ADD: `A = `A + `M;    // ADD C
+      JMP: `PC = `C;        // JMP C
+      JEQ: if (`Z) `PC=`C;    // JEQ C
+    endcase
+    // 印出 PC, IR, SW, A 等暫存器值以供觀察
+    $display("%4dns PC=%x IR=%x, SW=%x, A=%d", $stime, pc0, IR, `SW, `A);
+  end
+endmodule
+
+module main;                // 測試程式開始
+reg clock;                  // 時脈 clock 變數
+
+mcu mcu0(clock);            // 宣告 cpu0mc 處理器
+memory mem0();
+
+initial clock = 0;          // 一開始 clock 設定為 0
+always #10 clock=~clock;    // 每隔 10ns 反相，時脈週期為 20ns
+initial #2000 $finish;      // 在 2000 奈秒的時候停止測試。
+endmodule
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

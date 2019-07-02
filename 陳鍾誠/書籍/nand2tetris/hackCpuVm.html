@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../nand2tetris.html" alt="">nand2tetris</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 模擬 HackCPU 的虛擬機</h1>
+
+<ul>
+    <li><a href="https://github.com/cccbook/sp/blob/master/example/06/c/vm.c">https://github.com/cccbook/sp/blob/master/example/06/c/vm.c</a></li>
+</ul>
+<pre class="code"><code class="c">#include &lt;stdio.h&gt;
+#include &lt;assert.h&gt;
+#include &lt;stdint.h&gt;
+
+int imTop = 0;
+int16_t im[32768], m[65536];
+
+#define BIT0 0x0001
+#define BIT1 0x0002
+#define BIT2 0x0004
+
+int run(uint16_t *im, int16_t *m) {
+  int16_t D = 0, A = 0, PC = 0;
+  uint16_t I = 0;
+  uint16_t a, c, d, j;
+  while (1) {
+    int16_t aluOut = 0, AM = 0;
+    if (PC &gt;= imTop) { 
+      printf("exit program !\n");
+      break;
+    }
+    I = im[PC];
+    printf("PC=%04X I=%04X", PC, I);
+    PC ++;
+    if ((I &amp; 0x8000) == 0) { // A 指令
+      A = I;
+    } else { // C 指令
+      a = (I &amp; 0x1000) &gt;&gt; 12;
+      c = (I &amp; 0x0FC0) &gt;&gt;  6;
+      d = (I &amp; 0x0038) &gt;&gt;  3;
+      j = (I &amp; 0x0007) &gt;&gt;  0;
+      // 
+      if (a == 0) AM = A; else AM = m[A];
+      switch (c) { // 處理 c1..6, 計算 aluOut
+        case 0x2A: aluOut = 0;  break; // "0",   "101010"
+        case 0x3F: aluOut = 1;  break; // "1",   "111111"
+        case 0x3A: aluOut = -1; break; // "-1",  "111010"
+        case 0x0C: aluOut = D;  break; // "D",   "001100"
+        case 0x30: aluOut = AM; break; // "AM",  "110000"
+        case 0x0D: aluOut = D^0xFFFF; break; // "!D",  "001101"
+        case 0x31: aluOut = AM^0xFFFF; break; // "!AM", "110001"
+        case 0x0F: aluOut = -D; break; // "-D",  "001111"
+        case 0x33: aluOut = -AM; break; // "-AM", "110011"
+        case 0x1F: aluOut = D+1; break; // "D+1", "011111"
+        case 0x37: aluOut = AM+1; break; // "AM+1","110111"
+        case 0x0E: aluOut = D-1; break; // "D-1", "001110"
+        case 0x32: aluOut = AM-1; break; // "AM-1","110010"
+        case 0x02: aluOut = D+AM; break; // "D+AM","000010"
+        case 0x13: aluOut = D-AM; break; // "D-AM","010011"
+        case 0x07: aluOut = AM-D; break; // "AM-D","000111"
+        case 0x00: aluOut = D&AM; break; // "D&amp;AM","000000"
+        case 0x15: aluOut = D|AM; break; // "D|AM","010101"
+        default: assert(0);
+      }
+      if (d&amp;BIT2) A = aluOut;
+      if (d&amp;BIT1) D = aluOut;
+      if (d&amp;BIT0) m[A] = aluOut;
+      switch (j) {
+        case 0x0: break;                          // 
+        case 0x1: if (aluOut &gt;  0) PC = A; break; // JGT
+        case 0x2: if (aluOut == 0) PC = A; break; // JEQ
+        case 0x3: if (aluOut &gt;= 0) PC = A; break; // JGE
+        case 0x4: if (aluOut &lt;  0) PC = A; break; // JLT
+        case 0x5: if (aluOut != 0) PC = A; break; // JNE
+        case 0x6: if (aluOut &lt;= 0) PC = A; break; // JLE
+        case 0x7: PC = A; break;                  // JMP
+      }
+    }
+    printf(" A=%04X D=%04X m[A]=%04X", PC, A, D, m[A]);
+    if ((I &amp; 0x8000) != 0) printf(" a=%X c=%02X d=%X j=%X", a, c, d, j);
+    printf("\n");
+  }
+}
+
+// run: ./vm &lt;file.bin&gt;
+int main(int argc, char *argv[]) {
+  char *binFileName = argv[1];
+  FILE *binFile = fopen(binFileName, "rb");
+  imTop = fread(im, sizeof(uint16_t), 32768, binFile);
+  fclose(binFile);
+  run(im, m);
+}
+
+</code></pre>
+
+<p>執行結果</p>
+
+<pre class="code"><code class="">$ gcc asm.c c6.c -o asm
+$ ./asm ../add/Add
+</code></pre>
+
+<p>上面的組譯器指令會產生 ../add/Add.bin 檔，於是我們可以用虛擬機執行該機器碼檔案！</p>
+
+<pre class="code"><code class="">$ gcc vm.c -o vm
+$ ./vm ../add/Add.bin
+PC=0000 I=0002 A=0001 D=0002 m[A]=0000
+PC=0001 I=EC10 A=0002 D=0002 m[A]=0002 a=0 c=30 d=2 j=0
+PC=0002 I=0003 A=0003 D=0003 m[A]=0002
+PC=0003 I=E090 A=0004 D=0003 m[A]=0005 a=0 c=02 d=2 j=0
+PC=0004 I=0000 A=0005 D=0000 m[A]=0005
+PC=0005 I=E308 A=0006 D=0000 m[A]=0005 a=0 c=0C d=1 j=0
+exit program !
+</code></pre>
+<p></p>
+
+<h2> 參考</h2>
+
+<ul>
+    <li>GTK -- <a href="https://openhome.cc/Gossip/GTKGossip/index.html">https://openhome.cc/Gossip/GTKGossip/index.html</a></li>
+    <ul>
+        <li>可用來模擬螢幕</li>
+    </ul>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

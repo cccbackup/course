@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../課程.html" alt="">課程</a> / <a href="../../人工智慧.html" alt="">人工智慧</a> / <a href="../03-神經網路.html" alt="">03-神經網路</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h2> 人工智慧</h2>
+<ul>
+    <li><a href="01-人工智慧簡介.html" alt="">01-人工智慧簡介</a></li>
+    <li><a href="02-爬山演算法.html" alt="">02-爬山演算法</a></li>
+    <li><a href="03-神經網路.html" alt="">03-神經網路</a></li>
+    <li><a href="04-圖形搜尋.html" alt="">04-圖形搜尋</a></li>
+    <li><a href="05-電腦下棋.html" alt="">05-電腦下棋</a></li>
+    <li><a href="06-邏輯推論.html" alt="">06-邏輯推論</a></li>
+    <li><a href="07-語言處理.html" alt="">07-語言處理</a></li>
+    <li><a href="08-科學計算.html" alt="">08-科學計算</a></li>
+    <li><a href="09-模式識別.html" alt="">09-模式識別</a></li>
+    <li><a href="10-機器學習.html" alt="">10-機器學習</a></li>
+    <li><a href="11-深度學習.html" alt="">11-深度學習</a></li>
+</ul>
+<h2> 附錄</h2>
+<ul>
+    <li><a href="數學與程式.html" alt="">數學與程式</a></li>
+    <li><a href="科學史.html" alt="">科學史</a></li>
+    <li><a href="數學史.html" alt="">數學史</a></li>
+    <li><a href="十分鐘系列.html" alt="">十分鐘系列投影片</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 反傳遞演算法 -- 手算案例</h2>
+
+<p>為了講清楚反傳遞算法，我們必須先發明一點數學符號！</p>
+
+<p>讓我們先回頭看看梯度中的基本元素，也就是偏微分，其定義是：</p>
+
+<p><span class="math display">
+\frac{\partial }{\partial x_i} f(x) = \lim_{h \to 0} \frac{f(x_1, ..., x_i+h, ...., x_n)-f(x_1, ..., x_i, ...., x_n)}{h}
+</span></p>
+
+<p>舉例而言，假如對 <span class="math inline">f(x,y) = x^2+y^2</span>  這個函數而言，其對 x 的偏微分就是：</p>
+
+<p><span class="math display">
+\frac{\partial }{\partial x} f(x,y) = \lim_{h \to 0} \frac{f(x+h,y)-f(x,y)}{h}
+</span></p>
+
+<p>而對 y 的偏微分就是：</p>
+
+<p><span class="math display">
+\frac{\partial }{\partial y} f(x,y) = \lim_{h \to 0} \frac{f(x,y+h)-f(x,y)}{h}
+</span></p>
+
+<p>以上的數學符號源自《萊布尼茲》</p>
+
+<h3> 簡易案例</h3>
+
+<p>讓我們考慮一個兩層式網路如下圖，該網路是計算 f = (x+y) * z 這個算式。</p>
+
+<p><figure>
+  <img src="./img/gateNet.png" alt=""></img>
+<figcaption></figcaption></figure>
+</p>
+
+<p>其中的 q = x+y, 而 f = q*z。</p>
+
+<p>反傳遞的原理主要來自偏微分的鏈鎖規則，我們可以用以下數學式描述 f, q, x 之間的梯度關係。</p>
+
+<p><span class="math display">
+\frac{\partial{f(q,z)}}{\partial{x}} = \frac{\partial{q(x,y)}}{\partial{x}} \frac{\partial{f(q,z)}}{\partial{q}}
+</span></p>
+
+<p>但是其中的 <span class="math inline">{\partial{x}}</span> 並非偏微分，而是 <span class="math inline">\frac{\partial{f(q,z)}}{\partial{x}}</span> 才是 f 函數對 的偏微分，這樣寫起來不僅冗長，而且會引導我們一直去把 <span class="math inline">{\partial{x}}</span> 想成偏微分 (梯度向量的其中一個軸)，因而會造成很多誤解！</p>
+
+<p>為了避免誤解，我們採用 <span class="math inline">g^x_f=\frac{\partial{f}}{\partial{x}}</span> 這樣的表達形式，於是可以有下列偏微分式：</p>
+
+<p><span class="math display">
+g^x_f=\frac{\partial{f}}{\partial{x}}
+</span></p>
+
+<p><span class="math display">
+g^y_f=\frac{\partial{f}}{\partial{y}}
+</span></p>
+
+<p><span class="math display">
+g^q_f=\frac{\partial{f}}{\partial{q}}
+</span></p>
+
+<p><span class="math display">
+g^z_f=\frac{\partial{f}}{\partial{z}}
+</span></p>
+
+<p>然後我們可以改寫鏈鎖規則成為以 g 為主的形式：</p>
+
+<p>萊布尼茲形式 : </p>
+
+<p><span class="math display">
+\frac{\partial{f(q,z)}}{\partial{x}} = \frac{\partial{q(x,y)}}{\partial{x}} \frac{\partial{f(q,z)}}{\partial{q}}
+</span></p>
+
+<p>以 g 為主的形式:  </p>
+
+<p><span class="math display">
+g^x_f = g^q_f * g^x_q
+</span></p>
+
+<p>這樣我們就可以寫出下列兩組關係式：</p>
+
+<p><span class="math display">
+g^x_f = g^q_f * g^x_q
+</span></p>
+
+<p><span class="math display">
+g^y_f = g^q_f * g^y_q
+</span></p>
+
+<p>由於 f=q*z, q=x+y ，因此我們可以計算出下列算式：</p>
+
+<p><span class="math display">
+g^q_f = z
+</span></p>
+
+<p><span class="math display">
+g^x_q = 1
+</span></p>
+
+<p><span class="math display">
+g^y_q = 1
+</span></p>
+
+<p>所以我們得到</p>
+<p></p>
+
+<p><span class="math display">
+g^x_f = g^q_f * g^x_q = z * 1
+</span></p>
+
+<p><span class="math display">
+g^y_f = g^q_f * g^y_q = z * 1
+</span></p>
+<p></p>
+
+<p>如此只要把 z 值帶入就能計算出梯度 <span class="math inline">g^x_f</span> 與  <span class="math inline">g^y_f</span> 了。 </p>
+<p></p>
+
+<p>透過這種方式，我們可以一層一層的算回去，得到 f 對任意變數的梯度。</p>
+
+<h3> 更複雜的案例</h3>
+<p></p>
+
+<p><span class="math display">
+f(x,y) = ((2*x)+(y+1))^2
+</span></p>
+
+<p>在 x=3, y=2 時，正向傳遞後再反向傳遞的結果為：</p>
+
+<table>
+<tr><th>運算式               </th><th> 正向傳遞  </th><th>  閘的梯度                     </th><th> 反向傳遞</th></tr>
+
+<tr><td>x = 3                </td><td> x=3      </td><td> <span class="math inline">g^x_f = ??</span>                 </td><td> 36</td></tr>
+<tr><td>y = 2                </td><td> y=2      </td><td> <span class="math inline">g^y_f = ??</span>                 </td><td> 18</td></tr>
+<tr><td>p = 2<strong>x = 2x         </td><td> p=6      </td><td> $`g^x_p = 2`$                  </td><td> $`g^x_f = g^p_f</strong>g^x_p=18*2=36`$</td></tr>
+<tr><td>q = y+1              </td><td> q=3      </td><td> <span class="math inline">g^y_q = 1</span>                  </td><td> <span class="math inline">g^y_f = g^q_f*g^y_q=18*1=18</span></td></tr>
+<tr><td>r = p+q = 2x+y+1     </td><td> r=9      </td><td> <span class="math inline">g^q_r = 1</span> ; <span class="math inline">g^p_r = 1</span>    </td><td> <span class="math inline">g^q_f = g^r_f*g^q_r=18*1</span> ;  <span class="math inline">g^p_f=g^r_f*g^p_r=18*1</span></td></tr>
+<tr><td><span class="math inline">f = r*r = (2x+y+1)^2</span> </td><td> f=9<strong>9    </td><td> $`g^r_f = 2r=18`$              </td><td> $`g^r_f = g^r_f</strong>g^f_f=18`$</td></tr>
+<tr><td>f = f                </td><td> f=81     </td><td>                              </td><td> <span class="math inline">g^f_f = 1</span></td></tr>
+</table>
+<p></p>
+
+<pre class="code"><code class="">2x  =&gt; p
+       + =&gt; r*r =&gt; f
+y+1 =&gt; q
+</code></pre>
+
+<p><span class="math display">
+g^x_f = g^r_f * g^p_r * g^x_p = 1*18*2=36
+</span></p>
+
+<p><span class="math display">
+g^y_f = g^r_f * g^q_r * g^y_q = 1*18*1=18
+</span></p>
+<p></p>
+
+<p>檢驗: </p>
+
+<blockquote>
+<p> 正向: <span class="math inline">f(x,y) = ((2*x)+(y+1))^2 = (2*3+2+1)^2 = 9^2 = 81</span></p>
+<p> </p>
+<p> 反向:</p>
+<p> </p>
+<p> <span class="math inline">g^x_f = 8x + 4y + 4 = 8*3 + 4*2 + 4 = 36</span></p>
+<p> </p>
+<p> <span class="math inline">g^y_f = 4x + 2y + 2 = 4*3 + 2*2 + 2 = 18</span></p>
+</blockquote>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

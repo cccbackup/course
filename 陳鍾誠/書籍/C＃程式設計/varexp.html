@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../書籍.html" alt="">書籍</a> / <a href="../C＃程式設計.html" alt="">C＃程式設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> C# 程式基礎：變數與運算式</h1>
+
+<h2> 簡介</h2>
+
+<p>以下是一個完整的 C# 程式 (Hello.cs)，可以印出 Hello !。</p>
+
+<pre class="code"><code class="CS">using System;                           // 引用 System 函式庫
+
+public class Hello                      // 宣告類別 Hello
+{
+   public static void Main()            // 類別 Hello 的主程式
+   {
+      Console.WriteLine("Hello !");     // 印出 Hello !
+   }
+}
+</code></pre>
+
+<p>如果您將上述程式加入到 Visual C# Express 的空專案中，就可以直接執行之。如果您會使用命令列的 csc 編譯器，就可以用下列指令將該程式編譯成執行檔 Hello.exe，然後您就可以在命令列中輸入 Hello 指令執行該程式。</p>
+
+<pre class="code"><code class="">    C:\&gt;csc Hello.cs
+    C:\&gt;Hello
+    Hello!
+</code></pre>
+
+<p>對於初學程式設計的人而言，我們還需要很長的一段時間才能完全理解上述程式中每個指令的意義，先讓我們從最基本的變數與型態開始熟悉 C# 語言。</p>
+
+<h2> 變數與型態</h2>
+
+<p>變數是程式用來儲存資料的地方，程式透過變數存取資料，並透過指定敘述 (Assign) 搬移資料。舉例而言，假如我們希望設定變數 X 為 3，可以用 X=3 的運算式，若我們希望將 Y 的內容複製給 X ，則可以用  X=Y 這個指定敘述。</p>
+
+<p>C# 是一個強型態的語言，每個變數都必須要指定型態，C# 中常用的基本型態包含字元 (char)、整數 (int)、實數 (float)、字串(string) 、布林 (bool) 等，以下是這些基本型態的一些範例。</p>
+
+<pre class="code"><code class="CS">    int a = 3, b = a;          // 整數
+    double pi = 3.14;          // 浮點數
+    char c = 'H';              // 字元
+    string msg = "Hello!";     // 字串
+    bool x = true, y = false;  // 布林 (邏輯)
+    string str = "a=" + a + " b=" + b;
+    Console.Write(str);
+</code></pre>
+
+<p>+ 運算式
+程式語言當中的指定運算式，通常用 = 符號代表，其意義與數學當中的等號不同，請看下列範例。</p>
+
+<pre class="code"><code class="CS">    int x = 3, y = 5;
+    x = y;
+</code></pre>
+
+<p>在上述範例中，x, y 分別被設定為 3 與 5，因此若以數學式的看法, x=y 是不成立的，但是在 C# 當中，若我們想判斷 X 與 Y 是否相等，應該用兩個等號的  x==y 表達。與此不同的是，上述範例中的 x=y 是指定的意思，也就是將 y 當中的 5 複製一份給 x，於是 x 的值也就變成 5 了。</p>
+
+<p>C# 語言中的加減乘除等運算，基本上與數學的定義類似，因此，您可以寫出下列的運算式，該運算是依照先乘除後加減的順序，結果會設定 x 的值為 19。</p>
+
+<pre class="code"><code class="CS">    int x = 3 * 5 + 8 / 2;
+</code></pre>
+
+<p>C# 語言承襲了 C 語言的許多語法，遞增運算 (x++), 移位運算 (x < < 2), 邏輯運算 (&& , | |, !) 等，其語法都與 C 語言一致。</p>
+<p></p>
+
+<p>遞增運算 ++ 的意義，是將該變數加上 1，而遞減運算 --  的意義，則是將該變數減去 1，所以 x++ 代表將變數 x 加上 1，等同於 x=x+1 的結果，而 x-- 代表將變數 x 減去 1，等同於 x = x - 1 的結果。</p>
+
+<p>移位運算 <a href=" < 的意義，代表左移，而 "> < 的意義，代表左移，而 </a> > 則是右移的意思。舉例而言，x < < 2 代表將 x 視為位元串，並且向左移兩位。因此若 x  是一個值為 2 的整數 (int) ，由於其二進位表達式為 00000010。所以當我們執行運算式 x = x< <2 後，x 將會變成 00001000，也就是十進位的 8，請看下列範例。</p>
+
+<pre class="code"><code class="CS">    int x = 2;    // x = 00000010 = 2
+    x = x &lt;&lt; 2;   // x = 00001000 = 8
+</code></pre>
+
+<p>邏輯運算 ! 是邏輯反閘 (not) 的意思，此運算會將真假值顛倒，也就是 !true = false, !false = true。</p>
+
+<p>邏輯運算 && 是邏輯且 (AND) 的意思，只有當 X 與 Y 兩者均為真 (true) 時， X && Y 才會為真，否則 X&&Y 將會是假 (false) 值。</p>
+
+<p>邏輯運算 | | 是邏輯或 (OR) 的意思，只要 X 與 Y 兩者當中有一個為真 (true) 時， X || Y 就會為真。</p>
+
+<p>下列範例顯示了 C# 當中的邏輯運算式用法。</p>
+
+<pre class="code"><code class="CS">    bool x = true, y = false;
+    bool a = x &amp;&amp; y;   // a = true and false = false
+    bool b = x || y;   // b = true or false = true
+    bool c = !x;       // c = !true = false 
+</code></pre>
+
+<p>C# 由於繼承了 C 語言的運算式語法，因此在位元邏輯上也採用 & 代表逐位元的 AND 運算，而 | 代表 逐位元的 OR 運算。舉例而言，下列範例中的 x & y 之結果為 1， x | y 的結果為 7。</p>
+
+<pre class="code"><code class="CS">    int x = 3, y = 5;
+    int a = x &amp; y;      // a=00000011 AND 00000101 = 00000001 = 1
+    int b = x | y;      // b=00000011 OR 00000101 = 00000111 = 7
+</code></pre>
+
+<h2> 測驗</h2>
+
+<p>請寫出以下程式的輸出：</p>
+
+<pre class="code"><code class="CS">    int x = 3, y = 5;
+    x = y;
+    x = x &lt;&lt; 2;
+
+    bool t = true, u = false;
+    bool a = t &amp;&amp; u;   // a = true and false = false
+    bool b = t || u;   // b = true or false = true
+    bool c = !u;       // c = !false = true
+
+    int d = x &amp; y;      // d=00010100 AND 00000101 = 00000100 = 4
+    int e = x | y;      // e=00010100 OR  00000101 = 00010101 = 21
+</code></pre>
+
+<h2> 結語</h2>
+
+<p>萬事起頭難，學習程式設計尤其是如此。雖然到目前為止我們只學習了 C# 當中的基本運算與變數宣告，但這兩個主題卻是所有程式語言都必須要具備的。有了這些基礎，我們才能開始學習 if 判斷語句和 for, while 等迴圈語法。</p>
+
+<h2> 參考文獻</h2>
+<ul>
+    <li>C# 程式設計人員參考</li>
+    <ul>
+        <li>C# 教學課程：<a href="http://msdn.microsoft.com/zh-tw/library/aa288436(VS.71).aspx">http://msdn.microsoft.com/zh-tw/library/aa288436(VS.71).aspx</a></li>
+        <li>Hello World 教學課程：<a href="http://msdn.microsoft.com/zh-tw/library/aa288463(VS.71).aspx">http://msdn.microsoft.com/zh-tw/library/aa288463(VS.71).aspx</a></li>
+        <li>命令列參數教學課程：<a href="http://msdn.microsoft.com/zh-tw/library/aa288457(VS.71).aspx">http://msdn.microsoft.com/zh-tw/library/aa288457(VS.71).aspx</a></li>
+    </ul>
+</ul>
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../課程.html" alt="">課程</a> / <a href="../網站設計.html" alt="">網站設計</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h2> 採用 AJAX 方式的通訊範例</h2>
+
+<p>和上面使用表單的 post/get 方式類似，我們可以透過 JavaScript 來送出訊息給 Server 端並接收回應，這種《傳送/接收》方式，稱為 <a href="https://zh.wikipedia.org/wiki/AJAX" alt="">AJAX</a> (Asynchronous JavaScript and XML, 非同步的JavaScript與XML技術)。</p>
+
+<p>前端工程師常用兩種方法來《傳送/接收》 AJAX post/get 訊息，一種是使用 jQuery 套件，另一種是不依賴 jQuery，而是直接採用原生的瀏覽器 JavaScript API (被戲稱為 Vanilla.js) 。</p>
+
+<p>使用 jQuery 的 post 程式碼：</p>
+
+<pre class="code"><code class="js">&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+$.ajax({
+  type: 'POST',
+  url: "path/to/api",
+  data: "banana=yellow",
+  success: function (data) {
+    alert("Success: " + data);
+  },
+});
+&lt;/script&gt;
+</code></pre>
+
+<p>使用原生的 JavaScript API 的 post 程式碼：</p>
+
+<pre class="code"><code class="js">var r = new XMLHttpRequest();
+r.open("POST", "path/to/api", true);
+r.onreadystatechange = function () {
+  if (r.readyState != 4 || r.status != 200) return;
+  alert("Success: " + r.responseText);
+};
+r.send("banana=yellow");
+</code></pre>
+
+<p>如果您想了解完整的 AJAX 範例，可以參考 f6 當中的程式碼</p>
+
+<ul>
+    <li>前端 -- <a href="https://github.com/ccckmit/f6/blob/master/web/ex5-blogInAjax/main.js">https://github.com/ccckmit/f6/blob/master/web/ex5-blogInAjax/main.js</a></li>
+    <li>後端 -- <a href="https://github.com/ccckmit/f6/blob/master/web/ex5-blogInAjax/server.js">https://github.com/ccckmit/f6/blob/master/web/ex5-blogInAjax/server.js</a></li>
+</ul>
+<p>重要程式碼：</p>
+
+<p>前端: <a href="https://github.com/ccckmit/f6/blob/master/web/ex5-blogInAjax/server.js">https://github.com/ccckmit/f6/blob/master/web/ex5-blogInAjax/server.js</a></p>
+
+<pre class="code"><code class="js">var Koa = require('koa')
+var Router = require('koa-router')
+var logger = require('koa-logger')
+var koaStatic = require('koa-static')
+var bodyParser = require('koa-bodyparser')
+
+var app = new Koa()
+var router = new Router()
+
+app.use(bodyParser())
+
+var posts = []
+
+app.use(logger())
+
+router
+  .get('/', listPosts)
+  .get('/post/:id', getPost)
+  .post('/post', createPost)
+
+async function listPosts (ctx) {
+  ctx.body = JSON.stringify(posts)
+}
+
+async function getPost (ctx) {
+  var id = parseInt(ctx.params.id)
+  console.log('getpost: id=%d posts=%j', id, posts)
+  var post = posts[id]
+  if (!post) ctx.throw(404, 'invalid post id')
+  ctx.body = await JSON.stringify(post)
+}
+
+async function createPost (ctx) {
+  console.log('createPost:rawBody=%s', ctx.request.rawBody)
+  console.log('createPost:body=%j', ctx.request.body)
+  var post = ctx.request.body
+  var id = posts.push(post) - 1
+  post.created_at = new Date()
+  post.id = id
+  ctx.body = JSON.stringify(post)
+}
+
+app.use(router.routes()).use(koaStatic('../')).listen(3000)
+</code></pre>
+
+<p>client : <a href="https://github.com/ccckmit/f6/blob/master/web/ex5-blogInAjax/main.js">https://github.com/ccckmit/f6/blob/master/web/ex5-blogInAjax/main.js</a></p>
+
+<pre class="code"><code class="js">var content, title
+// var posts = []
+
+async function main () {
+  f6.route(/^$/, list)
+    .route(/^post\/new/, add)
+    .route(/^post\/(\w+?)/, show)
+    .route(/^post/, create)
+  await f6.onload(init)
+}
+
+function init() {
+  title = f6.one('title')
+  content = f6.one('#content')
+}
+
+async function add () {
+  title.innerHTML = 'New Post'
+  content.innerHTML = `
+  &lt;h1&gt;New Post&lt;/h1&gt;
+  &lt;p&gt;Create a new post.&lt;/p&gt;
+  &lt;form&gt;
+    &lt;p&gt;&lt;input id="addTitle" type="text" placeholder="Title" name="title"&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;textarea id="addBody" placeholder="Contents" name="body"&gt;&lt;/textarea&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type="button" value="Create" onclick="create()"&gt;&lt;/p&gt;
+  &lt;/form&gt;
+  `
+}
+
+async function create () {
+  var post = {
+    title: f6.one('#addTitle').value,
+    body: f6.one('#addBody').value,
+    created_at: new Date()
+  }
+  console.log(`create:post=${JSON.stringify(post)}`)
+  await f6.ojax({method: 'POST', url: '/post'}, post)
+//  posts.push(post)
+  f6.go('') // list #
+}
+
+async function show (m) {
+  var id = parseInt(m[1])
+  var post = await f6.ojax({method: 'GET', url: `/post/${id}`})
+//  var post = posts[id]
+  content.innerHTML = `
+  &lt;h1&gt;${post.title}&lt;/h1&gt;
+  &lt;p&gt;${post.body}&lt;/p&gt;
+  `
+}
+
+async function list () {
+  var posts = await f6.ojax({method: 'GET', url: '/'})
+  title.innerHTML = 'Posts'
+  content.innerHTML =
+  `&lt;h1&gt;Posts&lt;/h1&gt;
+  &lt;p&gt;You have &lt;strong&gt;${posts.length}&lt;/strong&gt; posts!&lt;/p&gt;
+  &lt;p&gt;&lt;a href="#post/new"&gt;Create a Post&lt;/a&gt;&lt;/p&gt;
+  &lt;ul id="posts"&gt;
+    ${posts.map(post =&gt; `
+      &lt;li&gt;
+        &lt;h2&gt;${post.title}&lt;/h2&gt;
+        &lt;p&gt;&lt;a href="#post/${post.id}"&gt;Read post&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    `).join('\n')}
+  &lt;/ul&gt;
+  `
+}
+
+main()
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  

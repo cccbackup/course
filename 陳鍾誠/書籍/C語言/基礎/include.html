@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css">
+  <link rel="stylesheet" type="text/css" href="https://ccc-js.github.io/pp6/doc/main.css">
+  <!-- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+  <link rel="stylesheet" type="text/css" href="file:///D:/ccc/js/pp6/doc/main.css"> 
+  -->
+  </head>
+  <body>
+  <title></title>
+  <header>
+    <div style="float:left"><label class="toggle" onclick="toggleSidebar()">≡</label>&nbsp;&nbsp;</div>
+    <div style="float:left"><p><a href="../../../../陳鍾誠.html" alt="">陳鍾誠</a> / <a href="../../../書籍.html" alt="">書籍</a> / <a href="../../C語言.html" alt="">C語言</a> / <a href="../基礎.html" alt="">基礎</a></p>
+</div>
+  </header>
+  <aside>
+  <div>
+  <h6> <a href="./課程/.html" alt="">課程</a></h6>
+<ul>
+    <li><a href="./課程/網頁設計.html" alt="">網頁設計</a></li>
+    <li><a href="./課程/網站設計.html" alt="">網站設計進階</a></li>
+    <li><a href="./課程/計算機結構.html" alt="">計算機結構</a></li>
+    <li><a href="./課程/系統程式.html" alt="">系統程式</a></li>
+    <li><a href="./課程/人工智慧.html" alt="">人工智慧</a></li>
+    <li><a href="./課程/軟體工程.html" alt="">軟體工程</a></li>
+</ul>
+<h6> <a href="./書籍/.html" alt="">書籍</a></h6>
+<ul>
+    <li><a href="./書籍/演算法.html" alt="">演算法</a></li>
+    <li><a href="./書籍/科學計算.html" alt="">科學計算</a></li>
+    <li><a href="./書籍/機率統計.html" alt="">機率統計</a></li>
+    <li><a href="./書籍/資料庫.html" alt="">資料庫</a></li>
+    <li><a href="./書籍/JavaScript.html" alt="">JavaScript</a></li>
+    <li><a href="./書籍/nand2tetris.html" alt="">nand2tetris</a></li>
+    <li><a href="./書籍/C語言.html" alt="">C語言</a></li>
+    <li><a href="./書籍/Verilog.html" alt="">Verilog</a></li>
+    <li><a href="./書籍/圖靈獎.html" alt="">圖靈獎年表</a></li>
+</ul>
+<h6> <a href="./Home.html" alt="">陳鍾誠</a></h6>
+<ul>
+    <li><a href="./程式.html" alt="">程式</a></li>
+    <li><a href="./作品.html" alt="">作品</a></li>
+    <li><a href="./蒐藏.html" alt="">蒐藏</a></li>
+</ul>
+  </div>
+  </aside>
+  <article>
+  <div class="header">
+    
+    
+    
+  </div>
+  <h1> 引用檔</h1>
+
+<p>檔案：matrix.h</p>
+
+<pre class="code"><code class="CPP">#define matrixAdd(A, B, M, rows, cols) add(A, B, M, rows*cols)
+
+void matrixPrint(char *name, double *M, int rows, int cols);
+void add(double *A, double *B, double *M, int size);
+</code></pre>
+
+<p>檔案：matrix.c</p>
+
+<pre class="code"><code class="CPP">#include &lt;stdio.h&gt;
+#include "matrix.h"
+
+void matrixPrint(char *name, double *M, int rows, int cols) {
+    int i, j;
+    if (name != NULL)
+        printf("================= %s ====================\n", name);
+    for(i = 0; i &lt; rows; i++) {
+        for(j = 0; j &lt; cols; j++) {
+            printf("%4.1f ", M[i*cols+j]);
+        }
+        printf("\n");        
+    }
+}
+
+void add(double *A, double *B, double *M, int size) {
+    int i;
+    for(i = 0 ; i &lt; size ; i++)
+        M[i] = A[i] + B[i];
+}
+</code></pre>
+<p></p>
+
+<p>檔案：main.c</p>
+
+<pre class="code"><code class="CPP">#include &lt;stdio.h&gt;
+#include "matrix.h"
+
+int main() {
+    double X[4][3] = { {1, 2, 3}, {1, 2, 3}, {1, 2, 3}, {1, 2, 3} };
+    double Y[4][3] = { {1, 1, 1}, {1, 1, 1}, {1, 1, 1}, {1, 1, 1} };
+    double Z[4][3];
+    double *x = X[0], *y = Y[0], *z = Z[0];
+    
+    matrixAdd(x, y, z, 4, 3);
+    matrixPrint("X", x, 4, 3);
+    matrixPrint("Y", y, 4, 3);
+    matrixPrint("Z", z, 4, 3);
+
+    double A[2][2] = { {1, 2}, {3, 4} };
+    double B[2][2] = { {1, 1}, {1, 1} };
+    double C[2][2];
+    double *a = A[0], *b = B[0], *c = C[0];
+    
+    matrixAdd(a, b, c, 2, 2);
+    matrixPrint("A", a, 2, 2);
+    matrixPrint("B", b, 2, 2);
+    matrixPrint("C", c, 2, 2);
+}
+
+</code></pre>
+
+<p>然後用下列指令編譯並執行 (其中的 -c 參數用來告訴編譯器只要編譯成目的檔就好，不需要進一步連結成執行檔)。</p>
+
+<pre class="code"><code class="">$ gcc -c matrix.c -o matrix.o
+
+$ gcc main.c matrix.o -o main
+
+$ main
+</code></pre>
+
+  <div class="reference">
+  
+  </div>
+  </article>
+  <footer><p><a href="http://www.nqu.edu.tw/educsie/index.php?act=blog&code=list&ids=4" alt="">陳鍾誠</a> 於 <a href="http://www.nqu.edu.tw/" alt="">金門大學</a> <a href="http://www.nqu.edu.tw/educsie/index.php" alt="">資訊工程系</a> -- 本書衍生自 <a href="https://www.wikipedia.org/" alt="">維基百科</a> ，採用 <a href="https://zh.wikipedia.org/zh-hant/Wikipedia%3ACC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" alt="">CC: BY-SA</a> 授權</p>
+</footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script>
+  <script src="https://ccc-js.github.io/pp6/doc/main.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="file:///D:/ccc/js/pp6/doc/main.js"></script>
+  -->
+  </script>
+  </body>
+  </html>
+  
