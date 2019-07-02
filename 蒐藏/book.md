@@ -7,3 +7,6 @@
   * https://github.com/figozhang/runninglinuxkernel_4.0
 * Xv6操作系统
   * https://github.com/figozhang/xv6-book-chinese
+
+* https://books.goalkicker.com
+  * 有各個語言的電子書

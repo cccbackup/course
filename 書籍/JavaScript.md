@@ -9,4 +9,4 @@
 參考書 | [ECMAScript 6 入门](http://es6.ruanyifeng.com/) | 阮一峰
 參考網站 | <http://www.runoob.com/> |  [菜鸟教程](http://www.runoob.com/) | 
 入門書 | [Learn Javascript](https://www.gitbook.com/book/gitbookio/javascript/details) | 
-測驗練習 | [Leetcode 測驗網站](leetcode.md) | 
+
